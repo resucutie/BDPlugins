@@ -1,0 +1,24 @@
+{
+    "info": {
+        "name": "AvatarsEverywhere",
+        "authors": [
+            {
+                "name": "A user",
+                "discord_id": "264062457448759296",
+                "github_username": "abUwUser",
+                "twitter_username": "auwuser"
+            }
+        ],
+        "version": "1.0.0",
+        "description": "Applys users avatar in different places"
+    },
+    "build": {
+        "copy": true,
+        "zlibrary": true,
+        "watch": true,
+        "release": {
+            "source": true,
+            "public": true
+        }
+    }
+}

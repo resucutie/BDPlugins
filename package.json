@@ -1,5 +1,24 @@
 {
   "dependencies": {
     "bdbuilder": "^1.2.6-preview.4"
-  }
+  },
+  "name": "bd-plugins",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "node ./compile.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/abUwUser/BDPlugins.git"
+  },
+  "author": "A user",
+  "license": "CC0-1.0",
+  "bugs": {
+    "url": "https://github.com/abUwUser/BDPlugins/issues"
+  },
+  "homepage": "https://github.com/abUwUser/BDPlugins#readme",
+  "description": ""
 }

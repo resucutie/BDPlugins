@@ -1,0 +1,21 @@
+{
+    "build": {
+        "watch": false,
+        "folder": "./[plugin]",
+        "readme": true,
+        "filename": "[name].plugin.js"
+    },
+    "discord": {
+        "userId": "264062457448759296",
+        "username": "A user"
+    },
+    "github": {
+        "username": "abUwUser",
+        "branch": "master",
+        "repo": "BDPlugins"
+    },
+    "paths": {
+        "bdfolder": "C:/Users/auser/AppData/Roaming/BetterDiscord",
+        "release_folder": "<seret>"
+    }
+}

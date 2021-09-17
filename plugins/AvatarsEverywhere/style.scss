@@ -1,0 +1,10 @@
+.avatar-util-align-wrapper{
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    vertical-align: bottom;
+
+    &-icon {
+        margin-right: 4px;
+    }
+}
