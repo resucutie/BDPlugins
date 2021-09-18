@@ -68,7 +68,7 @@ jobs:
     name: publish plugins
     runs-on: ubuntu-latest
     needs: build
-    if: ${{ 'refs/heads/development' == github.ref }}
+    if: ${{ 'refs/heads/master' == github.ref }}
 
     steps:
       - name: restore repo
