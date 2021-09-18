@@ -29,7 +29,9 @@ let changedPlugins;
 if (isManualRun)
   changedPlugins = cliSwitches.plugin ? [cliSwitches.plugin] : _fs.readdirSync("./plugins");
 else
-  changedPlugins = [...new Set(changedFiles.map(filename => filename.split(_path.sep)[0]))];
+  changedPlugins = [...new Set(changedFiles.map(filename => filename.split(_path.sep)[1]))];
+
+
 
 // filter out what can't actually be built.
 changedPlugins = changedPlugins.filter(pluginName =>
