@@ -5,7 +5,9 @@
   "name": "bd-plugins",
   "version": "1.0.0",
   "main": "index.js",
-  "devDependencies": {},
+  "devDependencies": {
+    "@betterdiscordbuilder/bdbuilder": "^1.2.13"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "node ./compile.js"
