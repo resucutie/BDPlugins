@@ -39,7 +39,7 @@ jobs:
           registry-url: 'https://npm.pkg.github.com'
           node-version: 16.x
         
-      - name: retrieve latest bdbuilder version
+      - name: install yocto-queue and bdbuilder version
         run: | 
           npm i yocto-queue
           npm i @betterdiscordbuilder/bdbuilder@latest --registry https://npm.pkg.github.com/
@@ -53,7 +53,7 @@ jobs:
 
       - name: build plugins
         run: >-
-          .github/workflows/run-bdbuilder
+          .github/workflows/compile-plugins
           "--trigger=${{ github.event_name }}"
           "--plugin=${{ github.event.inputs.plugin }}"
           ${{ steps.files.outputs.all }}
