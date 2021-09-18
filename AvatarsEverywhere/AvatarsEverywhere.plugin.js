@@ -3,6 +3,8 @@
  * @author A user
  * @version 1.0.0
  * @description Applys users avatar in different places
+ * @source https://github.com/abUwUser/BDPlugins/tree/main/plugins/AvatarsEverywhere
+ * @updateUrl https://raw.githubusercontent.com/abUwUser/BDPlugins/compiled/AvatarsEverywhere/AvatarsEverywhere.plugin.js
  */
 /*@cc_on
 @if (@_jscript)
@@ -37,7 +39,9 @@ const config = {
 			"twitter_username": "auwuser"
 		}],
 		"version": "1.0.0",
-		"description": "Applys users avatar in different places"
+		"description": "Applys users avatar in different places",
+		"github": "https://github.com/abUwUser/BDPlugins/tree/main/plugins/AvatarsEverywhere",
+		"github_raw": "https://raw.githubusercontent.com/abUwUser/BDPlugins/compiled/AvatarsEverywhere/AvatarsEverywhere.plugin.js"
 	},
 	"build": {
 		"copy": true,
