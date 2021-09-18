@@ -9,6 +9,7 @@ import settings from "./settingsManager";
 const { AvatarDefaults, RelationshipStore } = DiscordModules
 const { default: Avatar } = WebpackModules.getByProps("AnimatedAvatar")
 
+// btw watch dr. house
 export default class TestBloogin extends BasePlugin {
     onStart() {
         this.applyUserMentionPatcher()
@@ -19,7 +20,6 @@ export default class TestBloogin extends BasePlugin {
     applyUserMentionPatcher(){
         Patcher.after(WebpackModules.getModule(m => m?.default?.displayName === "UserMention"), "default", (_this, [params], wrapperRes) => {
             if (!settings.get("mentions", true)) return
-            // monkeypatch lore special edition
             const _oldFunc = wrapperRes.props.children
             wrapperRes.props.children = function() {
                 let res = _oldFunc.apply(this, arguments)
