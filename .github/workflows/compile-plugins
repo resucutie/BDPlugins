@@ -12,6 +12,7 @@ const changedFilesIgnore = [
 const releaseExtensions = [".md", ".plugin.js", "assets"];
 
 const argv = process.argv.slice(2);
+console.log(argv)
 
 // supported: `trigger`, `plugin`.
 const cliSwitches = Object.assign(...argv.filter(arg => arg.startsWith("--")).map(arg =>
@@ -23,7 +24,7 @@ const changedFiles = argv.filter(arg => !arg.startsWith("--"));
 
 let changedPlugins;
 if (isManualRun)
-  changedPlugins = cliSwitches.plugin ? [cliSwitches.plugin] : _fs.readdirSync(".");
+  changedPlugins = cliSwitches.plugin ? [cliSwitches.plugin] : _fs.readdirSync("./plugins");
 else
   changedPlugins = [...new Set(changedFiles.map(filename => filename.split(_path.sep)[0]))];
 
