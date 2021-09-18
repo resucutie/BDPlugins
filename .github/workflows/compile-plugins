@@ -33,7 +33,7 @@ else
 
 // filter out what can't actually be built.
 changedPlugins = changedPlugins.filter(pluginName =>
-  "." !== pluginName[0] &&
+  "./plugins" !== pluginName[0] &&
   !changedFilesIgnore.includes(pluginName) &&
   _fs.existsSync(_path.resolve(pluginName, "package.json")) &&
   _fs.statSync(pluginName).isDirectory()
