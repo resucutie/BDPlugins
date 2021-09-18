@@ -10,7 +10,9 @@
             }
         ],
         "version": "1.0.0",
-        "description": "Applys users avatar in different places"
+        "description": "Applys users avatar in different places",
+        "github": "https://github.com/abUwUser/BDPlugins/tree/main/plugins/AvatarsEverywhere",
+        "github_raw": "https://raw.githubusercontent.com/abUwUser/BDPlugins/compiled/AvatarsEverywhere/AvatarsEverywhere.plugin.js"
     },
     "build": {
         "copy": true,
