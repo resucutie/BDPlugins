@@ -9,7 +9,7 @@ import settings from "./settingsManager";
 const { AvatarDefaults, RelationshipStore } = DiscordModules
 const { default: Avatar } = WebpackModules.getByProps("AnimatedAvatar")
 
-// btw watch dr. house
+// you're cute >w<
 export default class TestBloogin extends BasePlugin {
     onStart() {
         this.applyUserMentionPatcher()
