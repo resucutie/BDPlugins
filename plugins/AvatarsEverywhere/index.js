@@ -17,7 +17,7 @@ export default class TestBloogin extends BasePlugin {
     }
 
     applyUserMentionPatcher(){
-        // patcher lore five
+        // patcher lore six
         Patcher.after(WebpackModules.getModule(m => m?.default?.displayName === "UserMention"), "default", (_this, [params], wrapperRes) => {
             if (!settings.get("mentions", true)) return
             const _oldFunc = wrapperRes.props.children

@@ -31,6 +31,7 @@ if (isManualRun)
 else
   changedPlugins = [...new Set(changedFiles.map(filename => filename.split(_path.sep)[1]))];
 
+console.log(changedPlugins)
 
 
 // filter out what can't actually be built.
