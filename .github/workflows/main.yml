@@ -74,7 +74,7 @@ jobs:
       - name: restore repo
         uses: actions/checkout@v2
         with:
-          ref: master
+          ref: compiled
 
       - name: apply build
         uses: actions/download-artifact@v2
