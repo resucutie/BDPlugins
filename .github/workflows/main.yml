@@ -31,18 +31,18 @@ jobs:
         with:
           submodules: recursive
           fetch-depth: 0
-      - name: retrieve latest bdbuilder version
-        run: |
-          echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}\n'@betterdiscordbuilder:registry=https://npm.pkg.github.com'" >> .npmrc
-          npm i @betterdiscordbuilder/bdbuilder@latest --registry https://npm.pkg.github.com/
-        env:
-          registry-url: 'https://npm.pkg.github.com'
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      
       - name: setup nodejs
         uses: actions/setup-node@v2
         with:
           always-auth: true
+          registry-url: 'https://npm.pkg.github.com'
           node-version: 16.x
+        
+      - name: retrieve latest bdbuilder version
+        run: npm i @betterdiscordbuilder/bdbuilder@latest
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: detect changed files
         id: files
