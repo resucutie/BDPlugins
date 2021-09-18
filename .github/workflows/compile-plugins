@@ -12,7 +12,6 @@ const changedFilesIgnore = [
 const releaseExtensions = [".md", ".plugin.js", "assets"];
 
 const argv = process.argv.slice(2);
-console.log(argv)
 
 // supported: `trigger`, `plugin`.
 const cliSwitches = Object.assign(...argv.filter(arg => arg.startsWith("--")).map(arg =>
@@ -21,6 +20,10 @@ const cliSwitches = Object.assign(...argv.filter(arg => arg.startsWith("--")).ma
 
 const isManualRun = "workflow_dispatch" === cliSwitches.trigger;
 const changedFiles = argv.filter(arg => !arg.startsWith("--"));
+
+console.log(argv, cliSwitches, changedFiles)
+
+console.log(_fs.readdirSync("./plugins"))
 
 let changedPlugins;
 if (isManualRun)
