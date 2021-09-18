@@ -39,7 +39,7 @@ jobs:
           registry-url: 'https://npm.pkg.github.com'
           node-version: 16.x
         
-      - name: install yocto-queue and bdbuilder version
+      - name: install yocto-queue and bdbuilder
         run: | 
           npm i yocto-queue
           npm i @betterdiscordbuilder/bdbuilder@latest --registry https://npm.pkg.github.com/
