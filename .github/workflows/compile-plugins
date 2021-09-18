@@ -59,7 +59,7 @@ function buildPlugin(pluginName) {
   console.log(`Building ${pluginName}...`);
 
   _cp.execSync("npm i", {
-    cwd: pluginName,
+    cwd: `./plugins/${pluginName}`,
     stdio: ["ignore", "inherit", "inherit"]
   });
 
