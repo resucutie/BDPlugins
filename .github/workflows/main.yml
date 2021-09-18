@@ -85,11 +85,12 @@ jobs:
       - name: commit
         run: |
           MSG="${{github.event.head_commit.message}}"
+          AUTHOR="${{github.event.head_commit.committer.name}}"
           git config advice.addIgnoredFile false
           git add --no-all ./**
           git config --local user.email "actions@github.com"
           git config --local user.name "PluginBuilder"
-          git commit -m "(build): $MSG" || true
+          git commit -m "($AUTHOR): $MSG" || true
       - name: push
         uses: ad-m/github-push-action@master
         with:
