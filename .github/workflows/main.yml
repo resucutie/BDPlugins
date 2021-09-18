@@ -34,7 +34,7 @@ jobs:
       - name: retrieve latest bdbuilder version
         run: |
           echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}\n'@betterdiscordbuilder:registry=https://npm.pkg.github.com'" >> .npmrc
-          npm i @betterdiscordbuilder/bdbuilder@latest
+          npm i @betterdiscordbuilder/bdbuilder@latest --registry https://npm.pkg.github.com/
         env:
           registry-url: 'https://npm.pkg.github.com'
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
