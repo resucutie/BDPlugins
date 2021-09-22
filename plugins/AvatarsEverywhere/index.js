@@ -9,10 +9,11 @@ import settings from "./settingsManager";
 const { AvatarDefaults, RelationshipStore } = DiscordModules
 const { default: Avatar } = WebpackModules.getByProps("AnimatedAvatar")
 
-export default class TestBloogin extends BasePlugin {
+export default class AvatarsEverywhere extends BasePlugin {
     onStart() {
         this.applyUserMentionPatcher()
         this.applyTypingBarPatcher()
+        this.applyCompactMessagesPatch()
         stylesheet.inject()
     }
 
@@ -82,6 +83,37 @@ export default class TestBloogin extends BasePlugin {
 
         TypingUsers.forceUpdateAll();
     }
+
+    async applyCompactMessagesPatch(){
+        Patcher.after(WebpackModules.find(e => e.default?.toString().indexOf("getGuildMemberAvatarURLSimple") > -1), "default", (_this, [props], res) => {
+            //yes two ifs because my brain is dumb and i like readable code
+            if (!settings.get("compact-message", true)) return
+            if (!props.compact) return
+
+            let header = Utilities.findInReactTree(res, e => e?.renderPopout)
+            const ogFunc = header?.children
+            if (!ogFunc) return
+
+            header.children = (...args) => {
+                let ret = ogFunc(...args);
+                let children = ret.props?.children
+
+                // Add wrapper style
+                ret.props.className += " " + styles["avatar-util-align-wrapper"]
+
+                // To prevent duplication
+                if (React.isValidElement(children.props?.children?.[0])) return ret
+
+                //Finally apply the avatar
+                const url = AvatarDefaults.getUserAvatarURL(props.message.author)
+                children.props.children.unshift(<Avatar src={url} className={styles["avatar-util-align-wrapper-icon"]} size={Avatar.Sizes.SIZE_16}/>)
+                
+                return ret;
+            }
+
+        })
+    }
+
 
     getSettingsPanel() {
         return <SettingsPanel />;

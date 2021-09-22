@@ -35,5 +35,15 @@ export default React.memo(() => {
                 onChange={value => settings.set("typing-users", value)}
             >Enable</SwitchItem>
         </Category>
+
+        <Category
+            look={Category.Looks.COMPACT}
+            label="Compact mode"
+        >
+            <SwitchItem
+                value={settings.get("compact-message", true)}
+                onChange={value => settings.set("compact-message", value)}
+            >Add user icon on messages</SwitchItem>
+        </Category>
     </>
 })
