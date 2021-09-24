@@ -1,6 +1,6 @@
 import { Patcher, WebpackModules, DiscordModules, Utilities, ReactComponents } from "@zlibrary";
 import BasePlugin from "@zlibrary/plugin";
-import { Users as UserStore } from "@discord/stores";
+import { Users as UserStore, SettingsStore } from "@discord/stores";
 import styles from "./style.scss";
 import stylesheet from "styles"
 import SettingsPanel from "./Settings"
@@ -11,14 +11,16 @@ const { default: Avatar } = WebpackModules.getByProps("AnimatedAvatar")
 
 export default class AvatarsEverywhere extends BasePlugin {
     onStart() {
-        this.applyUserMentionPatcher()
-        this.applyTypingBarPatcher()
-        this.applyCompactMessagesPatch()
         stylesheet.inject()
+
+        this.patchUserMention()
+        this.patchTypingBar()
+        this.patchCompactMessages()
+        this.patchSystemMessages()
     }
 
-    applyUserMentionPatcher(){
-        Patcher.after(WebpackModules.getModule(m => m?.default?.displayName === "UserMention"), "default", (_this, [params], wrapperRes) => {
+    patchUserMention(){
+        Patcher.after(WebpackModules.getModule(m => m?.default?.displayName === "UserMention"), "default", (_this, [props], wrapperRes) => {
             if (!settings.get("mentions", true)) return
             const _oldFunc = wrapperRes.props.children
             wrapperRes.props.children = function() {
@@ -31,7 +33,7 @@ export default class AvatarsEverywhere extends BasePlugin {
                     text = Utilities.findInTree(text, e => e?.charAt?.(0) === "@").slice(1)
                 }
 
-                const user = UserStore.getUser(params.userId)
+                const user = UserStore.getUser(props.userId)
 
                 res.props.children = [<Avatar src={AvatarDefaults.getUserAvatarURL(user)} className={styles["avatar-util-align-wrapper-icon"]} size={Avatar.Sizes.SIZE_16} />, text]
                 
@@ -47,7 +49,7 @@ export default class AvatarsEverywhere extends BasePlugin {
      * Most of the pieces of code are from BetterRoleColors. Thanks Zere!
      * @see {@link https://github.com/rauenzi/BetterDiscordAddons/blob/726f015e791852d6ef85a2c0236c90cec04aa87b/Plugins/BetterRoleColors/BetterRoleColors.plugin.js#L293-L324}
     */
-    async applyTypingBarPatcher(){
+    async patchTypingBar(){
         const filterTypingUsers = (typingUsers) => {
             if (!typingUsers) return [];
             
@@ -84,16 +86,17 @@ export default class AvatarsEverywhere extends BasePlugin {
         TypingUsers.forceUpdateAll();
     }
 
-    async applyCompactMessagesPatch(){
+    patchCompactMessages(){
         Patcher.after(WebpackModules.find(e => e.default?.toString().indexOf("getGuildMemberAvatarURLSimple") > -1), "default", (_this, [props], res) => {
             //yes two ifs because my brain is dumb and i like readable code
             if (!settings.get("compact-message", true)) return
             if (!props.compact) return
+            if (!settings.get("compact-message-reply", true) || (!SettingsStore.messageDisplayCompact && props.hasOwnProperty('withMentionPrefix'))) return
 
             let header = Utilities.findInReactTree(res, e => e?.renderPopout)
+            
             const ogFunc = header?.children
             if (!ogFunc) return
-
             header.children = (...args) => {
                 let ret = ogFunc(...args);
                 let children = ret.props?.children
@@ -111,6 +114,28 @@ export default class AvatarsEverywhere extends BasePlugin {
                 return ret;
             }
 
+        })
+    }
+
+    patchSystemMessages(){
+        Patcher.after(WebpackModules.find(m => m.default?.displayName === "UserJoin"), "default", (_this, [props], res) => {
+            let name = Utilities.findInReactTree(res, e => e?.renderPopout)
+
+            const ogFunc = name?.children
+            if (!ogFunc) return
+            name.children = (...args) => {
+                let ret = ogFunc(...args);
+
+                ret.props.className += " " + styles["avatar-util-align-wrapper"]
+                
+                // To prevent duplication
+                if (React.isValidElement(ret.props?.children?.[0])) return ret
+
+                const url = AvatarDefaults.getUserAvatarURL(props.message.author)
+                ret.props.children.unshift(<Avatar src={url} className={styles["avatar-util-align-wrapper-icon"]} size={Avatar.Sizes.SIZE_16} />)
+
+                return ret;
+            }
         })
     }
 
