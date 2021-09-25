@@ -15,7 +15,7 @@ export default React.memo(() => {
     return <>
         <Category
             look={Category.Looks.COMPACT}
-            label={<LabelWrapper component={ChatBubble} name="Mentions"/>}
+            label={<LabelWrapper icon={ChatBubble} name="Mentions"/>}
         >
             <SwitchItem
                 value={settings.get("mentions", true)}
@@ -31,7 +31,7 @@ export default React.memo(() => {
 
         <Category
             look={Category.Looks.COMPACT}
-            label={<LabelWrapper component={OverflowMenuHorizontal} name="Typing users" />}
+            label={<LabelWrapper icon={OverflowMenuHorizontal} name="Typing users" />}
         >
             <SwitchItem
                 value={settings.get("typing-users", true)}
@@ -41,7 +41,7 @@ export default React.memo(() => {
 
         <Category
             look={Category.Looks.COMPACT}
-            label={<LabelWrapper component={DoubleStarIcon} name="Compact mode" />}
+            label={<LabelWrapper icon={DoubleStarIcon} name="Compact mode" />}
         >
             <SwitchItem
                 value={settings.get("compact-message", true)}
@@ -57,7 +57,7 @@ export default React.memo(() => {
 
         <Category
             look={Category.Looks.COMPACT}
-            label={<LabelWrapper component={Robot} name="System Messages" />}
+            label={<LabelWrapper icon={Robot} name="System Messages" />}
         >
             <SwitchItem
                 value={settings.get("system-messages-join", true)}
@@ -77,8 +77,8 @@ export default React.memo(() => {
     </>
 })
 
-const LabelWrapper = ({component: Component, name}) => {
+const LabelWrapper = ({icon: Component, name}) => {
     return <span style={{ display: 'flex', alignItems: "center"}}>
-        <Component style={{marginRight: "4px"}} /> {name}
+        <Component width={20} height={20} style={{marginRight: "4px"}} /> {name}
     </span>
 }
