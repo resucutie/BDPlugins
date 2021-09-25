@@ -304,7 +304,7 @@ function buildPlugin([BasePlugin, PluginApi]) {
 			617: (__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 				__webpack_require__.r(__webpack_exports__);
 				__webpack_require__.d(__webpack_exports__, {
-					default: () => TestBloogin
+					default: () => AvatarsEverywhere
 				});
 				const external_PluginApi_namespaceObject = PluginApi;
 				const external_BasePlugin_namespaceObject = BasePlugin;
@@ -315,6 +315,7 @@ function buildPlugin([BasePlugin, PluginApi]) {
 				var external_StyleLoader_default = __webpack_require__.n(external_StyleLoader_namespaceObject);
 				var external_BdApi_React_ = __webpack_require__(113);
 				var external_BdApi_React_default = __webpack_require__.n(external_BdApi_React_);
+				const icons_namespaceObject = Modules["@discord/icons"];
 				const flux_namespaceObject = Modules["@discord/flux"];
 				var React = __webpack_require__(113);
 				function _extends() {
@@ -340,7 +341,6 @@ function buildPlugin([BasePlugin, PluginApi]) {
 					}));
 				};
 				const hooks_createUpdateWrapper = createUpdateWrapper;
-				const icons_namespaceObject = Modules["@discord/icons"];
 				const utils_namespaceObject = Modules["@discord/utils"];
 				var category = __webpack_require__(911);
 				function Category({
@@ -408,9 +408,13 @@ function buildPlugin([BasePlugin, PluginApi]) {
 				const SwitchItem = hooks_createUpdateWrapper(external_PluginApi_namespaceObject.WebpackModules.getByDisplayName("SwitchItem"));
 				const Settings = external_BdApi_React_default().memo((() => {
 					const mentionsDisabled = (0, flux_namespaceObject.useStateFromStores)([settingsManager], (() => !settingsManager.get("mentions", true)));
+					const compactMessagesDisabled = (0, flux_namespaceObject.useStateFromStores)([settingsManager], (() => !settingsManager.get("compact-message", true)));
 					return external_BdApi_React_default().createElement(external_BdApi_React_default().Fragment, null, external_BdApi_React_default().createElement(Category, {
 						look: Category.Looks.COMPACT,
-						label: "Mentions"
+						label: external_BdApi_React_default().createElement(LabelWrapper, {
+							icon: icons_namespaceObject.ChatBubble,
+							name: "Mentions"
+						})
 					}, external_BdApi_React_default().createElement(SwitchItem, {
 						value: settingsManager.get("mentions", true),
 						onChange: value => settingsManager.set("mentions", value)
@@ -420,12 +424,58 @@ function buildPlugin([BasePlugin, PluginApi]) {
 						disabled: mentionsDisabled
 					}, "Remove the @ symbol")), external_BdApi_React_default().createElement(Category, {
 						look: Category.Looks.COMPACT,
-						label: "Typing users"
+						label: external_BdApi_React_default().createElement(LabelWrapper, {
+							icon: icons_namespaceObject.OverflowMenuHorizontal,
+							name: "Typing users"
+						})
 					}, external_BdApi_React_default().createElement(SwitchItem, {
 						value: settingsManager.get("typing-users", true),
 						onChange: value => settingsManager.set("typing-users", value)
-					}, "Enable")));
+					}, "Enable")), external_BdApi_React_default().createElement(Category, {
+						look: Category.Looks.COMPACT,
+						label: external_BdApi_React_default().createElement(LabelWrapper, {
+							icon: icons_namespaceObject.DoubleStarIcon,
+							name: "Compact mode"
+						})
+					}, external_BdApi_React_default().createElement(SwitchItem, {
+						value: settingsManager.get("compact-message", true),
+						onChange: value => settingsManager.set("compact-message", value)
+					}, "User icon on messages"), external_BdApi_React_default().createElement(SwitchItem, {
+						value: settingsManager.get("compact-message-reply", true),
+						onChange: value => settingsManager.set("compact-message-reply", value),
+						disabled: compactMessagesDisabled
+					}, "Replies")), external_BdApi_React_default().createElement(Category, {
+						look: Category.Looks.COMPACT,
+						label: external_BdApi_React_default().createElement(LabelWrapper, {
+							icon: icons_namespaceObject.Robot,
+							name: "System Messages"
+						})
+					}, external_BdApi_React_default().createElement(SwitchItem, {
+						value: settingsManager.get("system-messages-join", true),
+						onChange: value => settingsManager.set("system-messages-join", value)
+					}, "Join messages"), external_BdApi_React_default().createElement(SwitchItem, {
+						value: settingsManager.get("system-messages-boost", true),
+						onChange: value => settingsManager.set("system-messages-boost", value)
+					}, "Boost messages"), external_BdApi_React_default().createElement(SwitchItem, {
+						value: settingsManager.get("system-messages-thread", true),
+						onChange: value => settingsManager.set("system-messages-thread", value)
+					}, "Thread messages")));
 				}));
+				const LabelWrapper = ({
+					icon: Component,
+					name
+				}) => external_BdApi_React_default().createElement("span", {
+					style: {
+						display: "flex",
+						alignItems: "center"
+					}
+				}, external_BdApi_React_default().createElement(Component, {
+					width: 20,
+					height: 20,
+					style: {
+						marginRight: "4px"
+					}
+				}), " ", name);
 				var AvatarsEverywhere_React = __webpack_require__(113);
 				const {
 					AvatarDefaults,
@@ -434,21 +484,23 @@ function buildPlugin([BasePlugin, PluginApi]) {
 				const {
 					default: Avatar
 				} = external_PluginApi_namespaceObject.WebpackModules.getByProps("AnimatedAvatar");
-				class TestBloogin extends(external_BasePlugin_default()) {
+				class AvatarsEverywhere extends(external_BasePlugin_default()) {
 					onStart() {
-						this.applyUserMentionPatcher();
-						this.applyTypingBarPatcher();
 						external_StyleLoader_default().inject();
+						this.patchUserMention();
+						this.patchTypingBar();
+						this.patchCompactMessages();
+						this.patchSystemMessages();
 					}
-					applyUserMentionPatcher() {
-						external_PluginApi_namespaceObject.Patcher.after(external_PluginApi_namespaceObject.WebpackModules.getModule((m => "UserMention" === m?.default?.displayName)), "default", ((_this, [params], wrapperRes) => {
+					patchUserMention() {
+						external_PluginApi_namespaceObject.Patcher.after(external_PluginApi_namespaceObject.WebpackModules.getModule((m => "UserMention" === m?.default?.displayName)), "default", ((_this, [props], wrapperRes) => {
 							if (!settingsManager.get("mentions", true)) return;
 							const _oldFunc = wrapperRes.props.children;
 							wrapperRes.props.children = function() {
 								let res = _oldFunc.apply(this, arguments);
 								let text = res.props.children;
 								if (settingsManager.get("mentions-no-at", false)) text = external_PluginApi_namespaceObject.Utilities.findInTree(text, (e => "@" === e?.charAt?.(0))).slice(1);
-								const user = stores_namespaceObject.Users.getUser(params.userId);
+								const user = stores_namespaceObject.Users.getUser(props.userId);
 								res.props.children = [AvatarsEverywhere_React.createElement(Avatar, {
 									src: AvatarDefaults.getUserAvatarURL(user),
 									className: style.Z["avatar-util-align-wrapper-icon"],
@@ -459,7 +511,7 @@ function buildPlugin([BasePlugin, PluginApi]) {
 							};
 						}));
 					}
-					async applyTypingBarPatcher() {
+					async patchTypingBar() {
 						const filterTypingUsers = typingUsers => {
 							if (!typingUsers) return [];
 							return Object.keys(typingUsers).filter((e => e != stores_namespaceObject.Users.getCurrentUser().id)).filter((e => !RelationshipStore.isBlocked(e))).map((e => stores_namespaceObject.Users.getUser(e))).filter((function(e) {
@@ -484,6 +536,76 @@ function buildPlugin([BasePlugin, PluginApi]) {
 							}
 						}));
 						TypingUsers.forceUpdateAll();
+					}
+					patchCompactMessages() {
+						external_PluginApi_namespaceObject.Patcher.after(external_PluginApi_namespaceObject.WebpackModules.find((e => e.default?.toString().indexOf("getGuildMemberAvatarURLSimple") > -1)), "default", ((_this, [props], res) => {
+							if (!settingsManager.get("compact-message", true) || !stores_namespaceObject.SettingsStore.messageDisplayCompact) return;
+							if (!props.compact) return;
+							if (!(settingsManager.get("compact-message-reply", true) && props.hasOwnProperty("withMentionPrefix"))) return;
+							let header = external_PluginApi_namespaceObject.Utilities.findInReactTree(res, (e => e?.renderPopout));
+							const ogFunc = header?.children;
+							if (!ogFunc) return;
+							header.children = (...args) => {
+								let ret = ogFunc(...args);
+								let children = ret.props?.children;
+								ret.props.className += " " + style.Z["avatar-util-align-wrapper"];
+								if (AvatarsEverywhere_React.isValidElement(children.props?.children?.[0])) return ret;
+								const url = AvatarDefaults.getUserAvatarURL(props.message.author);
+								children.props.children.unshift(AvatarsEverywhere_React.createElement(Avatar, {
+									src: url,
+									className: style.Z["avatar-util-align-wrapper-icon"],
+									size: Avatar.Sizes.SIZE_16
+								}));
+								return ret;
+							};
+						}));
+					}
+					patchSystemMessages() {
+						external_PluginApi_namespaceObject.Patcher.after(external_PluginApi_namespaceObject.WebpackModules.find((m => "UserJoin" === m.default?.displayName)), "default", ((_this, [props], res) => {
+							if (!settingsManager.get("system-messages-join", true)) return;
+							let userName = external_PluginApi_namespaceObject.Utilities.findInReactTree(res, (e => e?.renderPopout));
+							const ogFunc = userName?.children;
+							if (!ogFunc) return;
+							userName.children = (...args) => {
+								let ret = ogFunc(...args);
+								ret.props.className += " " + style.Z["avatar-util-align-wrapper"];
+								if (AvatarsEverywhere_React.isValidElement(ret.props?.children?.[0])) return ret;
+								const url = AvatarDefaults.getUserAvatarURL(props.message.author);
+								ret.props.children.unshift(AvatarsEverywhere_React.createElement(Avatar, {
+									src: url,
+									className: style.Z["avatar-util-align-wrapper-icon"],
+									size: Avatar.Sizes.SIZE_16
+								}));
+								return ret;
+							};
+						}));
+						external_PluginApi_namespaceObject.Patcher.after(external_PluginApi_namespaceObject.WebpackModules.find((m => "UserPremiumGuildSubscription" === m.default?.displayName)).default.prototype, "render", ((_this, [props], res) => {
+							if (!settingsManager.get("system-messages-boost", true)) return;
+							let userName = external_PluginApi_namespaceObject.Utilities.findInReactTree(res, (e => e?.props?.renderPopout));
+							const ogFunc = userName?.props?.children;
+							if (!ogFunc) return;
+							userName.props.children = (...args) => {
+								let ret = ogFunc(...args);
+								ret.props.className += " " + style.Z["avatar-util-align-wrapper"];
+								if (AvatarsEverywhere_React.isValidElement(ret.props?.children?.[0])) return ret;
+								const url = AvatarDefaults.getUserAvatarURL(_this.props.message.author);
+								ret.props.children.unshift(AvatarsEverywhere_React.createElement(Avatar, {
+									src: url,
+									className: style.Z["avatar-util-align-wrapper-icon"],
+									size: Avatar.Sizes.SIZE_16
+								}));
+								return ret;
+							};
+						}));
+						external_PluginApi_namespaceObject.Patcher.after(external_PluginApi_namespaceObject.WebpackModules.find((m => "ThreadCreated" === m.default?.displayName)), "default", ((_this, [props], res) => {
+							if (!settingsManager.get("system-messages-thread", true)) return;
+							const url = AvatarDefaults.getUserAvatarURL(props.message.author);
+							res.props.children.unshift(AvatarsEverywhere_React.createElement(Avatar, {
+								src: url,
+								className: style.Z["avatar-util-align-wrapper-icon"],
+								size: Avatar.Sizes.SIZE_16
+							}));
+						}));
 					}
 					getSettingsPanel() {
 						return AvatarsEverywhere_React.createElement(Settings, null);
