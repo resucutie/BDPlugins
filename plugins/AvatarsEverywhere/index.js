@@ -22,6 +22,8 @@ export default class AvatarsEverywhere extends BasePlugin {
     patchUserMention(){
         Patcher.after(WebpackModules.getModule(m => m?.default?.displayName === "UserMention"), "default", (_this, [props], wrapperRes) => {
             if (!settings.get("mentions", true)) return
+
+            // monkyepatch
             const _oldFunc = wrapperRes.props.children
             wrapperRes.props.children = function() {
                 let res = _oldFunc.apply(this, arguments)
@@ -88,13 +90,26 @@ export default class AvatarsEverywhere extends BasePlugin {
 
     patchCompactMessages(){
         Patcher.after(WebpackModules.find(e => e.default?.toString().indexOf("getGuildMemberAvatarURLSimple") > -1), "default", (_this, [props], res) => {
-            //yes two ifs because my brain is dumb and i like readable code
-            if (!settings.get("compact-message", true)) return
+            // yes three ifs because my brain is dumb and i like readable code
+            // also those tables are here to not confuse my brain
+
+            // ~compact-message | ~SettingsStore.messageDisplayCompact | return
+            // 0                | 0                                    | 0
+            // 1                | 0                                    | 1
+            // 0                | 1                                    | 1
+            // 1                | 1                                    | 1
+            if (!settings.get("compact-message", true) || !SettingsStore.messageDisplayCompact) return
             if (!props.compact) return
-            if (!settings.get("compact-message-reply", true) || (!SettingsStore.messageDisplayCompact && props.hasOwnProperty('withMentionPrefix'))) return
+            // compact-message-reply | withMentionPrefix | return
+            // 0                     | 0                 | 1
+            // 1                     | 0                 | 1
+            // 0                     | 1                 | 1
+            // 1                     | 1                 | 0
+            if (!(settings.get("compact-message-reply", true) && props.hasOwnProperty('withMentionPrefix'))) return
 
             let header = Utilities.findInReactTree(res, e => e?.renderPopout)
             
+            // monkyepatch
             const ogFunc = header?.children
             if (!ogFunc) return
             header.children = (...args) => {
@@ -118,12 +133,16 @@ export default class AvatarsEverywhere extends BasePlugin {
     }
 
     patchSystemMessages(){
+        // user join
         Patcher.after(WebpackModules.find(m => m.default?.displayName === "UserJoin"), "default", (_this, [props], res) => {
-            let name = Utilities.findInReactTree(res, e => e?.renderPopout)
+            if (!settings.get("system-messages-join", true)) return
 
-            const ogFunc = name?.children
+            let userName = Utilities.findInReactTree(res, e => e?.renderPopout)
+
+            // monkepatch
+            const ogFunc = userName?.children
             if (!ogFunc) return
-            name.children = (...args) => {
+            userName.children = (...args) => {
                 let ret = ogFunc(...args);
 
                 ret.props.className += " " + styles["avatar-util-align-wrapper"]
@@ -136,6 +155,37 @@ export default class AvatarsEverywhere extends BasePlugin {
 
                 return ret;
             }
+        })
+
+        // server boost
+        Patcher.after(WebpackModules.find(m => m.default?.displayName === "UserPremiumGuildSubscription").default.prototype, "render", (_this, [props], res) => {
+            if (!settings.get("system-messages-boost", true)) return
+
+            let userName = Utilities.findInReactTree(res, e => e?.props?.renderPopout)
+
+            const ogFunc = userName?.props?.children
+            if (!ogFunc) return
+            userName.props.children = (...args) => {
+                let ret = ogFunc(...args);
+
+                ret.props.className += " " + styles["avatar-util-align-wrapper"]
+
+                // To prevent duplication
+                if (React.isValidElement(ret.props?.children?.[0])) return ret
+
+                const url = AvatarDefaults.getUserAvatarURL(_this.props.message.author)
+                ret.props.children.unshift(<Avatar src={url} className={styles["avatar-util-align-wrapper-icon"]} size={Avatar.Sizes.SIZE_16} />)
+
+                return ret;
+            }
+        })
+
+        // thread created
+        Patcher.after(WebpackModules.find(m => m.default?.displayName === "ThreadCreated"), "default", (_this, [props], res) => {
+            if (!settings.get("system-messages-thread", true)) return
+
+            const url = AvatarDefaults.getUserAvatarURL(props.message.author)
+            res.props.children.unshift(<Avatar src={url} className={styles["avatar-util-align-wrapper-icon"]} size={Avatar.Sizes.SIZE_16} />)
         })
     }
 

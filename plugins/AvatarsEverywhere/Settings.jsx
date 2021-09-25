@@ -21,6 +21,7 @@ export default React.memo(() => {
                 value={settings.get("mentions", true)}
                 onChange={value => settings.set("mentions", value)}
             >Enable</SwitchItem>
+
             <SwitchItem
                 value={settings.get("mentions-no-at", false)}
                 onChange={value => settings.set("mentions-no-at", value)}
@@ -45,12 +46,13 @@ export default React.memo(() => {
             <SwitchItem
                 value={settings.get("compact-message", true)}
                 onChange={value => settings.set("compact-message", value)}
-            >Add user icon on messages</SwitchItem>
+            >User icon on messages</SwitchItem>
+
             <SwitchItem
                 value={settings.get("compact-message-reply", true)}
                 onChange={value => settings.set("compact-message-reply", value)}
                 disabled={compactMessagesDisabled}
-            >Also add in replies</SwitchItem>
+            >Replies</SwitchItem>
         </Category>
 
         <Category
@@ -58,9 +60,19 @@ export default React.memo(() => {
             label={<LabelWrapper component={Robot} name="System Messages" />}
         >
             <SwitchItem
-                value={settings.get("compact-message", true)}
-                onChange={value => settings.set("compact-message", value)}
-            >Add user icon on messages</SwitchItem>
+                value={settings.get("system-messages-join", true)}
+                onChange={value => settings.set("system-messages-join", value)}
+            >Join messages</SwitchItem>
+
+            <SwitchItem
+                value={settings.get("system-messages-boost", true)}
+                onChange={value => settings.set("system-messages-boost", value)}
+            >Boost messages</SwitchItem>
+            
+            <SwitchItem
+                value={settings.get("system-messages-thread", true)}
+                onChange={value => settings.set("system-messages-thread", value)}
+            >Thread messages</SwitchItem>
         </Category>
     </>
 })
