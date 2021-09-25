@@ -1,7 +1,7 @@
 /**
  * @name AvatarsEverywhere
  * @author A user
- * @version 1.0.0
+ * @version 0.0.1
  * @description Applys users avatar in different places
  * @source https://github.com/abUwUser/BDPlugins/tree/main/plugins/AvatarsEverywhere
  * @updateUrl https://raw.githubusercontent.com/abUwUser/BDPlugins/compiled/AvatarsEverywhere/AvatarsEverywhere.plugin.js
@@ -38,7 +38,7 @@ const config = {
 			"github_username": "abUwUser",
 			"twitter_username": "auwuser"
 		}],
-		"version": "1.0.0",
+		"version": "0.0.1",
 		"description": "Applys users avatar in different places",
 		"github": "https://github.com/abUwUser/BDPlugins/tree/main/plugins/AvatarsEverywhere",
 		"github_raw": "https://raw.githubusercontent.com/abUwUser/BDPlugins/compiled/AvatarsEverywhere/AvatarsEverywhere.plugin.js"
@@ -408,7 +408,7 @@ function buildPlugin([BasePlugin, PluginApi]) {
 				const SwitchItem = hooks_createUpdateWrapper(external_PluginApi_namespaceObject.WebpackModules.getByDisplayName("SwitchItem"));
 				const Settings = external_BdApi_React_default().memo((() => {
 					const mentionsDisabled = (0, flux_namespaceObject.useStateFromStores)([settingsManager], (() => !settingsManager.get("mentions", true)));
-					const compactMessagesDisabled = (0, flux_namespaceObject.useStateFromStores)([settingsManager], (() => !settingsManager.get("compact-message", true)));
+					const compactMessagesDisabled = (0, flux_namespaceObject.useStateFromStores)([settingsManager], (() => !settingsManager.get("compact-message", false)));
 					return external_BdApi_React_default().createElement(external_BdApi_React_default().Fragment, null, external_BdApi_React_default().createElement(Category, {
 						look: Category.Looks.COMPACT,
 						label: external_BdApi_React_default().createElement(LabelWrapper, {
@@ -434,19 +434,6 @@ function buildPlugin([BasePlugin, PluginApi]) {
 					}, "Enable")), external_BdApi_React_default().createElement(Category, {
 						look: Category.Looks.COMPACT,
 						label: external_BdApi_React_default().createElement(LabelWrapper, {
-							icon: icons_namespaceObject.DoubleStarIcon,
-							name: "Compact mode"
-						})
-					}, external_BdApi_React_default().createElement(SwitchItem, {
-						value: settingsManager.get("compact-message", true),
-						onChange: value => settingsManager.set("compact-message", value)
-					}, "User icon on messages"), external_BdApi_React_default().createElement(SwitchItem, {
-						value: settingsManager.get("compact-message-reply", true),
-						onChange: value => settingsManager.set("compact-message-reply", value),
-						disabled: compactMessagesDisabled
-					}, "Replies")), external_BdApi_React_default().createElement(Category, {
-						look: Category.Looks.COMPACT,
-						label: external_BdApi_React_default().createElement(LabelWrapper, {
 							icon: icons_namespaceObject.Robot,
 							name: "System Messages"
 						})
@@ -459,7 +446,20 @@ function buildPlugin([BasePlugin, PluginApi]) {
 					}, "Boost messages"), external_BdApi_React_default().createElement(SwitchItem, {
 						value: settingsManager.get("system-messages-thread", true),
 						onChange: value => settingsManager.set("system-messages-thread", value)
-					}, "Thread messages")));
+					}, "Thread messages")), external_BdApi_React_default().createElement(Category, {
+						look: Category.Looks.COMPACT,
+						label: external_BdApi_React_default().createElement(LabelWrapper, {
+							icon: icons_namespaceObject.DoubleStarIcon,
+							name: "Compact mode (beta)"
+						})
+					}, external_BdApi_React_default().createElement(SwitchItem, {
+						value: settingsManager.get("compact-message", false),
+						onChange: value => settingsManager.set("compact-message", value)
+					}, "User icon on messages"), external_BdApi_React_default().createElement(SwitchItem, {
+						value: settingsManager.get("compact-message-reply", false),
+						onChange: value => settingsManager.set("compact-message-reply", value),
+						disabled: compactMessagesDisabled
+					}, "Replies")));
 				}));
 				const LabelWrapper = ({
 					icon: Component,
@@ -539,10 +539,11 @@ function buildPlugin([BasePlugin, PluginApi]) {
 					}
 					patchCompactMessages() {
 						external_PluginApi_namespaceObject.Patcher.after(external_PluginApi_namespaceObject.WebpackModules.find((e => e.default?.toString().indexOf("getGuildMemberAvatarURLSimple") > -1)), "default", ((_this, [props], res) => {
-							if (!settingsManager.get("compact-message", true) || !stores_namespaceObject.SettingsStore.messageDisplayCompact) return;
+							if (!settingsManager.get("compact-message", false) || !stores_namespaceObject.SettingsStore.messageDisplayCompact) return;
 							if (!props.compact) return;
-							if (!(settingsManager.get("compact-message-reply", true) && props.hasOwnProperty("withMentionPrefix"))) return;
+							if (!(settingsManager.get("compact-message-reply", false) && props.hasOwnProperty("withMentionPrefix"))) return;
 							let header = external_PluginApi_namespaceObject.Utilities.findInReactTree(res, (e => e?.renderPopout));
+							console.log(header);
 							const ogFunc = header?.children;
 							if (!ogFunc) return;
 							header.children = (...args) => {
