@@ -98,16 +98,17 @@ export default class AvatarsEverywhere extends BasePlugin {
             // 1                | 0                                    | 1
             // 0                | 1                                    | 1
             // 1                | 1                                    | 1
-            if (!settings.get("compact-message", true) || !SettingsStore.messageDisplayCompact) return
+            if (!settings.get("compact-message", false) || !SettingsStore.messageDisplayCompact) return
             if (!props.compact) return
             // compact-message-reply | withMentionPrefix | return
             // 0                     | 0                 | 1
             // 1                     | 0                 | 1
             // 0                     | 1                 | 1
             // 1                     | 1                 | 0
-            if (!(settings.get("compact-message-reply", true) && props.hasOwnProperty('withMentionPrefix'))) return
+            if (!(settings.get("compact-message-reply", false) && props.hasOwnProperty('withMentionPrefix'))) return
 
             let header = Utilities.findInReactTree(res, e => e?.renderPopout)
+            console.log(header)
             
             // monkyepatch
             const ogFunc = header?.children

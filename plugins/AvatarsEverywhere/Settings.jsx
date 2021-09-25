@@ -10,7 +10,7 @@ const SwitchItem = createUpdateWrapper(WebpackModules.getByDisplayName("SwitchIt
 
 export default React.memo(() => {
     const mentionsDisabled = useStateFromStores([settings], () => !settings.get("mentions", true))
-    const compactMessagesDisabled = useStateFromStores([settings], () => !settings.get("compact-message", true))
+    const compactMessagesDisabled = useStateFromStores([settings], () => !settings.get("compact-message", false))
 
     return <>
         <Category
@@ -41,22 +41,6 @@ export default React.memo(() => {
 
         <Category
             look={Category.Looks.COMPACT}
-            label={<LabelWrapper icon={DoubleStarIcon} name="Compact mode" />}
-        >
-            <SwitchItem
-                value={settings.get("compact-message", true)}
-                onChange={value => settings.set("compact-message", value)}
-            >User icon on messages</SwitchItem>
-
-            <SwitchItem
-                value={settings.get("compact-message-reply", true)}
-                onChange={value => settings.set("compact-message-reply", value)}
-                disabled={compactMessagesDisabled}
-            >Replies</SwitchItem>
-        </Category>
-
-        <Category
-            look={Category.Looks.COMPACT}
             label={<LabelWrapper icon={Robot} name="System Messages" />}
         >
             <SwitchItem
@@ -73,6 +57,22 @@ export default React.memo(() => {
                 value={settings.get("system-messages-thread", true)}
                 onChange={value => settings.set("system-messages-thread", value)}
             >Thread messages</SwitchItem>
+        </Category>
+
+        <Category
+            look={Category.Looks.COMPACT}
+            label={<LabelWrapper icon={DoubleStarIcon} name="Compact mode (beta)" />}
+        >
+            <SwitchItem
+                value={settings.get("compact-message", false)}
+                onChange={value => settings.set("compact-message", value)}
+            >User icon on messages</SwitchItem>
+
+            <SwitchItem
+                value={settings.get("compact-message-reply", false)}
+                onChange={value => settings.set("compact-message-reply", value)}
+                disabled={compactMessagesDisabled}
+            >Replies</SwitchItem>
         </Category>
     </>
 })
