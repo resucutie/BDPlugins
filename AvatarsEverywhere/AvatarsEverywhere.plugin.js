@@ -408,7 +408,7 @@ function buildPlugin([BasePlugin, PluginApi]) {
 				const SwitchItem = hooks_createUpdateWrapper(external_PluginApi_namespaceObject.WebpackModules.getByDisplayName("SwitchItem"));
 				const Settings = external_BdApi_React_default().memo((() => {
 					const mentionsDisabled = (0, flux_namespaceObject.useStateFromStores)([settingsManager], (() => !settingsManager.get("mentions", true)));
-					const compactMessagesDisabled = (0, flux_namespaceObject.useStateFromStores)([settingsManager], (() => !settingsManager.get("compact-message", false)));
+					const compactMessagesDisabled = (0, flux_namespaceObject.useStateFromStores)([settingsManager], (() => !settingsManager.get("compact-message", true)));
 					return external_BdApi_React_default().createElement(external_BdApi_React_default().Fragment, null, external_BdApi_React_default().createElement(Category, {
 						look: Category.Looks.COMPACT,
 						label: external_BdApi_React_default().createElement(LabelWrapper, {
@@ -450,7 +450,7 @@ function buildPlugin([BasePlugin, PluginApi]) {
 						look: Category.Looks.COMPACT,
 						label: external_BdApi_React_default().createElement(LabelWrapper, {
 							icon: icons_namespaceObject.DoubleStarIcon,
-							name: "Compact mode (beta)"
+							name: "Compact mode"
 						})
 					}, external_BdApi_React_default().createElement(SwitchItem, {
 						value: settingsManager.get("compact-message", false),
@@ -539,9 +539,8 @@ function buildPlugin([BasePlugin, PluginApi]) {
 					}
 					patchCompactMessages() {
 						external_PluginApi_namespaceObject.Patcher.after(external_PluginApi_namespaceObject.WebpackModules.find((e => e.default?.toString().indexOf("getGuildMemberAvatarURLSimple") > -1)), "default", ((_this, [props], res) => {
-							if (!settingsManager.get("compact-message", false) || !stores_namespaceObject.SettingsStore.messageDisplayCompact) return;
-							if (!props.compact) return;
-							if (!(settingsManager.get("compact-message-reply", false) && props.hasOwnProperty("withMentionPrefix"))) return;
+							if (!(settingsManager.get("compact-message", true) && stores_namespaceObject.SettingsStore.messageDisplayCompact)) return;
+							if (!settingsManager.get("compact-message-reply", true) && props.hasOwnProperty("withMentionPrefix")) return;
 							let header = external_PluginApi_namespaceObject.Utilities.findInReactTree(res, (e => e?.renderPopout));
 							console.log(header);
 							const ogFunc = header?.children;
