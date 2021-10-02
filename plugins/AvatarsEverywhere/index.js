@@ -90,22 +90,9 @@ export default class AvatarsEverywhere extends BasePlugin {
 
     patchCompactMessages(){
         Patcher.after(WebpackModules.find(e => e.default?.toString().indexOf("getGuildMemberAvatarURLSimple") > -1), "default", (_this, [props], res) => {
-            // yes three ifs because my brain is dumb and i like readable code
-            // also those tables are here to not confuse my brain
-
-            // ~compact-message | ~SettingsStore.messageDisplayCompact | return
-            // 0                | 0                                    | 0
-            // 1                | 0                                    | 1
-            // 0                | 1                                    | 1
-            // 1                | 1                                    | 1
-            if (!settings.get("compact-message", false) || !SettingsStore.messageDisplayCompact) return
-            if (!props.compact) return
-            // compact-message-reply | withMentionPrefix | return
-            // 0                     | 0                 | 1
-            // 1                     | 0                 | 1
-            // 0                     | 1                 | 1
-            // 1                     | 1                 | 0
-            if (!(settings.get("compact-message-reply", false) && props.hasOwnProperty('withMentionPrefix'))) return
+            // yes two ifs because its too hard to code lmao
+            if (!(settings.get("compact-message", true) && SettingsStore.messageDisplayCompact)) return
+            if (!settings.get("compact-message-reply", true) && props.hasOwnProperty('withMentionPrefix')) return
 
             let header = Utilities.findInReactTree(res, e => e?.renderPopout)
             console.log(header)
