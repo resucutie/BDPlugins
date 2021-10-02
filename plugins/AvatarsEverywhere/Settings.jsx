@@ -10,7 +10,7 @@ const SwitchItem = createUpdateWrapper(WebpackModules.getByDisplayName("SwitchIt
 
 export default React.memo(() => {
     const mentionsDisabled = useStateFromStores([settings], () => !settings.get("mentions", true))
-    const compactMessagesDisabled = useStateFromStores([settings], () => !settings.get("compact-message", false))
+    const compactMessagesDisabled = useStateFromStores([settings], () => !settings.get("compact-message", true))
 
     return <>
         <Category
@@ -61,7 +61,7 @@ export default React.memo(() => {
 
         <Category
             look={Category.Looks.COMPACT}
-            label={<LabelWrapper icon={DoubleStarIcon} name="Compact mode (beta)" />}
+            label={<LabelWrapper icon={DoubleStarIcon} name="Compact mode" />}
         >
             <SwitchItem
                 value={settings.get("compact-message", false)}
