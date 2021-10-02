@@ -434,21 +434,6 @@ function buildPlugin([BasePlugin, PluginApi]) {
 					}, "Enable")), external_BdApi_React_default().createElement(Category, {
 						look: Category.Looks.COMPACT,
 						label: external_BdApi_React_default().createElement(LabelWrapper, {
-							icon: icons_namespaceObject.Robot,
-							name: "System Messages"
-						})
-					}, external_BdApi_React_default().createElement(SwitchItem, {
-						value: settingsManager.get("system-messages-join", true),
-						onChange: value => settingsManager.set("system-messages-join", value)
-					}, "Join messages"), external_BdApi_React_default().createElement(SwitchItem, {
-						value: settingsManager.get("system-messages-boost", true),
-						onChange: value => settingsManager.set("system-messages-boost", value)
-					}, "Boost messages"), external_BdApi_React_default().createElement(SwitchItem, {
-						value: settingsManager.get("system-messages-thread", true),
-						onChange: value => settingsManager.set("system-messages-thread", value)
-					}, "Thread messages")), external_BdApi_React_default().createElement(Category, {
-						look: Category.Looks.COMPACT,
-						label: external_BdApi_React_default().createElement(LabelWrapper, {
 							icon: icons_namespaceObject.DoubleStarIcon,
 							name: "Compact mode"
 						})
@@ -459,7 +444,25 @@ function buildPlugin([BasePlugin, PluginApi]) {
 						value: settingsManager.get("compact-message-reply", false),
 						onChange: value => settingsManager.set("compact-message-reply", value),
 						disabled: compactMessagesDisabled
-					}, "Replies")));
+					}, "Replies")), external_BdApi_React_default().createElement(Category, {
+						look: Category.Looks.COMPACT,
+						label: external_BdApi_React_default().createElement(LabelWrapper, {
+							icon: icons_namespaceObject.Robot,
+							name: "System Messages"
+						})
+					}, external_BdApi_React_default().createElement(SwitchItem, {
+						value: settingsManager.get("system-messages-join", true),
+						onChange: value => settingsManager.set("system-messages-join", value)
+					}, "Join messages"), external_BdApi_React_default().createElement(SwitchItem, {
+						value: settingsManager.get("system-messages-boost", true),
+						onChange: value => settingsManager.set("system-messages-boost", value)
+					}, "Boost messages"), external_BdApi_React_default().createElement(SwitchItem, {
+						value: settingsManager.get("system-messages-thread-created", true),
+						onChange: value => settingsManager.set("system-messages-thread-created", value)
+					}, "Thread created"), external_BdApi_React_default().createElement(SwitchItem, {
+						value: settingsManager.get("system-messages-thread-member-removed", true),
+						onChange: value => settingsManager.set("system-messages-thread-member-removed", value)
+					}, "Thread member removed")));
 				}));
 				const LabelWrapper = ({
 					icon: Component,
@@ -542,7 +545,6 @@ function buildPlugin([BasePlugin, PluginApi]) {
 							if (!(settingsManager.get("compact-message", true) && stores_namespaceObject.SettingsStore.messageDisplayCompact)) return;
 							if (!settingsManager.get("compact-message-reply", true) && props.hasOwnProperty("withMentionPrefix")) return;
 							let header = external_PluginApi_namespaceObject.Utilities.findInReactTree(res, (e => e?.renderPopout));
-							console.log(header);
 							const ogFunc = header?.children;
 							if (!ogFunc) return;
 							header.children = (...args) => {
@@ -561,6 +563,12 @@ function buildPlugin([BasePlugin, PluginApi]) {
 						}));
 					}
 					patchSystemMessages() {
+						const setupEnv = (element, checkElement) => {
+							if (!element) return true;
+							element.props.className += " " + style.Z["avatar-util-align-wrapper"];
+							if (!checkElement) return;
+							return AvatarsEverywhere_React.isValidElement(checkElement);
+						};
 						external_PluginApi_namespaceObject.Patcher.after(external_PluginApi_namespaceObject.WebpackModules.find((m => "UserJoin" === m.default?.displayName)), "default", ((_this, [props], res) => {
 							if (!settingsManager.get("system-messages-join", true)) return;
 							let userName = external_PluginApi_namespaceObject.Utilities.findInReactTree(res, (e => e?.renderPopout));
@@ -568,8 +576,7 @@ function buildPlugin([BasePlugin, PluginApi]) {
 							if (!ogFunc) return;
 							userName.children = (...args) => {
 								let ret = ogFunc(...args);
-								ret.props.className += " " + style.Z["avatar-util-align-wrapper"];
-								if (AvatarsEverywhere_React.isValidElement(ret.props?.children?.[0])) return ret;
+								if (setupEnv(ret, ret.props?.children?.[0])) return ret;
 								const url = AvatarDefaults.getUserAvatarURL(props.message.author);
 								ret.props.children.unshift(AvatarsEverywhere_React.createElement(Avatar, {
 									src: url,
@@ -586,8 +593,7 @@ function buildPlugin([BasePlugin, PluginApi]) {
 							if (!ogFunc) return;
 							userName.props.children = (...args) => {
 								let ret = ogFunc(...args);
-								ret.props.className += " " + style.Z["avatar-util-align-wrapper"];
-								if (AvatarsEverywhere_React.isValidElement(ret.props?.children?.[0])) return ret;
+								if (setupEnv(ret, ret.props?.children?.[0])) return ret;
 								const url = AvatarDefaults.getUserAvatarURL(_this.props.message.author);
 								ret.props.children.unshift(AvatarsEverywhere_React.createElement(Avatar, {
 									src: url,
@@ -598,13 +604,45 @@ function buildPlugin([BasePlugin, PluginApi]) {
 							};
 						}));
 						external_PluginApi_namespaceObject.Patcher.after(external_PluginApi_namespaceObject.WebpackModules.find((m => "ThreadCreated" === m.default?.displayName)), "default", ((_this, [props], res) => {
-							if (!settingsManager.get("system-messages-thread", true)) return;
+							if (!settingsManager.get("system-messages-thread-created", true)) return;
 							const url = AvatarDefaults.getUserAvatarURL(props.message.author);
 							res.props.children.unshift(AvatarsEverywhere_React.createElement(Avatar, {
 								src: url,
 								className: style.Z["avatar-util-align-wrapper-icon"],
 								size: Avatar.Sizes.SIZE_16
 							}));
+						}));
+						external_PluginApi_namespaceObject.Patcher.after(external_PluginApi_namespaceObject.WebpackModules.find((m => "ThreadMemberRemove" === m.default?.displayName)), "default", ((_this, [props], res) => {
+							if (!settingsManager.get("system-messages-thread-member-removed", true)) return;
+							const personRemoveUser = props.message.author;
+							const removedUser = props.targetUser;
+							let personRemoveUserElement = external_PluginApi_namespaceObject.Utilities.findInReactTree(res, (e => e?.props?.renderPopout && "0" === e?.key));
+							let removedUserElement = external_PluginApi_namespaceObject.Utilities.findInReactTree(res, (e => e?.props?.renderPopout && "2" === e?.key));
+							const personRemoveUserElementOgFunc = personRemoveUserElement?.props?.children;
+							const removedUserElementOgFunc = removedUserElement?.props?.children;
+							if (!(personRemoveUserElementOgFunc && removedUserElementOgFunc)) return;
+							personRemoveUserElement.props.children = (...args) => {
+								let ret = personRemoveUserElementOgFunc(...args);
+								if (setupEnv(ret, ret.props?.children?.[0])) return ret;
+								const url = AvatarDefaults.getUserAvatarURL(personRemoveUser);
+								ret.props.children.unshift(AvatarsEverywhere_React.createElement(Avatar, {
+									src: url,
+									className: style.Z["avatar-util-align-wrapper-icon"],
+									size: Avatar.Sizes.SIZE_16
+								}));
+								return ret;
+							};
+							removedUserElement.props.children = (...args) => {
+								let ret = removedUserElementOgFunc(...args);
+								if (setupEnv(ret, ret.props?.children?.[0])) return ret;
+								const url = AvatarDefaults.getUserAvatarURL(removedUser);
+								ret.props.children.unshift(AvatarsEverywhere_React.createElement(Avatar, {
+									src: url,
+									className: style.Z["avatar-util-align-wrapper-icon"],
+									size: Avatar.Sizes.SIZE_16
+								}));
+								return ret;
+							};
 						}));
 					}
 					getSettingsPanel() {
