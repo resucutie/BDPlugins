@@ -41,26 +41,6 @@ export default React.memo(() => {
 
         <Category
             look={Category.Looks.COMPACT}
-            label={<LabelWrapper icon={Robot} name="System Messages" />}
-        >
-            <SwitchItem
-                value={settings.get("system-messages-join", true)}
-                onChange={value => settings.set("system-messages-join", value)}
-            >Join messages</SwitchItem>
-
-            <SwitchItem
-                value={settings.get("system-messages-boost", true)}
-                onChange={value => settings.set("system-messages-boost", value)}
-            >Boost messages</SwitchItem>
-            
-            <SwitchItem
-                value={settings.get("system-messages-thread", true)}
-                onChange={value => settings.set("system-messages-thread", value)}
-            >Thread messages</SwitchItem>
-        </Category>
-
-        <Category
-            look={Category.Looks.COMPACT}
             label={<LabelWrapper icon={DoubleStarIcon} name="Compact mode" />}
         >
             <SwitchItem
@@ -73,6 +53,31 @@ export default React.memo(() => {
                 onChange={value => settings.set("compact-message-reply", value)}
                 disabled={compactMessagesDisabled}
             >Replies</SwitchItem>
+        </Category>
+
+        <Category
+            look={Category.Looks.COMPACT}
+            label={<LabelWrapper icon={Robot} name="System Messages" />}
+        >
+            <SwitchItem
+                value={settings.get("system-messages-join", true)}
+                onChange={value => settings.set("system-messages-join", value)}
+            >Join messages</SwitchItem>
+
+            <SwitchItem
+                value={settings.get("system-messages-boost", true)}
+                onChange={value => settings.set("system-messages-boost", value)}
+            >Boost messages</SwitchItem>
+
+            <SwitchItem
+                value={settings.get("system-messages-thread-created", true)}
+                onChange={value => settings.set("system-messages-thread-created", value)}
+            >Thread created</SwitchItem>
+
+            <SwitchItem
+                value={settings.get("system-messages-thread-member-removed", true)}
+                onChange={value => settings.set("system-messages-thread-member-removed", value)}
+            >Thread member removed</SwitchItem>
         </Category>
     </>
 })

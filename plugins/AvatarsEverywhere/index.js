@@ -41,7 +41,6 @@ export default class AvatarsEverywhere extends BasePlugin {
                 
                 res.props.className += " " + styles["avatar-util-align-wrapper"]
                 
-                //console.log(arguments, res)
                 return res
             }
         })
@@ -95,7 +94,6 @@ export default class AvatarsEverywhere extends BasePlugin {
             if (!settings.get("compact-message-reply", true) && props.hasOwnProperty('withMentionPrefix')) return
 
             let header = Utilities.findInReactTree(res, e => e?.renderPopout)
-            console.log(header)
             
             // monkyepatch
             const ogFunc = header?.children
@@ -121,6 +119,15 @@ export default class AvatarsEverywhere extends BasePlugin {
     }
 
     patchSystemMessages(){
+        // function to prevent copying and paste
+        const setupEnv = (element, checkElement) => {
+            if (!element) return true
+            element.props.className += " " + styles["avatar-util-align-wrapper"]
+
+            if (!checkElement) return
+            return React.isValidElement(checkElement)
+        }
+
         // user join
         Patcher.after(WebpackModules.find(m => m.default?.displayName === "UserJoin"), "default", (_this, [props], res) => {
             if (!settings.get("system-messages-join", true)) return
@@ -133,10 +140,7 @@ export default class AvatarsEverywhere extends BasePlugin {
             userName.children = (...args) => {
                 let ret = ogFunc(...args);
 
-                ret.props.className += " " + styles["avatar-util-align-wrapper"]
-                
-                // To prevent duplication
-                if (React.isValidElement(ret.props?.children?.[0])) return ret
+                if (setupEnv(ret, ret.props?.children?.[0])) return ret
 
                 const url = AvatarDefaults.getUserAvatarURL(props.message.author)
                 ret.props.children.unshift(<Avatar src={url} className={styles["avatar-util-align-wrapper-icon"]} size={Avatar.Sizes.SIZE_16} />)
@@ -156,10 +160,7 @@ export default class AvatarsEverywhere extends BasePlugin {
             userName.props.children = (...args) => {
                 let ret = ogFunc(...args);
 
-                ret.props.className += " " + styles["avatar-util-align-wrapper"]
-
-                // To prevent duplication
-                if (React.isValidElement(ret.props?.children?.[0])) return ret
+                if (setupEnv(ret, ret.props?.children?.[0])) return ret
 
                 const url = AvatarDefaults.getUserAvatarURL(_this.props.message.author)
                 ret.props.children.unshift(<Avatar src={url} className={styles["avatar-util-align-wrapper-icon"]} size={Avatar.Sizes.SIZE_16} />)
@@ -170,10 +171,45 @@ export default class AvatarsEverywhere extends BasePlugin {
 
         // thread created
         Patcher.after(WebpackModules.find(m => m.default?.displayName === "ThreadCreated"), "default", (_this, [props], res) => {
-            if (!settings.get("system-messages-thread", true)) return
+            if (!settings.get("system-messages-thread-created", true)) return
 
             const url = AvatarDefaults.getUserAvatarURL(props.message.author)
             res.props.children.unshift(<Avatar src={url} className={styles["avatar-util-align-wrapper-icon"]} size={Avatar.Sizes.SIZE_16} />)
+        })
+
+        //thread member removed
+        Patcher.after(WebpackModules.find(m => m.default?.displayName === "ThreadMemberRemove"), "default", (_this, [props], res) => {
+            if (!settings.get("system-messages-thread-member-removed", true)) return
+            
+            const personRemoveUser = props.message.author
+            const removedUser = props.targetUser
+
+            let personRemoveUserElement = Utilities.findInReactTree(res, e => e?.props?.renderPopout && e?.key === "0")
+            let removedUserElement = Utilities.findInReactTree(res, e => e?.props?.renderPopout && e?.key === "2")
+            
+            const personRemoveUserElementOgFunc = personRemoveUserElement?.props?.children
+            const removedUserElementOgFunc = removedUserElement?.props?.children
+            if (!(personRemoveUserElementOgFunc && removedUserElementOgFunc)) return
+            personRemoveUserElement.props.children = (...args) => {
+                let ret = personRemoveUserElementOgFunc(...args);
+
+                if (setupEnv(ret, ret.props?.children?.[0])) return ret
+
+                const url = AvatarDefaults.getUserAvatarURL(personRemoveUser)
+                ret.props.children.unshift(<Avatar src={url} className={styles["avatar-util-align-wrapper-icon"]} size={Avatar.Sizes.SIZE_16} />)
+
+                return ret;
+            }
+            removedUserElement.props.children = (...args) => {
+                let ret = removedUserElementOgFunc(...args);
+
+                if (setupEnv(ret, ret.props?.children?.[0])) return ret
+
+                const url = AvatarDefaults.getUserAvatarURL(removedUser)
+                ret.props.children.unshift(<Avatar src={url} className={styles["avatar-util-align-wrapper-icon"]} size={Avatar.Sizes.SIZE_16} />)
+
+                return ret;
+            }
         })
     }
 
