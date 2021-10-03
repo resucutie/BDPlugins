@@ -37,9 +37,9 @@ export default class AvatarsEverywhere extends BasePlugin {
 
                 const user = UserStore.getUser(props.userId)
 
-                res.props.children = [<Avatar src={AvatarDefaults.getUserAvatarURL(user)} className={styles["avatar-util-align-wrapper-icon"]} size={Avatar.Sizes.SIZE_16} />, text]
+                res.props.children = [<Avatar src={AvatarDefaults.getUserAvatarURL(user)} className={styles["align-wrapper-icon"]} size={Avatar.Sizes.SIZE_16} />, text]
                 
-                res.props.className += " " + styles["avatar-util-align-wrapper"]
+                res.props.className += " " + styles["align-wrapper"]
                 
                 return res
             }
@@ -79,8 +79,8 @@ export default class AvatarsEverywhere extends BasePlugin {
 
                 let userChildren = res.props.children[1].props.children[m * 2]
 
-                userChildren.props.children.unshift(<Avatar src={AvatarDefaults.getUserAvatarURL(user)} className={styles["avatar-util-align-wrapper-icon"]} size={Avatar.Sizes.SIZE_16} />)
-                userChildren.props.className += " " + styles["avatar-util-align-wrapper"]
+                userChildren.props.children.unshift(<Avatar src={AvatarDefaults.getUserAvatarURL(user)} className={styles["align-wrapper-icon"]} size={Avatar.Sizes.SIZE_16} />)
+                userChildren.props.className += " " + styles["align-wrapper"]
             }
         });
 
@@ -103,14 +103,14 @@ export default class AvatarsEverywhere extends BasePlugin {
                 let children = ret.props?.children
 
                 // Add wrapper style
-                ret.props.className += " " + styles["avatar-util-align-wrapper"]
+                ret.props.className += " " + styles["align-wrapper"]
 
                 // To prevent duplication
                 if (React.isValidElement(children.props?.children?.[0])) return ret
 
                 //Finally apply the avatar
                 const url = AvatarDefaults.getUserAvatarURL(props.message.author)
-                children.props.children.unshift(<Avatar src={url} className={styles["avatar-util-align-wrapper-icon"]} size={Avatar.Sizes.SIZE_16}/>)
+                children.props.children.unshift(<Avatar src={url} className={styles["align-wrapper-icon"]} size={Avatar.Sizes.SIZE_16}/>)
                 
                 return ret;
             }
@@ -122,7 +122,7 @@ export default class AvatarsEverywhere extends BasePlugin {
         // function to prevent copying and paste
         const setupEnv = (element, checkElement) => {
             if (!element) return true
-            element.props.className += " " + styles["avatar-util-align-wrapper"]
+            element.props.className += " " + styles["align-wrapper"]
 
             if (!checkElement) return
             return React.isValidElement(checkElement)
@@ -143,7 +143,7 @@ export default class AvatarsEverywhere extends BasePlugin {
                 if (setupEnv(ret, ret.props?.children?.[0])) return ret
 
                 const url = AvatarDefaults.getUserAvatarURL(props.message.author)
-                ret.props.children.unshift(<Avatar src={url} className={styles["avatar-util-align-wrapper-icon"]} size={Avatar.Sizes.SIZE_16} />)
+                ret.props.children.unshift(<Avatar src={url} className={styles["align-wrapper-icon"]} size={Avatar.Sizes.SIZE_16} />)
 
                 return ret;
             }
@@ -163,7 +163,7 @@ export default class AvatarsEverywhere extends BasePlugin {
                 if (setupEnv(ret, ret.props?.children?.[0])) return ret
 
                 const url = AvatarDefaults.getUserAvatarURL(_this.props.message.author)
-                ret.props.children.unshift(<Avatar src={url} className={styles["avatar-util-align-wrapper-icon"]} size={Avatar.Sizes.SIZE_16} />)
+                ret.props.children.unshift(<Avatar src={url} className={styles["align-wrapper-icon"]} size={Avatar.Sizes.SIZE_16} />)
 
                 return ret;
             }
@@ -174,13 +174,13 @@ export default class AvatarsEverywhere extends BasePlugin {
             if (!settings.get("system-messages-thread-created", true)) return
 
             const url = AvatarDefaults.getUserAvatarURL(props.message.author)
-            res.props.children.unshift(<Avatar src={url} className={styles["avatar-util-align-wrapper-icon"]} size={Avatar.Sizes.SIZE_16} />)
+            res.props.children.unshift(<Avatar src={url} className={styles["align-wrapper-icon"]} size={Avatar.Sizes.SIZE_16} />)
         })
 
         //thread member removed
         Patcher.after(WebpackModules.find(m => m.default?.displayName === "ThreadMemberRemove"), "default", (_this, [props], res) => {
             if (!settings.get("system-messages-thread-member-removed", true)) return
-            
+
             const personRemoveUser = props.message.author
             const removedUser = props.targetUser
 
@@ -196,7 +196,7 @@ export default class AvatarsEverywhere extends BasePlugin {
                 if (setupEnv(ret, ret.props?.children?.[0])) return ret
 
                 const url = AvatarDefaults.getUserAvatarURL(personRemoveUser)
-                ret.props.children.unshift(<Avatar src={url} className={styles["avatar-util-align-wrapper-icon"]} size={Avatar.Sizes.SIZE_16} />)
+                ret.props.children.unshift(<Avatar src={url} className={styles["align-wrapper-icon"]} size={Avatar.Sizes.SIZE_16} />)
 
                 return ret;
             }
@@ -206,7 +206,7 @@ export default class AvatarsEverywhere extends BasePlugin {
                 if (setupEnv(ret, ret.props?.children?.[0])) return ret
 
                 const url = AvatarDefaults.getUserAvatarURL(removedUser)
-                ret.props.children.unshift(<Avatar src={url} className={styles["avatar-util-align-wrapper-icon"]} size={Avatar.Sizes.SIZE_16} />)
+                ret.props.children.unshift(<Avatar src={url} className={styles["align-wrapper-icon"]} size={Avatar.Sizes.SIZE_16} />)
 
                 return ret;
             }
