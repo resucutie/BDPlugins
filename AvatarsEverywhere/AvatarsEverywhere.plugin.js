@@ -293,15 +293,17 @@ function buildPlugin([BasePlugin, PluginApi]) {
 				var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()((function(i) {
 					return i[1];
 				}));
-				___CSS_LOADER_EXPORT___.push([module.id, ".AvatarsEverywhere-style-avatar-util-align-wrapper{display:inline-flex;flex-direction:row;align-items:center;vertical-align:bottom}.AvatarsEverywhere-style-avatar-util-align-wrapper-icon{margin-right:4px}", ""]);
+				___CSS_LOADER_EXPORT___.push([module.id, '.AvatarsEverywhere-style-align-wrapper{display:inline-flex;flex-direction:row;align-items:center;vertical-align:bottom}.AvatarsEverywhere-style-align-wrapper-icon{margin-right:4px}.AvatarsEverywhere-style-settings-grid{min-height:400px;display:grid;grid-template-columns:repeat(2, 1fr)}.AvatarsEverywhere-style-settings-card{position:relative;overflow:hidden;display:flex;justify-content:center;align-items:center;flex-direction:column;background:linear-gradient(135deg, var(--avatars-card-primary), var(--avatars-card-secondary));border-radius:15px;cursor:pointer;margin:14px;box-shadow:0 0 8px 0 #1a1a1a;transition:box-shadow .2s,transform .2s}.AvatarsEverywhere-style-settings-card::before{content:"";display:block;position:absolute;width:100%;height:100%;background:#000;opacity:0;z-index:1;pointer-events:none;transition:opacity .2s}.AvatarsEverywhere-style-settings-card:hover{box-shadow:0 0 14px 0 #0d0d0d;transform:scale(1.025)}.AvatarsEverywhere-style-settings-card:hover::before{opacity:.15}.AvatarsEverywhere-style-settings-card svg{color:#ebebeb;margin-bottom:10px;width:50px;height:50px}.AvatarsEverywhere-style-settings-card>div{font-weight:600}', ""]);
 				___CSS_LOADER_EXPORT___.locals = {
-					"avatar-util-align-wrapper": "AvatarsEverywhere-style-avatar-util-align-wrapper",
-					"avatar-util-align-wrapper-icon": "AvatarsEverywhere-style-avatar-util-align-wrapper-icon"
+					"align-wrapper": "AvatarsEverywhere-style-align-wrapper",
+					"align-wrapper-icon": "AvatarsEverywhere-style-align-wrapper-icon",
+					"settings-grid": "AvatarsEverywhere-style-settings-grid",
+					"settings-card": "AvatarsEverywhere-style-settings-card"
 				};
 				StyleLoader.append(module.id, ___CSS_LOADER_EXPORT___.toString());
 				const __WEBPACK_DEFAULT_EXPORT__ = Object.assign(___CSS_LOADER_EXPORT___, ___CSS_LOADER_EXPORT___.locals);
 			},
-			617: (__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+			193: (__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 				__webpack_require__.r(__webpack_exports__);
 				__webpack_require__.d(__webpack_exports__, {
 					default: () => AvatarsEverywhere
@@ -317,6 +319,7 @@ function buildPlugin([BasePlugin, PluginApi]) {
 				var external_BdApi_React_default = __webpack_require__.n(external_BdApi_React_);
 				const icons_namespaceObject = Modules["@discord/icons"];
 				const flux_namespaceObject = Modules["@discord/flux"];
+				const components_namespaceObject = Modules["@discord/components"];
 				var React = __webpack_require__(113);
 				function _extends() {
 					_extends = Object.assign || function(target) {
@@ -409,48 +412,66 @@ function buildPlugin([BasePlugin, PluginApi]) {
 				const Settings = external_BdApi_React_default().memo((() => {
 					const mentionsDisabled = (0, flux_namespaceObject.useStateFromStores)([settingsManager], (() => !settingsManager.get("mentions", true)));
 					const compactMessagesDisabled = (0, flux_namespaceObject.useStateFromStores)([settingsManager], (() => !settingsManager.get("compact-message", true)));
-					return external_BdApi_React_default().createElement(external_BdApi_React_default().Fragment, null, external_BdApi_React_default().createElement(Category, {
-						look: Category.Looks.COMPACT,
-						label: external_BdApi_React_default().createElement(LabelWrapper, {
-							icon: icons_namespaceObject.ChatBubble,
-							name: "Mentions"
-						})
-					}, external_BdApi_React_default().createElement(SwitchItem, {
+					const [tab, setTab] = (0, external_BdApi_React_.useState)("main");
+					const SelectCard = ({
+						tab,
+						children,
+						icon: Icon,
+						colors
+					}) => {
+						const {
+							primary,
+							secondary
+						} = colors;
+						return external_BdApi_React_default().createElement("div", {
+							className: style.Z["settings-card"],
+							style: {
+								"--avatars-card-primary": primary,
+								"--avatars-card-secondary": secondary
+							},
+							onClick: () => setTab(tab)
+						}, external_BdApi_React_default().createElement(Icon, null), external_BdApi_React_default().createElement(components_namespaceObject.Text, {
+							size: components_namespaceObject.Text.Sizes.SIZE_16,
+							color: components_namespaceObject.Text.Colors.HEADER_PRIMARY
+						}, children));
+					};
+					const SettingHeader = () => external_BdApi_React_default().createElement("div", {
+						onClick: () => setTab("main"),
+						style: {
+							display: "flex",
+							alignItems: "center"
+						}
+					}, external_BdApi_React_default().createElement(components_namespaceObject.Button, {
+						color: components_namespaceObject.Button.Colors.TRANSPARENT,
+						size: components_namespaceObject.Button.Sizes.ICON
+					}, external_BdApi_React_default().createElement(icons_namespaceObject.ArrowLeft, null)), external_BdApi_React_default().createElement(components_namespaceObject.Text, {
+						style: {
+							marginLeft: "10px"
+						},
+						size: components_namespaceObject.Text.Sizes.SIZE_16,
+						color: components_namespaceObject.Text.Colors.STANDARD
+					}, "Return"));
+					const MentionsTab = external_BdApi_React_default().createElement(external_BdApi_React_default().Fragment, null, external_BdApi_React_default().createElement(SwitchItem, {
 						value: settingsManager.get("mentions", true),
 						onChange: value => settingsManager.set("mentions", value)
-					}, "Enable"), external_BdApi_React_default().createElement(SwitchItem, {
+					}, "Add avatars to mentions"), external_BdApi_React_default().createElement(SwitchItem, {
 						value: settingsManager.get("mentions-no-at", false),
 						onChange: value => settingsManager.set("mentions-no-at", value),
 						disabled: mentionsDisabled
-					}, "Remove the @ symbol")), external_BdApi_React_default().createElement(Category, {
-						look: Category.Looks.COMPACT,
-						label: external_BdApi_React_default().createElement(LabelWrapper, {
-							icon: icons_namespaceObject.OverflowMenuHorizontal,
-							name: "Typing users"
-						})
-					}, external_BdApi_React_default().createElement(SwitchItem, {
+					}, "Remove the @ symbol"), external_BdApi_React_default().createElement(SettingHeader, null));
+					const ExtrasTab = external_BdApi_React_default().createElement(external_BdApi_React_default().Fragment, null, external_BdApi_React_default().createElement(SwitchItem, {
 						value: settingsManager.get("typing-users", true),
 						onChange: value => settingsManager.set("typing-users", value)
-					}, "Enable")), external_BdApi_React_default().createElement(Category, {
-						look: Category.Looks.COMPACT,
-						label: external_BdApi_React_default().createElement(LabelWrapper, {
-							icon: icons_namespaceObject.DoubleStarIcon,
-							name: "Compact mode"
-						})
-					}, external_BdApi_React_default().createElement(SwitchItem, {
+					}, "Typing users"), external_BdApi_React_default().createElement(SettingHeader, null));
+					const CompactModeTab = external_BdApi_React_default().createElement(external_BdApi_React_default().Fragment, null, external_BdApi_React_default().createElement(SwitchItem, {
 						value: settingsManager.get("compact-message", false),
 						onChange: value => settingsManager.set("compact-message", value)
-					}, "User icon on messages"), external_BdApi_React_default().createElement(SwitchItem, {
+					}, "Add avatars to compact messages"), external_BdApi_React_default().createElement(SwitchItem, {
 						value: settingsManager.get("compact-message-reply", false),
 						onChange: value => settingsManager.set("compact-message-reply", value),
 						disabled: compactMessagesDisabled
-					}, "Replies")), external_BdApi_React_default().createElement(Category, {
-						look: Category.Looks.COMPACT,
-						label: external_BdApi_React_default().createElement(LabelWrapper, {
-							icon: icons_namespaceObject.Robot,
-							name: "System Messages"
-						})
-					}, external_BdApi_React_default().createElement(SwitchItem, {
+					}, "Replies"), external_BdApi_React_default().createElement(SettingHeader, null));
+					const SystemMessagesTab = external_BdApi_React_default().createElement(external_BdApi_React_default().Fragment, null, external_BdApi_React_default().createElement(SwitchItem, {
 						value: settingsManager.get("system-messages-join", true),
 						onChange: value => settingsManager.set("system-messages-join", value)
 					}, "Join messages"), external_BdApi_React_default().createElement(SwitchItem, {
@@ -462,23 +483,44 @@ function buildPlugin([BasePlugin, PluginApi]) {
 					}, "Thread created"), external_BdApi_React_default().createElement(SwitchItem, {
 						value: settingsManager.get("system-messages-thread-member-removed", true),
 						onChange: value => settingsManager.set("system-messages-thread-member-removed", value)
-					}, "Thread member removed")));
+					}, "Thread member removed"), external_BdApi_React_default().createElement(SettingHeader, null));
+					return external_BdApi_React_default().createElement(external_BdApi_React_default().Fragment, null, "main" === tab ? external_BdApi_React_default().createElement("div", {
+						className: style.Z["settings-grid"]
+					}, external_BdApi_React_default().createElement(SelectCard, {
+						tab: "mentions",
+						icon: icons_namespaceObject.At,
+						colors: {
+							primary: "hsl(356, 100%, 36%)",
+							secondary: "hsl(302, 100%, 62%)"
+						}
+					}, "Mentions"), external_BdApi_React_default().createElement(SelectCard, {
+						tab: "compactMode",
+						icon: icons_namespaceObject.DoubleStarIcon,
+						colors: {
+							primary: "hsl(238, 65%, 50%)",
+							secondary: "hsl(300, 65%, 50%)"
+						}
+					}, "Compact mode"), external_BdApi_React_default().createElement(SelectCard, {
+						tab: "systemMessages",
+						icon: icons_namespaceObject.Robot,
+						colors: {
+							primary: "hsl(231, 100%, 62%)",
+							secondary: "hsl(206, 100%, 62%)"
+						}
+					}, "System Messages"), external_BdApi_React_default().createElement(SelectCard, {
+						tab: "typingUsers",
+						icon: icons_namespaceObject.OverflowMenuHorizontal,
+						colors: {
+							primary: "hsl(195, 65%, 50%)",
+							secondary: "hsl(157, 65%, 50%)"
+						}
+					}, "Extras")) : external_BdApi_React_default().createElement(external_BdApi_React_default().Fragment, null, external_BdApi_React_default().createElement("span", {
+						style: {
+							display: "block",
+							marginBottom: "5px"
+						}
+					}), "mentions" === tab && MentionsTab, "typingUsers" === tab && ExtrasTab, "compactMode" === tab && CompactModeTab, "systemMessages" === tab && SystemMessagesTab));
 				}));
-				const LabelWrapper = ({
-					icon: Component,
-					name
-				}) => external_BdApi_React_default().createElement("span", {
-					style: {
-						display: "flex",
-						alignItems: "center"
-					}
-				}, external_BdApi_React_default().createElement(Component, {
-					width: 20,
-					height: 20,
-					style: {
-						marginRight: "4px"
-					}
-				}), " ", name);
 				var AvatarsEverywhere_React = __webpack_require__(113);
 				const {
 					AvatarDefaults,
@@ -506,10 +548,10 @@ function buildPlugin([BasePlugin, PluginApi]) {
 								const user = stores_namespaceObject.Users.getUser(props.userId);
 								res.props.children = [AvatarsEverywhere_React.createElement(Avatar, {
 									src: AvatarDefaults.getUserAvatarURL(user),
-									className: style.Z["avatar-util-align-wrapper-icon"],
+									className: style.Z["align-wrapper-icon"],
 									size: Avatar.Sizes.SIZE_16
 								}), text];
-								res.props.className += " " + style.Z["avatar-util-align-wrapper"];
+								res.props.className += " " + style.Z["align-wrapper"];
 								return res;
 							};
 						}));
@@ -532,10 +574,10 @@ function buildPlugin([BasePlugin, PluginApi]) {
 								let userChildren = res.props.children[1].props.children[2 * m];
 								userChildren.props.children.unshift(AvatarsEverywhere_React.createElement(Avatar, {
 									src: AvatarDefaults.getUserAvatarURL(user),
-									className: style.Z["avatar-util-align-wrapper-icon"],
+									className: style.Z["align-wrapper-icon"],
 									size: Avatar.Sizes.SIZE_16
 								}));
-								userChildren.props.className += " " + style.Z["avatar-util-align-wrapper"];
+								userChildren.props.className += " " + style.Z["align-wrapper"];
 							}
 						}));
 						TypingUsers.forceUpdateAll();
@@ -550,12 +592,12 @@ function buildPlugin([BasePlugin, PluginApi]) {
 							header.children = (...args) => {
 								let ret = ogFunc(...args);
 								let children = ret.props?.children;
-								ret.props.className += " " + style.Z["avatar-util-align-wrapper"];
+								ret.props.className += " " + style.Z["align-wrapper"];
 								if (AvatarsEverywhere_React.isValidElement(children.props?.children?.[0])) return ret;
 								const url = AvatarDefaults.getUserAvatarURL(props.message.author);
 								children.props.children.unshift(AvatarsEverywhere_React.createElement(Avatar, {
 									src: url,
-									className: style.Z["avatar-util-align-wrapper-icon"],
+									className: style.Z["align-wrapper-icon"],
 									size: Avatar.Sizes.SIZE_16
 								}));
 								return ret;
@@ -565,7 +607,7 @@ function buildPlugin([BasePlugin, PluginApi]) {
 					patchSystemMessages() {
 						const setupEnv = (element, checkElement) => {
 							if (!element) return true;
-							element.props.className += " " + style.Z["avatar-util-align-wrapper"];
+							element.props.className += " " + style.Z["align-wrapper"];
 							if (!checkElement) return;
 							return AvatarsEverywhere_React.isValidElement(checkElement);
 						};
@@ -580,7 +622,7 @@ function buildPlugin([BasePlugin, PluginApi]) {
 								const url = AvatarDefaults.getUserAvatarURL(props.message.author);
 								ret.props.children.unshift(AvatarsEverywhere_React.createElement(Avatar, {
 									src: url,
-									className: style.Z["avatar-util-align-wrapper-icon"],
+									className: style.Z["align-wrapper-icon"],
 									size: Avatar.Sizes.SIZE_16
 								}));
 								return ret;
@@ -597,7 +639,7 @@ function buildPlugin([BasePlugin, PluginApi]) {
 								const url = AvatarDefaults.getUserAvatarURL(_this.props.message.author);
 								ret.props.children.unshift(AvatarsEverywhere_React.createElement(Avatar, {
 									src: url,
-									className: style.Z["avatar-util-align-wrapper-icon"],
+									className: style.Z["align-wrapper-icon"],
 									size: Avatar.Sizes.SIZE_16
 								}));
 								return ret;
@@ -608,7 +650,7 @@ function buildPlugin([BasePlugin, PluginApi]) {
 							const url = AvatarDefaults.getUserAvatarURL(props.message.author);
 							res.props.children.unshift(AvatarsEverywhere_React.createElement(Avatar, {
 								src: url,
-								className: style.Z["avatar-util-align-wrapper-icon"],
+								className: style.Z["align-wrapper-icon"],
 								size: Avatar.Sizes.SIZE_16
 							}));
 						}));
@@ -627,7 +669,7 @@ function buildPlugin([BasePlugin, PluginApi]) {
 								const url = AvatarDefaults.getUserAvatarURL(personRemoveUser);
 								ret.props.children.unshift(AvatarsEverywhere_React.createElement(Avatar, {
 									src: url,
-									className: style.Z["avatar-util-align-wrapper-icon"],
+									className: style.Z["align-wrapper-icon"],
 									size: Avatar.Sizes.SIZE_16
 								}));
 								return ret;
@@ -638,7 +680,7 @@ function buildPlugin([BasePlugin, PluginApi]) {
 								const url = AvatarDefaults.getUserAvatarURL(removedUser);
 								ret.props.children.unshift(AvatarsEverywhere_React.createElement(Avatar, {
 									src: url,
-									className: style.Z["avatar-util-align-wrapper-icon"],
+									className: style.Z["align-wrapper-icon"],
 									size: Avatar.Sizes.SIZE_16
 								}));
 								return ret;
@@ -732,7 +774,7 @@ function buildPlugin([BasePlugin, PluginApi]) {
 				});
 			};
 		})();
-		var __webpack_exports__ = __webpack_require__(617);
+		var __webpack_exports__ = __webpack_require__(193);
 		module.exports.LibraryPluginHack = __webpack_exports__;
 	})();
 	const PluginExports = module.exports.LibraryPluginHack;
