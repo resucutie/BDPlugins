@@ -4,7 +4,6 @@ import { WebpackModules } from "@zlibrary";
 import { useStateFromStores } from "@discord/flux";
 import { Button, Flex, Text } from "@discord/components";
 import createUpdateWrapper from "common/hooks/createUpdateWrapper";
-import Category from "common/components/category";
 import settings from './settingsManager';
 import styles from "./style.scss";
 
@@ -28,19 +27,6 @@ export default React.memo(() => {
         </div>
     }
 
-    const SettingHeader = () => {
-        return <div onClick={() => setTab("main")} style={{display: "flex", alignItems: "center"}}>
-            <Button
-                color={Button.Colors.TRANSPARENT}
-                size={Button.Sizes.ICON}
-            >
-                <ArrowLeft />
-            </Button>
-            <Text style={{ marginLeft: "10px" }} size={Text.Sizes.SIZE_16} color={Text.Colors.STANDARD}>Return</Text>
-        </div>
-    }
-
-
 
     //tabs
     const MentionsTab = <>
@@ -54,7 +40,6 @@ export default React.memo(() => {
             onChange={value => settings.set("mentions-no-at", value)}
             disabled={mentionsDisabled}
         >Remove the @ symbol</SwitchItem>
-        <SettingHeader />
     </>
 
     const ExtrasTab = <>
@@ -62,7 +47,6 @@ export default React.memo(() => {
             value={settings.get("typing-users", true)}
             onChange={value => settings.set("typing-users", value)}
         >Typing users</SwitchItem>
-        <SettingHeader/>
     </>
 
     const CompactModeTab = <>
@@ -76,7 +60,6 @@ export default React.memo(() => {
             onChange={value => settings.set("compact-message-reply", value)}
             disabled={compactMessagesDisabled}
         >Replies</SwitchItem>
-        <SettingHeader />
     </>
 
     const SystemMessagesTab = <>
@@ -99,7 +82,6 @@ export default React.memo(() => {
             value={settings.get("system-messages-thread-member-removed", true)}
             onChange={value => settings.set("system-messages-thread-member-removed", value)}
         >Thread member removed</SwitchItem>
-        <SettingHeader />
     </>
 
 
@@ -116,6 +98,15 @@ export default React.memo(() => {
             {tab === "typingUsers" && ExtrasTab}
             {tab === "compactMode" && CompactModeTab}
             {tab === "systemMessages" && SystemMessagesTab}
+            <div onClick={() => setTab("main")} style={{ display: "flex", alignItems: "center" }}>
+                <Button
+                    color={Button.Colors.TRANSPARENT}
+                    size={Button.Sizes.ICON}
+                >
+                    <ArrowLeft />
+                </Button>
+                <Text style={{ marginLeft: "10px" }} size={Text.Sizes.SIZE_16} color={Text.Colors.STANDARD}>Return</Text>
+            </div>
         </>}
     </>
 })
