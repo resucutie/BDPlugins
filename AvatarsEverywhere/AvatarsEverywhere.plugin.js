@@ -1,7 +1,7 @@
 /**
  * @name AvatarsEverywhere
  * @author A user
- * @version 0.0.1
+ * @version 1.0.1
  * @description Applys users avatar in different places
  * @source https://github.com/abUwUser/BDPlugins/tree/main/plugins/AvatarsEverywhere
  * @updateUrl https://raw.githubusercontent.com/abUwUser/BDPlugins/compiled/AvatarsEverywhere/AvatarsEverywhere.plugin.js
@@ -38,7 +38,7 @@ const config = {
 			"github_username": "abUwUser",
 			"twitter_username": "auwuser"
 		}],
-		"version": "0.0.1",
+		"version": "1.0.1",
 		"description": "Applys users avatar in different places",
 		"github": "https://github.com/abUwUser/BDPlugins/tree/main/plugins/AvatarsEverywhere",
 		"github_raw": "https://raw.githubusercontent.com/abUwUser/BDPlugins/compiled/AvatarsEverywhere/AvatarsEverywhere.plugin.js"
@@ -259,31 +259,6 @@ function buildPlugin([BasePlugin, PluginApi]) {
 			}
 		};
 		var __webpack_modules__ = {
-			911: (module, __webpack_exports__, __webpack_require__) => {
-				__webpack_require__.d(__webpack_exports__, {
-					Z: () => __WEBPACK_DEFAULT_EXPORT__
-				});
-				var _css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(645);
-				var _css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = __webpack_require__.n(_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
-				var ___CSS_LOADER_EXPORT___ = _css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()((function(i) {
-					return i[1];
-				}));
-				___CSS_LOADER_EXPORT___.push([module.id, ".AvatarsEverywhere-category-category.AvatarsEverywhere-category-compact{position:inherit}.AvatarsEverywhere-category-category.AvatarsEverywhere-category-compact .AvatarsEverywhere-category-header{display:flex;align-items:center;justify-content:space-between;padding:2px;padding-left:10px;text-transform:uppercase;font-weight:600;font-size:.9rem}.AvatarsEverywhere-category-category.AvatarsEverywhere-category-compact .AvatarsEverywhere-category-header .AvatarsEverywhere-category-caret{float:right;display:inline-flex;color:var(--interactive-normal)}.AvatarsEverywhere-category-category.AvatarsEverywhere-category-compact .AvatarsEverywhere-category-header .AvatarsEverywhere-category-stroke{background-color:var(--background-modifier-accent);height:2px;flex:1;margin:0 5px 0 10px}.AvatarsEverywhere-category-category.AvatarsEverywhere-category-compact .AvatarsEverywhere-category-header .AvatarsEverywhere-category-label{color:var(--interactive-normal)}.AvatarsEverywhere-category-category.AvatarsEverywhere-category-compact .AvatarsEverywhere-category-content{padding-left:20px;width:calc(100% - 40px)}.AvatarsEverywhere-category-category.AvatarsEverywhere-category-default{background:rgba(32,34,37,.3);border:1px solid #202225;margin:5px;cursor:pointer;border-radius:3px;--color: var(--interactive-normal)}.AvatarsEverywhere-category-category.AvatarsEverywhere-category-default:hover{--color: var(--interactive-hover)}.AvatarsEverywhere-category-category.AvatarsEverywhere-category-default .AvatarsEverywhere-category-header{padding-right:5px;padding:10px 15px;padding-bottom:0;display:flex;align-items:center;justify-content:space-between}.AvatarsEverywhere-category-category.AvatarsEverywhere-category-default .AvatarsEverywhere-category-header .AvatarsEverywhere-category-stroke{display:none}.AvatarsEverywhere-category-category.AvatarsEverywhere-category-default .AvatarsEverywhere-category-header .AvatarsEverywhere-category-divider{position:relative}.AvatarsEverywhere-category-category.AvatarsEverywhere-category-default .AvatarsEverywhere-category-header .AvatarsEverywhere-category-label{font-size:1rem;font-weight:600;color:#fff;text-transform:uppercase}.AvatarsEverywhere-category-category.AvatarsEverywhere-category-default .AvatarsEverywhere-category-header .AvatarsEverywhere-category-caret{color:var(--color);transition:color .3s}.AvatarsEverywhere-category-category.AvatarsEverywhere-category-default.AvatarsEverywhere-category-opened .AvatarsEverywhere-category-content{padding:8px}.AvatarsEverywhere-category-category.AvatarsEverywhere-category-default.AvatarsEverywhere-category-opened .AvatarsEverywhere-category-header{background:rgba(32,34,37,.6)}", ""]);
-				___CSS_LOADER_EXPORT___.locals = {
-					category: "AvatarsEverywhere-category-category",
-					compact: "AvatarsEverywhere-category-compact",
-					header: "AvatarsEverywhere-category-header",
-					caret: "AvatarsEverywhere-category-caret",
-					stroke: "AvatarsEverywhere-category-stroke",
-					label: "AvatarsEverywhere-category-label",
-					content: "AvatarsEverywhere-category-content",
-					default: "AvatarsEverywhere-category-default",
-					divider: "AvatarsEverywhere-category-divider",
-					opened: "AvatarsEverywhere-category-opened"
-				};
-				StyleLoader.append(module.id, ___CSS_LOADER_EXPORT___.toString());
-				const __WEBPACK_DEFAULT_EXPORT__ = Object.assign(___CSS_LOADER_EXPORT___, ___CSS_LOADER_EXPORT___.locals);
-			},
 			46: (module, __webpack_exports__, __webpack_require__) => {
 				__webpack_require__.d(__webpack_exports__, {
 					Z: () => __WEBPACK_DEFAULT_EXPORT__
@@ -303,7 +278,7 @@ function buildPlugin([BasePlugin, PluginApi]) {
 				StyleLoader.append(module.id, ___CSS_LOADER_EXPORT___.toString());
 				const __WEBPACK_DEFAULT_EXPORT__ = Object.assign(___CSS_LOADER_EXPORT___, ___CSS_LOADER_EXPORT___.locals);
 			},
-			193: (__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+			166: (__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 				__webpack_require__.r(__webpack_exports__);
 				__webpack_require__.d(__webpack_exports__, {
 					default: () => AvatarsEverywhere
@@ -311,7 +286,6 @@ function buildPlugin([BasePlugin, PluginApi]) {
 				const external_PluginApi_namespaceObject = PluginApi;
 				const external_BasePlugin_namespaceObject = BasePlugin;
 				var external_BasePlugin_default = __webpack_require__.n(external_BasePlugin_namespaceObject);
-				const stores_namespaceObject = Modules["@discord/stores"];
 				var style = __webpack_require__(46);
 				const external_StyleLoader_namespaceObject = StyleLoader;
 				var external_StyleLoader_default = __webpack_require__.n(external_StyleLoader_namespaceObject);
@@ -344,40 +318,6 @@ function buildPlugin([BasePlugin, PluginApi]) {
 					}));
 				};
 				const hooks_createUpdateWrapper = createUpdateWrapper;
-				const utils_namespaceObject = Modules["@discord/utils"];
-				var category = __webpack_require__(911);
-				function Category({
-					label,
-					children,
-					className,
-					look = Category.Looks.DEFAULT
-				}) {
-					const [opened, toggle] = (0, external_BdApi_React_.useState)(false);
-					const isCompact = look === category.Z.compact;
-					return external_BdApi_React_default().createElement("div", {
-						className: (0, utils_namespaceObject.joinClassNames)(className, look, category.Z.category, {
-							[category.Z.opened]: opened
-						})
-					}, external_BdApi_React_default().createElement("div", {
-						className: category.Z.header,
-						onClick: () => toggle(!opened)
-					}, external_BdApi_React_default().createElement("div", {
-						className: category.Z.label
-					}, label), isCompact ? external_BdApi_React_default().createElement("div", {
-						className: category.Z.stroke
-					}) : null, external_BdApi_React_default().createElement(icons_namespaceObject.Caret, {
-						direction: opened ? icons_namespaceObject.Caret.Directions.DOWN : isCompact ? icons_namespaceObject.Caret.Directions.LEFT : icons_namespaceObject.Caret.Directions.RIGHT,
-						className: category.Z.caret
-					})), !isCompact ? external_BdApi_React_default().createElement("div", {
-						className: category.Z.divider
-					}) : null, external_BdApi_React_default().createElement("div", {
-						className: category.Z.content
-					}, opened ? children : null));
-				}
-				Category.Looks = {
-					COMPACT: category.Z.compact,
-					DEFAULT: category.Z["default"]
-				};
 				const modules_namespaceObject = Modules["@discord/modules"];
 				function _defineProperty(obj, key, value) {
 					if (key in obj) Object.defineProperty(obj, key, {
@@ -435,22 +375,6 @@ function buildPlugin([BasePlugin, PluginApi]) {
 							color: components_namespaceObject.Text.Colors.HEADER_PRIMARY
 						}, children));
 					};
-					const SettingHeader = () => external_BdApi_React_default().createElement("div", {
-						onClick: () => setTab("main"),
-						style: {
-							display: "flex",
-							alignItems: "center"
-						}
-					}, external_BdApi_React_default().createElement(components_namespaceObject.Button, {
-						color: components_namespaceObject.Button.Colors.TRANSPARENT,
-						size: components_namespaceObject.Button.Sizes.ICON
-					}, external_BdApi_React_default().createElement(icons_namespaceObject.ArrowLeft, null)), external_BdApi_React_default().createElement(components_namespaceObject.Text, {
-						style: {
-							marginLeft: "10px"
-						},
-						size: components_namespaceObject.Text.Sizes.SIZE_16,
-						color: components_namespaceObject.Text.Colors.STANDARD
-					}, "Return"));
 					const MentionsTab = external_BdApi_React_default().createElement(external_BdApi_React_default().Fragment, null, external_BdApi_React_default().createElement(SwitchItem, {
 						value: settingsManager.get("mentions", true),
 						onChange: value => settingsManager.set("mentions", value)
@@ -458,11 +382,11 @@ function buildPlugin([BasePlugin, PluginApi]) {
 						value: settingsManager.get("mentions-no-at", false),
 						onChange: value => settingsManager.set("mentions-no-at", value),
 						disabled: mentionsDisabled
-					}, "Remove the @ symbol"), external_BdApi_React_default().createElement(SettingHeader, null));
+					}, "Remove the @ symbol"));
 					const ExtrasTab = external_BdApi_React_default().createElement(external_BdApi_React_default().Fragment, null, external_BdApi_React_default().createElement(SwitchItem, {
 						value: settingsManager.get("typing-users", true),
 						onChange: value => settingsManager.set("typing-users", value)
-					}, "Typing users"), external_BdApi_React_default().createElement(SettingHeader, null));
+					}, "Typing users"));
 					const CompactModeTab = external_BdApi_React_default().createElement(external_BdApi_React_default().Fragment, null, external_BdApi_React_default().createElement(SwitchItem, {
 						value: settingsManager.get("compact-message", false),
 						onChange: value => settingsManager.set("compact-message", value)
@@ -470,7 +394,7 @@ function buildPlugin([BasePlugin, PluginApi]) {
 						value: settingsManager.get("compact-message-reply", false),
 						onChange: value => settingsManager.set("compact-message-reply", value),
 						disabled: compactMessagesDisabled
-					}, "Replies"), external_BdApi_React_default().createElement(SettingHeader, null));
+					}, "Replies"));
 					const SystemMessagesTab = external_BdApi_React_default().createElement(external_BdApi_React_default().Fragment, null, external_BdApi_React_default().createElement(SwitchItem, {
 						value: settingsManager.get("system-messages-join", true),
 						onChange: value => settingsManager.set("system-messages-join", value)
@@ -483,7 +407,7 @@ function buildPlugin([BasePlugin, PluginApi]) {
 					}, "Thread created"), external_BdApi_React_default().createElement(SwitchItem, {
 						value: settingsManager.get("system-messages-thread-member-removed", true),
 						onChange: value => settingsManager.set("system-messages-thread-member-removed", value)
-					}, "Thread member removed"), external_BdApi_React_default().createElement(SettingHeader, null));
+					}, "Thread member removed"));
 					return external_BdApi_React_default().createElement(external_BdApi_React_default().Fragment, null, "main" === tab ? external_BdApi_React_default().createElement("div", {
 						className: style.Z["settings-grid"]
 					}, external_BdApi_React_default().createElement(SelectCard, {
@@ -519,173 +443,213 @@ function buildPlugin([BasePlugin, PluginApi]) {
 							display: "block",
 							marginBottom: "5px"
 						}
-					}), "mentions" === tab && MentionsTab, "typingUsers" === tab && ExtrasTab, "compactMode" === tab && CompactModeTab, "systemMessages" === tab && SystemMessagesTab));
+					}), "mentions" === tab && MentionsTab, "typingUsers" === tab && ExtrasTab, "compactMode" === tab && CompactModeTab, "systemMessages" === tab && SystemMessagesTab, external_BdApi_React_default().createElement("div", {
+						onClick: () => setTab("main"),
+						style: {
+							display: "flex",
+							alignItems: "center"
+						}
+					}, external_BdApi_React_default().createElement(components_namespaceObject.Button, {
+						color: components_namespaceObject.Button.Colors.TRANSPARENT,
+						size: components_namespaceObject.Button.Sizes.ICON
+					}, external_BdApi_React_default().createElement(icons_namespaceObject.ArrowLeft, null)), external_BdApi_React_default().createElement(components_namespaceObject.Text, {
+						style: {
+							marginLeft: "10px"
+						},
+						size: components_namespaceObject.Text.Sizes.SIZE_16,
+						color: components_namespaceObject.Text.Colors.STANDARD
+					}, "Return"))));
 				}));
-				var AvatarsEverywhere_React = __webpack_require__(113);
-				const {
-					AvatarDefaults,
-					RelationshipStore
-				} = external_PluginApi_namespaceObject.DiscordModules;
+				const stores_namespaceObject = Modules["@discord/stores"];
+				var userMentions_React = __webpack_require__(113);
 				const {
 					default: Avatar
 				} = external_PluginApi_namespaceObject.WebpackModules.getByProps("AnimatedAvatar");
+				const {
+					AvatarDefaults
+				} = external_PluginApi_namespaceObject.DiscordModules;
+				const userMentions = () => {
+					external_PluginApi_namespaceObject.Patcher.after(external_PluginApi_namespaceObject.WebpackModules.getModule((m => "UserMention" === m?.default?.displayName)), "default", ((_this, [props], wrapperRes) => {
+						if (!settingsManager.get("mentions", true)) return;
+						const _oldFunc = wrapperRes.props.children;
+						wrapperRes.props.children = function() {
+							let res = _oldFunc.apply(this, arguments);
+							let text = res.props.children;
+							if (settingsManager.get("mentions-no-at", false)) text = external_PluginApi_namespaceObject.Utilities.findInTree(text, (e => "@" === e?.charAt?.(0))).slice(1);
+							const user = stores_namespaceObject.Users.getUser(props.userId);
+							res.props.children = [userMentions_React.createElement(Avatar, {
+								src: AvatarDefaults.getUserAvatarURL(user),
+								className: style.Z["align-wrapper-icon"],
+								size: Avatar.Sizes.SIZE_16
+							}), text];
+							res.props.className += " " + style.Z["align-wrapper"];
+							return res;
+						};
+					}));
+				};
+				var typingBar_React = __webpack_require__(113);
+				const {
+					default: typingBar_Avatar
+				} = external_PluginApi_namespaceObject.WebpackModules.getByProps("AnimatedAvatar");
+				const {
+					AvatarDefaults: typingBar_AvatarDefaults,
+					RelationshipStore
+				} = external_PluginApi_namespaceObject.DiscordModules;
+				const filterTypingUsers = typingUsers => {
+					if (!typingUsers) return [];
+					return Object.keys(typingUsers).filter((e => e != stores_namespaceObject.Users.getCurrentUser().id)).filter((e => !RelationshipStore.isBlocked(e))).map((e => stores_namespaceObject.Users.getUser(e))).filter((function(e) {
+						return null != e;
+					}));
+				};
+				const typingBar = async () => {
+					const TypingUsers = await external_PluginApi_namespaceObject.ReactComponents.getComponentByName("TypingUsers");
+					if (!TypingUsers?.component?.prototype) return;
+					external_PluginApi_namespaceObject.Patcher.after(TypingUsers.component.prototype, "render", ((_this, [props], res) => {
+						if (!settingsManager.get("typing-users", true)) return;
+						const userList = filterTypingUsers(Object.assign({}, _this.props.typingUsers));
+						if (!userList) return;
+						for (let m = 0; m < userList.length; m++) {
+							const user = stores_namespaceObject.Users.getUser(userList[m].id);
+							if (!user) continue;
+							let tree = res?.props?.children?.[1]?.props?.childre;
+							if (!tree) continue;
+							let userChildren = tree[2 * m];
+							userChildren.props.children.unshift(typingBar_React.createElement(typingBar_Avatar, {
+								src: typingBar_AvatarDefaults.getUserAvatarURL(user),
+								className: style.Z["align-wrapper-icon"],
+								size: typingBar_Avatar.Sizes.SIZE_16
+							}));
+							userChildren.props.className += " " + style.Z["align-wrapper"];
+						}
+					}));
+					TypingUsers.forceUpdateAll();
+				};
+				const {
+					default: compactMessages_Avatar
+				} = external_PluginApi_namespaceObject.WebpackModules.getByProps("AnimatedAvatar");
+				const {
+					AvatarDefaults: compactMessages_AvatarDefaults
+				} = external_PluginApi_namespaceObject.DiscordModules;
+				const compactMessages = () => {
+					external_PluginApi_namespaceObject.Patcher.after(external_PluginApi_namespaceObject.WebpackModules.find((e => e.default?.toString().indexOf("getGuildMemberAvatarURLSimple") > -1)), "default", ((_this, [props], res) => {
+						if (!(settingsManager.get("compact-message", true) && stores_namespaceObject.SettingsStore.messageDisplayCompact)) return;
+						if (!settingsManager.get("compact-message-reply", true) && props.hasOwnProperty("withMentionPrefix")) return;
+						let header = external_PluginApi_namespaceObject.Utilities.findInReactTree(res, (e => e?.renderPopout));
+						const ogFunc = header?.children;
+						if (!ogFunc) return;
+						header.children = (...args) => {
+							let ret = ogFunc(...args);
+							let children = ret.props?.children;
+							ret.props.className += " " + style.Z["align-wrapper"];
+							if (external_BdApi_React_default().isValidElement(children.props?.children?.[0])) return ret;
+							const url = compactMessages_AvatarDefaults.getUserAvatarURL(props.message.author);
+							children.props.children.unshift(external_BdApi_React_default().createElement(compactMessages_Avatar, {
+								src: url,
+								className: style.Z["align-wrapper-icon"],
+								size: compactMessages_Avatar.Sizes.SIZE_16
+							}));
+							return ret;
+						};
+					}));
+				};
+				const {
+					default: systemMessages_Avatar
+				} = external_PluginApi_namespaceObject.WebpackModules.getByProps("AnimatedAvatar");
+				const {
+					AvatarDefaults: systemMessages_AvatarDefaults
+				} = external_PluginApi_namespaceObject.DiscordModules;
+				const systemMessages = () => {
+					const setupEnv = (element, checkElement) => {
+						if (!element) return true;
+						element.props.className += " " + style.Z["align-wrapper"];
+						if (!checkElement) return;
+						return external_BdApi_React_default().isValidElement(checkElement);
+					};
+					external_PluginApi_namespaceObject.Patcher.after(external_PluginApi_namespaceObject.WebpackModules.find((m => "UserJoin" === m.default?.displayName)), "default", ((_this, [props], res) => {
+						if (!settingsManager.get("system-messages-join", true)) return;
+						let userName = external_PluginApi_namespaceObject.Utilities.findInReactTree(res, (e => e?.renderPopout));
+						const ogFunc = userName?.children;
+						if (!ogFunc) return;
+						userName.children = (...args) => {
+							let ret = ogFunc(...args);
+							if (setupEnv(ret, ret.props?.children?.[0])) return ret;
+							const url = systemMessages_AvatarDefaults.getUserAvatarURL(props.message.author);
+							ret.props.children.unshift(external_BdApi_React_default().createElement(systemMessages_Avatar, {
+								src: url,
+								className: style.Z["align-wrapper-icon"],
+								size: systemMessages_Avatar.Sizes.SIZE_16
+							}));
+							return ret;
+						};
+					}));
+					external_PluginApi_namespaceObject.Patcher.after(external_PluginApi_namespaceObject.WebpackModules.find((m => "UserPremiumGuildSubscription" === m.default?.displayName)).default.prototype, "render", ((_this, [props], res) => {
+						if (!settingsManager.get("system-messages-boost", true)) return;
+						let userName = external_PluginApi_namespaceObject.Utilities.findInReactTree(res, (e => e?.props?.renderPopout));
+						const ogFunc = userName?.props?.children;
+						if (!ogFunc) return;
+						userName.props.children = (...args) => {
+							let ret = ogFunc(...args);
+							if (setupEnv(ret, ret.props?.children?.[0])) return ret;
+							const url = systemMessages_AvatarDefaults.getUserAvatarURL(_this.props.message.author);
+							ret.props.children.unshift(external_BdApi_React_default().createElement(systemMessages_Avatar, {
+								src: url,
+								className: style.Z["align-wrapper-icon"],
+								size: systemMessages_Avatar.Sizes.SIZE_16
+							}));
+							return ret;
+						};
+					}));
+					external_PluginApi_namespaceObject.Patcher.after(external_PluginApi_namespaceObject.WebpackModules.find((m => "ThreadCreated" === m.default?.displayName)), "default", ((_this, [props], res) => {
+						if (!settingsManager.get("system-messages-thread-created", true)) return;
+						const url = systemMessages_AvatarDefaults.getUserAvatarURL(props.message.author);
+						res.props.children.unshift(external_BdApi_React_default().createElement(systemMessages_Avatar, {
+							src: url,
+							className: style.Z["align-wrapper-icon"],
+							size: systemMessages_Avatar.Sizes.SIZE_16
+						}));
+					}));
+					external_PluginApi_namespaceObject.Patcher.after(external_PluginApi_namespaceObject.WebpackModules.find((m => "ThreadMemberRemove" === m.default?.displayName)), "default", ((_this, [props], res) => {
+						if (!settingsManager.get("system-messages-thread-member-removed", true)) return;
+						const personRemoveUser = props.message.author;
+						const removedUser = props.targetUser;
+						let personRemoveUserElement = external_PluginApi_namespaceObject.Utilities.findInReactTree(res, (e => e?.props?.renderPopout && "0" === e?.key));
+						let removedUserElement = external_PluginApi_namespaceObject.Utilities.findInReactTree(res, (e => e?.props?.renderPopout && "2" === e?.key));
+						const personRemoveUserElementOgFunc = personRemoveUserElement?.props?.children;
+						const removedUserElementOgFunc = removedUserElement?.props?.children;
+						if (!(personRemoveUserElementOgFunc && removedUserElementOgFunc)) return;
+						personRemoveUserElement.props.children = (...args) => {
+							let ret = personRemoveUserElementOgFunc(...args);
+							if (setupEnv(ret, ret.props?.children?.[0])) return ret;
+							const url = systemMessages_AvatarDefaults.getUserAvatarURL(personRemoveUser);
+							ret.props.children.unshift(external_BdApi_React_default().createElement(systemMessages_Avatar, {
+								src: url,
+								className: style.Z["align-wrapper-icon"],
+								size: systemMessages_Avatar.Sizes.SIZE_16
+							}));
+							return ret;
+						};
+						removedUserElement.props.children = (...args) => {
+							let ret = removedUserElementOgFunc(...args);
+							if (setupEnv(ret, ret.props?.children?.[0])) return ret;
+							const url = systemMessages_AvatarDefaults.getUserAvatarURL(removedUser);
+							ret.props.children.unshift(external_BdApi_React_default().createElement(systemMessages_Avatar, {
+								src: url,
+								className: style.Z["align-wrapper-icon"],
+								size: systemMessages_Avatar.Sizes.SIZE_16
+							}));
+							return ret;
+						};
+					}));
+				};
+				var AvatarsEverywhere_React = __webpack_require__(113);
 				class AvatarsEverywhere extends(external_BasePlugin_default()) {
 					onStart() {
 						external_StyleLoader_default().inject();
-						this.patchUserMention();
-						this.patchTypingBar();
-						this.patchCompactMessages();
-						this.patchSystemMessages();
-					}
-					patchUserMention() {
-						external_PluginApi_namespaceObject.Patcher.after(external_PluginApi_namespaceObject.WebpackModules.getModule((m => "UserMention" === m?.default?.displayName)), "default", ((_this, [props], wrapperRes) => {
-							if (!settingsManager.get("mentions", true)) return;
-							const _oldFunc = wrapperRes.props.children;
-							wrapperRes.props.children = function() {
-								let res = _oldFunc.apply(this, arguments);
-								let text = res.props.children;
-								if (settingsManager.get("mentions-no-at", false)) text = external_PluginApi_namespaceObject.Utilities.findInTree(text, (e => "@" === e?.charAt?.(0))).slice(1);
-								const user = stores_namespaceObject.Users.getUser(props.userId);
-								res.props.children = [AvatarsEverywhere_React.createElement(Avatar, {
-									src: AvatarDefaults.getUserAvatarURL(user),
-									className: style.Z["align-wrapper-icon"],
-									size: Avatar.Sizes.SIZE_16
-								}), text];
-								res.props.className += " " + style.Z["align-wrapper"];
-								return res;
-							};
-						}));
-					}
-					async patchTypingBar() {
-						const filterTypingUsers = typingUsers => {
-							if (!typingUsers) return [];
-							return Object.keys(typingUsers).filter((e => e != stores_namespaceObject.Users.getCurrentUser().id)).filter((e => !RelationshipStore.isBlocked(e))).map((e => stores_namespaceObject.Users.getUser(e))).filter((function(e) {
-								return null != e;
-							}));
-						};
-						const TypingUsers = await external_PluginApi_namespaceObject.ReactComponents.getComponentByName("TypingUsers");
-						if (!TypingUsers?.component?.prototype) return;
-						external_PluginApi_namespaceObject.Patcher.after(TypingUsers.component.prototype, "render", ((_this, [props], res) => {
-							if (!settingsManager.get("typing-users", true)) return;
-							const typingUsers = filterTypingUsers(Object.assign({}, _this.props.typingUsers));
-							for (let m = 0; m < typingUsers.length; m++) {
-								const user = stores_namespaceObject.Users.getUser(typingUsers[m].id);
-								if (!user) continue;
-								let userChildren = res.props.children[1].props.children[2 * m];
-								userChildren.props.children.unshift(AvatarsEverywhere_React.createElement(Avatar, {
-									src: AvatarDefaults.getUserAvatarURL(user),
-									className: style.Z["align-wrapper-icon"],
-									size: Avatar.Sizes.SIZE_16
-								}));
-								userChildren.props.className += " " + style.Z["align-wrapper"];
-							}
-						}));
-						TypingUsers.forceUpdateAll();
-					}
-					patchCompactMessages() {
-						external_PluginApi_namespaceObject.Patcher.after(external_PluginApi_namespaceObject.WebpackModules.find((e => e.default?.toString().indexOf("getGuildMemberAvatarURLSimple") > -1)), "default", ((_this, [props], res) => {
-							if (!(settingsManager.get("compact-message", true) && stores_namespaceObject.SettingsStore.messageDisplayCompact)) return;
-							if (!settingsManager.get("compact-message-reply", true) && props.hasOwnProperty("withMentionPrefix")) return;
-							let header = external_PluginApi_namespaceObject.Utilities.findInReactTree(res, (e => e?.renderPopout));
-							const ogFunc = header?.children;
-							if (!ogFunc) return;
-							header.children = (...args) => {
-								let ret = ogFunc(...args);
-								let children = ret.props?.children;
-								ret.props.className += " " + style.Z["align-wrapper"];
-								if (AvatarsEverywhere_React.isValidElement(children.props?.children?.[0])) return ret;
-								const url = AvatarDefaults.getUserAvatarURL(props.message.author);
-								children.props.children.unshift(AvatarsEverywhere_React.createElement(Avatar, {
-									src: url,
-									className: style.Z["align-wrapper-icon"],
-									size: Avatar.Sizes.SIZE_16
-								}));
-								return ret;
-							};
-						}));
-					}
-					patchSystemMessages() {
-						const setupEnv = (element, checkElement) => {
-							if (!element) return true;
-							element.props.className += " " + style.Z["align-wrapper"];
-							if (!checkElement) return;
-							return AvatarsEverywhere_React.isValidElement(checkElement);
-						};
-						external_PluginApi_namespaceObject.Patcher.after(external_PluginApi_namespaceObject.WebpackModules.find((m => "UserJoin" === m.default?.displayName)), "default", ((_this, [props], res) => {
-							if (!settingsManager.get("system-messages-join", true)) return;
-							let userName = external_PluginApi_namespaceObject.Utilities.findInReactTree(res, (e => e?.renderPopout));
-							const ogFunc = userName?.children;
-							if (!ogFunc) return;
-							userName.children = (...args) => {
-								let ret = ogFunc(...args);
-								if (setupEnv(ret, ret.props?.children?.[0])) return ret;
-								const url = AvatarDefaults.getUserAvatarURL(props.message.author);
-								ret.props.children.unshift(AvatarsEverywhere_React.createElement(Avatar, {
-									src: url,
-									className: style.Z["align-wrapper-icon"],
-									size: Avatar.Sizes.SIZE_16
-								}));
-								return ret;
-							};
-						}));
-						external_PluginApi_namespaceObject.Patcher.after(external_PluginApi_namespaceObject.WebpackModules.find((m => "UserPremiumGuildSubscription" === m.default?.displayName)).default.prototype, "render", ((_this, [props], res) => {
-							if (!settingsManager.get("system-messages-boost", true)) return;
-							let userName = external_PluginApi_namespaceObject.Utilities.findInReactTree(res, (e => e?.props?.renderPopout));
-							const ogFunc = userName?.props?.children;
-							if (!ogFunc) return;
-							userName.props.children = (...args) => {
-								let ret = ogFunc(...args);
-								if (setupEnv(ret, ret.props?.children?.[0])) return ret;
-								const url = AvatarDefaults.getUserAvatarURL(_this.props.message.author);
-								ret.props.children.unshift(AvatarsEverywhere_React.createElement(Avatar, {
-									src: url,
-									className: style.Z["align-wrapper-icon"],
-									size: Avatar.Sizes.SIZE_16
-								}));
-								return ret;
-							};
-						}));
-						external_PluginApi_namespaceObject.Patcher.after(external_PluginApi_namespaceObject.WebpackModules.find((m => "ThreadCreated" === m.default?.displayName)), "default", ((_this, [props], res) => {
-							if (!settingsManager.get("system-messages-thread-created", true)) return;
-							const url = AvatarDefaults.getUserAvatarURL(props.message.author);
-							res.props.children.unshift(AvatarsEverywhere_React.createElement(Avatar, {
-								src: url,
-								className: style.Z["align-wrapper-icon"],
-								size: Avatar.Sizes.SIZE_16
-							}));
-						}));
-						external_PluginApi_namespaceObject.Patcher.after(external_PluginApi_namespaceObject.WebpackModules.find((m => "ThreadMemberRemove" === m.default?.displayName)), "default", ((_this, [props], res) => {
-							if (!settingsManager.get("system-messages-thread-member-removed", true)) return;
-							const personRemoveUser = props.message.author;
-							const removedUser = props.targetUser;
-							let personRemoveUserElement = external_PluginApi_namespaceObject.Utilities.findInReactTree(res, (e => e?.props?.renderPopout && "0" === e?.key));
-							let removedUserElement = external_PluginApi_namespaceObject.Utilities.findInReactTree(res, (e => e?.props?.renderPopout && "2" === e?.key));
-							const personRemoveUserElementOgFunc = personRemoveUserElement?.props?.children;
-							const removedUserElementOgFunc = removedUserElement?.props?.children;
-							if (!(personRemoveUserElementOgFunc && removedUserElementOgFunc)) return;
-							personRemoveUserElement.props.children = (...args) => {
-								let ret = personRemoveUserElementOgFunc(...args);
-								if (setupEnv(ret, ret.props?.children?.[0])) return ret;
-								const url = AvatarDefaults.getUserAvatarURL(personRemoveUser);
-								ret.props.children.unshift(AvatarsEverywhere_React.createElement(Avatar, {
-									src: url,
-									className: style.Z["align-wrapper-icon"],
-									size: Avatar.Sizes.SIZE_16
-								}));
-								return ret;
-							};
-							removedUserElement.props.children = (...args) => {
-								let ret = removedUserElementOgFunc(...args);
-								if (setupEnv(ret, ret.props?.children?.[0])) return ret;
-								const url = AvatarDefaults.getUserAvatarURL(removedUser);
-								ret.props.children.unshift(AvatarsEverywhere_React.createElement(Avatar, {
-									src: url,
-									className: style.Z["align-wrapper-icon"],
-									size: Avatar.Sizes.SIZE_16
-								}));
-								return ret;
-							};
-						}));
+						style.Z["align-wrapper-icon"];
+						userMentions();
+						typingBar();
+						compactMessages();
+						systemMessages();
 					}
 					getSettingsPanel() {
 						return AvatarsEverywhere_React.createElement(Settings, null);
@@ -774,7 +738,7 @@ function buildPlugin([BasePlugin, PluginApi]) {
 				});
 			};
 		})();
-		var __webpack_exports__ = __webpack_require__(193);
+		var __webpack_exports__ = __webpack_require__(166);
 		module.exports.LibraryPluginHack = __webpack_exports__;
 	})();
 	const PluginExports = module.exports.LibraryPluginHack;
