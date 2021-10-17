@@ -1,6 +1,5 @@
 import { Patcher } from "@zlibrary";
 import BasePlugin from "@zlibrary/plugin";
-import styles from "./style.scss";
 import stylesheet from "styles"
 import SettingsPanel from "./Settings"
 
