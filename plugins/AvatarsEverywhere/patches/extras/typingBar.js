@@ -1,4 +1,4 @@
-import { Patcher, WebpackModules, DiscordModules, ReactComponents } from "@zlibrary";
+import { Patcher, WebpackModules, DiscordModules, DiscordSelectors, ReactComponents } from "@zlibrary";
 import { Users as UserStore } from "@discord/stores";
 import styles from "../../style.scss";
 import settings from "../../settingsManager";
@@ -25,20 +25,21 @@ const filterTypingUsers = (typingUsers) => {
     * @see {@link https://github.com/rauenzi/BetterDiscordAddons/blob/726f015e791852d6ef85a2c0236c90cec04aa87b/Plugins/BetterRoleColors/BetterRoleColors.plugin.js#L293-L324}
 */
 export default async () => {
-    const TypingUsers = await ReactComponents.getComponentByName("TypingUsers");
+    const TypingUsers = await ReactComponents.getComponentByName("TypingUsers", DiscordSelectors.Typing.typing);
     if (!TypingUsers?.component?.prototype) return
 
     Patcher.after(TypingUsers.component.prototype, "render", (_this, [props], res) => {
         if (!settings.get("typing-users", true)) return
 
         const userList = filterTypingUsers(Object.assign({}, _this.props.typingUsers));
+        console.log(userList)
         if (!userList) return
 
         for (let m = 0; m < userList.length; m++) {
             const user = UserStore.getUser(userList[m].id);
             if (!user) continue
 
-            let tree = res?.props?.children?.[1]?.props?.childre
+            let tree = res?.props?.children?.[1]?.props?.children
             if (!tree) continue
             let userChildren = tree[m * 2]
 

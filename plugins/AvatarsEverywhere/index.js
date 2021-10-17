@@ -6,6 +6,7 @@ import SettingsPanel from "./Settings"
 
 import userMentions from "./patches/userMentions";
 import typingBar from "./patches/extras/typingBar";
+// import dmHeaderBar from "./patches/extras/dmHeaderBar";
 import compactMessages from "./patches/compactMessages";
 import systemMessages from "./patches/systemMessages";
 
@@ -18,6 +19,7 @@ export default class AvatarsEverywhere extends BasePlugin {
         typingBar()
         compactMessages()
         systemMessages()
+        // dmHeaderBar()
     }
 
 
