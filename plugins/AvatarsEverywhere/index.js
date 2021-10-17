@@ -13,7 +13,6 @@ import systemMessages from "./patches/systemMessages";
 export default class AvatarsEverywhere extends BasePlugin {
     onStart() {
         stylesheet.inject()
-        styles["align-wrapper-icon"] //makes bdbuilder to load stylesheet
 
         userMentions()
         typingBar()

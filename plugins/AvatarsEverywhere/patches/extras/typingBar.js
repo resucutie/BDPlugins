@@ -32,7 +32,7 @@ export default async () => {
         if (!settings.get("typing-users", true)) return
 
         const userList = filterTypingUsers(Object.assign({}, _this.props.typingUsers));
-        console.log(userList)
+        //console.log(userList)
         if (!userList) return
 
         for (let m = 0; m < userList.length; m++) {

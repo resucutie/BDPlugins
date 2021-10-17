@@ -1,6 +1,6 @@
 {
     "info": {
-        "name": "AvatarsEverywhere",
+        "name": "DarkCreateGuildModal",
         "authors": [
             {
                 "name": "A user",
@@ -9,10 +9,8 @@
                 "twitter_username": "auwuser"
             }
         ],
-        "version": "1.0.1",
-        "description": "Applies users avatar in different places",
-        "github": "https://github.com/abUwUser/BDPlugins/tree/main/plugins/AvatarsEverywhere",
-        "github_raw": "https://raw.githubusercontent.com/abUwUser/BDPlugins/compiled/AvatarsEverywhere/AvatarsEverywhere.plugin.js"
+        "version": "1.0.0",
+        "description": "Forces dark theme on the \"Create a Server\" modal"
     },
     "build": {
         "copy": true,
