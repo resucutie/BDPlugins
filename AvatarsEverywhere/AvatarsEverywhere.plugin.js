@@ -2,7 +2,7 @@
  * @name AvatarsEverywhere
  * @author A user
  * @version 1.0.1
- * @description Applys users avatar in different places
+ * @description Applies users avatar in different places
  * @source https://github.com/abUwUser/BDPlugins/tree/main/plugins/AvatarsEverywhere
  * @updateUrl https://raw.githubusercontent.com/abUwUser/BDPlugins/compiled/AvatarsEverywhere/AvatarsEverywhere.plugin.js
  */
@@ -39,7 +39,7 @@ const config = {
 			"twitter_username": "auwuser"
 		}],
 		"version": "1.0.1",
-		"description": "Applys users avatar in different places",
+		"description": "Applies users avatar in different places",
 		"github": "https://github.com/abUwUser/BDPlugins/tree/main/plugins/AvatarsEverywhere",
 		"github_raw": "https://raw.githubusercontent.com/abUwUser/BDPlugins/compiled/AvatarsEverywhere/AvatarsEverywhere.plugin.js"
 	},
@@ -502,7 +502,7 @@ function buildPlugin([BasePlugin, PluginApi]) {
 					}));
 				};
 				const typingBar = async () => {
-					const TypingUsers = await external_PluginApi_namespaceObject.ReactComponents.getComponentByName("TypingUsers");
+					const TypingUsers = await external_PluginApi_namespaceObject.ReactComponents.getComponentByName("TypingUsers", external_PluginApi_namespaceObject.DiscordSelectors.Typing.typing);
 					if (!TypingUsers?.component?.prototype) return;
 					external_PluginApi_namespaceObject.Patcher.after(TypingUsers.component.prototype, "render", ((_this, [props], res) => {
 						if (!settingsManager.get("typing-users", true)) return;
@@ -511,7 +511,7 @@ function buildPlugin([BasePlugin, PluginApi]) {
 						for (let m = 0; m < userList.length; m++) {
 							const user = stores_namespaceObject.Users.getUser(userList[m].id);
 							if (!user) continue;
-							let tree = res?.props?.children?.[1]?.props?.childre;
+							let tree = res?.props?.children?.[1]?.props?.children;
 							if (!tree) continue;
 							let userChildren = tree[2 * m];
 							userChildren.props.children.unshift(typingBar_React.createElement(typingBar_Avatar, {
@@ -645,7 +645,6 @@ function buildPlugin([BasePlugin, PluginApi]) {
 				class AvatarsEverywhere extends(external_BasePlugin_default()) {
 					onStart() {
 						external_StyleLoader_default().inject();
-						style.Z["align-wrapper-icon"];
 						userMentions();
 						typingBar();
 						compactMessages();

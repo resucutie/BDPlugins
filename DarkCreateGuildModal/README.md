@@ -1,6 +1,6 @@
-# AvatarsEverywhere
+# DarkCreateGuildModal
 
-> Applies users avatar in different places
+> Forces dark theme on the "Create a Server" modal
 <hr/>
 
 
