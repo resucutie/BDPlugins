@@ -286,7 +286,6 @@ function buildPlugin([BasePlugin, PluginApi]) {
 				const external_PluginApi_namespaceObject = PluginApi;
 				const external_BasePlugin_namespaceObject = BasePlugin;
 				var external_BasePlugin_default = __webpack_require__.n(external_BasePlugin_namespaceObject);
-				var style = __webpack_require__(46);
 				const external_StyleLoader_namespaceObject = StyleLoader;
 				var external_StyleLoader_default = __webpack_require__.n(external_StyleLoader_namespaceObject);
 				var external_BdApi_React_ = __webpack_require__(113);
@@ -348,6 +347,7 @@ function buildPlugin([BasePlugin, PluginApi]) {
 				const package_namespaceObject = JSON.parse('{"u":{"u2":"AvatarsEverywhere"}}');
 				const settings = new SettingsManager(package_namespaceObject.u.u2);
 				const settingsManager = settings;
+				var style = __webpack_require__(46);
 				const SwitchItem = hooks_createUpdateWrapper(external_PluginApi_namespaceObject.WebpackModules.getByDisplayName("SwitchItem"));
 				const Settings = external_BdApi_React_default().memo((() => {
 					const mentionsDisabled = (0, flux_namespaceObject.useStateFromStores)([settingsManager], (() => !settingsManager.get("mentions", true)));
