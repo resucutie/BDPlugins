@@ -58,8 +58,7 @@ export default React.memo(() => {
         <SwitchItem
             value={settings.get("compact-message-reply", false)}
             onChange={value => settings.set("compact-message-reply", value)}
-            disabled={compactMessagesDisabled}
-        >Replies</SwitchItem>
+        >Add avatars to replies (only with Compact Mode enabled)</SwitchItem>
     </>
 
     const SystemMessagesTab = <>
