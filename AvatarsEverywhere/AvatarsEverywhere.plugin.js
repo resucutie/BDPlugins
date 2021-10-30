@@ -1,7 +1,7 @@
 /**
  * @name AvatarsEverywhere
  * @author A user
- * @version 1.0.2
+ * @version 1.0.4
  * @description Applies users avatar in different places
  * @source https://github.com/abUwUser/BDPlugins/tree/main/plugins/AvatarsEverywhere
  * @updateUrl https://raw.githubusercontent.com/abUwUser/BDPlugins/compiled/AvatarsEverywhere/AvatarsEverywhere.plugin.js
@@ -38,7 +38,7 @@ const config = {
 			"github_username": "abUwUser",
 			"twitter_username": "auwuser"
 		}],
-		"version": "1.0.2",
+		"version": "1.0.4",
 		"description": "Applies users avatar in different places",
 		"github": "https://github.com/abUwUser/BDPlugins/tree/main/plugins/AvatarsEverywhere",
 		"github_raw": "https://raw.githubusercontent.com/abUwUser/BDPlugins/compiled/AvatarsEverywhere/AvatarsEverywhere.plugin.js"
@@ -524,6 +524,7 @@ function buildPlugin([BasePlugin, PluginApi]) {
 							let tree = res?.props?.children?.[1]?.props?.children;
 							if (!tree) continue;
 							let userChildren = tree[2 * m];
+							if (typingBar_React.isValidElement(userChildren?.props?.children?.[0])) return firstRet;
 							userChildren.props.children.unshift(typingBar_React.createElement(typingBar_Avatar, {
 								src: user.getAvatarURL(stores_namespaceObject.SelectedGuilds.getGuildId(), 16),
 								className: style.Z["align-wrapper-icon"],
