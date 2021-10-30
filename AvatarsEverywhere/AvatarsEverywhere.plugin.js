@@ -524,7 +524,7 @@ function buildPlugin([BasePlugin, PluginApi]) {
 							let tree = res?.props?.children?.[1]?.props?.children;
 							if (!tree) continue;
 							let userChildren = tree[2 * m];
-							if (typingBar_React.isValidElement(userChildren?.props?.children?.[0])) return firstRet;
+							if (typingBar_React.isValidElement(userChildren?.props?.children?.[0])) continue;
 							userChildren.props.children.unshift(typingBar_React.createElement(typingBar_Avatar, {
 								src: user.getAvatarURL(stores_namespaceObject.SelectedGuilds.getGuildId(), 16),
 								className: style.Z["align-wrapper-icon"],
