@@ -43,6 +43,7 @@ export default async () => {
             if (!tree) continue
             let userChildren = tree[m * 2]
 
+            if (React.isValidElement(userChildren?.props?.children?.[0])) return firstRet
             userChildren.props.children.unshift(<Avatar src={user.getAvatarURL(SelectedGuilds.getGuildId(), 16)} className={styles["align-wrapper-icon"]} size={Avatar.Sizes.SIZE_16} />)
             userChildren.props.className += " " + styles["align-wrapper"]
         }
