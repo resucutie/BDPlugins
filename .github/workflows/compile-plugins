@@ -7,7 +7,7 @@ const _fs = require("fs");
 const changedFilesIgnore = [
   "bdbuilder",
   "scripts",
-  "UserBirthdays"
+  "devilbruh"
 ];
 const releaseExtensions = [".md", ".plugin.js", "assets"];
 

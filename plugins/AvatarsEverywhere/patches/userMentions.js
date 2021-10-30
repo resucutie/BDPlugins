@@ -1,10 +1,9 @@
 import { Patcher, WebpackModules, Utilities, DiscordModules } from "@zlibrary";
-import { Users as UserStore } from "@discord/stores";
+import { Users as UserStore, SelectedGuilds } from "@discord/stores";
 import styles from "../style.scss";
 import settings from "../settingsManager";
 
 const { default: Avatar } = WebpackModules.getByProps("AnimatedAvatar")
-const { AvatarDefaults } = DiscordModules
 
 export default () => {
     Patcher.after(WebpackModules.getModule(m => m?.default?.displayName === "UserMention"), "default", (_this, [props], wrapperRes) => {
@@ -23,8 +22,7 @@ export default () => {
             }
 
             const user = UserStore.getUser(props.userId)
-
-            res.props.children = [<Avatar src={AvatarDefaults.getUserAvatarURL(user)} className={styles["align-wrapper-icon"]} size={Avatar.Sizes.SIZE_16} />, text]
+            res.props.children = [<Avatar src={user.getAvatarURL(SelectedGuilds.getGuildId(), 16)} className={styles["align-wrapper-icon"]} size={Avatar.Sizes.SIZE_16} />, text]
 
             res.props.className += " " + styles["align-wrapper"]
 

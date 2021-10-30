@@ -1,6 +1,7 @@
 import React from "react"
 
 import { Patcher, WebpackModules, Utilities, DiscordModules } from "@zlibrary";
+import { SelectedGuilds } from "@discord/stores";
 import styles from "../style.scss";
 import settings from "../settingsManager";
 
@@ -21,6 +22,8 @@ export default () => {
     Patcher.after(WebpackModules.find(m => m.default?.displayName === "UserJoin"), "default", (_this, [props], res) => {
         if (!settings.get("system-messages-join", true)) return
 
+        console.log()
+
         let userName = Utilities.findInReactTree(res, e => e?.renderPopout)
 
         // monkepatch
@@ -31,7 +34,7 @@ export default () => {
 
             if (setupEnv(ret, ret.props?.children?.[0])) return ret
 
-            const url = AvatarDefaults.getUserAvatarURL(props.message.author)
+            const url = props.message.author.getAvatarURL(SelectedGuilds.getGuildId(), 16)
             ret.props.children.unshift(<Avatar src={url} className={styles["align-wrapper-icon"]} size={Avatar.Sizes.SIZE_16} />)
 
             return ret;
@@ -51,7 +54,7 @@ export default () => {
 
             if (setupEnv(ret, ret.props?.children?.[0])) return ret
 
-            const url = AvatarDefaults.getUserAvatarURL(_this.props.message.author)
+            const url = _this.props.message.author.getAvatarURL(SelectedGuilds.getGuildId(), 16)
             ret.props.children.unshift(<Avatar src={url} className={styles["align-wrapper-icon"]} size={Avatar.Sizes.SIZE_16} />)
 
             return ret;
@@ -62,7 +65,7 @@ export default () => {
     Patcher.after(WebpackModules.find(m => m.default?.displayName === "ThreadCreated"), "default", (_this, [props], res) => {
         if (!settings.get("system-messages-thread-created", true)) return
 
-        const url = AvatarDefaults.getUserAvatarURL(props.message.author)
+        const url = props.message.author.getAvatarURL(SelectedGuilds.getGuildId(), 16)
         res.props.children.unshift(<Avatar src={url} className={styles["align-wrapper-icon"]} size={Avatar.Sizes.SIZE_16} />)
     })
 
@@ -84,7 +87,7 @@ export default () => {
 
             if (setupEnv(ret, ret.props?.children?.[0])) return ret
 
-            const url = AvatarDefaults.getUserAvatarURL(personRemoveUser)
+            const url = personRemoveUser.getAvatarURL(SelectedGuilds.getGuildId(), 16)
             ret.props.children.unshift(<Avatar src={url} className={styles["align-wrapper-icon"]} size={Avatar.Sizes.SIZE_16} />)
 
             return ret;
@@ -94,7 +97,7 @@ export default () => {
 
             if (setupEnv(ret, ret.props?.children?.[0])) return ret
 
-            const url = AvatarDefaults.getUserAvatarURL(removedUser)
+            const url = removedUser.getAvatarURL(SelectedGuilds.getGuildId(), 16)
             ret.props.children.unshift(<Avatar src={url} className={styles["align-wrapper-icon"]} size={Avatar.Sizes.SIZE_16} />)
 
             return ret;

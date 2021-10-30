@@ -1,6 +1,10 @@
 .idea
 
+# stuff
 node_modules
 ./**/node_modules
 builds
 ./*.plugin.js
+
+# not relased plugins
+plugins/DataViewer
