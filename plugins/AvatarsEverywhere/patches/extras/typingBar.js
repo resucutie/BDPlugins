@@ -1,5 +1,5 @@
 import { Patcher, WebpackModules, DiscordModules, DiscordSelectors, ReactComponents } from "@zlibrary";
-import { Users as UserStore } from "@discord/stores";
+import { Users as UserStore, SelectedGuilds } from "@discord/stores";
 import styles from "../../style.scss";
 import settings from "../../settingsManager";
 
@@ -43,7 +43,7 @@ export default async () => {
             if (!tree) continue
             let userChildren = tree[m * 2]
 
-            userChildren.props.children.unshift(<Avatar src={AvatarDefaults.getUserAvatarURL(user)} className={styles["align-wrapper-icon"]} size={Avatar.Sizes.SIZE_16} />)
+            userChildren.props.children.unshift(<Avatar src={user.getAvatarURL(SelectedGuilds.getGuildId(), 16)} className={styles["align-wrapper-icon"]} size={Avatar.Sizes.SIZE_16} />)
             userChildren.props.className += " " + styles["align-wrapper"]
         }
     });
