@@ -1,7 +1,7 @@
 /**
  * @name AvatarsEverywhere
  * @author A user
- * @version 1.0.1
+ * @version 1.0.2
  * @description Applies users avatar in different places
  * @source https://github.com/abUwUser/BDPlugins/tree/main/plugins/AvatarsEverywhere
  * @updateUrl https://raw.githubusercontent.com/abUwUser/BDPlugins/compiled/AvatarsEverywhere/AvatarsEverywhere.plugin.js
@@ -38,7 +38,7 @@ const config = {
 			"github_username": "abUwUser",
 			"twitter_username": "auwuser"
 		}],
-		"version": "1.0.1",
+		"version": "1.0.2",
 		"description": "Applies users avatar in different places",
 		"github": "https://github.com/abUwUser/BDPlugins/tree/main/plugins/AvatarsEverywhere",
 		"github_raw": "https://raw.githubusercontent.com/abUwUser/BDPlugins/compiled/AvatarsEverywhere/AvatarsEverywhere.plugin.js"
@@ -51,7 +51,15 @@ const config = {
 			"source": true,
 			"public": true
 		}
-	}
+	},
+	"changelog": [{
+		"type": "fixed",
+		"title": "Fixed",
+		"items": [
+			"AvatarsEverywhere now considers the user's server avatar",
+			"Fixed Compact Mode"
+		]
+	}]
 };
 function buildPlugin([BasePlugin, PluginApi]) {
 	const module = {
@@ -93,7 +101,7 @@ function buildPlugin([BasePlugin, PluginApi]) {
 			},
 			'@discord/utils': {
 				get 'joinClassNames'() {
-					return ___createMemoize___(this, 'joinClassNames', () => BdApi.findModule(m => typeof m?.default?.default === 'function')?.default)
+					return ___createMemoize___(this, 'joinClassNames', () => BdApi.findModule(e => e.toString().indexOf('return e.join(" ")') > 200))
 				},
 				get 'useForceUpdate'() {
 					return ___createMemoize___(this, 'useForceUpdate', () => BdApi.findModuleByProps('useForceUpdate')?.useForceUpdate)
@@ -102,7 +110,7 @@ function buildPlugin([BasePlugin, PluginApi]) {
 					return ___createMemoize___(this, 'Logger', () => BdApi.findModuleByProps('setLogFn')?.default)
 				},
 				get 'Navigation'() {
-					return ___createMemoize___(this, 'Navigation', () => BdApi.findModuleByProps('replaceWith'))
+					return ___createMemoize___(this, 'Navigation', () => BdApi.findModuleByProps('replaceWith', 'currentRouteIsPeekView'))
 				}
 			},
 			'@discord/components': {
@@ -127,6 +135,9 @@ function buildPlugin([BasePlugin, PluginApi]) {
 				get 'Button'() {
 					return ___createMemoize___(this, 'Button', () => BdApi.findModuleByProps('DropdownSizes'))
 				},
+				get 'Popout'() {
+					return ___createMemoize___(this, 'Popout', () => BdApi.findModuleByDisplayName('Popout'))
+				},
 				get 'Flex'() {
 					return ___createMemoize___(this, 'Flex', () => BdApi.findModuleByDisplayName('Flex'))
 				},
@@ -141,11 +152,14 @@ function buildPlugin([BasePlugin, PluginApi]) {
 				get 'Dispatcher'() {
 					return ___createMemoize___(this, 'Dispatcher', () => BdApi.findModuleByProps('dirtyDispatch', 'subscribe'))
 				},
+				get 'ComponentDispatcher'() {
+					return ___createMemoize___(this, 'ComponentDispatcher', () => BdApi.findModuleByProps('ComponentDispatch')?.ComponentDispatch)
+				},
 				get 'EmojiUtils'() {
 					return ___createMemoize___(this, 'EmojiUtils', () => BdApi.findModuleByProps('uploadEmoji'))
 				},
 				get 'PermissionUtils'() {
-					return ___createMemoize___(this, 'PermissionUtils', () => BdApi.findModuleByProps('computePermissions'))
+					return ___createMemoize___(this, 'PermissionUtils', () => BdApi.findModuleByProps('computePermissions', 'canManageUser'))
 				},
 				get 'DMUtils'() {
 					return ___createMemoize___(this, 'DMUtils', () => BdApi.findModuleByProps('openPrivateChannel'))
@@ -156,7 +170,7 @@ function buildPlugin([BasePlugin, PluginApi]) {
 					return ___createMemoize___(this, 'Messages', () => BdApi.findModuleByProps('getMessage', 'getMessages'))
 				},
 				get 'Channels'() {
-					return ___createMemoize___(this, 'Channels', () => BdApi.findModuleByProps('getChannel'))
+					return ___createMemoize___(this, 'Channels', () => BdApi.findModuleByProps('getChannel', 'getDMFromUserId'))
 				},
 				get 'Guilds'() {
 					return ___createMemoize___(this, 'Guilds', () => BdApi.findModuleByProps('getGuild'))
@@ -171,7 +185,7 @@ function buildPlugin([BasePlugin, PluginApi]) {
 					return ___createMemoize___(this, 'Info', () => BdApi.findModuleByProps('getSessionId'))
 				},
 				get 'Status'() {
-					return ___createMemoize___(this, 'Status', () => BdApi.findModuleByProps('getStatus'))
+					return ___createMemoize___(this, 'Status', () => BdApi.findModuleByProps('getStatus', 'getActivities', 'getState'))
 				},
 				get 'Users'() {
 					return ___createMemoize___(this, 'Users', () => BdApi.findModuleByProps('getUser', 'getCurrentUser'))
@@ -189,7 +203,7 @@ function buildPlugin([BasePlugin, PluginApi]) {
 					return ___createMemoize___(this, 'Activities', () => BdApi.findModuleByProps('getActivities'))
 				},
 				get 'Games'() {
-					return ___createMemoize___(this, 'Games', () => BdApi.findModuleByProps('getGame'))
+					return ___createMemoize___(this, 'Games', () => BdApi.findModuleByProps('getGame', 'games'))
 				},
 				get 'Auth'() {
 					return ___createMemoize___(this, 'Auth', () => BdApi.findModuleByProps('getId', 'isGuest'))
@@ -207,7 +221,7 @@ function buildPlugin([BasePlugin, PluginApi]) {
 				}
 			},
 			get '@discord/i18n'() {
-				return ___createMemoize___(this, '@discord/i18n', () => BdApi.findModuleByProps('getLocale'))
+				return ___createMemoize___(this, '@discord/i18n', () => BdApi.findModule(m => m.Messages?.CLOSE && typeof(m.getLocale) === 'function'))
 			},
 			get '@discord/constants'() {
 				return ___createMemoize___(this, '@discord/constants', () => BdApi.findModuleByProps('API_HOST'))
@@ -232,7 +246,7 @@ function buildPlugin([BasePlugin, PluginApi]) {
 				return ___createMemoize___(this, '@discord/flux', () => Object.assign({}, BdApi.findModuleByProps('useStateFromStores').default, BdApi.findModuleByProps('useStateFromStores')))
 			},
 			get '@discord/modal'() {
-				return ___createMemoize___(this, '@discord/modal', () => Object.assign({}, BdApi.findModuleByProps('ModalRoot'), BdApi.findModuleByProps('openModal')))
+				return ___createMemoize___(this, '@discord/modal', () => Object.assign({}, BdApi.findModuleByProps('ModalRoot'), BdApi.findModuleByProps('openModal', 'closeAllModals')))
 			},
 			get '@discord/connections'() {
 				return ___createMemoize___(this, '@discord/connections', () => BdApi.findModuleByProps('get', 'isSupported', 'map'))
@@ -344,14 +358,14 @@ function buildPlugin([BasePlugin, PluginApi]) {
 						this.settings = external_PluginApi_namespaceObject.PluginUtilities.loadSettings(pluginName, defaultSettings);
 					}
 				}
-				const package_namespaceObject = JSON.parse('{"u":{"u2":"AvatarsEverywhere"}}');
-				const settings = new SettingsManager(package_namespaceObject.u.u2);
+				const package_namespaceObject = JSON.parse('{"um":{"u2":"AvatarsEverywhere"}}');
+				const settings = new SettingsManager(package_namespaceObject.um.u2);
 				const settingsManager = settings;
 				var style = __webpack_require__(46);
 				const SwitchItem = hooks_createUpdateWrapper(external_PluginApi_namespaceObject.WebpackModules.getByDisplayName("SwitchItem"));
 				const Settings = external_BdApi_React_default().memo((() => {
 					const mentionsDisabled = (0, flux_namespaceObject.useStateFromStores)([settingsManager], (() => !settingsManager.get("mentions", true)));
-					const compactMessagesDisabled = (0, flux_namespaceObject.useStateFromStores)([settingsManager], (() => !settingsManager.get("compact-message", true)));
+					(0, flux_namespaceObject.useStateFromStores)([settingsManager], (() => !settingsManager.get("compact-message", true)));
 					const [tab, setTab] = (0, external_BdApi_React_.useState)("main");
 					const SelectCard = ({
 						tab,
@@ -392,9 +406,8 @@ function buildPlugin([BasePlugin, PluginApi]) {
 						onChange: value => settingsManager.set("compact-message", value)
 					}, "Add avatars to compact messages"), external_BdApi_React_default().createElement(SwitchItem, {
 						value: settingsManager.get("compact-message-reply", false),
-						onChange: value => settingsManager.set("compact-message-reply", value),
-						disabled: compactMessagesDisabled
-					}, "Replies"));
+						onChange: value => settingsManager.set("compact-message-reply", value)
+					}, "Add avatars to replies (only with Compact Mode enabled)"));
 					const SystemMessagesTab = external_BdApi_React_default().createElement(external_BdApi_React_default().Fragment, null, external_BdApi_React_default().createElement(SwitchItem, {
 						value: settingsManager.get("system-messages-join", true),
 						onChange: value => settingsManager.set("system-messages-join", value)
@@ -465,9 +478,6 @@ function buildPlugin([BasePlugin, PluginApi]) {
 				const {
 					default: Avatar
 				} = external_PluginApi_namespaceObject.WebpackModules.getByProps("AnimatedAvatar");
-				const {
-					AvatarDefaults
-				} = external_PluginApi_namespaceObject.DiscordModules;
 				const userMentions = () => {
 					external_PluginApi_namespaceObject.Patcher.after(external_PluginApi_namespaceObject.WebpackModules.getModule((m => "UserMention" === m?.default?.displayName)), "default", ((_this, [props], wrapperRes) => {
 						if (!settingsManager.get("mentions", true)) return;
@@ -478,7 +488,7 @@ function buildPlugin([BasePlugin, PluginApi]) {
 							if (settingsManager.get("mentions-no-at", false)) text = external_PluginApi_namespaceObject.Utilities.findInTree(text, (e => "@" === e?.charAt?.(0))).slice(1);
 							const user = stores_namespaceObject.Users.getUser(props.userId);
 							res.props.children = [userMentions_React.createElement(Avatar, {
-								src: AvatarDefaults.getUserAvatarURL(user),
+								src: user.getAvatarURL(stores_namespaceObject.SelectedGuilds.getGuildId(), 16),
 								className: style.Z["align-wrapper-icon"],
 								size: Avatar.Sizes.SIZE_16
 							}), text];
@@ -492,7 +502,7 @@ function buildPlugin([BasePlugin, PluginApi]) {
 					default: typingBar_Avatar
 				} = external_PluginApi_namespaceObject.WebpackModules.getByProps("AnimatedAvatar");
 				const {
-					AvatarDefaults: typingBar_AvatarDefaults,
+					AvatarDefaults,
 					RelationshipStore
 				} = external_PluginApi_namespaceObject.DiscordModules;
 				const filterTypingUsers = typingUsers => {
@@ -515,7 +525,7 @@ function buildPlugin([BasePlugin, PluginApi]) {
 							if (!tree) continue;
 							let userChildren = tree[2 * m];
 							userChildren.props.children.unshift(typingBar_React.createElement(typingBar_Avatar, {
-								src: typingBar_AvatarDefaults.getUserAvatarURL(user),
+								src: user.getAvatarURL(stores_namespaceObject.SelectedGuilds.getGuildId(), 16),
 								className: style.Z["align-wrapper-icon"],
 								size: typingBar_Avatar.Sizes.SIZE_16
 							}));
@@ -533,22 +543,54 @@ function buildPlugin([BasePlugin, PluginApi]) {
 				const compactMessages = () => {
 					external_PluginApi_namespaceObject.Patcher.after(external_PluginApi_namespaceObject.WebpackModules.find((e => e.default?.toString().indexOf("getGuildMemberAvatarURLSimple") > -1)), "default", ((_this, [props], res) => {
 						if (!(settingsManager.get("compact-message", true) && stores_namespaceObject.SettingsStore.messageDisplayCompact)) return;
-						if (!settingsManager.get("compact-message-reply", true) && props.hasOwnProperty("withMentionPrefix")) return;
-						let header = external_PluginApi_namespaceObject.Utilities.findInReactTree(res, (e => e?.renderPopout));
-						const ogFunc = header?.children;
-						if (!ogFunc) return;
-						header.children = (...args) => {
-							let ret = ogFunc(...args);
-							let children = ret.props?.children;
-							ret.props.className += " " + style.Z["align-wrapper"];
-							if (external_BdApi_React_default().isValidElement(children.props?.children?.[0])) return ret;
-							const url = compactMessages_AvatarDefaults.getUserAvatarURL(props.message.author);
-							children.props.children.unshift(external_BdApi_React_default().createElement(compactMessages_Avatar, {
-								src: url,
-								className: style.Z["align-wrapper-icon"],
-								size: compactMessages_Avatar.Sizes.SIZE_16
-							}));
-							return ret;
+						let header = external_PluginApi_namespaceObject.Utilities.findInReactTree(res, (e => e?.props?.renderPopout));
+						const firstOgFunc = header?.type;
+						if (!firstOgFunc) return;
+						header.type = (...args) => {
+							let firstRet = firstOgFunc(...args);
+							const secondOgFunc = firstRet.props?.children?.[1]?.props?.children;
+							if (!secondOgFunc) return;
+							firstRet.props.children[1].props.children = (...args) => {
+								let secondRet = secondOgFunc(...args);
+								let children = secondRet.props?.children;
+								secondRet.props.className += " " + style.Z["align-wrapper"];
+								if (external_BdApi_React_default().isValidElement(children?.[0])) return firstRet;
+								const url = props.message.author.getAvatarURL(stores_namespaceObject.SelectedGuilds.getGuildId(), 16);
+								if (!_.isArray(children)) secondRet.props.children = [children];
+								secondRet.props.children.unshift(external_BdApi_React_default().createElement(compactMessages_Avatar, {
+									src: url,
+									className: style.Z["align-wrapper-icon"],
+									size: compactMessages_Avatar.Sizes.SIZE_16
+								}));
+								return secondRet;
+							};
+							return firstRet;
+						};
+					}));
+					external_PluginApi_namespaceObject.Patcher.after(external_PluginApi_namespaceObject.WebpackModules.find((m => "Username" === m.default?.displayName)), "default", ((_this, [props], res) => {
+						if (!(settingsManager.get("compact-message-reply", true) && stores_namespaceObject.SettingsStore.messageDisplayCompact)) return;
+						const firstOgFunc = res.type;
+						if (!firstOgFunc) return;
+						res.type = (...args) => {
+							let firstRet = firstOgFunc(...args);
+							console.log("firstRet", firstRet);
+							const secondOgFunc = firstRet.props?.children?.[1]?.props?.children;
+							if (!secondOgFunc) return;
+							firstRet.props.children[1].props.children = (...args) => {
+								let secondRet = secondOgFunc(...args);
+								let children = secondRet.props?.children;
+								secondRet.props.className += " " + style.Z["align-wrapper"];
+								if (external_BdApi_React_default().isValidElement(children?.[0])) return firstRet;
+								const url = props.message.author.getAvatarURL(stores_namespaceObject.SelectedGuilds.getGuildId(), 16);
+								if (!_.isArray(children)) secondRet.props.children = [children];
+								secondRet.props.children.unshift(external_BdApi_React_default().createElement(compactMessages_Avatar, {
+									src: url,
+									className: style.Z["align-wrapper-icon"],
+									size: compactMessages_Avatar.Sizes.SIZE_16
+								}));
+								return secondRet;
+							};
+							return firstRet;
 						};
 					}));
 				};
@@ -567,13 +609,14 @@ function buildPlugin([BasePlugin, PluginApi]) {
 					};
 					external_PluginApi_namespaceObject.Patcher.after(external_PluginApi_namespaceObject.WebpackModules.find((m => "UserJoin" === m.default?.displayName)), "default", ((_this, [props], res) => {
 						if (!settingsManager.get("system-messages-join", true)) return;
+						console.log();
 						let userName = external_PluginApi_namespaceObject.Utilities.findInReactTree(res, (e => e?.renderPopout));
 						const ogFunc = userName?.children;
 						if (!ogFunc) return;
 						userName.children = (...args) => {
 							let ret = ogFunc(...args);
 							if (setupEnv(ret, ret.props?.children?.[0])) return ret;
-							const url = systemMessages_AvatarDefaults.getUserAvatarURL(props.message.author);
+							const url = props.message.author.getAvatarURL(stores_namespaceObject.SelectedGuilds.getGuildId(), 16);
 							ret.props.children.unshift(external_BdApi_React_default().createElement(systemMessages_Avatar, {
 								src: url,
 								className: style.Z["align-wrapper-icon"],
@@ -590,7 +633,7 @@ function buildPlugin([BasePlugin, PluginApi]) {
 						userName.props.children = (...args) => {
 							let ret = ogFunc(...args);
 							if (setupEnv(ret, ret.props?.children?.[0])) return ret;
-							const url = systemMessages_AvatarDefaults.getUserAvatarURL(_this.props.message.author);
+							const url = _this.props.message.author.getAvatarURL(stores_namespaceObject.SelectedGuilds.getGuildId(), 16);
 							ret.props.children.unshift(external_BdApi_React_default().createElement(systemMessages_Avatar, {
 								src: url,
 								className: style.Z["align-wrapper-icon"],
@@ -601,7 +644,7 @@ function buildPlugin([BasePlugin, PluginApi]) {
 					}));
 					external_PluginApi_namespaceObject.Patcher.after(external_PluginApi_namespaceObject.WebpackModules.find((m => "ThreadCreated" === m.default?.displayName)), "default", ((_this, [props], res) => {
 						if (!settingsManager.get("system-messages-thread-created", true)) return;
-						const url = systemMessages_AvatarDefaults.getUserAvatarURL(props.message.author);
+						const url = props.message.author.getAvatarURL(stores_namespaceObject.SelectedGuilds.getGuildId(), 16);
 						res.props.children.unshift(external_BdApi_React_default().createElement(systemMessages_Avatar, {
 							src: url,
 							className: style.Z["align-wrapper-icon"],
@@ -620,7 +663,7 @@ function buildPlugin([BasePlugin, PluginApi]) {
 						personRemoveUserElement.props.children = (...args) => {
 							let ret = personRemoveUserElementOgFunc(...args);
 							if (setupEnv(ret, ret.props?.children?.[0])) return ret;
-							const url = systemMessages_AvatarDefaults.getUserAvatarURL(personRemoveUser);
+							const url = personRemoveUser.getAvatarURL(stores_namespaceObject.SelectedGuilds.getGuildId(), 16);
 							ret.props.children.unshift(external_BdApi_React_default().createElement(systemMessages_Avatar, {
 								src: url,
 								className: style.Z["align-wrapper-icon"],
@@ -631,7 +674,7 @@ function buildPlugin([BasePlugin, PluginApi]) {
 						removedUserElement.props.children = (...args) => {
 							let ret = removedUserElementOgFunc(...args);
 							if (setupEnv(ret, ret.props?.children?.[0])) return ret;
-							const url = systemMessages_AvatarDefaults.getUserAvatarURL(removedUser);
+							const url = removedUser.getAvatarURL(stores_namespaceObject.SelectedGuilds.getGuildId(), 16);
 							ret.props.children.unshift(external_BdApi_React_default().createElement(systemMessages_Avatar, {
 								src: url,
 								className: style.Z["align-wrapper-icon"],
