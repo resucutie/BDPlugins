@@ -697,7 +697,6 @@ function buildPlugin([BasePlugin, PluginApi]) {
 				};
 				class Fuses extends(external_BasePlugin_default()) {
 					onStart() {
-						console.log(getTimeFromTimezone("-5"), getOffset(getTimeFromTimezone("-5")));
 						external_StyleLoader_default().inject();
 						this.handlePatch();
 					}
