@@ -12,7 +12,6 @@ import useTimezone from "./hooks/useTimezone";
 
 export default class Fuses extends BasePlugin {
     onStart() {
-        console.log(getTimeFromTimezone("-5"), getOffset(getTimeFromTimezone("-5")))
         stylesheet.inject()
         this.handlePatch()
     }
