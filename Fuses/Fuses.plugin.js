@@ -1,7 +1,7 @@
 /**
  * @name Fuses
  * @author A user
- * @version 0.0.1
+ * @version 0.0.2
  * @description Shows the fuse time from somebody's current timezone
  */
 /*@cc_on
@@ -36,7 +36,7 @@ const config = {
 			"github_username": "abUwUser",
 			"twitter_username": "auwuser"
 		}],
-		"version": "0.0.1",
+		"version": "0.0.2",
 		"description": "Shows the fuse time from somebody's current timezone"
 	},
 	"build": {
@@ -423,7 +423,7 @@ function buildPlugin([BasePlugin, PluginApi]) {
 					}
 					return (timezoneOffset <= 0 ? "" : "+") + timezoneOffset / 60;
 				}
-				function getTimeFromTimezone(utcOffset, currentDate = new Date) {
+				function timezones_getTimeFromTimezone(utcOffset, currentDate = new Date) {
 					let localTime = currentDate.getTime();
 					let localOffset = 6e4 * currentDate.getTimezoneOffset();
 					let utc = new Date(localTime + localOffset);
@@ -647,34 +647,40 @@ function buildPlugin([BasePlugin, PluginApi]) {
 					}, "Show seconds")));
 				}));
 				const Timer = external_BdApi_React_default().memo((({
-					date,
 					timezone,
 					className
 				}) => {
-					let hours = date.getHours().toLocaleString("en-US", {
+					const [dateTime, setDateTime] = (0, external_BdApi_React_.useState)(timezones_getTimeFromTimezone(timezone));
+					(0, external_BdApi_React_.useEffect)((() => {
+						const id = setInterval((() => setDateTime(timezones_getTimeFromTimezone(timezone), 1e3)));
+						return () => {
+							clearInterval(id);
+						};
+					}), []);
+					let hours = dateTime.getHours().toLocaleString("en-US", {
 						minimumIntegerDigits: 2,
 						useGrouping: false
 					});
-					let minutes = date.getMinutes().toLocaleString("en-US", {
+					let minutes = dateTime.getMinutes().toLocaleString("en-US", {
 						minimumIntegerDigits: 2,
 						useGrouping: false
 					});
-					let seconds = date.getSeconds().toLocaleString("en-US", {
+					let seconds = dateTime.getSeconds().toLocaleString("en-US", {
 						minimumIntegerDigits: 2,
 						useGrouping: false
 					});
 					return external_BdApi_React_default().createElement("div", {
 						className: `${style.Z["timer-wrapper"]} ${className}`
 					}, external_BdApi_React_default().createElement(components_namespaceObject.TooltipContainer, {
-						text: `${date.toDateString()} ${hours}:${minutes}:${seconds} (UTC${timezone})`,
+						text: `${dateTime.toDateString()} ${hours}:${minutes}:${seconds} (UTC${timezone})`,
 						className: style.Z["timer-icon"]
 					}, external_BdApi_React_default().createElement(icons_namespaceObject.Timer, null)), external_BdApi_React_default().createElement("div", {
 						className: style.Z.timer
 					}, hours, ":", minutes, settingsManager.get("seconds", false) ? `:${seconds}` : ""));
 				}));
 				const useTimezone = (timezone, interval = "second") => {
-					const [date, setDate] = (0, external_BdApi_React_.useState)(getTimeFromTimezone(timezone));
-					(0, external_BdApi_React_.useEffect)((() => {
+					const [date, setDate] = useState(getTimeFromTimezone(timezone));
+					useEffect((() => {
 						let timeoutId;
 						const bump = () => {
 							timeoutId = setTimeout((() => {
@@ -687,7 +693,7 @@ function buildPlugin([BasePlugin, PluginApi]) {
 					}));
 					return date;
 				};
-				const hooks_useTimezone = useTimezone;
+				const hooks_useTimezone = null && useTimezone;
 				const nextCallback = (now, interval) => {
 					if ("number" === typeof interval) return interval;
 					else if ("second" === interval) return 1e3 - now.getMilliseconds();
@@ -704,9 +710,7 @@ function buildPlugin([BasePlugin, PluginApi]) {
 						external_PluginApi_namespaceObject.Patcher.after(external_PluginApi_namespaceObject.WebpackModules.find((m => "UserBanner" === m.default?.displayName)), "default", ((_this, [props], res) => {
 							let userTimezone = getTimezone(props.user.id);
 							if (!userTimezone) return;
-							const dateTime = hooks_useTimezone(userTimezone);
 							res.props.children.push(external_BdApi_React_default().createElement(Timer, {
-								date: dateTime,
 								timezone: userTimezone,
 								className: style.Z["timer-positioning"]
 							}));
