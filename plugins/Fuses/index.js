@@ -21,9 +21,7 @@ export default class Fuses extends BasePlugin {
             let userTimezone = getTimezone(props.user.id)
             if (!userTimezone) return
 
-            const dateTime = useTimezone(userTimezone)
-
-            res.props.children.push(<TimerComponent date={dateTime} timezone={userTimezone} className={style["timer-positioning"]}/>)
+            res.props.children.push(<TimerComponent timezone={userTimezone} className={style["timer-positioning"]}/>)
         })
     }
 
