@@ -1,0 +1,140 @@
+.section-look {
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.timer-positioning {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+}
+
+.timer-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+    background: hsla(0, 0%, 10%, 40%);
+    color: #fff;
+    padding: 2px 4px;
+    border-radius: 10px;
+
+    .timer-icon {
+        display: flex;
+        align-items: center;
+    }
+
+    .timer{
+        margin: 0 4px;
+        font-size: 14px;
+    }
+}
+
+.user-list {
+    background: var(--background-secondary-alt);
+    border-radius: 10px;
+    padding: 20px;
+    padding-top:0px;
+    margin-bottom: 30px;
+    max-height: 280px;
+    overflow: auto;
+    &::-webkit-scrollbar {
+        width:0
+    }
+
+
+    .header {
+        position: sticky;
+        top:0px;
+        padding-top: 16px;
+        margin-top: -16px;
+        margin-bottom: 20px;
+        z-index: 1;
+        background: linear-gradient(180deg, var(--background-secondary-alt), transparent);
+    }
+
+    &-item {
+        display: flex;
+        align-items: center;
+        padding: 8px 0;
+        color: #fff;
+
+        .name {
+            font-weight: 600;
+            margin-right: 4px;
+            font-size: 16px;
+        }
+
+        .timezone {
+            color: hsl(0, 0%, 75%);
+            font-size: 12px;
+        }
+
+        .actions-wrapper{
+            margin-left: auto;
+            opacity: 0;
+            display: flex;
+
+            .delete-icon {
+                color: hsl(0, 0%, 80%);
+                cursor: pointer;
+                height: 24px;
+                width: 24px;
+                margin-left: 4px;
+
+                &:hover {
+                    color: hsl(359, calc(var(--saturation-factor, 1) * 82.6%), 59.4%);
+                }
+            }
+
+            .edit-icon{
+                color: hsl(0, 0%, 80%);
+                cursor: pointer;
+                height: 24px;
+                width: 24px;
+
+                &:hover {
+                    color: hsl(0, 0%, 100%);
+                }
+            }
+        }
+
+        &:hover .actions-wrapper {
+            opacity: 1;
+        }
+    }
+    .avatar {
+        margin-right: 8px
+    }
+}
+
+.user-add-timezone-panel {
+    margin: 8px 0;
+
+    .timezone-search-textbox, .city-search-textbox {
+        flex-grow: 1;
+    }
+    .search-city-wrapper {
+        margin-left: 8px;
+        .search-city-btn {
+            width: 40px;
+            height: 40px;
+        }
+    }
+
+    .city-actions-wrapper {
+        margin-left: 8px;
+        display: flex;
+        flex-direction: row;
+
+        .return-btn {
+            margin-left: 4px;
+        }
+        
+        .find-city-btn, .return-btn {
+            width: 40px;
+            height: 40px;
+        }
+    }
+}

@@ -1,12 +1,9 @@
 {
-  "dependencies": {
-    "bdbuilder": "^1.2.6-preview.4"
-  },
   "name": "bd-plugins",
   "version": "1.0.0",
   "main": "index.js",
   "devDependencies": {
-    "@betterdiscordbuilder/bdbuilder": "^1.2.13"
+    "@betterdiscordbuilder/bdbuilder": "^1.2.20"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

@@ -1,0 +1,27 @@
+{
+    "info": {
+        "name": "Fuses",
+        "authors": [
+            {
+                "name": "A user",
+                "discord_id": "264062457448759296",
+                "github_username": "abUwUser",
+                "twitter_username": "auwuser"
+            }
+        ],
+        "version": "0.0.1",
+        "description": "Shows the fuse time from somebody's current timezone"
+    },
+    "build": {
+        "copy": true,
+        "zlibrary": true,
+        "watch": true,
+        "release": {
+            "source": true,
+            "public": true
+        }
+    },
+    "dependencies": {
+        "moment-timezone": "^0.5.34"
+    }
+}
