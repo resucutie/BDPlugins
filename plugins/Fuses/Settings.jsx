@@ -14,6 +14,8 @@ import { getList, addUser, removeUser, getTimezone } from './utils/userList';
 import { getDateFromCity, getOffset } from './utils/timezones';
 import { TimezoneException } from "./utils/exceptions";
 import constants from "./utils/constants";
+import Timer from './components/Timer';
+import BasicTimer from './components/BasicTimer';
 
 
 const { AvatarDefaults } = DiscordModules
@@ -108,7 +110,7 @@ export default React.memo(() => {
                     <Avatar src={AvatarDefaults.getUserAvatarURL(user)} size={Avatar.Sizes.SIZE_32} className={styles["avatar"]}/>
                     <div>
                         <div className={styles["name"]}>{user.username}</div>
-                        <div className={styles["timezone"]}>UTC{timezone}</div>
+                        <div className={styles["timezone"]}>UTC{timezone} <span className={styles["timestamp-dot"]}>•</span> <BasicTimer timezone={timezone} /></div>
                     </div>
                     <div className={styles["actions-wrapper"]}>
                         <TooltipContainer text={`Edit ${user.username}`}>
@@ -140,7 +142,7 @@ export default React.memo(() => {
                     onClick={() => setFocus(constants.Settings.TextFocus.TIMEZONE)}
                     autoFocus={focus === constants.Settings.TextFocus.TIMEZONE}
                     error={userTimezoneError}
-                ></TextInput>
+                />
                 <TooltipContainer text={`Search by city`} className={styles["search-city-wrapper"]}>
                     <Button className={styles["search-city-btn"]}
                         look={Button.Looks.OUTLINED}
@@ -160,7 +162,7 @@ export default React.memo(() => {
                     onClick={() => setFocus(constants.Settings.TextFocus.CITY)}
                     error={userCityError}
                     autoFocus={focus === constants.Settings.TextFocus.CITY}
-                ></TextInput>
+                />
                 <div className={styles["city-actions-wrapper"]}>
                     <Button className={styles["find-city-btn"]}
                         color={Button.Colors.GREEN}
@@ -183,6 +185,9 @@ export default React.memo(() => {
 
     // Render
     return <>
+        <div className={styles["preview-wrapper"]}>
+            <Timer />
+        </div>
         <Category look={Category.Looks.COMPACT} label="Users">
             <UserList />
             <Text size={Text.Sizes.SIZE_14} className={`${styles["section-look"]} h5-18_1nd`}>Add a new user</Text>
@@ -198,7 +203,7 @@ export default React.memo(() => {
                     onClick={() => setFocus(constants.Settings.TextFocus.USER_ID)}
                     autoFocus={focus === constants.Settings.TextFocus.USER_ID}
                     error={userIdError}
-                ></TextInput>
+                />
                 <TimezonePicker />
             </div>
             {timezonePage === constants.Settings.TimezonePages.MANUAL && <Button onClick={() => handleAdd(userId, userTimezone)}>{isEditing ? "Edit" : "Add"} user</Button>}
@@ -209,6 +214,10 @@ export default React.memo(() => {
                 value={settings.get("seconds", false)}
                 onChange={value => settings.set("seconds", value)}
             >Show seconds</SwitchItem>
+            <SwitchItem
+                value={settings.get("timestamps", false)}
+                onChange={value => settings.set("timestamps", value)}
+            >Adds the time counter in messages</SwitchItem>
         </Category>
     </>
 })

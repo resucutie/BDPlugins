@@ -1,3 +1,5 @@
+//Standard Wrapper
+
 .section-look {
     font-weight: 600;
     text-transform: uppercase;
@@ -29,6 +31,24 @@
         margin: 0 4px;
         font-size: 14px;
     }
+}
+
+//Timestamp Timer
+
+.timestamp-timer{
+    display: inline-block;
+}
+
+.timestamp-dot{
+    margin: 0 4px;
+}
+
+
+//Settings
+
+.preview-wrapper{
+    display: flex;
+    justify-content: center;
 }
 
 .user-list {
@@ -69,6 +89,8 @@
         .timezone {
             color: hsl(0, 0%, 75%);
             font-size: 12px;
+            display: flex;
+            flex-direction: row;
         }
 
         .actions-wrapper{

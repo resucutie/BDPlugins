@@ -23,18 +23,10 @@
     },
     "changelog": [
         {
-            "type": "progress",
-            "title": "Improved",
+            "type": "added",
+            "title": "New stuff",
             "items": [
-                "More constants!"
-            ]
-        },
-        {
-            "type": "fixed",
-            "title": "Fixes",
-            "items": [
-                "Fixed an issue where you could add invalid users",
-                "Hides the \"Add timezone\" button while selecting the timezone by a city"
+                "Now you can see somebody's timezone in messages!"
             ]
         }
     ],

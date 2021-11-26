@@ -2,14 +2,11 @@ import moment from "moment-timezone"
 import { TimezoneException, DateException } from "./exceptions"
 import constants from "./constants"
 
-function getOffset(date) {
+function getOffset(date = moment(date)) {
     let timezoneOffset;
-    if(moment.isMoment(date)) {
-        timezoneOffset = date.utcOffset()
-    } else {
-        if (!_.isDate(date)) throw new DateException("Invalid Date", constants.ExceptionCodes.Date.INVALID_DATE)
-        timezoneOffset = date.getTimezoneOffset()
-    }
+    if(moment.isMoment(date)) timezoneOffset = date.utcOffset()
+    else timezoneOffset = moment(date).utcOffset()
+    
     return (timezoneOffset <= 0 ? "" : "+") + timezoneOffset / 60
 }
 
@@ -31,4 +28,17 @@ function getDateFromCity(city, sendAsMoment = false) {
     return sendAsMoment ? timezone : timezone.toDate()
 }
 
-export { getTimeFromTimezone, getOffset, getDateFromCity }
+function formatDate(date, timezone) {
+    let hours = date.getHours().toLocaleString("en-US", { minimumIntegerDigits: 2, useGrouping: false })
+    let minutes = date.getMinutes().toLocaleString("en-US", { minimumIntegerDigits: 2, useGrouping: false })
+    let seconds = date.getSeconds().toLocaleString("en-US", { minimumIntegerDigits: 2, useGrouping: false })
+
+    return {
+        hours,
+        minutes,
+        seconds,
+        toString: () => `${date.toDateString()} ${hours}:${minutes}:${seconds} (UTC${timezone})`
+    }
+}
+
+export { getTimeFromTimezone, getOffset, getDateFromCity, formatDate }

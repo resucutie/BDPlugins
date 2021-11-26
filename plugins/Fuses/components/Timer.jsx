@@ -2,12 +2,12 @@ import React, {useState, useEffect} from 'react';
 
 import { Timer } from "@discord/icons"
 import { TooltipContainer } from "@discord/components";
-import style from "../style.scss"
+import styles from "../style.scss"
 
 import settings from "../settingsManager";
-import { getTimeFromTimezone } from '../utils/timezones';
+import { getTimeFromTimezone, formatDate, getOffset } from '../utils/timezones';
 
-export default React.memo(({timezone, className}) => {
+export default React.memo(({ timezone = getOffset(new Date()), showSeconds=false, className}) => {
     const [dateTime, setDateTime] = useState(getTimeFromTimezone(timezone))
     useEffect(() => {
         const id = setInterval(() => setDateTime(getTimeFromTimezone(timezone), 1000))
@@ -17,14 +17,12 @@ export default React.memo(({timezone, className}) => {
     }, [])
 
 
-    let hours = dateTime.getHours().toLocaleString("en-US", { minimumIntegerDigits: 2, useGrouping: false })
-    let minutes = dateTime.getMinutes().toLocaleString("en-US", { minimumIntegerDigits: 2, useGrouping: false })
-    let seconds = dateTime.getSeconds().toLocaleString("en-US", { minimumIntegerDigits: 2, useGrouping: false })
+    const formattedText = formatDate(dateTime, timezone)
 
-    return <div className={`${style["timer-wrapper"]} ${className}`}>
-        <TooltipContainer text={`${dateTime.toDateString()} ${hours}:${minutes}:${seconds} (UTC${timezone})`} className={style["timer-icon"]}>
+    return <div className={`${styles["timer-wrapper"]} ${className}`}>
+        <TooltipContainer text={formattedText.toString()} className={styles["timer-icon"]}>
             <Timer />
         </TooltipContainer>
-        <div className={style["timer"]}>{hours}:{minutes}{settings.get("seconds", false) ? `:${seconds}` : ""}</div>
+        <div className={styles["timer"]}>{formattedText.hours}:{formattedText.minutes}{settings.get("seconds", false) || showSeconds ? `:${formattedText.seconds}` : ""}</div>
     </div>
 })
