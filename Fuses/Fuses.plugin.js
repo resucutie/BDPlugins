@@ -1,7 +1,7 @@
 /**
  * @name Fuses
  * @author A user
- * @version 0.0.2
+ * @version 0.0.3
  * @description Shows the fuse time from somebody's current timezone
  */
 /*@cc_on
@@ -36,7 +36,7 @@ const config = {
 			"github_username": "abUwUser",
 			"twitter_username": "auwuser"
 		}],
-		"version": "0.0.2",
+		"version": "0.0.3",
 		"description": "Shows the fuse time from somebody's current timezone"
 	},
 	"build": {
@@ -48,6 +48,22 @@ const config = {
 			"public": true
 		}
 	},
+	"changelog": [{
+			"type": "progress",
+			"title": "Improved",
+			"items": [
+				"More constants!"
+			]
+		},
+		{
+			"type": "fixed",
+			"title": "Fixes",
+			"items": [
+				"Fixed an issue where you could add invalid users",
+				"Hides the \"Add timezone\" button while selecting the timezone by a city"
+			]
+		}
+	],
 	"dependencies": {
 		"moment-timezone": "^0.5.34"
 	}
@@ -300,7 +316,7 @@ function buildPlugin([BasePlugin, PluginApi]) {
 				var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()((function(i) {
 					return i[1];
 				}));
-				___CSS_LOADER_EXPORT___.push([module.id, ".Fuses-style-section-look{font-weight:600;text-transform:uppercase}.Fuses-style-timer-positioning{position:absolute;bottom:5px;right:5px}.Fuses-style-timer-wrapper{display:flex;flex-direction:row;align-items:center;justify-content:center;background:rgba(26,26,26,.4);color:#fff;padding:2px 4px;border-radius:10px}.Fuses-style-timer-wrapper .Fuses-style-timer-icon{display:flex;align-items:center}.Fuses-style-timer-wrapper .Fuses-style-timer{margin:0 4px;font-size:14px}.Fuses-style-user-list{background:var(--background-secondary-alt);border-radius:10px;padding:20px;padding-top:0px;margin-bottom:30px;max-height:280px;overflow:auto}.Fuses-style-user-list::-webkit-scrollbar{width:0}.Fuses-style-user-list .Fuses-style-header{position:sticky;top:0px;padding-top:16px;margin-top:-16px;margin-bottom:20px;z-index:1;background:linear-gradient(180deg, var(--background-secondary-alt), transparent)}.Fuses-style-user-list-item{display:flex;align-items:center;padding:8px 0;color:#fff}.Fuses-style-user-list-item .Fuses-style-name{font-weight:600;margin-right:4px;font-size:16px}.Fuses-style-user-list-item .Fuses-style-timezone{color:#bfbfbf;font-size:12px}.Fuses-style-user-list-item .Fuses-style-actions-wrapper{margin-left:auto;opacity:0;display:flex}.Fuses-style-user-list-item .Fuses-style-actions-wrapper .Fuses-style-delete-icon{color:#ccc;cursor:pointer;height:24px;width:24px;margin-left:4px}.Fuses-style-user-list-item .Fuses-style-actions-wrapper .Fuses-style-delete-icon:hover{color:hsl(359, calc(var(--saturation-factor, 1) * 82.6%), 59.4%)}.Fuses-style-user-list-item .Fuses-style-actions-wrapper .Fuses-style-edit-icon{color:#ccc;cursor:pointer;height:24px;width:24px}.Fuses-style-user-list-item .Fuses-style-actions-wrapper .Fuses-style-edit-icon:hover{color:#fff}.Fuses-style-user-list-item:hover .Fuses-style-actions-wrapper{opacity:1}.Fuses-style-user-list .Fuses-style-avatar{margin-right:8px}.Fuses-style-user-add-timezone-panel{margin:8px 0}.Fuses-style-user-add-timezone-panel .Fuses-style-timezone-search-textbox,.Fuses-style-user-add-timezone-panel .Fuses-style-city-search-textbox{flex-grow:1}.Fuses-style-user-add-timezone-panel .Fuses-style-search-city-wrapper{margin-left:8px}.Fuses-style-user-add-timezone-panel .Fuses-style-search-city-wrapper .Fuses-style-search-city-btn{width:40px;height:40px}.Fuses-style-user-add-timezone-panel .Fuses-style-city-actions-wrapper{margin-left:8px;display:flex;flex-direction:row}.Fuses-style-user-add-timezone-panel .Fuses-style-city-actions-wrapper .Fuses-style-return-btn{margin-left:4px}.Fuses-style-user-add-timezone-panel .Fuses-style-city-actions-wrapper .Fuses-style-find-city-btn,.Fuses-style-user-add-timezone-panel .Fuses-style-city-actions-wrapper .Fuses-style-return-btn{width:40px;height:40px}", ""]);
+				___CSS_LOADER_EXPORT___.push([module.id, ".Fuses-style-section-look{font-weight:600;text-transform:uppercase}.Fuses-style-timer-positioning{position:absolute;bottom:5px;right:5px}.Fuses-style-timer-wrapper{display:flex;flex-direction:row;align-items:center;justify-content:center;background:rgba(32,34,37,.7);color:#fff;padding:2px 4px;border-radius:15px}.Fuses-style-timer-wrapper .Fuses-style-timer-icon{display:flex;align-items:center}.Fuses-style-timer-wrapper .Fuses-style-timer{margin:0 4px;font-size:14px}.Fuses-style-user-list{background:var(--background-secondary-alt);border-radius:10px;padding:20px;padding-top:0px;margin-bottom:30px;max-height:280px;overflow:auto}.Fuses-style-user-list::-webkit-scrollbar{width:0}.Fuses-style-user-list .Fuses-style-header{position:sticky;top:0px;padding-top:16px;margin-top:-16px;margin-bottom:20px;z-index:1;background:linear-gradient(180deg, var(--background-secondary-alt), transparent)}.Fuses-style-user-list-item{display:flex;align-items:center;padding:8px 0;color:#fff}.Fuses-style-user-list-item .Fuses-style-name{font-weight:600;margin-right:4px;font-size:16px}.Fuses-style-user-list-item .Fuses-style-timezone{color:#bfbfbf;font-size:12px}.Fuses-style-user-list-item .Fuses-style-actions-wrapper{margin-left:auto;opacity:0;display:flex}.Fuses-style-user-list-item .Fuses-style-actions-wrapper .Fuses-style-delete-icon{color:#ccc;cursor:pointer;height:24px;width:24px;margin-left:4px}.Fuses-style-user-list-item .Fuses-style-actions-wrapper .Fuses-style-delete-icon:hover{color:hsl(359, calc(var(--saturation-factor, 1) * 82.6%), 59.4%)}.Fuses-style-user-list-item .Fuses-style-actions-wrapper .Fuses-style-edit-icon{color:#ccc;cursor:pointer;height:24px;width:24px}.Fuses-style-user-list-item .Fuses-style-actions-wrapper .Fuses-style-edit-icon:hover{color:#fff}.Fuses-style-user-list-item:hover .Fuses-style-actions-wrapper{opacity:1}.Fuses-style-user-list .Fuses-style-avatar{margin-right:8px}.Fuses-style-user-add-timezone-panel{margin:8px 0}.Fuses-style-user-add-timezone-panel .Fuses-style-timezone-search-textbox,.Fuses-style-user-add-timezone-panel .Fuses-style-city-search-textbox{flex-grow:1}.Fuses-style-user-add-timezone-panel .Fuses-style-search-city-wrapper{margin-left:8px}.Fuses-style-user-add-timezone-panel .Fuses-style-search-city-wrapper .Fuses-style-search-city-btn{width:40px;height:40px}.Fuses-style-user-add-timezone-panel .Fuses-style-city-actions-wrapper{margin-left:8px;display:flex;flex-direction:row}.Fuses-style-user-add-timezone-panel .Fuses-style-city-actions-wrapper .Fuses-style-return-btn{margin-left:4px}.Fuses-style-user-add-timezone-panel .Fuses-style-city-actions-wrapper .Fuses-style-find-city-btn,.Fuses-style-user-add-timezone-panel .Fuses-style-city-actions-wrapper .Fuses-style-return-btn{width:40px;height:40px}", ""]);
 				___CSS_LOADER_EXPORT___.locals = {
 					"section-look": "Fuses-style-section-look",
 					"timer-positioning": "Fuses-style-timer-positioning",
@@ -412,6 +428,17 @@ function buildPlugin([BasePlugin, PluginApi]) {
 						Date: {
 							INVALID_DATE: "INVALID_DATE"
 						}
+					},
+					Settings: {
+						TimezonePages: {
+							CITY_SELECTOR: "city",
+							MANUAL: "manual"
+						},
+						TextFocus: {
+							USER_ID: "userID",
+							TIMEZONE: "userTimezone",
+							CITY: "userCity"
+						}
 					}
 				};
 				function getOffset(date) {
@@ -506,18 +533,34 @@ function buildPlugin([BasePlugin, PluginApi]) {
 				const Settings = external_BdApi_React_default().memo((() => {
 					const [, forceUpdate] = (0, external_BdApi_React_.useReducer)((n => n + 1), 0);
 					const currentOffset = getOffset(new Date);
-					const [timezonePage, setTimezonePage] = (0, external_BdApi_React_.useState)("manual");
+					const [timezonePage, setTimezonePage] = (0, external_BdApi_React_.useState)(constants.Settings.TimezonePages.MANUAL);
 					const [userId, setUserId] = (0, external_BdApi_React_.useState)("");
+					const [userIdError, setUserIdError] = (0, external_BdApi_React_.useState)(false);
 					const [userTimezone, setUserTimezone] = (0, external_BdApi_React_.useState)("");
+					const [userTimezoneError, setUserTimezoneError] = (0, external_BdApi_React_.useState)(false);
 					const [userCity, setUserCity] = (0, external_BdApi_React_.useState)("");
 					const [userCityError, setUserCityError] = (0, external_BdApi_React_.useState)(false);
+					const [focus, setFocus] = (0, external_BdApi_React_.useState)(constants.Settings.TextFocus.USER_ID);
 					const [isEditing, setEditing] = (0, external_BdApi_React_.useState)(false);
-					const [focus, setFocus] = (0, external_BdApi_React_.useState)("userID");
 					const handleAdd = (id, timezone) => {
+						if (_.isEmpty(id)) {
+							setUserIdError("Please put a value here");
+							return;
+						}
+						if (!stores_namespaceObject.Users.getUser(id)) {
+							setUserIdError("Invalid ID");
+							return;
+						}
+						if (_.isEmpty(timezone)) {
+							setUserTimezoneError("Please put a value here");
+							return;
+						}
 						addUser(id, timezone);
 						setUserId("");
 						setUserTimezone("");
 						setEditing(false);
+						setUserIdError(false);
+						setUserTimezoneError(false);
 						forceUpdate();
 					};
 					const handleRemove = id => {
@@ -529,7 +572,7 @@ function buildPlugin([BasePlugin, PluginApi]) {
 							const cityDate = getDateFromCity(city, true);
 							setUserTimezone(getOffset(cityDate));
 							setUserCityError(false);
-							setTimezonePage("manual");
+							setTimezonePage(constants.Settings.TimezonePages.MANUAL);
 						} catch (err) {
 							if (err instanceof TimezoneException && err.code === constants.ExceptionCodes.Timezones.INVALID_CITY) setUserCityError(external_BdApi_React_default().createElement(external_BdApi_React_default().Fragment, null, "Invalid City! Please check ", external_BdApi_React_default().createElement("a", {
 								href: "https://gist.github.com/diogocapela/12c6617fc87607d11fd62d2a4f42b02a",
@@ -572,8 +615,8 @@ function buildPlugin([BasePlugin, PluginApi]) {
 								setUserId(id);
 								setUserTimezone(timezone);
 								setEditing(true);
-								setFocus("userTimezone");
-								setTimezonePage("manual");
+								setFocus(constants.Settings.TextFocus.TIMEZONE);
+								setTimezonePage(constants.Settings.TimezonePages.MANUAL);
 							}
 						})), external_BdApi_React_default().createElement(components_namespaceObject.TooltipContainer, {
 							text: `Remove ${user.username}`
@@ -592,17 +635,19 @@ function buildPlugin([BasePlugin, PluginApi]) {
 							if (getTimezone(text)) setEditing(true);
 							else setEditing(false);
 						},
-						onClick: () => setFocus("userId"),
-						autoFocus: "userId" === focus
+						onClick: () => setFocus(constants.Settings.TextFocus.USER_ID),
+						autoFocus: focus === constants.Settings.TextFocus.USER_ID,
+						error: userIdError
 					}), external_BdApi_React_default().createElement((() => external_BdApi_React_default().createElement(components_namespaceObject.Flex, {
 						className: style.Z["user-add-timezone-panel"]
-					}, "manual" === timezonePage && external_BdApi_React_default().createElement(external_BdApi_React_default().Fragment, null, external_BdApi_React_default().createElement(components_namespaceObject.TextInput, {
+					}, timezonePage === constants.Settings.TimezonePages.MANUAL && external_BdApi_React_default().createElement(external_BdApi_React_default().Fragment, null, external_BdApi_React_default().createElement(components_namespaceObject.TextInput, {
 						className: style.Z["timezone-search-textbox"],
 						value: userTimezone,
 						placeholder: `Timezone (in UTC. e.g.: ${currentOffset})`,
 						onChange: text => setUserTimezone(text.replace(/[^\d.+-]/g, "")),
-						onClick: () => setFocus("userTimezone"),
-						autoFocus: "userTimezone" === focus
+						onClick: () => setFocus(constants.Settings.TextFocus.TIMEZONE),
+						autoFocus: focus === constants.Settings.TextFocus.TIMEZONE,
+						error: userTimezoneError
 					}), external_BdApi_React_default().createElement(components_namespaceObject.TooltipContainer, {
 						text: `Search by city`,
 						className: style.Z["search-city-wrapper"]
@@ -611,18 +656,18 @@ function buildPlugin([BasePlugin, PluginApi]) {
 						look: components_namespaceObject.Button.Looks.OUTLINED,
 						color: components_namespaceObject.Button.Colors.WHITE,
 						size: components_namespaceObject.Button.Sizes.ICON,
-						onClick: () => setTimezonePage("city")
+						onClick: () => setTimezonePage(constants.Settings.TimezonePages.CITY_SELECTOR)
 					}, external_BdApi_React_default().createElement(icons_namespaceObject.EmojiTravelCategory, {
 						width: 24,
 						height: 24
-					})))), "city" === timezonePage && external_BdApi_React_default().createElement(external_BdApi_React_default().Fragment, null, external_BdApi_React_default().createElement(components_namespaceObject.TextInput, {
+					})))), timezonePage === constants.Settings.TimezonePages.CITY_SELECTOR && external_BdApi_React_default().createElement(external_BdApi_React_default().Fragment, null, external_BdApi_React_default().createElement(components_namespaceObject.TextInput, {
 						className: style.Z["city-search-textbox"],
 						value: userCity,
 						placeholder: `Continent/City. e.g.: ${moment_timezone_default().tz.guess()}`,
 						onChange: text => setUserCity(text),
-						onClick: () => setFocus("userCity"),
+						onClick: () => setFocus(constants.Settings.TextFocus.CITY),
 						error: userCityError,
-						autoFocus: "userCity" === focus
+						autoFocus: focus === constants.Settings.TextFocus.CITY
 					}), external_BdApi_React_default().createElement("div", {
 						className: style.Z["city-actions-wrapper"]
 					}, external_BdApi_React_default().createElement(components_namespaceObject.Button, {
@@ -635,8 +680,8 @@ function buildPlugin([BasePlugin, PluginApi]) {
 						look: components_namespaceObject.Button.Looks.OUTLINED,
 						color: components_namespaceObject.Button.Colors.WHITE,
 						size: components_namespaceObject.Button.Sizes.ICON,
-						onClick: () => setTimezonePage("manual")
-					}, external_BdApi_React_default().createElement(icons_namespaceObject.ArrowLeft, null)))))), null)), external_BdApi_React_default().createElement(components_namespaceObject.Button, {
+						onClick: () => setTimezonePage(constants.Settings.TimezonePages.MANUAL)
+					}, external_BdApi_React_default().createElement(icons_namespaceObject.ArrowLeft, null)))))), null)), timezonePage === constants.Settings.TimezonePages.MANUAL && external_BdApi_React_default().createElement(components_namespaceObject.Button, {
 						onClick: () => handleAdd(userId, userTimezone)
 					}, isEditing ? "Edit" : "Add", " user")), external_BdApi_React_default().createElement(Category, {
 						look: Category.Looks.COMPACT,
