@@ -9,7 +9,7 @@
                 "twitter_username": "auwuser"
             }
         ],
-        "version": "0.0.2",
+        "version": "0.0.3",
         "description": "Shows the fuse time from somebody's current timezone"
     },
     "build": {
@@ -21,6 +21,23 @@
             "public": true
         }
     },
+    "changelog": [
+        {
+            "type": "progress",
+            "title": "Improved",
+            "items": [
+                "More constants!"
+            ]
+        },
+        {
+            "type": "fixed",
+            "title": "Fixes",
+            "items": [
+                "Fixed an issue where you could add invalid users",
+                "Hides the \"Add timezone\" button while selecting the timezone by a city"
+            ]
+        }
+    ],
     "dependencies": {
         "moment-timezone": "^0.5.34"
     }

@@ -26,23 +26,53 @@ export default React.memo(() => {
 
     // Hooks
     //pages
-    const [timezonePage, setTimezonePage] = useState("manual")
+    const [timezonePage, setTimezonePage] = useState(constants.Settings.TimezonePages.MANUAL)
+    
     //textboxes
     const [userId, setUserId] = useState("") //UserID Textbox
+    const [userIdError, setUserIdError] = useState(false) //UserTimezone Textbox
+    
     const [userTimezone, setUserTimezone] = useState("") //UserTimezone Textbox
+    const [userTimezoneError, setUserTimezoneError] = useState(false) //UserTimezone Textbox
+    
     const [userCity, setUserCity] = useState("") //UserTimezone Textbox
     const [userCityError, setUserCityError] = useState(false) //UserTimezone Textbox
-    const [isEditing, setEditing] = useState(false) //
+
     //etc
-    const [focus, setFocus] = useState("userID") //textbox focus (yes, this exists)
+    const [focus, setFocus] = useState(constants.Settings.TextFocus.USER_ID) //textbox focus (yes, i need a text focus handler)
+    const [isEditing, setEditing] = useState(false)
 
 
     // Handlers
     const handleAdd = (id, timezone) => {
+        if (_.isEmpty(id)) {
+            setUserIdError("Please put a value here")
+            return
+        }
+        if (!Users.getUser(id)) {
+            setUserIdError("Invalid ID")
+            return
+        }
+        if (_.isEmpty(timezone)) {
+            setUserTimezoneError("Please put a value here")
+            return
+        }
+
+        //adds the user if everything was sucessful
         addUser(id, timezone)
+        
+        //clear texts
         setUserId("")
         setUserTimezone("")
+        
+        //remove the editing text
         setEditing(false)
+
+        //resets error values
+        setUserIdError(false)
+        setUserTimezoneError(false)
+        
+        //forces update
         forceUpdate()
     }
     
@@ -56,7 +86,7 @@ export default React.memo(() => {
             const cityDate = getDateFromCity(city, true)
             setUserTimezone(getOffset(cityDate))
             setUserCityError(false)
-            setTimezonePage("manual")
+            setTimezonePage(constants.Settings.TimezonePages.MANUAL)
         } catch (err) {
             if (err instanceof TimezoneException && err.code === constants.ExceptionCodes.Timezones.INVALID_CITY) setUserCityError(<>Invalid City! Please check <a href="https://gist.github.com/diogocapela/12c6617fc87607d11fd62d2a4f42b02a" target='_blank'>this list</a> to see all valid places!</>)
             else {
@@ -87,8 +117,8 @@ export default React.memo(() => {
                                     setUserId(id)
                                     setUserTimezone(timezone)
                                     setEditing(true)
-                                    setFocus("userTimezone")
-                                    setTimezonePage("manual")
+                                    setFocus(constants.Settings.TextFocus.TIMEZONE)
+                                    setTimezonePage(constants.Settings.TimezonePages.MANUAL)
                                 }}/>
                         </TooltipContainer>
                         <TooltipContainer text={`Remove ${user.username}`}>
@@ -102,33 +132,34 @@ export default React.memo(() => {
 
     const TimezonePicker = () => {
         return <Flex className={styles["user-add-timezone-panel"]}>
-            {timezonePage === "manual" && <>
+            {timezonePage === constants.Settings.TimezonePages.MANUAL && <>
                 <TextInput className={styles["timezone-search-textbox"]}
                     value={userTimezone}
                     placeholder={`Timezone (in UTC. e.g.: ${currentOffset})`}
                     onChange={text => setUserTimezone(text.replace(/[^\d.+-]/g, ''))}
-                    onClick={() => setFocus("userTimezone")}
-                    autoFocus={focus === "userTimezone"}
+                    onClick={() => setFocus(constants.Settings.TextFocus.TIMEZONE)}
+                    autoFocus={focus === constants.Settings.TextFocus.TIMEZONE}
+                    error={userTimezoneError}
                 ></TextInput>
                 <TooltipContainer text={`Search by city`} className={styles["search-city-wrapper"]}>
                     <Button className={styles["search-city-btn"]}
                         look={Button.Looks.OUTLINED}
                         color={Button.Colors.WHITE}
                         size={Button.Sizes.ICON}
-                        onClick={() => setTimezonePage("city")}>
+                        onClick={() => setTimezonePage(constants.Settings.TimezonePages.CITY_SELECTOR)}>
                         <EmojiTravelCategory width={24} height={24} />
                     </Button>
                 </TooltipContainer>
             </>}
 
-            {timezonePage === "city" && <>
+            {timezonePage === constants.Settings.TimezonePages.CITY_SELECTOR && <>
                 <TextInput className={styles["city-search-textbox"]}
                     value={userCity}
                     placeholder={`Continent/City. e.g.: ${moment.tz.guess()}`}
                     onChange={text => setUserCity(text)}
-                    onClick={() => setFocus("userCity")}
+                    onClick={() => setFocus(constants.Settings.TextFocus.CITY)}
                     error={userCityError}
-                    autoFocus={focus === "userCity"}
+                    autoFocus={focus === constants.Settings.TextFocus.CITY}
                 ></TextInput>
                 <div className={styles["city-actions-wrapper"]}>
                     <Button className={styles["find-city-btn"]}
@@ -141,7 +172,7 @@ export default React.memo(() => {
                         look={Button.Looks.OUTLINED}
                         color={Button.Colors.WHITE}
                         size={Button.Sizes.ICON}
-                        onClick={() => setTimezonePage("manual")}>
+                        onClick={() => setTimezonePage(constants.Settings.TimezonePages.MANUAL)}>
                         <ArrowLeft />
                     </Button>
                 </div>
@@ -164,12 +195,13 @@ export default React.memo(() => {
                         if (getTimezone(text)) setEditing(true)
                         else setEditing(false)
                     }}
-                    onClick={() => setFocus("userId")}
-                    autoFocus={focus === "userId"}
+                    onClick={() => setFocus(constants.Settings.TextFocus.USER_ID)}
+                    autoFocus={focus === constants.Settings.TextFocus.USER_ID}
+                    error={userIdError}
                 ></TextInput>
                 <TimezonePicker />
             </div>
-            <Button onClick={() => handleAdd(userId, userTimezone)}>{isEditing ? "Edit" : "Add"} user</Button>
+            {timezonePage === constants.Settings.TimezonePages.MANUAL && <Button onClick={() => handleAdd(userId, userTimezone)}>{isEditing ? "Edit" : "Add"} user</Button>}
         </Category>
 
         <Category look={Category.Looks.COMPACT} label="Time counter">

@@ -6,5 +6,16 @@ export default {
         Date: {
             INVALID_DATE: "INVALID_DATE"
         }
+    },
+    Settings: {
+        TimezonePages: {
+            CITY_SELECTOR: "city",
+            MANUAL: "manual"
+        },
+        TextFocus: {
+            USER_ID: "userID",
+            TIMEZONE: "userTimezone",
+            CITY: "userCity"
+        }
     }
 }
