@@ -1,8 +1,10 @@
 /**
  * @name Fuses
  * @author A user
- * @version 0.1.0
- * @description Shows the fuse time from somebody's current timezone
+ * @version 0.1.1
+ * @description Shows the time from somebody's timezone
+ * @source https://github.com/abUwUser/BDPlugins/tree/main/plugins/Fuses
+ * @updateUrl https://raw.githubusercontent.com/abUwUser/BDPlugins/compiled/Fuses/Fuses.plugin.js
  */
 /*@cc_on
 @if (@_jscript)
@@ -36,8 +38,10 @@ const config = {
 			"github_username": "abUwUser",
 			"twitter_username": "auwuser"
 		}],
-		"version": "0.1.0",
-		"description": "Shows the fuse time from somebody's current timezone"
+		"version": "0.1.1",
+		"description": "Shows the time from somebody's timezone",
+		"github": "https://github.com/abUwUser/BDPlugins/tree/main/plugins/Fuses",
+		"github_raw": "https://raw.githubusercontent.com/abUwUser/BDPlugins/compiled/Fuses/Fuses.plugin.js"
 	},
 	"build": {
 		"copy": true,
@@ -49,11 +53,11 @@ const config = {
 		}
 	},
 	"changelog": [{
-		"type": "added",
-		"title": "New stuff",
+		"type": "progress",
+		"title": "Fixes",
 		"items": [
-			"Now you can see somebody's timezone in messages!",
-			"Added preview in settings"
+			"Added the source and the updateUrl of the plugin",
+			"Fixed a typo in the description"
 		]
 	}],
 	"dependencies": {

@@ -1,6 +1,6 @@
 # Fuses
 
-> Shows the fuse time from somebody's current timezone
+> Shows the time from somebody's timezone
 <hr/>
 
 
