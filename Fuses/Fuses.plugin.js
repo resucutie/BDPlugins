@@ -49,21 +49,12 @@ const config = {
 		}
 	},
 	"changelog": [{
-			"type": "progress",
-			"title": "Improved",
-			"items": [
-				"More constants!"
-			]
-		},
-		{
-			"type": "fixed",
-			"title": "Fixes",
-			"items": [
-				"Fixed an issue where you could add invalid users",
-				"Hides the \"Add timezone\" button while selecting the timezone by a city"
-			]
-		}
-	],
+		"type": "added",
+		"title": "New stuff",
+		"items": [
+			"Now you can see somebody's timezone in messages!"
+		]
+	}],
 	"dependencies": {
 		"moment-timezone": "^0.5.34"
 	}
@@ -316,13 +307,16 @@ function buildPlugin([BasePlugin, PluginApi]) {
 				var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()((function(i) {
 					return i[1];
 				}));
-				___CSS_LOADER_EXPORT___.push([module.id, ".Fuses-style-section-look{font-weight:600;text-transform:uppercase}.Fuses-style-timer-positioning{position:absolute;bottom:5px;right:5px}.Fuses-style-timer-wrapper{display:flex;flex-direction:row;align-items:center;justify-content:center;background:rgba(32,34,37,.7);color:#fff;padding:2px 4px;border-radius:15px}.Fuses-style-timer-wrapper .Fuses-style-timer-icon{display:flex;align-items:center}.Fuses-style-timer-wrapper .Fuses-style-timer{margin:0 4px;font-size:14px}.Fuses-style-user-list{background:var(--background-secondary-alt);border-radius:10px;padding:20px;padding-top:0px;margin-bottom:30px;max-height:280px;overflow:auto}.Fuses-style-user-list::-webkit-scrollbar{width:0}.Fuses-style-user-list .Fuses-style-header{position:sticky;top:0px;padding-top:16px;margin-top:-16px;margin-bottom:20px;z-index:1;background:linear-gradient(180deg, var(--background-secondary-alt), transparent)}.Fuses-style-user-list-item{display:flex;align-items:center;padding:8px 0;color:#fff}.Fuses-style-user-list-item .Fuses-style-name{font-weight:600;margin-right:4px;font-size:16px}.Fuses-style-user-list-item .Fuses-style-timezone{color:#bfbfbf;font-size:12px}.Fuses-style-user-list-item .Fuses-style-actions-wrapper{margin-left:auto;opacity:0;display:flex}.Fuses-style-user-list-item .Fuses-style-actions-wrapper .Fuses-style-delete-icon{color:#ccc;cursor:pointer;height:24px;width:24px;margin-left:4px}.Fuses-style-user-list-item .Fuses-style-actions-wrapper .Fuses-style-delete-icon:hover{color:hsl(359, calc(var(--saturation-factor, 1) * 82.6%), 59.4%)}.Fuses-style-user-list-item .Fuses-style-actions-wrapper .Fuses-style-edit-icon{color:#ccc;cursor:pointer;height:24px;width:24px}.Fuses-style-user-list-item .Fuses-style-actions-wrapper .Fuses-style-edit-icon:hover{color:#fff}.Fuses-style-user-list-item:hover .Fuses-style-actions-wrapper{opacity:1}.Fuses-style-user-list .Fuses-style-avatar{margin-right:8px}.Fuses-style-user-add-timezone-panel{margin:8px 0}.Fuses-style-user-add-timezone-panel .Fuses-style-timezone-search-textbox,.Fuses-style-user-add-timezone-panel .Fuses-style-city-search-textbox{flex-grow:1}.Fuses-style-user-add-timezone-panel .Fuses-style-search-city-wrapper{margin-left:8px}.Fuses-style-user-add-timezone-panel .Fuses-style-search-city-wrapper .Fuses-style-search-city-btn{width:40px;height:40px}.Fuses-style-user-add-timezone-panel .Fuses-style-city-actions-wrapper{margin-left:8px;display:flex;flex-direction:row}.Fuses-style-user-add-timezone-panel .Fuses-style-city-actions-wrapper .Fuses-style-return-btn{margin-left:4px}.Fuses-style-user-add-timezone-panel .Fuses-style-city-actions-wrapper .Fuses-style-find-city-btn,.Fuses-style-user-add-timezone-panel .Fuses-style-city-actions-wrapper .Fuses-style-return-btn{width:40px;height:40px}", ""]);
+				___CSS_LOADER_EXPORT___.push([module.id, ".Fuses-style-section-look{font-weight:600;text-transform:uppercase}.Fuses-style-timer-positioning{position:absolute;bottom:5px;right:5px}.Fuses-style-timer-wrapper{display:flex;flex-direction:row;align-items:center;justify-content:center;background:rgba(32,34,37,.7);color:#fff;padding:2px 4px;border-radius:15px}.Fuses-style-timer-wrapper .Fuses-style-timer-icon{display:flex;align-items:center}.Fuses-style-timer-wrapper .Fuses-style-timer{margin:0 4px;font-size:14px}.Fuses-style-timestamp-timer{display:inline-block}.Fuses-style-timestamp-dot{margin:0 4px}.Fuses-style-preview-wrapper{display:flex;justify-content:center}.Fuses-style-user-list{background:var(--background-secondary-alt);border-radius:10px;padding:20px;padding-top:0px;margin-bottom:30px;max-height:280px;overflow:auto}.Fuses-style-user-list::-webkit-scrollbar{width:0}.Fuses-style-user-list .Fuses-style-header{position:sticky;top:0px;padding-top:16px;margin-top:-16px;margin-bottom:20px;z-index:1;background:linear-gradient(180deg, var(--background-secondary-alt), transparent)}.Fuses-style-user-list-item{display:flex;align-items:center;padding:8px 0;color:#fff}.Fuses-style-user-list-item .Fuses-style-name{font-weight:600;margin-right:4px;font-size:16px}.Fuses-style-user-list-item .Fuses-style-timezone{color:#bfbfbf;font-size:12px;display:flex;flex-direction:row}.Fuses-style-user-list-item .Fuses-style-actions-wrapper{margin-left:auto;opacity:0;display:flex}.Fuses-style-user-list-item .Fuses-style-actions-wrapper .Fuses-style-delete-icon{color:#ccc;cursor:pointer;height:24px;width:24px;margin-left:4px}.Fuses-style-user-list-item .Fuses-style-actions-wrapper .Fuses-style-delete-icon:hover{color:hsl(359, calc(var(--saturation-factor, 1) * 82.6%), 59.4%)}.Fuses-style-user-list-item .Fuses-style-actions-wrapper .Fuses-style-edit-icon{color:#ccc;cursor:pointer;height:24px;width:24px}.Fuses-style-user-list-item .Fuses-style-actions-wrapper .Fuses-style-edit-icon:hover{color:#fff}.Fuses-style-user-list-item:hover .Fuses-style-actions-wrapper{opacity:1}.Fuses-style-user-list .Fuses-style-avatar{margin-right:8px}.Fuses-style-user-add-timezone-panel{margin:8px 0}.Fuses-style-user-add-timezone-panel .Fuses-style-timezone-search-textbox,.Fuses-style-user-add-timezone-panel .Fuses-style-city-search-textbox{flex-grow:1}.Fuses-style-user-add-timezone-panel .Fuses-style-search-city-wrapper{margin-left:8px}.Fuses-style-user-add-timezone-panel .Fuses-style-search-city-wrapper .Fuses-style-search-city-btn{width:40px;height:40px}.Fuses-style-user-add-timezone-panel .Fuses-style-city-actions-wrapper{margin-left:8px;display:flex;flex-direction:row}.Fuses-style-user-add-timezone-panel .Fuses-style-city-actions-wrapper .Fuses-style-return-btn{margin-left:4px}.Fuses-style-user-add-timezone-panel .Fuses-style-city-actions-wrapper .Fuses-style-find-city-btn,.Fuses-style-user-add-timezone-panel .Fuses-style-city-actions-wrapper .Fuses-style-return-btn{width:40px;height:40px}", ""]);
 				___CSS_LOADER_EXPORT___.locals = {
 					"section-look": "Fuses-style-section-look",
 					"timer-positioning": "Fuses-style-timer-positioning",
 					"timer-wrapper": "Fuses-style-timer-wrapper",
 					"timer-icon": "Fuses-style-timer-icon",
 					timer: "Fuses-style-timer",
+					"timestamp-timer": "Fuses-style-timestamp-timer",
+					"timestamp-dot": "Fuses-style-timestamp-dot",
+					"preview-wrapper": "Fuses-style-preview-wrapper",
 					"user-list": "Fuses-style-user-list",
 					header: "Fuses-style-header",
 					"user-list-item": "Fuses-style-user-list-item",
@@ -344,7 +338,7 @@ function buildPlugin([BasePlugin, PluginApi]) {
 				StyleLoader.append(module.id, ___CSS_LOADER_EXPORT___.toString());
 				const __WEBPACK_DEFAULT_EXPORT__ = Object.assign(___CSS_LOADER_EXPORT___, ___CSS_LOADER_EXPORT___.locals);
 			},
-			6349: (__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+			5934: (__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 				"use strict";
 				__webpack_require__.r(__webpack_exports__);
 				__webpack_require__.d(__webpack_exports__, {
@@ -406,62 +400,6 @@ function buildPlugin([BasePlugin, PluginApi]) {
 				};
 				var moment_timezone = __webpack_require__(2866);
 				var moment_timezone_default = __webpack_require__.n(moment_timezone);
-				class TimezoneException extends Error {
-					constructor(message, code) {
-						super(message);
-						this.name = "TimezoneException";
-						this.code = code;
-					}
-				}
-				class DateException extends Error {
-					constructor(message, code) {
-						super(message);
-						this.name = "DateException";
-						this.code = code;
-					}
-				}
-				const constants = {
-					ExceptionCodes: {
-						Timezones: {
-							INVALID_CITY: "INVALID_CITY"
-						},
-						Date: {
-							INVALID_DATE: "INVALID_DATE"
-						}
-					},
-					Settings: {
-						TimezonePages: {
-							CITY_SELECTOR: "city",
-							MANUAL: "manual"
-						},
-						TextFocus: {
-							USER_ID: "userID",
-							TIMEZONE: "userTimezone",
-							CITY: "userCity"
-						}
-					}
-				};
-				function getOffset(date) {
-					let timezoneOffset;
-					if (moment_timezone_default().isMoment(date)) timezoneOffset = date.utcOffset();
-					else {
-						if (!_.isDate(date)) throw new DateException("Invalid Date", constants.ExceptionCodes.Date.INVALID_DATE);
-						timezoneOffset = date.getTimezoneOffset();
-					}
-					return (timezoneOffset <= 0 ? "" : "+") + timezoneOffset / 60;
-				}
-				function timezones_getTimeFromTimezone(utcOffset, currentDate = new Date) {
-					let localTime = currentDate.getTime();
-					let localOffset = 6e4 * currentDate.getTimezoneOffset();
-					let utc = new Date(localTime + localOffset);
-					utc.setTime(utc.getTime() + 60 * Number(utcOffset) * 60 * 1e3);
-					return utc;
-				}
-				function getDateFromCity(city, sendAsMoment = false) {
-					if (!moment_timezone_default().tz.zone(city)) throw new TimezoneException("Invalid City", constants.ExceptionCodes.Timezones.INVALID_CITY);
-					let timezone = moment_timezone_default().tz(city);
-					return sendAsMoment ? timezone : timezone.toDate();
-				}
 				const icons_namespaceObject = Modules["@discord/icons"];
 				const components_namespaceObject = Modules["@discord/components"];
 				const stores_namespaceObject = Modules["@discord/stores"];
@@ -523,6 +461,123 @@ function buildPlugin([BasePlugin, PluginApi]) {
 					COMPACT: category.Z.compact,
 					DEFAULT: category.Z["default"]
 				};
+				class TimezoneException extends Error {
+					constructor(message, code) {
+						super(message);
+						this.name = "TimezoneException";
+						this.code = code;
+					}
+				}
+				class DateException extends Error {
+					constructor(message, code) {
+						super(message);
+						this.name = "DateException";
+						this.code = code;
+					}
+				}
+				const constants = {
+					ExceptionCodes: {
+						Timezones: {
+							INVALID_CITY: "INVALID_CITY"
+						},
+						Date: {
+							INVALID_DATE: "INVALID_DATE"
+						}
+					},
+					Settings: {
+						TimezonePages: {
+							CITY_SELECTOR: "city",
+							MANUAL: "manual"
+						},
+						TextFocus: {
+							USER_ID: "userID",
+							TIMEZONE: "userTimezone",
+							CITY: "userCity"
+						}
+					}
+				};
+				function getOffset(date = moment_timezone_default()(date)) {
+					let timezoneOffset;
+					if (moment_timezone_default().isMoment(date)) timezoneOffset = date.utcOffset();
+					else timezoneOffset = moment_timezone_default()(date).utcOffset();
+					return (timezoneOffset <= 0 ? "" : "+") + timezoneOffset / 60;
+				}
+				function getTimeFromTimezone(utcOffset, currentDate = new Date) {
+					let localTime = currentDate.getTime();
+					let localOffset = 6e4 * currentDate.getTimezoneOffset();
+					let utc = new Date(localTime + localOffset);
+					utc.setTime(utc.getTime() + 60 * Number(utcOffset) * 60 * 1e3);
+					return utc;
+				}
+				function getDateFromCity(city, sendAsMoment = false) {
+					if (!moment_timezone_default().tz.zone(city)) throw new TimezoneException("Invalid City", constants.ExceptionCodes.Timezones.INVALID_CITY);
+					let timezone = moment_timezone_default().tz(city);
+					return sendAsMoment ? timezone : timezone.toDate();
+				}
+				function formatDate(date, timezone) {
+					let hours = date.getHours().toLocaleString("en-US", {
+						minimumIntegerDigits: 2,
+						useGrouping: false
+					});
+					let minutes = date.getMinutes().toLocaleString("en-US", {
+						minimumIntegerDigits: 2,
+						useGrouping: false
+					});
+					let seconds = date.getSeconds().toLocaleString("en-US", {
+						minimumIntegerDigits: 2,
+						useGrouping: false
+					});
+					return {
+						hours,
+						minutes,
+						seconds,
+						toString: () => `${date.toDateString()} ${hours}:${minutes}:${seconds} (UTC${timezone})`
+					};
+				}
+				const Timer = external_BdApi_React_default().memo((({
+					timezone = getOffset(new Date),
+					showSeconds = false,
+					className
+				}) => {
+					const [dateTime, setDateTime] = (0, external_BdApi_React_.useState)(getTimeFromTimezone(timezone));
+					(0, external_BdApi_React_.useEffect)((() => {
+						const id = setInterval((() => setDateTime(getTimeFromTimezone(timezone), 1e3)));
+						return () => {
+							clearInterval(id);
+						};
+					}), []);
+					const formattedText = formatDate(dateTime, timezone);
+					return external_BdApi_React_default().createElement("div", {
+						className: `${style.Z["timer-wrapper"]} ${className}`
+					}, external_BdApi_React_default().createElement(components_namespaceObject.TooltipContainer, {
+						text: formattedText.toString(),
+						className: style.Z["timer-icon"]
+					}, external_BdApi_React_default().createElement(icons_namespaceObject.Timer, null)), external_BdApi_React_default().createElement("div", {
+						className: style.Z.timer
+					}, formattedText.hours, ":", formattedText.minutes, settingsManager.get("seconds", false) || showSeconds ? `:${formattedText.seconds}` : ""));
+				}));
+				const BasicTimer = external_BdApi_React_default().memo((({
+					timezone = getOffset(new Date),
+					tooltip = true,
+					showSeconds = false,
+					className
+				}) => {
+					const [dateTime, setDateTime] = (0, external_BdApi_React_.useState)(getTimeFromTimezone(timezone));
+					(0, external_BdApi_React_.useEffect)((() => {
+						const id = setInterval((() => setDateTime(getTimeFromTimezone(timezone), 1e3)));
+						return () => {
+							clearInterval(id);
+						};
+					}), []);
+					const formattedText = formatDate(dateTime, timezone);
+					const element = external_BdApi_React_default().createElement(external_BdApi_React_default().Fragment, null, formattedText.hours, ":", formattedText.minutes, settingsManager.get("seconds", false) || showSeconds ? `:${formattedText.seconds}` : "");
+					if (tooltip) return external_BdApi_React_default().createElement(components_namespaceObject.TooltipContainer, {
+						text: formattedText.toString(),
+						delay: 750,
+						className
+					}, element);
+					return element;
+				}));
 				const {
 					AvatarDefaults
 				} = external_PluginApi_namespaceObject.DiscordModules;
@@ -584,7 +639,9 @@ function buildPlugin([BasePlugin, PluginApi]) {
 							}
 						}
 					};
-					return external_BdApi_React_default().createElement(external_BdApi_React_default().Fragment, null, external_BdApi_React_default().createElement(Category, {
+					return external_BdApi_React_default().createElement(external_BdApi_React_default().Fragment, null, external_BdApi_React_default().createElement("div", {
+						className: style.Z["preview-wrapper"]
+					}, external_BdApi_React_default().createElement(Timer, null)), external_BdApi_React_default().createElement(Category, {
 						look: Category.Looks.COMPACT,
 						label: "Users"
 					}, external_BdApi_React_default().createElement((() => external_BdApi_React_default().createElement("div", {
@@ -605,7 +662,11 @@ function buildPlugin([BasePlugin, PluginApi]) {
 							className: style.Z.name
 						}, user.username), external_BdApi_React_default().createElement("div", {
 							className: style.Z.timezone
-						}, "UTC", timezone)), external_BdApi_React_default().createElement("div", {
+						}, "UTC", timezone, " ", external_BdApi_React_default().createElement("span", {
+							className: style.Z["timestamp-dot"]
+						}, "•"), " ", external_BdApi_React_default().createElement(BasicTimer, {
+							timezone
+						}))), external_BdApi_React_default().createElement("div", {
 							className: style.Z["actions-wrapper"]
 						}, external_BdApi_React_default().createElement(components_namespaceObject.TooltipContainer, {
 							text: `Edit ${user.username}`
@@ -689,69 +750,18 @@ function buildPlugin([BasePlugin, PluginApi]) {
 					}, external_BdApi_React_default().createElement(SwitchItem, {
 						value: settingsManager.get("seconds", false),
 						onChange: value => settingsManager.set("seconds", value)
-					}, "Show seconds")));
+					}, "Show seconds"), external_BdApi_React_default().createElement(SwitchItem, {
+						value: settingsManager.get("timestamps", false),
+						onChange: value => settingsManager.set("timestamps", value)
+					}, "Adds the time counter in messages")));
 				}));
-				const Timer = external_BdApi_React_default().memo((({
-					timezone,
-					className
-				}) => {
-					const [dateTime, setDateTime] = (0, external_BdApi_React_.useState)(timezones_getTimeFromTimezone(timezone));
-					(0, external_BdApi_React_.useEffect)((() => {
-						const id = setInterval((() => setDateTime(timezones_getTimeFromTimezone(timezone), 1e3)));
-						return () => {
-							clearInterval(id);
-						};
-					}), []);
-					let hours = dateTime.getHours().toLocaleString("en-US", {
-						minimumIntegerDigits: 2,
-						useGrouping: false
-					});
-					let minutes = dateTime.getMinutes().toLocaleString("en-US", {
-						minimumIntegerDigits: 2,
-						useGrouping: false
-					});
-					let seconds = dateTime.getSeconds().toLocaleString("en-US", {
-						minimumIntegerDigits: 2,
-						useGrouping: false
-					});
-					return external_BdApi_React_default().createElement("div", {
-						className: `${style.Z["timer-wrapper"]} ${className}`
-					}, external_BdApi_React_default().createElement(components_namespaceObject.TooltipContainer, {
-						text: `${dateTime.toDateString()} ${hours}:${minutes}:${seconds} (UTC${timezone})`,
-						className: style.Z["timer-icon"]
-					}, external_BdApi_React_default().createElement(icons_namespaceObject.Timer, null)), external_BdApi_React_default().createElement("div", {
-						className: style.Z.timer
-					}, hours, ":", minutes, settingsManager.get("seconds", false) ? `:${seconds}` : ""));
-				}));
-				const useTimezone = (timezone, interval = "second") => {
-					const [date, setDate] = useState(getTimeFromTimezone(timezone));
-					useEffect((() => {
-						let timeoutId;
-						const bump = () => {
-							timeoutId = setTimeout((() => {
-								setDate(new Date);
-								bump();
-							}), nextCallback(new Date, interval));
-						};
-						bump();
-						return () => clearTimeout(timeoutId);
-					}));
-					return date;
-				};
-				const hooks_useTimezone = null && useTimezone;
-				const nextCallback = (now, interval) => {
-					if ("number" === typeof interval) return interval;
-					else if ("second" === interval) return 1e3 - now.getMilliseconds();
-					else if ("minute" === interval) return 60 * 1e3 - now.getMilliseconds() - 1e3 * now.getSeconds();
-					else if ("hour" === interval) return 60 * 60 * 1e3 - now.getMilliseconds() - 1e3 * now.getSeconds() - 60 * now.getMinutes() * 1e3;
-					else return 1e3 - now.getMilliseconds();
-				};
 				class Fuses extends(external_BasePlugin_default()) {
 					onStart() {
 						external_StyleLoader_default().inject();
-						this.handlePatch();
+						this.handleUserBannerPatch();
+						this.handleTimestampPatch();
 					}
-					handlePatch() {
+					handleUserBannerPatch() {
 						external_PluginApi_namespaceObject.Patcher.after(external_PluginApi_namespaceObject.WebpackModules.find((m => "UserBanner" === m.default?.displayName)), "default", ((_this, [props], res) => {
 							let userTimezone = getTimezone(props.user.id);
 							if (!userTimezone) return;
@@ -759,6 +769,37 @@ function buildPlugin([BasePlugin, PluginApi]) {
 								timezone: userTimezone,
 								className: style.Z["timer-positioning"]
 							}));
+						}));
+					}
+					handleTimestampPatch() {
+						const OriginalMessageTimestamp = external_PluginApi_namespaceObject.WebpackModules.getModule((m => m?.default?.toString().indexOf("showTimestampOnHover") > -1));
+						external_PluginApi_namespaceObject.Patcher.after(OriginalMessageTimestamp, "default", ((_this, [props], res) => {
+							if (!settingsManager.get("timestamps", false)) return;
+							let userTimezone = getTimezone(props.message.author.id);
+							if (!userTimezone) return;
+							let timestamp = external_PluginApi_namespaceObject.Utilities.findInReactTree(res, (e => "MessageTimestamp" === e?.type?.displayName));
+							const firstOgFunc = timestamp?.type;
+							if (!firstOgFunc) return;
+							timestamp.type = function() {
+								let firstRes = firstOgFunc.apply(this, arguments);
+								let children = firstRes?.props?.children;
+								if (!children) return firstRes;
+								if (!_.isArray(children)) children = [children];
+								children.push(external_BdApi_React_default().createElement("span", {
+									className: style.Z["timestamp-dot"]
+								}, "•"), external_BdApi_React_default().createElement(BasicTimer, {
+									className: style.Z["timestamp-timer"],
+									timezone: userTimezone
+								}));
+								firstRes.props.children = children;
+								return firstRes;
+							};
+						}));
+						const Modules = external_PluginApi_namespaceObject.WebpackModules.findAll((m => ~["ChannelMessage", "InboxMessage"].indexOf(m?.type?.displayName)));
+						for (const Module of Modules) external_PluginApi_namespaceObject.Patcher.after(Module, "type", ((_, __, ret) => {
+							const tree = external_PluginApi_namespaceObject.Utilities.findInReactTree(ret, (m => m?.childrenHeader));
+							if (!tree) return;
+							tree.childrenHeader.type.type = OriginalMessageTimestamp.default;
 						}));
 					}
 					getSettingsPanel() {
@@ -15420,7 +15461,7 @@ function buildPlugin([BasePlugin, PluginApi]) {
 				return module;
 			};
 		})();
-		var __webpack_exports__ = __webpack_require__(6349);
+		var __webpack_exports__ = __webpack_require__(5934);
 		module.exports.LibraryPluginHack = __webpack_exports__;
 	})();
 	const PluginExports = module.exports.LibraryPluginHack;
