@@ -1,7 +1,7 @@
 /**
  * @name Fuses
  * @author A user
- * @version 0.0.3
+ * @version 0.1.0
  * @description Shows the fuse time from somebody's current timezone
  */
 /*@cc_on
@@ -36,7 +36,7 @@ const config = {
 			"github_username": "abUwUser",
 			"twitter_username": "auwuser"
 		}],
-		"version": "0.0.3",
+		"version": "0.1.0",
 		"description": "Shows the fuse time from somebody's current timezone"
 	},
 	"build": {
@@ -52,7 +52,8 @@ const config = {
 		"type": "added",
 		"title": "New stuff",
 		"items": [
-			"Now you can see somebody's timezone in messages!"
+			"Now you can see somebody's timezone in messages!",
+			"Added preview in settings"
 		]
 	}],
 	"dependencies": {
