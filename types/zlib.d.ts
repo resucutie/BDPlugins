@@ -81,10 +81,10 @@ declare module "@zlibrary" {
         static getByProps(...props: string[]): void | any;
         static getByDisplayName(displayName: string): void | any;
         static getByPrototypes(...prototypes: string[]): void | any;
-        static getModule(filter: (m: any) => Boolean, first?: true): void | any;
-        static getModules(filter: (m: any) => Boolean, first?: true): void | any;
-        static find(filter: (m: any) => Boolean): void | any;
-        static findAll(filter: (m: any) => Boolean): void | any[];
+        static getModule(filter: (m: any) => any, first?: true): void | any;
+        static getModules(filter: (m: any) => any, first?: true): void | any;
+        static find(filter: (m: any) => any): void | any;
+        static findAll(filter: (m: any) => any): void | any[];
         static findByUniqueProperties(props: string[], first?: false): any | any[];
     }
 

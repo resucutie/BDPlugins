@@ -1,8 +1,10 @@
-export type Timezone = string
+export declare type Timezone = string
+
+import { Button } from "@discord/components"
 
 //UserAdd
 
-interface UserAddProps {
+export interface UserAddProps {
     presets?: {
         userID?: string,
         timezone?: Timezone
@@ -13,6 +15,7 @@ interface UserAddProps {
 export type UserAddErrorHandler = string
 
 export function UserAdd(props: UserAddProps): ReactComponent
+
 
 //Timer
 
@@ -35,3 +38,22 @@ interface BasicTimerProps extends TimerProps {
 
 export function BasicTimer(props: BasicTimerProps): ReactComponent
 
+
+//TimezoneManager
+export function getOffset(date?: Date | moment.Moment):Timezone
+export function getTimeFromTimezone(utcOffset: Timezone, currentDate?: Date): Date
+export function getDateFromCity(city: string, sendAsMoment?: boolean): Date|moment.Moment
+export function formatDate(date: string, timezone: Timezone): string
+
+
+//UserManager
+type UserList = {
+    [key: string]: Timezone
+}
+export function addUser(id: string, utcOffset: Timezone)
+export function removeUser(id: string)
+export function getList(): UserList
+export function getTimezone(id: string): Timezone
+
+//Alert
+export function createQuestion(title: string | ReactElement, description: string | ReactElement, buttons: Array<{ text: string | ReactElement, color: string}>): Promise<string>

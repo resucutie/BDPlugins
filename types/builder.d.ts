@@ -27,6 +27,26 @@ declare module "common/apis/clyde";
 declare module "common/apis/strings";
 declare module "common/apis/commands";
 declare module "react-spring";
+declare module "common/components/category" {
+    type CategoryLooks = {
+        COMPAT: string,
+        DEFAULT: string
+    }
+
+    interface CategoryProps {
+        children?: ReactElement,
+        look?: CategoryLooks,
+        label: string | ReactElement
+    }
+    export default function Category(props: {
+        children?: ReactElement,
+        look?: CategoryLooks,
+        label: string | ReactElement
+    }): ReactElement;
+    
+    //@ts-ignore
+    Category.Looks = CategoryLooks
+}
 // declare module "lodash";
 
 declare module "*.scss";

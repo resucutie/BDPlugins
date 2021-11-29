@@ -1,3 +1,5 @@
+/// <reference path="../../types/main.d.ts" />
+
 import React, { useState, useEffect } from "react"
 import BasePlugin from "@zlibrary/plugin";
 import { Patcher, WebpackModules, Utilities } from "@zlibrary";
@@ -89,7 +91,7 @@ export default class Fuses extends BasePlugin {
         })
 
         // Thanks discord.
-        const Modules = WebpackModules.findAll(m => ~["ChannelMessage", "InboxMessage"].indexOf(m?.type?.displayName));
+        const Modules: any = WebpackModules.findAll(m => ~["ChannelMessage", "InboxMessage"].indexOf(m?.type?.displayName));
 
         for (const Module of Modules) {
             Patcher.after(Module, "type", (_, __, ret) => {
@@ -120,7 +122,7 @@ export default class Fuses extends BasePlugin {
                 id="fuses-addUser"
                 label="Add timezone"
                 action={() => { this.openSettingsModal(props.user.id) }}
-                disabled={getTimezone(props.user.id)}
+                disabled={Boolean(getTimezone(props.user.id))}
             />)
         })
     }

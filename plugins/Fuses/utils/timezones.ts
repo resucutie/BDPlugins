@@ -1,9 +1,11 @@
+/// <reference path="../../../types/main.d.ts" />
+
 import moment from "moment-timezone"
 import { TimezoneException, DateException } from "./exceptions"
 import constants from "./constants"
 
-function getOffset(date = moment(date)) {
-    let timezoneOffset;
+function getOffset(date = moment()) {
+    let timezoneOffset: number;
     if(moment.isMoment(date)) timezoneOffset = date.utcOffset()
     else timezoneOffset = moment(date).utcOffset()
     

@@ -229,7 +229,7 @@ declare module "@discord/actions" {
 declare module "@discord/contextmenu" {
     export function openContextMenu(event: MouseEvent, menu: () => ReactElement, options?: object): void;
     export function closeContextMenu(): void;
-    export function MenuItem({ label, action, id }: { label: string, action: () => any, id: string }): ReactElement;
+    export function MenuItem({ label, action, id }: { label: string, action: () => any, id: string, disabled:boolean }): ReactElement;
     export function MenuGroup({ children }: { children: any }): ReactElement;
     export function Menu({ children, navId, onClose }: { children: any, navId: string, onClose: Function }): ReactElement;
 }
@@ -292,7 +292,7 @@ declare module "@discord/modal" {
     type ModalFooterProps = { children?: ReactElement, className?: string }
     export function ModalFooter(props: ModalFooterProps): ReactElement;
 
-    type ModalHeaderProps = { children: ReactElement, className?: string };
+    type ModalHeaderProps = { children: ReactElement, className?: string, separator?:boolean };
     export function ModalHeader(props?: ModalHeaderProps): ReactElement;
 
     type ModalCloseButtonProps = { children?: ReactElement; focusProps?: any, onClick: (event: React.MouseEvent) => void, className?: string, hideOnFullscreen?: boolean };

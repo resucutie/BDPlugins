@@ -55,7 +55,28 @@
 }
 
 
-//Settings
+// User picker
+.user-selector{
+    margin-bottom: 16px;
+
+    .user-picker{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        color: var(--interactive-normal);
+
+        .avatar{
+            margin: 0 4px;
+        }
+
+        a {
+            margin-left: 2px;
+        }
+    }
+}
+
+
+// User Add
 
 .user-add-wrapper {
     padding: 20px;
@@ -179,6 +200,38 @@
         .find-city-btn, .return-btn {
             width: 40px;
             height: 40px;
+        }
+    }
+}
+
+// User Find
+.user-find {
+    .search{
+        width: calc(100% - 50px);
+        margin: 0 8px;
+    }
+
+    .list-wrapper {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        margin-bottom: 16px;
+
+        .list-user{
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            padding: 8px;
+            cursor: pointer;
+            border-radius: 4px;
+            color: var(--interactive-hover);
+
+            &:hover{
+                background: var(--background-modifier-selected);
+            }
+
+            .user-pfp{
+                margin-right: 8px;
+            }
         }
     }
 }

@@ -56,6 +56,7 @@ declare namespace DiscordNative {
         dirname: (path: string) => string;
         extname: (path: string) => string;
         getModulePathDataSync: UnknownFunction;
-        saveWithDialog: (options: { title: string, properties: "openDirectory" }) => Promise<{ filePaths: string[] }>;
+        openFiles: (...args: any) => Promise<[{data: ArrayBuffer, filename: string}]>
+        saveWithDialog: (title: string, name: string) => Promise<{ filePaths: string[] }>;
     };
 }

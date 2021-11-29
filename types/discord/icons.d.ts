@@ -26,4 +26,5 @@ declare module "@discord/icons" {
     export const Search: React.FC<CommonProperties>;
     export const Pencil: React.FC<CommonProperties>;
     export const Timer: React.FC<CommonProperties>;
+    export const ChatBubble: React.FC<CommonProperties>;
 }

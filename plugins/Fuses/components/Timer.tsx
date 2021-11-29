@@ -10,7 +10,7 @@ import styles from "../style.scss"
 import settings from "../settingsManager";
 import { getTimeFromTimezone, formatDate, getOffset } from '../utils/timezones';
 
-export default React.memo(({ timezone = getOffset(new Date()), showSeconds = false, className }: TimerProps) => {
+export default React.memo(({ timezone = getOffset(), showSeconds = false, className }: TimerProps) => {
     const [dateTime, setDateTime] = useState(getTimeFromTimezone(timezone))
     useEffect(() => {
         const id = setInterval(() => setDateTime(getTimeFromTimezone(timezone)), 1000)

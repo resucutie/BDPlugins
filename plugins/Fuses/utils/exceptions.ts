@@ -1,4 +1,5 @@
 class TimezoneException extends Error {
+    code: string
     constructor(message, code) {
         super(message)
         this.name = "TimezoneException"
@@ -7,6 +8,7 @@ class TimezoneException extends Error {
 }
 
 class DateException extends Error {
+    code: string
     constructor(message, code) {
         super(message)
         this.name = "DateException"

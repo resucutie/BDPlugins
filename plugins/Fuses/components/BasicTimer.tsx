@@ -7,7 +7,7 @@ import settings from "../settingsManager";
 import { getTimeFromTimezone, formatDate, getOffset } from '../utils/timezones';
 import { BasicTimerProps } from '../../../types/plugins/Fuses';
 
-export default React.memo(({ timezone = getOffset(new Date()), tooltip = true, showSeconds = false, staticTime, className }: BasicTimerProps) => {
+export default React.memo(({ timezone = getOffset(), tooltip = true, showSeconds = false, staticTime, className }: BasicTimerProps) => {
     const [dateHook, setDateHook] = useState(getTimeFromTimezone(timezone))
     useEffect(() => {
         const id = setInterval(() => setDateHook(getTimeFromTimezone(timezone)), 1000)

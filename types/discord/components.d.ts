@@ -11,15 +11,15 @@ declare module "@discord/components" {
     export const SettingsNotice: React.FunctionComponent<{ onSave, onReset }>;
 
     /* Button */
-    const ButtonSizes: { ICON: string, LARGE: string, MAX: string, MEDIUM: string, MIN: string, NONE: string, SMALL: string, TINY: string, XLARGE: string };
+    export const ButtonSizes: { ICON: string, LARGE: string, MAX: string, MEDIUM: string, MIN: string, NONE: string, SMALL: string, TINY: string, XLARGE: string };
 
-    const ButtonLooks: { BLANK: string, FILLED: string, INVERTED: string, LINK: string, OUTLINED: string };
+    export const ButtonLooks: { BLANK: string, FILLED: string, INVERTED: string, LINK: string, OUTLINED: string };
 
-    const DropdownSizes: { LARGE: "LARGE", MEDIUM: "MEDIUM", SMALL: "SMALL" };
+    export const DropdownSizes: { LARGE: "LARGE", MEDIUM: "MEDIUM", SMALL: "SMALL" };
 
-    const ButtonColors: { BLACK: string; BRAND: string; GREEN: string; GREY: string; LINK: string; PRIMARY: string; RED: string; TRANSPARENT: string; WHITE: string; YELLOW: string; }
+    export const ButtonColors: { BLACK: string; BRAND: string; GREEN: string; GREY: string; LINK: string; PRIMARY: string; RED: string; TRANSPARENT: string; WHITE: string; YELLOW: string; }
 
-    export function Button(props: { className?: string; disabled?: boolean; children?: any, look?: string, size?: string, dropdownSize?: string, color?: string, onClick?: (event: React.MouseEvent) => any }): ReactElement;
+    export function Button(props: { className?: string; disabled?: boolean; children?: any, look?: string, size?: string, dropdownSize?: string, color?: string, onClick?: (event: React.MouseEvent) => any, [key: string]: any }): ReactElement;
 
     // @ts-ignore
     Button.Sizes = ButtonSizes;
