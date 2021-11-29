@@ -1,7 +1,7 @@
 /**
  * @name Fuses
  * @author A user
- * @version 0.2.0
+ * @version 0.3.0
  * @description Shows the time from somebody's timezone
  * @source https://github.com/abUwUser/BDPlugins/tree/main/plugins/Fuses
  * @updateUrl https://raw.githubusercontent.com/abUwUser/BDPlugins/compiled/Fuses/Fuses.plugin.js
@@ -38,7 +38,7 @@ const config = {
 			"github_username": "abUwUser",
 			"twitter_username": "auwuser"
 		}],
-		"version": "0.2.0",
+		"version": "0.3.0",
 		"description": "Shows the time from somebody's timezone",
 		"github": "https://github.com/abUwUser/BDPlugins/tree/main/plugins/Fuses",
 		"github_raw": "https://raw.githubusercontent.com/abUwUser/BDPlugins/compiled/Fuses/Fuses.plugin.js"
@@ -56,20 +56,16 @@ const config = {
 			"type": "added",
 			"title": "New features",
 			"items": [
-				"Added a search bar in the user list. Now you don't need to scroll down a 2 kilometer list!",
-				"Now you can add timezones to users without having to copy their ID. Right click them, hit \"Add timezone\" and it will open a modal with the User Add interface.",
-				"Do you want to see the time when somebody sent the message? Now it is possible to see! Open the settings menu and enable \"Display the message's time according to the user's time\""
+				"Do you hate the UserID textbox even if you can right click somebody and automatically put the ID? Not anymore with the NEW USER SELECTOR 3000! Now you can simple click \"Select a user\", choose who you wanna add and boom! User selected!",
+				"Have you ever wanted to move your user list across devices? Now you can with the USER TRANSFER 4000!",
+				"Wanna show the timestamps icon even if you enabled only one of the timestamp settings? Now you can force it to show with the new TIMESTAMP ICON FORCER 5000!"
 			]
 		},
 		{
 			"type": "progress",
-			"title": "Chnages",
+			"title": "Code conversion to Typescript",
 			"items": [
-				"Separated the User Add menu from the settings. Now it is a separated component.",
-				"Added a margin under the preview wrapper.",
-				"Added a new category called \"Timer in messages\".",
-				"\"Timer Counter\" category renamed to \"General Settings\".",
-				"\"Users\" category renamed to \"User List\"."
+				"As for now, I've converted all my code to Typescript, but maybe this will result in some bugs. Please keep an eye at that, and also report them!"
 			]
 		}
 	],
@@ -325,7 +321,7 @@ function buildPlugin([BasePlugin, PluginApi]) {
 				var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()((function(i) {
 					return i[1];
 				}));
-				___CSS_LOADER_EXPORT___.push([module.id, ".Fuses-style-section-look{font-weight:600;text-transform:uppercase}.Fuses-style-timer-positioning{position:absolute;bottom:5px;right:5px}.Fuses-style-timer-wrapper{display:flex;flex-direction:row;align-items:center;justify-content:center;background:rgba(32,34,37,.7);color:#fff;padding:2px 4px;border-radius:15px}.Fuses-style-timer-wrapper .Fuses-style-timer-icon{display:flex;align-items:center}.Fuses-style-timer-wrapper .Fuses-style-timer{margin:0 4px;font-size:14px}.Fuses-style-timestamp-timer-wrapper{display:inline-flex;flex-direction:row;align-items:center}.Fuses-style-timestamp-timer-wrapper .Fuses-style-timestamp-tooltip{height:16px;margin-right:2px}.Fuses-style-timestamp-timer-wrapper .Fuses-style-timestamp-timer{display:inline-block}.Fuses-style-timestamp-dot{margin:0 4px}.Fuses-style-user-add-wrapper{padding:20px;padding-top:0}.Fuses-style-preview-wrapper{display:flex;justify-content:center;margin-bottom:10px}.Fuses-style-user-list-wrapper{position:relative;margin-bottom:30px}.Fuses-style-user-list-wrapper .Fuses-style-header-search{position:absolute;padding:16px;z-index:1;background:linear-gradient(180deg, var(--background-secondary-alt), var(--background-secondary-alt), transparent);width:100%;margin-right:20px;border-radius:10px 10px 0 0}.Fuses-style-user-list-wrapper .Fuses-style-user-list{position:relative;background:var(--background-secondary-alt);border-radius:10px;max-height:280px;overflow:auto;padding:20px;padding-top:60px}.Fuses-style-user-list-wrapper .Fuses-style-user-list::-webkit-scrollbar{width:0}.Fuses-style-user-list-wrapper .Fuses-style-user-list-item{display:flex;align-items:center;padding:8px 0;color:#fff}.Fuses-style-user-list-wrapper .Fuses-style-user-list-item .Fuses-style-name{font-weight:600;margin-right:4px;font-size:16px}.Fuses-style-user-list-wrapper .Fuses-style-user-list-item .Fuses-style-timezone{color:#bfbfbf;font-size:12px;display:flex;flex-direction:row}.Fuses-style-user-list-wrapper .Fuses-style-user-list-item .Fuses-style-actions-wrapper{margin-left:auto;opacity:0;display:flex}.Fuses-style-user-list-wrapper .Fuses-style-user-list-item .Fuses-style-actions-wrapper .Fuses-style-delete-icon{color:#ccc;cursor:pointer;height:24px;width:24px;margin-left:4px}.Fuses-style-user-list-wrapper .Fuses-style-user-list-item .Fuses-style-actions-wrapper .Fuses-style-delete-icon:hover{color:hsl(359, calc(var(--saturation-factor, 1) * 82.6%), 59.4%)}.Fuses-style-user-list-wrapper .Fuses-style-user-list-item .Fuses-style-actions-wrapper .Fuses-style-edit-icon{color:#ccc;cursor:pointer;height:24px;width:24px}.Fuses-style-user-list-wrapper .Fuses-style-user-list-item .Fuses-style-actions-wrapper .Fuses-style-edit-icon:hover{color:#fff}.Fuses-style-user-list-wrapper .Fuses-style-user-list-item:hover .Fuses-style-actions-wrapper{opacity:1}.Fuses-style-user-list-wrapper .Fuses-style-user-list .Fuses-style-avatar{margin-right:8px}.Fuses-style-user-add-timezone-panel{margin:8px 0}.Fuses-style-user-add-timezone-panel .Fuses-style-timezone-search-textbox,.Fuses-style-user-add-timezone-panel .Fuses-style-city-search-textbox{flex-grow:1}.Fuses-style-user-add-timezone-panel .Fuses-style-search-city-wrapper{margin-left:8px}.Fuses-style-user-add-timezone-panel .Fuses-style-search-city-wrapper .Fuses-style-search-city-btn{width:40px;height:40px}.Fuses-style-user-add-timezone-panel .Fuses-style-city-actions-wrapper{margin-left:8px;display:flex;flex-direction:row}.Fuses-style-user-add-timezone-panel .Fuses-style-city-actions-wrapper .Fuses-style-return-btn{margin-left:4px}.Fuses-style-user-add-timezone-panel .Fuses-style-city-actions-wrapper .Fuses-style-find-city-btn,.Fuses-style-user-add-timezone-panel .Fuses-style-city-actions-wrapper .Fuses-style-return-btn{width:40px;height:40px}", ""]);
+				___CSS_LOADER_EXPORT___.push([module.id, ".Fuses-style-section-look{font-weight:600;text-transform:uppercase}.Fuses-style-timer-positioning{position:absolute;bottom:5px;right:5px}.Fuses-style-timer-wrapper{display:flex;flex-direction:row;align-items:center;justify-content:center;background:rgba(32,34,37,.7);color:#fff;padding:2px 4px;border-radius:15px}.Fuses-style-timer-wrapper .Fuses-style-timer-icon{display:flex;align-items:center}.Fuses-style-timer-wrapper .Fuses-style-timer{margin:0 4px;font-size:14px}.Fuses-style-timestamp-timer-wrapper{display:inline-flex;flex-direction:row;align-items:center}.Fuses-style-timestamp-timer-wrapper .Fuses-style-timestamp-tooltip{height:16px;margin-right:2px}.Fuses-style-timestamp-timer-wrapper .Fuses-style-timestamp-timer{display:inline-block}.Fuses-style-timestamp-dot{margin:0 4px}.Fuses-style-user-selector{margin-bottom:16px}.Fuses-style-user-selector .Fuses-style-user-picker{display:flex;flex-direction:row;align-items:center;color:var(--interactive-normal)}.Fuses-style-user-selector .Fuses-style-user-picker .Fuses-style-avatar{margin:0 4px}.Fuses-style-user-selector .Fuses-style-user-picker a{margin-left:2px}.Fuses-style-user-add-wrapper{padding:20px;padding-top:0}.Fuses-style-preview-wrapper{display:flex;justify-content:center;margin-bottom:10px}.Fuses-style-user-list-wrapper{position:relative;margin-bottom:30px}.Fuses-style-user-list-wrapper .Fuses-style-header-search{position:absolute;padding:16px;z-index:1;background:linear-gradient(180deg, var(--background-secondary-alt), var(--background-secondary-alt), transparent);width:100%;margin-right:20px;border-radius:10px 10px 0 0}.Fuses-style-user-list-wrapper .Fuses-style-user-list{position:relative;background:var(--background-secondary-alt);border-radius:10px;max-height:280px;overflow:auto;padding:20px;padding-top:60px}.Fuses-style-user-list-wrapper .Fuses-style-user-list::-webkit-scrollbar{width:0}.Fuses-style-user-list-wrapper .Fuses-style-user-list-item{display:flex;align-items:center;padding:8px 0;color:#fff}.Fuses-style-user-list-wrapper .Fuses-style-user-list-item .Fuses-style-name{font-weight:600;margin-right:4px;font-size:16px}.Fuses-style-user-list-wrapper .Fuses-style-user-list-item .Fuses-style-timezone{color:#bfbfbf;font-size:12px;display:flex;flex-direction:row}.Fuses-style-user-list-wrapper .Fuses-style-user-list-item .Fuses-style-actions-wrapper{margin-left:auto;opacity:0;display:flex}.Fuses-style-user-list-wrapper .Fuses-style-user-list-item .Fuses-style-actions-wrapper .Fuses-style-delete-icon{color:#ccc;cursor:pointer;height:24px;width:24px;margin-left:4px}.Fuses-style-user-list-wrapper .Fuses-style-user-list-item .Fuses-style-actions-wrapper .Fuses-style-delete-icon:hover{color:hsl(359, calc(var(--saturation-factor, 1) * 82.6%), 59.4%)}.Fuses-style-user-list-wrapper .Fuses-style-user-list-item .Fuses-style-actions-wrapper .Fuses-style-edit-icon{color:#ccc;cursor:pointer;height:24px;width:24px}.Fuses-style-user-list-wrapper .Fuses-style-user-list-item .Fuses-style-actions-wrapper .Fuses-style-edit-icon:hover{color:#fff}.Fuses-style-user-list-wrapper .Fuses-style-user-list-item:hover .Fuses-style-actions-wrapper{opacity:1}.Fuses-style-user-list-wrapper .Fuses-style-user-list .Fuses-style-avatar{margin-right:8px}.Fuses-style-user-add-timezone-panel{margin:8px 0}.Fuses-style-user-add-timezone-panel .Fuses-style-timezone-search-textbox,.Fuses-style-user-add-timezone-panel .Fuses-style-city-search-textbox{flex-grow:1}.Fuses-style-user-add-timezone-panel .Fuses-style-search-city-wrapper{margin-left:8px}.Fuses-style-user-add-timezone-panel .Fuses-style-search-city-wrapper .Fuses-style-search-city-btn{width:40px;height:40px}.Fuses-style-user-add-timezone-panel .Fuses-style-city-actions-wrapper{margin-left:8px;display:flex;flex-direction:row}.Fuses-style-user-add-timezone-panel .Fuses-style-city-actions-wrapper .Fuses-style-return-btn{margin-left:4px}.Fuses-style-user-add-timezone-panel .Fuses-style-city-actions-wrapper .Fuses-style-find-city-btn,.Fuses-style-user-add-timezone-panel .Fuses-style-city-actions-wrapper .Fuses-style-return-btn{width:40px;height:40px}.Fuses-style-user-find .Fuses-style-search{width:calc(100% - 50px);margin:0 8px}.Fuses-style-user-find .Fuses-style-list-wrapper{display:grid;grid-template-columns:1fr 1fr;margin-bottom:16px}.Fuses-style-user-find .Fuses-style-list-wrapper .Fuses-style-list-user{display:flex;flex-direction:row;align-items:center;padding:8px;cursor:pointer;border-radius:4px;color:var(--interactive-hover)}.Fuses-style-user-find .Fuses-style-list-wrapper .Fuses-style-list-user:hover{background:var(--background-modifier-selected)}.Fuses-style-user-find .Fuses-style-list-wrapper .Fuses-style-list-user .Fuses-style-user-pfp{margin-right:8px}", ""]);
 				___CSS_LOADER_EXPORT___.locals = {
 					"section-look": "Fuses-style-section-look",
 					"timer-positioning": "Fuses-style-timer-positioning",
@@ -336,6 +332,9 @@ function buildPlugin([BasePlugin, PluginApi]) {
 					"timestamp-tooltip": "Fuses-style-timestamp-tooltip",
 					"timestamp-timer": "Fuses-style-timestamp-timer",
 					"timestamp-dot": "Fuses-style-timestamp-dot",
+					"user-selector": "Fuses-style-user-selector",
+					"user-picker": "Fuses-style-user-picker",
+					avatar: "Fuses-style-avatar",
 					"user-add-wrapper": "Fuses-style-user-add-wrapper",
 					"preview-wrapper": "Fuses-style-preview-wrapper",
 					"user-list-wrapper": "Fuses-style-user-list-wrapper",
@@ -347,7 +346,6 @@ function buildPlugin([BasePlugin, PluginApi]) {
 					"actions-wrapper": "Fuses-style-actions-wrapper",
 					"delete-icon": "Fuses-style-delete-icon",
 					"edit-icon": "Fuses-style-edit-icon",
-					avatar: "Fuses-style-avatar",
 					"user-add-timezone-panel": "Fuses-style-user-add-timezone-panel",
 					"timezone-search-textbox": "Fuses-style-timezone-search-textbox",
 					"city-search-textbox": "Fuses-style-city-search-textbox",
@@ -355,12 +353,17 @@ function buildPlugin([BasePlugin, PluginApi]) {
 					"search-city-btn": "Fuses-style-search-city-btn",
 					"city-actions-wrapper": "Fuses-style-city-actions-wrapper",
 					"return-btn": "Fuses-style-return-btn",
-					"find-city-btn": "Fuses-style-find-city-btn"
+					"find-city-btn": "Fuses-style-find-city-btn",
+					"user-find": "Fuses-style-user-find",
+					search: "Fuses-style-search",
+					"list-wrapper": "Fuses-style-list-wrapper",
+					"list-user": "Fuses-style-list-user",
+					"user-pfp": "Fuses-style-user-pfp"
 				};
 				StyleLoader.append(module.id, ___CSS_LOADER_EXPORT___.toString());
 				const __WEBPACK_DEFAULT_EXPORT__ = Object.assign(___CSS_LOADER_EXPORT___, ___CSS_LOADER_EXPORT___.locals);
 			},
-			7788: (__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+			6999: (__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 				"use strict";
 				__webpack_require__.r(__webpack_exports__);
 				__webpack_require__.d(__webpack_exports__, {
@@ -375,7 +378,6 @@ function buildPlugin([BasePlugin, PluginApi]) {
 				const icons_namespaceObject = Modules["@discord/icons"];
 				const contextmenu_namespaceObject = Modules["@discord/contextmenu"];
 				const modal_namespaceObject = Modules["@discord/modal"];
-				const stores_namespaceObject = Modules["@discord/stores"];
 				const external_StyleLoader_namespaceObject = StyleLoader;
 				var external_StyleLoader_default = __webpack_require__.n(external_StyleLoader_namespaceObject);
 				var style = __webpack_require__(5074);
@@ -425,8 +427,6 @@ function buildPlugin([BasePlugin, PluginApi]) {
 					let list = getList();
 					return list?.[id];
 				};
-				var moment_timezone = __webpack_require__(2866);
-				var moment_timezone_default = __webpack_require__.n(moment_timezone);
 				var React = __webpack_require__(1113);
 				function _extends() {
 					_extends = Object.assign || function(target) {
@@ -485,9 +485,22 @@ function buildPlugin([BasePlugin, PluginApi]) {
 					COMPACT: category.Z.compact,
 					DEFAULT: category.Z["default"]
 				};
+				var moment_timezone = __webpack_require__(2866);
+				var moment_timezone_default = __webpack_require__.n(moment_timezone);
+				function exceptions_defineProperty(obj, key, value) {
+					if (key in obj) Object.defineProperty(obj, key, {
+						value,
+						enumerable: true,
+						configurable: true,
+						writable: true
+					});
+					else obj[key] = value;
+					return obj;
+				}
 				class TimezoneException extends Error {
 					constructor(message, code) {
 						super(message);
+						exceptions_defineProperty(this, "code", void 0);
 						this.name = "TimezoneException";
 						this.code = code;
 					}
@@ -495,6 +508,7 @@ function buildPlugin([BasePlugin, PluginApi]) {
 				class DateException extends Error {
 					constructor(message, code) {
 						super(message);
+						exceptions_defineProperty(this, "code", void 0);
 						this.name = "DateException";
 						this.code = code;
 					}
@@ -521,7 +535,7 @@ function buildPlugin([BasePlugin, PluginApi]) {
 						}
 					}
 				};
-				function getOffset(date = moment_timezone_default()(date)) {
+				function getOffset(date = moment_timezone_default()()) {
 					let timezoneOffset;
 					if (moment_timezone_default().isMoment(date)) timezoneOffset = date.utcOffset();
 					else timezoneOffset = moment_timezone_default()(date).utcOffset();
@@ -560,13 +574,13 @@ function buildPlugin([BasePlugin, PluginApi]) {
 					};
 				}
 				const Timer = external_BdApi_React_default().memo((({
-					timezone = getOffset(new Date),
+					timezone = getOffset(),
 					showSeconds = false,
 					className
 				}) => {
 					const [dateTime, setDateTime] = (0, external_BdApi_React_.useState)(getTimeFromTimezone(timezone));
 					(0, external_BdApi_React_.useEffect)((() => {
-						const id = setInterval((() => setDateTime(getTimeFromTimezone(timezone), 1e3)));
+						const id = setInterval((() => setDateTime(getTimeFromTimezone(timezone))), 1e3);
 						return () => {
 							clearInterval(id);
 						};
@@ -581,8 +595,44 @@ function buildPlugin([BasePlugin, PluginApi]) {
 						className: style.Z.timer
 					}, formattedText.hours, ":", formattedText.minutes, settingsManager.get("seconds", false) || showSeconds ? `:${formattedText.seconds}` : ""));
 				}));
+				var createQuestion_React = __webpack_require__(1113);
+				function createQuestion_extends() {
+					createQuestion_extends = Object.assign || function(target) {
+						for (var i = 1; i < arguments.length; i++) {
+							var source = arguments[i];
+							for (var key in source)
+								if (Object.prototype.hasOwnProperty.call(source, key)) target[key] = source[key];
+						}
+						return target;
+					};
+					return createQuestion_extends.apply(this, arguments);
+				}
+				const createQuestion = (title, description, buttons = [{
+					text: "Okay",
+					color: components_namespaceObject.Button.Colors.BRAND,
+					look: components_namespaceObject.Button.Looks.FILLED
+				}]) => new Promise((result => {
+					(0, modal_namespaceObject.openModal)((h => createQuestion_React.createElement(modal_namespaceObject.ModalRoot, createQuestion_extends({}, h, {
+						size: modal_namespaceObject.ModalSize.SMALL
+					}), createQuestion_React.createElement(modal_namespaceObject.ModalHeader, {
+						separator: false
+					}, createQuestion_React.createElement(components_namespaceObject.Text, {
+						size: components_namespaceObject.Text.Sizes.SIZE_14,
+						className: "h4-AQvcAz title-3sZWYQ defaultColor-1_ajX0 defaultMarginh4-2vWMG5"
+					}, title)), createQuestion_React.createElement(modal_namespaceObject.ModalContent, null, createQuestion_React.createElement(components_namespaceObject.Text, {
+						size: components_namespaceObject.Text.Sizes.SIZE_16
+					}, description)), createQuestion_React.createElement(modal_namespaceObject.ModalFooter, null, buttons.map((params => createQuestion_React.createElement(components_namespaceObject.Button, {
+						color: params.color,
+						look: params.look,
+						onClick: () => {
+							result(params.text);
+							h.onClose();
+						}
+					}, params.text)))))));
+				}));
+				const stores_namespaceObject = Modules["@discord/stores"];
 				const BasicTimer = external_BdApi_React_default().memo((({
-					timezone = getOffset(new Date),
+					timezone = getOffset(),
 					tooltip = true,
 					showSeconds = false,
 					staticTime,
@@ -590,7 +640,7 @@ function buildPlugin([BasePlugin, PluginApi]) {
 				}) => {
 					const [dateHook, setDateHook] = (0, external_BdApi_React_.useState)(getTimeFromTimezone(timezone));
 					(0, external_BdApi_React_.useEffect)((() => {
-						const id = setInterval((() => setDateHook(getTimeFromTimezone(timezone), 1e3)));
+						const id = setInterval((() => setDateHook(getTimeFromTimezone(timezone))), 1e3);
 						return () => {
 							clearInterval(id);
 						};
@@ -614,12 +664,71 @@ function buildPlugin([BasePlugin, PluginApi]) {
 				const {
 					default: SearchBar
 				} = external_PluginApi_namespaceObject.WebpackModules.find((m => "SearchBar" === m.default?.displayName));
+				function UserFind({
+					onConfirm,
+					onClose,
+					transitionState
+				}) {
+					const [search, setSearch] = (0, external_BdApi_React_.useState)("");
+					const userList = Object.entries(stores_namespaceObject.Users.getUsers()).filter((([id]) => id !== stores_namespaceObject.Users.getCurrentUser().id));
+					const handleSelection = id => {
+						onConfirm(id);
+						onClose();
+					};
+					return external_BdApi_React_default().createElement("div", {
+						className: style.Z["user-find"]
+					}, external_BdApi_React_default().createElement(modal_namespaceObject.ModalRoot, {
+						size: modal_namespaceObject.ModalSize.MEDIUM,
+						transitionState
+					}, external_BdApi_React_default().createElement(modal_namespaceObject.ModalHeader, {
+						separator: false
+					}, external_BdApi_React_default().createElement(SearchBar, {
+						className: style.Z.search,
+						placeholder: "Search users",
+						query: search,
+						onQueryChange: val => {
+							setSearch(val);
+						},
+						onClear: () => setSearch("")
+					}), external_BdApi_React_default().createElement(modal_namespaceObject.ModalCloseButton, {
+						onClick: () => onClose()
+					})), external_BdApi_React_default().createElement(modal_namespaceObject.ModalContent, null, external_BdApi_React_default().createElement("div", {
+						className: style.Z["list-wrapper"]
+					}, userList.filter((([, user]) => user.username.toLowerCase().indexOf(search) > -1)).slice(0, 30).map((([id, values]) => external_BdApi_React_default().createElement("div", {
+						className: style.Z["list-user"],
+						onClick: () => handleSelection(id)
+					}, external_BdApi_React_default().createElement(Avatar, {
+						className: style.Z["user-pfp"],
+						src: AvatarDefaults.getUserAvatarURL(values),
+						size: Avatar.Sizes.SIZE_24
+					}), external_BdApi_React_default().createElement("span", null, values.username))))))));
+				}
+				function UserAdd_extends() {
+					UserAdd_extends = Object.assign || function(target) {
+						for (var i = 1; i < arguments.length; i++) {
+							var source = arguments[i];
+							for (var key in source)
+								if (Object.prototype.hasOwnProperty.call(source, key)) target[key] = source[key];
+						}
+						return target;
+					};
+					return UserAdd_extends.apply(this, arguments);
+				}
+				const {
+					AvatarDefaults: UserAdd_AvatarDefaults
+				} = external_PluginApi_namespaceObject.DiscordModules;
+				const {
+					default: UserAdd_Avatar
+				} = external_PluginApi_namespaceObject.WebpackModules.getByProps("AnimatedAvatar");
+				const {
+					default: UserAdd_SearchBar
+				} = external_PluginApi_namespaceObject.WebpackModules.find((m => "SearchBar" === m.default?.displayName));
 				function UserAdd({
 					presets = {},
 					closeOnAdd = false
 				}) {
 					const [, forceUpdate] = (0, external_BdApi_React_.useReducer)((n => n + 1), 0);
-					const currentOffset = getOffset(new Date);
+					const currentOffset = getOffset();
 					const [timezonePage, setTimezonePage] = (0, external_BdApi_React_.useState)(constants.Settings.TimezonePages.MANUAL);
 					const [userId, setUserId] = (0, external_BdApi_React_.useState)(presets.userID);
 					const [userIdError, setUserIdError] = (0, external_BdApi_React_.useState)(false);
@@ -636,7 +745,7 @@ function buildPlugin([BasePlugin, PluginApi]) {
 							return;
 						}
 						if (!stores_namespaceObject.Users.getUser(id)) {
-							setUserIdError("Invalid ID");
+							setUserIdError("I have no idea how you made that, but you've added an invalid ID");
 							return;
 						}
 						if (_.isEmpty(timezone)) {
@@ -680,7 +789,7 @@ function buildPlugin([BasePlugin, PluginApi]) {
 						let filteredList = Object.entries(getList()).filter((([userid]) => stores_namespaceObject.Users.getUser(userid).username.toLowerCase().indexOf(search) > -1));
 						return external_BdApi_React_default().createElement("div", {
 							className: style.Z["user-list-wrapper"]
-						}, external_BdApi_React_default().createElement(SearchBar, {
+						}, external_BdApi_React_default().createElement(UserAdd_SearchBar, {
 							className: style.Z["header-search"],
 							placeholder: "Search user",
 							query: search,
@@ -689,6 +798,7 @@ function buildPlugin([BasePlugin, PluginApi]) {
 								setFocus(constants.Settings.TextFocus.SEARCH_USER_LIST);
 							},
 							onClear: () => setSearch(""),
+							key: constants.Settings.TextFocus.SEARCH_USER_LIST,
 							autoFocus: focus === constants.Settings.TextFocus.SEARCH_USER_LIST
 						}), external_BdApi_React_default().createElement("div", {
 							className: style.Z["user-list"]
@@ -696,9 +806,9 @@ function buildPlugin([BasePlugin, PluginApi]) {
 							const user = stores_namespaceObject.Users.getUser(id);
 							return external_BdApi_React_default().createElement("div", {
 								className: style.Z["user-list-item"]
-							}, external_BdApi_React_default().createElement(Avatar, {
-								src: AvatarDefaults.getUserAvatarURL(user),
-								size: Avatar.Sizes.SIZE_32,
+							}, external_BdApi_React_default().createElement(UserAdd_Avatar, {
+								src: UserAdd_AvatarDefaults.getUserAvatarURL(user),
+								size: UserAdd_Avatar.Sizes.SIZE_32,
 								className: style.Z.avatar
 							}), external_BdApi_React_default().createElement("div", null, external_BdApi_React_default().createElement("div", {
 								className: style.Z.name
@@ -728,21 +838,33 @@ function buildPlugin([BasePlugin, PluginApi]) {
 								onClick: () => handleRemove(id)
 							}))));
 						}))));
-					}), null), external_BdApi_React_default().createElement(components_namespaceObject.Text, {
-						size: components_namespaceObject.Text.Sizes.SIZE_14,
-						className: `${style.Z["section-look"]} h5-18_1nd`
-					}, "Add a new user"), external_BdApi_React_default().createElement("div", null, external_BdApi_React_default().createElement(components_namespaceObject.TextInput, {
-						value: userId,
-						placeholder: "User ID",
-						onChange: text => {
-							setUserId(text.replace(/^(?![0-9]).*/g, ""));
-							if (getTimezone(text)) setEditing(true);
-							else setEditing(false);
-							if (closeOnAdd) closeOnAdd = false;
-						},
-						onClick: () => setFocus(constants.Settings.TextFocus.USER_ID),
-						autoFocus: focus === constants.Settings.TextFocus.USER_ID,
-						error: userIdError
+					}), null), external_BdApi_React_default().createElement((({
+						user
+					}) => {
+						const UserSelector = ({
+							text
+						}) => external_BdApi_React_default().createElement("a", {
+							onClick: () => (0, modal_namespaceObject.openModal)((h => external_BdApi_React_default().createElement(UserFind, UserAdd_extends({
+								onConfirm: setUserId
+							}, h))))
+						}, text);
+						return external_BdApi_React_default().createElement("div", {
+							className: style.Z["user-selector"]
+						}, userId ? external_BdApi_React_default().createElement("div", {
+							className: style.Z["user-picker"]
+						}, external_BdApi_React_default().createElement("span", null, "Selected user:"), external_BdApi_React_default().createElement(UserAdd_Avatar, {
+							src: UserAdd_AvatarDefaults.getUserAvatarURL(user),
+							size: UserAdd_Avatar.Sizes.SIZE_16,
+							className: style.Z.avatar
+						}), external_BdApi_React_default().createElement("span", null, user.username, "."), external_BdApi_React_default().createElement(UserSelector, {
+							text: "Change user"
+						})) : external_BdApi_React_default().createElement(UserSelector, {
+							text: "Select a user"
+						}), userIdError && external_BdApi_React_default().createElement("div", {
+							className: "colorError-3RX-d6 size12-3cLvbJ"
+						}, userIdError));
+					}), {
+						user: stores_namespaceObject.Users.getUser(userId)
 					}), external_BdApi_React_default().createElement((() => external_BdApi_React_default().createElement(components_namespaceObject.Flex, {
 						className: style.Z["user-add-timezone-panel"]
 					}, timezonePage === constants.Settings.TimezonePages.MANUAL && external_BdApi_React_default().createElement(external_BdApi_React_default().Fragment, null, external_BdApi_React_default().createElement(components_namespaceObject.TextInput, {
@@ -752,6 +874,7 @@ function buildPlugin([BasePlugin, PluginApi]) {
 						onChange: text => setTimezone(text.replace(/[^\d.+-]/g, "")),
 						onClick: () => setFocus(constants.Settings.TextFocus.TIMEZONE),
 						autoFocus: focus === constants.Settings.TextFocus.TIMEZONE,
+						key: constants.Settings.TextFocus.TIMEZONE,
 						error: timezoneError
 					}), external_BdApi_React_default().createElement(components_namespaceObject.TooltipContainer, {
 						text: `Search by city`,
@@ -772,7 +895,8 @@ function buildPlugin([BasePlugin, PluginApi]) {
 						onChange: text => setUserCity(text),
 						onClick: () => setFocus(constants.Settings.TextFocus.CITY),
 						error: userCityError,
-						autoFocus: focus === constants.Settings.TextFocus.CITY
+						autoFocus: focus === constants.Settings.TextFocus.CITY,
+						key: constants.Settings.TextFocus.CITY
 					}), external_BdApi_React_default().createElement("div", {
 						className: style.Z["city-actions-wrapper"]
 					}, external_BdApi_React_default().createElement(components_namespaceObject.Button, {
@@ -786,32 +910,75 @@ function buildPlugin([BasePlugin, PluginApi]) {
 						color: components_namespaceObject.Button.Colors.WHITE,
 						size: components_namespaceObject.Button.Sizes.ICON,
 						onClick: () => setTimezonePage(constants.Settings.TimezonePages.MANUAL)
-					}, external_BdApi_React_default().createElement(icons_namespaceObject.ArrowLeft, null)))))), null)), timezonePage === constants.Settings.TimezonePages.MANUAL && external_BdApi_React_default().createElement(components_namespaceObject.Button, {
+					}, external_BdApi_React_default().createElement(icons_namespaceObject.ArrowLeft, null)))))), null), timezonePage === constants.Settings.TimezonePages.MANUAL && external_BdApi_React_default().createElement(components_namespaceObject.Button, {
 						onClick: () => handleAdd(userId, timezone)
 					}, isEditing ? "Edit" : "Add", " user"));
 				}
 				const SwitchItem = hooks_createUpdateWrapper(external_PluginApi_namespaceObject.WebpackModules.getByDisplayName("SwitchItem"));
-				const Settings = external_BdApi_React_default().memo((() => external_BdApi_React_default().createElement(external_BdApi_React_default().Fragment, null, external_BdApi_React_default().createElement("div", {
-					className: style.Z["preview-wrapper"]
-				}, external_BdApi_React_default().createElement(Timer, null)), external_BdApi_React_default().createElement(Category, {
-					look: Category.Looks.COMPACT,
-					label: "User list"
-				}, external_BdApi_React_default().createElement(UserAdd, null)), external_BdApi_React_default().createElement(Category, {
-					look: Category.Looks.COMPACT,
-					label: "General Settings"
-				}, external_BdApi_React_default().createElement(SwitchItem, {
-					value: settingsManager.get("seconds", false),
-					onChange: value => settingsManager.set("seconds", value)
-				}, "Show seconds on the timer")), external_BdApi_React_default().createElement(Category, {
-					look: Category.Looks.COMPACT,
-					label: "Timer in messages"
-				}, external_BdApi_React_default().createElement(SwitchItem, {
-					value: settingsManager.get("timestamps", false),
-					onChange: value => settingsManager.set("timestamps", value)
-				}, "Display the user's current time in messages"), external_BdApi_React_default().createElement(SwitchItem, {
-					value: settingsManager.get("timestampsMessages", false),
-					onChange: value => settingsManager.set("timestampsMessages", value)
-				}, "Display the message's time according to the user's time")))));
+				const Settings = external_BdApi_React_default().memo((() => {
+					const isBothTimestampsSettingsEnabled = (0, flux_namespaceObject.useStateFromStores)([settingsManager], (() => settingsManager.get("timestamps", false) && settingsManager.get("timestampsMessages", false)));
+					return external_BdApi_React_default().createElement(external_BdApi_React_default().Fragment, null, external_BdApi_React_default().createElement("div", {
+						className: style.Z["preview-wrapper"]
+					}, external_BdApi_React_default().createElement(Timer, null)), external_BdApi_React_default().createElement(Category, {
+						look: Category.Looks.COMPACT,
+						label: "User list"
+					}, external_BdApi_React_default().createElement(UserAdd, null)), external_BdApi_React_default().createElement(Category, {
+						look: Category.Looks.COMPACT,
+						label: "General Settings"
+					}, external_BdApi_React_default().createElement(SwitchItem, {
+						value: settingsManager.get("seconds", false),
+						onChange: value => settingsManager.set("seconds", value)
+					}, "Show seconds on the timer")), external_BdApi_React_default().createElement(Category, {
+						look: Category.Looks.COMPACT,
+						label: "Timer in messages"
+					}, external_BdApi_React_default().createElement(SwitchItem, {
+						value: settingsManager.get("timestamps", false),
+						onChange: value => settingsManager.set("timestamps", value)
+					}, "Display the user's current time in messages"), external_BdApi_React_default().createElement(SwitchItem, {
+						value: settingsManager.get("timestampsMessages", false),
+						onChange: value => settingsManager.set("timestampsMessages", value)
+					}, "Display the message's time according to the user's time"), external_BdApi_React_default().createElement(SwitchItem, {
+						value: settingsManager.get("timestampsIcons", false),
+						onChange: value => settingsManager.set("timestampsIcons", value),
+						disabled: isBothTimestampsSettingsEnabled,
+						note: "This will be enabled by default if both settings above are enabled"
+					}, "Show icons")), external_BdApi_React_default().createElement(Category, {
+						look: Category.Looks.COMPACT,
+						label: "Import/Export user list"
+					}, external_BdApi_React_default().createElement(components_namespaceObject.Flex, null, external_BdApi_React_default().createElement(components_namespaceObject.Button, {
+						onClick: () => {
+							DiscordNative.fileManager.openFiles("*.json").then((([{
+								data
+							}]) => {
+								const buffer = new Uint8Array(data);
+								const str = (new TextDecoder).decode(buffer);
+								let json;
+								try {
+									json = JSON.parse(str);
+									createQuestion("Override current list", "Are you sure that you wanna do that? This will override the current user list.", [{
+										text: "Ok",
+										color: components_namespaceObject.Button.Colors.RED
+									}, {
+										text: "Cancel",
+										color: components_namespaceObject.Button.Colors.TRANSPARENT,
+										look: components_namespaceObject.Button.Looks.LINK
+									}]).then((buttonClicked => {
+										if ("Ok" === buttonClicked) settingsManager.set("userList", json);
+									}));
+								} catch (err) {
+									console.error("duh this isn't a json file");
+								}
+							}));
+						},
+						style: {
+							marginRight: "8px"
+						}
+					}, "Load user list"), external_BdApi_React_default().createElement(components_namespaceObject.Button, {
+						onClick: () => {
+							DiscordNative.fileManager.saveWithDialog(JSON.stringify(getList()), "users.json");
+						}
+					}, "Save user list"))));
+				}));
 				function Fuses_extends() {
 					Fuses_extends = Object.assign || function(target) {
 						for (var i = 1; i < arguments.length; i++) {
@@ -844,7 +1011,6 @@ function buildPlugin([BasePlugin, PluginApi]) {
 						const OriginalMessageTimestamp = external_PluginApi_namespaceObject.WebpackModules.getModule((m => m?.default?.toString().indexOf("showTimestampOnHover") > -1));
 						external_PluginApi_namespaceObject.Patcher.after(OriginalMessageTimestamp, "default", ((_this, [props], res) => {
 							if (!(settingsManager.get("timestamps", false) || settingsManager.get("timestampsMessages", false))) return;
-							console.log(props.message.timestamp.toDate());
 							const isBothSettingsApplied = settingsManager.get("timestamps", false) && settingsManager.get("timestampsMessages", false);
 							let userTimezone = getTimezone(props.message.author.id);
 							if (!userTimezone) return;
@@ -859,7 +1025,7 @@ function buildPlugin([BasePlugin, PluginApi]) {
 								if (!_.isArray(children)) children = [children];
 								if (settingsManager.get("timestampsMessages", false)) children.push(external_BdApi_React_default().createElement(external_BdApi_React_default().Fragment, null, external_BdApi_React_default().createElement("span", {
 									className: style.Z["timestamp-dot"]
-								}, "•"), isBothSettingsApplied && external_BdApi_React_default().createElement(components_namespaceObject.TooltipContainer, {
+								}, "•"), (isBothSettingsApplied || settingsManager.get("timestampsIcons", false)) && external_BdApi_React_default().createElement(components_namespaceObject.TooltipContainer, {
 									className: style.Z["timestamp-tooltip"],
 									text: `Message's time in ${props.message.author.username}'s timezone`
 								}, external_BdApi_React_default().createElement(icons_namespaceObject.ChatBubble, {
@@ -871,7 +1037,7 @@ function buildPlugin([BasePlugin, PluginApi]) {
 								})));
 								if (settingsManager.get("timestamps", false)) children.push(external_BdApi_React_default().createElement(external_BdApi_React_default().Fragment, null, external_BdApi_React_default().createElement("span", {
 									className: style.Z["timestamp-dot"]
-								}, "•"), isBothSettingsApplied && external_BdApi_React_default().createElement(components_namespaceObject.TooltipContainer, {
+								}, "•"), isBothSettingsApplied || settingsManager.get("timestampsIcons", false) && external_BdApi_React_default().createElement(components_namespaceObject.TooltipContainer, {
 									className: style.Z["timestamp-tooltip"],
 									text: `${props.message.author.username}'s current time`
 								}, external_BdApi_React_default().createElement(icons_namespaceObject.Timer, {
@@ -899,7 +1065,7 @@ function buildPlugin([BasePlugin, PluginApi]) {
 							if (!menugroup) return;
 							menugroup.props.children.unshift(external_BdApi_React_default().createElement(contextmenu_namespaceObject.MenuItem, {
 								id: "fuses-addUser",
-								label: "Add a timezone",
+								label: "Add timezone",
 								action: () => {
 									this.openSettingsModal(props.user.id);
 								},
@@ -911,11 +1077,11 @@ function buildPlugin([BasePlugin, PluginApi]) {
 							if (!userActions) return;
 							userActions.props.children.unshift(external_BdApi_React_default().createElement(contextmenu_namespaceObject.MenuItem, {
 								id: "fuses-addUser",
-								label: "Add a timezone",
+								label: "Add timezone",
 								action: () => {
 									this.openSettingsModal(props.user.id);
 								},
-								disabled: getTimezone(props.user.id)
+								disabled: Boolean(getTimezone(props.user.id))
 							}));
 						}));
 					}
@@ -15596,7 +15762,7 @@ function buildPlugin([BasePlugin, PluginApi]) {
 				return module;
 			};
 		})();
-		var __webpack_exports__ = __webpack_require__(7788);
+		var __webpack_exports__ = __webpack_require__(6999);
 		module.exports.LibraryPluginHack = __webpack_exports__;
 	})();
 	const PluginExports = module.exports.LibraryPluginHack;
