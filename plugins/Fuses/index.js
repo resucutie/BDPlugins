@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from "react"
 import BasePlugin from "@zlibrary/plugin";
 import { Patcher, WebpackModules, Utilities } from "@zlibrary";
+import { Text, TooltipContainer } from "@discord/components"
+import { Timer as TimerIcon, ChatBubble } from "@discord/icons"
+import { MenuItem } from "@discord/contextmenu"
+import { ModalRoot, ModalSize, ModalHeader, ModalContent, openModal } from "@discord/modal"
+import { Users } from "@discord/stores";
 import stylesheet from "styles"
 import styles from "./style.scss"
 
@@ -9,6 +14,8 @@ import SettingsPanel from "./Settings";
 import Timer from "./components/Timer";
 import BasicTimer from "./components/BasicTimer";
 import settings from "./settingsManager";
+import UserList from "./components/UserAdd";
+import { getTimeFromTimezone } from "./utils/timezones";
 
 export default class Fuses extends BasePlugin {
 
@@ -17,6 +24,7 @@ export default class Fuses extends BasePlugin {
         stylesheet.inject()
         this.handleUserBannerPatch()
         this.handleTimestampPatch()
+        this.handleContextMenuPatch()
     }
 
     handleUserBannerPatch(){
@@ -36,7 +44,10 @@ export default class Fuses extends BasePlugin {
         const OriginalMessageTimestamp = WebpackModules.getModule(m => m?.default?.toString().indexOf("showTimestampOnHover") > -1);
 
         Patcher.after(OriginalMessageTimestamp, "default", (_this, [props], res) => {
-            if (!settings.get("timestamps", false)) return
+            if (!(settings.get("timestamps", false) || settings.get("timestampsMessages", false))) return
+            console.log(props.message.timestamp.toDate())
+
+            const isBothSettingsApplied = settings.get("timestamps", false) && settings.get("timestampsMessages", false)
 
             let userTimezone = getTimezone(props.message.author.id)
             if (!userTimezone) return
@@ -50,9 +61,26 @@ export default class Fuses extends BasePlugin {
                 let children = firstRes?.props?.children
                 if (!children) return firstRes
 
+                firstRes.props.className += ` ${styles["timestamp-timer-wrapper"]}`
+
                 if (!_.isArray(children)) children = [children]
 
-                children.push(<span className={styles["timestamp-dot"]}>•</span>, <BasicTimer className={styles["timestamp-timer"]} timezone={userTimezone} />)
+
+                if (settings.get("timestampsMessages", false)) children.push(<>
+                    <span className={styles["timestamp-dot"]}>•</span>
+                    {isBothSettingsApplied && <TooltipContainer className={styles["timestamp-tooltip"]} text={`Message's time in ${props.message.author.username}'s timezone`}>
+                        <ChatBubble width={16} height={16} />
+                    </TooltipContainer>}
+                    <BasicTimer className={styles["timestamp-timer"]} staticTime={getTimeFromTimezone(userTimezone, props.message.timestamp.toDate())} />
+                </>)
+
+                if (settings.get("timestamps", false)) children.push(<>
+                    <span className={styles["timestamp-dot"]}>•</span>
+                    {isBothSettingsApplied && <TooltipContainer className={styles["timestamp-tooltip"]} text={`${props.message.author.username}'s current time`}>
+                        <TimerIcon width={16} height={16} />
+                    </TooltipContainer>}
+                    <BasicTimer className={styles["timestamp-timer"]} timezone={userTimezone} />
+                </>)
 
                 firstRes.props.children = children
 
@@ -70,6 +98,42 @@ export default class Fuses extends BasePlugin {
                 tree.childrenHeader.type.type = OriginalMessageTimestamp.default;
             });
         }
+    }
+
+    handleContextMenuPatch(){
+        Patcher.after(WebpackModules.find(m => m.default?.displayName === 'GuildChannelUserContextMenu'), "default", (_this, [props], res) => {
+            console.log(res)
+            let menugroup = res.props?.children?.props?.children?.[4]
+            if (!menugroup) return
+            menugroup.props.children.unshift(<MenuItem
+                id="fuses-addUser"
+                label="Add a timezone"
+                action={() => { this.openSettingsModal(props.user.id)}}
+                disabled={getTimezone(props.user.id)}
+            />)
+        })
+
+        Patcher.after(WebpackModules.find(m => m.default?.displayName === 'DMUserContextMenu'), "default", (_this, [props], res) => {
+            let userActions = res.props?.children?.props?.children?.[5]
+            if (!userActions) return
+            userActions.props.children.unshift(<MenuItem
+                id="fuses-addUser"
+                label="Add a timezone"
+                action={() => { this.openSettingsModal(props.user.id) }}
+                disabled={getTimezone(props.user.id)}
+            />)
+        })
+    }
+
+    openSettingsModal(userID){
+        openModal((h) => <ModalRoot size={ModalSize.LARGE} {...h}>
+            <ModalHeader separator={false}><Text size={Text.Sizes.SIZE_14} className={"h4-AQvcAz title-3sZWYQ defaultColor-1_ajX0 defaultMarginh4-2vWMG5"}>Add a new user</Text></ModalHeader>
+            <ModalContent className={"bd-addon-modal-settings"}>
+                <div className={styles["user-add-wrapper"]}>
+                    <UserList presets={{ userID }} />
+                </div>
+            </ModalContent>
+        </ModalRoot>)
     }
 
     getSettingsPanel() {

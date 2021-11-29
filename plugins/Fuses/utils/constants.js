@@ -15,7 +15,8 @@ export default {
         TextFocus: {
             USER_ID: "userID",
             TIMEZONE: "userTimezone",
-            CITY: "userCity"
+            CITY: "userCity",
+            SEARCH_USER_LIST: "searchUserList"
         }
     }
 }

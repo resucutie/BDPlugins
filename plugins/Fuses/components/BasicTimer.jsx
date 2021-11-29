@@ -5,16 +5,18 @@ import { TooltipContainer } from "@discord/components";
 import settings from "../settingsManager";
 import { getTimeFromTimezone, formatDate, getOffset } from '../utils/timezones';
 
-export default React.memo(({ timezone = getOffset(new Date()), tooltip = true, showSeconds = false, className }) => {
-    const [dateTime, setDateTime] = useState(getTimeFromTimezone(timezone))
+export default React.memo(({ timezone = getOffset(new Date()), tooltip = true, showSeconds = false, staticTime, className }) => {
+    const [dateHook, setDateHook] = useState(getTimeFromTimezone(timezone))
     useEffect(() => {
-        const id = setInterval(() => setDateTime(getTimeFromTimezone(timezone), 1000))
+        const id = setInterval(() => setDateHook(getTimeFromTimezone(timezone), 1000))
         return () => {
             clearInterval(id)
         }
     }, [])
 
-    const formattedText = formatDate(dateTime, timezone)
+    const date = staticTime ? staticTime : dateHook
+
+    const formattedText = formatDate(date, timezone)
 
     const element = <>{formattedText.hours}:{formattedText.minutes}{settings.get("seconds", false) || showSeconds ? `:${formattedText.seconds}` : ""}</>
 

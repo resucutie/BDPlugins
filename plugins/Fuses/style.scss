@@ -35,8 +35,19 @@
 
 //Timestamp Timer
 
-.timestamp-timer{
-    display: inline-block;
+.timestamp-timer-wrapper{
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+
+    .timestamp-tooltip {
+        height: 16px;
+        margin-right: 2px;
+    }
+
+    .timestamp-timer{
+        display: inline-block;
+    }
 }
 
 .timestamp-dot{
@@ -46,88 +57,99 @@
 
 //Settings
 
+.user-add-wrapper {
+    padding: 20px;
+    padding-top:0;
+}
+
 .preview-wrapper{
     display: flex;
     justify-content: center;
+    margin-bottom: 10px;
 }
 
-.user-list {
-    background: var(--background-secondary-alt);
-    border-radius: 10px;
-    padding: 20px;
-    padding-top:0px;
+.user-list-wrapper {
+    position: relative;
     margin-bottom: 30px;
-    max-height: 280px;
-    overflow: auto;
-    &::-webkit-scrollbar {
-        width:0
-    }
 
-
-    .header {
-        position: sticky;
-        top:0px;
-        padding-top: 16px;
-        margin-top: -16px;
-        margin-bottom: 20px;
+    .header-search {
+        position: absolute;
+        padding: 16px;
         z-index: 1;
-        background: linear-gradient(180deg, var(--background-secondary-alt), transparent);
+        background: linear-gradient(180deg, var(--background-secondary-alt), var(--background-secondary-alt), transparent);
+        width: 100%;
+        margin-right: 20px;
+        border-radius: 10px 10px 0 0;
     }
 
-    &-item {
-        display: flex;
-        align-items: center;
-        padding: 8px 0;
-        color: #fff;
-
-        .name {
-            font-weight: 600;
-            margin-right: 4px;
-            font-size: 16px;
+    .user-list {
+        position: relative;
+        background: var(--background-secondary-alt);
+        border-radius: 10px;
+        max-height: 280px;
+        overflow: auto;
+        padding: 20px;
+        padding-top: 60px;
+        
+        &::-webkit-scrollbar {
+            width:0
         }
 
-        .timezone {
-            color: hsl(0, 0%, 75%);
-            font-size: 12px;
+        &-item {
             display: flex;
-            flex-direction: row;
-        }
+            align-items: center;
+            padding: 8px 0;
+            color: #fff;
 
-        .actions-wrapper{
-            margin-left: auto;
-            opacity: 0;
-            display: flex;
+            .name {
+                font-weight: 600;
+                margin-right: 4px;
+                font-size: 16px;
+            }
 
-            .delete-icon {
-                color: hsl(0, 0%, 80%);
-                cursor: pointer;
-                height: 24px;
-                width: 24px;
-                margin-left: 4px;
+            .timezone {
+                color: hsl(0, 0%, 75%);
+                font-size: 12px;
+                display: flex;
+                flex-direction: row;
+            }
 
-                &:hover {
-                    color: hsl(359, calc(var(--saturation-factor, 1) * 82.6%), 59.4%);
+            .actions-wrapper{
+                margin-left: auto;
+                opacity: 0;
+                display: flex;
+
+                .delete-icon {
+                    color: hsl(0, 0%, 80%);
+                    cursor: pointer;
+                    height: 24px;
+                    width: 24px;
+                    margin-left: 4px;
+
+                    &:hover {
+                        color: hsl(359, calc(var(--saturation-factor, 1) * 82.6%), 59.4%);
+                    }
+                }
+
+                .edit-icon{
+                    color: hsl(0, 0%, 80%);
+                    cursor: pointer;
+                    height: 24px;
+                    width: 24px;
+
+                    &:hover {
+                        color: hsl(0, 0%, 100%);
+                    }
                 }
             }
 
-            .edit-icon{
-                color: hsl(0, 0%, 80%);
-                cursor: pointer;
-                height: 24px;
-                width: 24px;
-
-                &:hover {
-                    color: hsl(0, 0%, 100%);
-                }
+            &:hover .actions-wrapper {
+                opacity: 1;
             }
         }
-
-        &:hover .actions-wrapper {
-            opacity: 1;
+        .avatar {
+            margin-right: 8px
         }
-    }
-    .avatar {
-        margin-right: 8px
     }
 }
 

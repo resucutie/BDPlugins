@@ -1,6 +1,6 @@
 {
   "name": "bd-plugins",
-  "version": "1.0.0",
+  "version": "0.6.9",
   "main": "index.js",
   "devDependencies": {
     "@betterdiscordbuilder/bdbuilder": "^1.2.20"
