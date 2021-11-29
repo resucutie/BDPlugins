@@ -45,7 +45,7 @@ export default class Fuses extends BasePlugin {
 
         Patcher.after(OriginalMessageTimestamp, "default", (_this, [props], res) => {
             if (!(settings.get("timestamps", false) || settings.get("timestampsMessages", false))) return
-            console.log(props.message.timestamp.toDate())
+            //console.log(props.message.timestamp.toDate())
 
             const isBothSettingsApplied = settings.get("timestamps", false) && settings.get("timestampsMessages", false)
 
@@ -68,7 +68,7 @@ export default class Fuses extends BasePlugin {
 
                 if (settings.get("timestampsMessages", false)) children.push(<>
                     <span className={styles["timestamp-dot"]}>•</span>
-                    {isBothSettingsApplied && <TooltipContainer className={styles["timestamp-tooltip"]} text={`Message's time in ${props.message.author.username}'s timezone`}>
+                    {(isBothSettingsApplied || settings.get("timestampsIcons", false)) && <TooltipContainer className={styles["timestamp-tooltip"]} text={`Message's time in ${props.message.author.username}'s timezone`}>
                         <ChatBubble width={16} height={16} />
                     </TooltipContainer>}
                     <BasicTimer className={styles["timestamp-timer"]} staticTime={getTimeFromTimezone(userTimezone, props.message.timestamp.toDate())} />
@@ -76,7 +76,7 @@ export default class Fuses extends BasePlugin {
 
                 if (settings.get("timestamps", false)) children.push(<>
                     <span className={styles["timestamp-dot"]}>•</span>
-                    {isBothSettingsApplied && <TooltipContainer className={styles["timestamp-tooltip"]} text={`${props.message.author.username}'s current time`}>
+                    {isBothSettingsApplied || settings.get("timestampsIcons", false) && <TooltipContainer className={styles["timestamp-tooltip"]} text={`${props.message.author.username}'s current time`}>
                         <TimerIcon width={16} height={16} />
                     </TooltipContainer>}
                     <BasicTimer className={styles["timestamp-timer"]} timezone={userTimezone} />
@@ -107,7 +107,7 @@ export default class Fuses extends BasePlugin {
             if (!menugroup) return
             menugroup.props.children.unshift(<MenuItem
                 id="fuses-addUser"
-                label="Add a timezone"
+                label="Add timezone"
                 action={() => { this.openSettingsModal(props.user.id)}}
                 disabled={getTimezone(props.user.id)}
             />)
@@ -118,7 +118,7 @@ export default class Fuses extends BasePlugin {
             if (!userActions) return
             userActions.props.children.unshift(<MenuItem
                 id="fuses-addUser"
-                label="Add a timezone"
+                label="Add timezone"
                 action={() => { this.openSettingsModal(props.user.id) }}
                 disabled={getTimezone(props.user.id)}
             />)

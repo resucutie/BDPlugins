@@ -1,4 +1,5 @@
-import React, { useState, useReducer } from 'react';
+/// <reference path="../../../types/main.d.ts" />
+import React, { useState, useReducer, ReactFragment } from 'react';
 
 import moment from 'moment-timezone';
 
@@ -6,7 +7,7 @@ import { WebpackModules, DiscordModules } from "@zlibrary"
 import { Trash, ArrowLeft, EmojiTravelCategory, Search, Pencil } from "@discord/icons"
 import { Button, TextInput, Flex, Text, TooltipContainer } from "@discord/components";
 import { Users } from "@discord/stores";
-import { closeAllModals } from "@discord/modal"
+import { openModal, closeAllModals } from "@discord/modal"
 
 import styles from "../style.scss"
 import { getList, addUser, removeUser, getTimezone } from '../utils/userList';
@@ -14,12 +15,14 @@ import { getDateFromCity, getOffset } from '../utils/timezones';
 import { TimezoneException } from "../utils/exceptions";
 import constants from "../utils/constants";
 import BasicTimer from './BasicTimer';
+import UserSearch from './UserSearch';
+import { UserAddProps } from '../../../types/plugins/Fuses';
 
 const { AvatarDefaults } = DiscordModules
 const { default: Avatar } = WebpackModules.getByProps("AnimatedAvatar")
 const { default: SearchBar } = WebpackModules.find(m => m.default?.displayName === 'SearchBar')
 
-export default function ({ presets = {}, closeOnAdd = false }){
+export default function ({ presets = {}, closeOnAdd = false }: UserAddProps){
     const [, forceUpdate] = useReducer(n => n + 1, 0);
     const currentOffset = getOffset(new Date())
 
@@ -28,14 +31,14 @@ export default function ({ presets = {}, closeOnAdd = false }){
     const [timezonePage, setTimezonePage] = useState(constants.Settings.TimezonePages.MANUAL)
 
     //textboxes
-    const [userId, setUserId] = useState(presets.userID) //UserID Textbox
-    const [userIdError, setUserIdError] = useState(false) //UserTimezone Textbox
+    const [userId, setUserId] = useState<string>(presets.userID) //UserID Textbox
+    const [userIdError, setUserIdError] = useState<string | boolean>(false) //UserTimezone Textbox
 
-    const [timezone, setTimezone] = useState(presets.timezone) //UserTimezone Textbox
-    const [timezoneError, setTimezoneError] = useState(false) //UserTimezone Textbox
+    const [timezone, setTimezone] = useState<string>(presets.timezone) //UserTimezone Textbox
+    const [timezoneError, setTimezoneError] = useState<string | boolean>(false) //UserTimezone Textbox
 
-    const [userCity, setUserCity] = useState("") //UserTimezone Textbox
-    const [userCityError, setUserCityError] = useState(false) //UserTimezone Textbox
+    const [userCity, setUserCity] = useState<string>("") //UserTimezone Textbox
+    const [userCityError, setUserCityError] = useState<string | boolean | ReactElement>(false) //UserTimezone Textbox
 
     const [search, setSearch] = useState("") //UserTimezone Textbox
 
@@ -104,17 +107,18 @@ export default function ({ presets = {}, closeOnAdd = false }){
 
     // Components
     const UserList = () => {
-        let filteredList = Object.entries(getList()).filter(([userid]) => Users.getUser(userid).username.toLowerCase().indexOf(search) > -1)
+        let filteredList: Array<Array<any>> = Object.entries(getList()).filter(([userid]) => Users.getUser(userid).username.toLowerCase().indexOf(search) > -1)
         return <div className={styles["user-list-wrapper"]}>
             <SearchBar className={styles["header-search"]}
                 placeholder="Search user"
                 query={search}
                 onQueryChange={val => {
                     setSearch(val)
-                    setFocus(constants.Settings.TextFocus.SEARCH_USER_LIST)
+                    //setFocus(constants.Settings.TextFocus.SEARCH_USER_LIST)
                 }}
                 onClear={() => setSearch("")}
-                autoFocus={focus === constants.Settings.TextFocus.SEARCH_USER_LIST}
+                key={constants.Settings.TextFocus.SEARCH_USER_LIST}
+                //autoFocus={focus === constants.Settings.TextFocus.SEARCH_USER_LIST}
             />
 
             <div className={styles["user-list"]}>
@@ -134,7 +138,7 @@ export default function ({ presets = {}, closeOnAdd = false }){
                                         setUserId(id)
                                         setTimezone(timezone)
                                         setEditing(true)
-                                        setFocus(constants.Settings.TextFocus.TIMEZONE)
+                                        //setFocus(constants.Settings.TextFocus.TIMEZONE)
                                         setTimezonePage(constants.Settings.TimezonePages.MANUAL)
                                     }} />
                             </TooltipContainer>
@@ -155,8 +159,9 @@ export default function ({ presets = {}, closeOnAdd = false }){
                     value={timezone}
                     placeholder={`Timezone (in UTC. e.g.: ${currentOffset})`}
                     onChange={text => setTimezone(text.replace(/[^\d.+-]/g, ''))}
-                    onClick={() => setFocus(constants.Settings.TextFocus.TIMEZONE)}
-                    autoFocus={focus === constants.Settings.TextFocus.TIMEZONE}
+                    //onClick={() => setFocus(constants.Settings.TextFocus.TIMEZONE)}
+                    //autoFocus={focus === constants.Settings.TextFocus.TIMEZONE}
+                    key={constants.Settings.TextFocus.TIMEZONE}
                     error={timezoneError}
                 />
                 <TooltipContainer text={`Search by city`} className={styles["search-city-wrapper"]}>
@@ -175,9 +180,10 @@ export default function ({ presets = {}, closeOnAdd = false }){
                     value={userCity}
                     placeholder={`Continent/City. e.g.: ${moment.tz.guess()}`}
                     onChange={text => setUserCity(text)}
-                    onClick={() => setFocus(constants.Settings.TextFocus.CITY)}
+                    //onClick={() => setFocus(constants.Settings.TextFocus.CITY)}
                     error={userCityError}
-                    autoFocus={focus === constants.Settings.TextFocus.CITY}
+                    //autoFocus={focus === constants.Settings.TextFocus.CITY}
+                    key={constants.Settings.TextFocus.CITY}
                 />
                 <div className={styles["city-actions-wrapper"]}>
                     <Button className={styles["find-city-btn"]}
@@ -200,6 +206,9 @@ export default function ({ presets = {}, closeOnAdd = false }){
 
     return <>
         <UserList />
+        <Button onClick={() => openModal((h) => <UserSearch onConfirm={(id) => console.log(id)} {...h}/>)}>
+            test
+        </Button>
         <Text size={Text.Sizes.SIZE_14} className={`${styles["section-look"]} h5-18_1nd`}>Add a new user</Text>
         <div>
             <TextInput

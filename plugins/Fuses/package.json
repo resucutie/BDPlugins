@@ -9,7 +9,7 @@
                 "twitter_username": "auwuser"
             }
         ],
-        "version": "0.2.0",
+        "version": "0.2.1",
         "description": "Shows the time from somebody's timezone",
         "github": "https://github.com/abUwUser/BDPlugins/tree/main/plugins/Fuses",
         "github_raw": "https://raw.githubusercontent.com/abUwUser/BDPlugins/compiled/Fuses/Fuses.plugin.js"
@@ -28,20 +28,7 @@
             "type": "added",
             "title": "New features",
             "items": [
-                "Added a search bar in the user list. Now you don't need to scroll down a 2 kilometer list!",
-                "Now you can add timezones to users without having to copy their ID. Right click them, hit \"Add timezone\" and it will open a modal with the User Add interface.",
-                "Do you want to see the time when somebody sent the message? Now it is possible to see! Open the settings menu and enable \"Display the message's time according to the user's time\""
-            ]
-        },
-        {
-            "type": "progress",
-            "title": "Chnages",
-            "items": [
-                "Separated the User Add menu from the settings. Now it is a separated component.",
-                "Added a margin under the preview wrapper.",
-                "Added a new category called \"Timer in messages\".",
-                "\"Timer Counter\" category renamed to \"General Settings\".",
-                "\"Users\" category renamed to \"User List\"."
+                "Adds an option to show icons even if \"Display the user's current time in messages\" and \"Display the message's time according to the user's time\" are enabled"
             ]
         }
     ],

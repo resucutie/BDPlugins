@@ -1,3 +1,6 @@
+/// <reference path="../../../types/main.d.ts" />
+import { TimerProps } from '../../../types/plugins/Fuses';
+
 import React, {useState, useEffect} from 'react';
 
 import { Timer } from "@discord/icons"
@@ -7,10 +10,10 @@ import styles from "../style.scss"
 import settings from "../settingsManager";
 import { getTimeFromTimezone, formatDate, getOffset } from '../utils/timezones';
 
-export default React.memo(({ timezone = getOffset(new Date()), showSeconds=false, className}) => {
+export default React.memo(({ timezone = getOffset(new Date()), showSeconds = false, className }: TimerProps) => {
     const [dateTime, setDateTime] = useState(getTimeFromTimezone(timezone))
     useEffect(() => {
-        const id = setInterval(() => setDateTime(getTimeFromTimezone(timezone), 1000))
+        const id = setInterval(() => setDateTime(getTimeFromTimezone(timezone)), 1000)
         return () => {
             clearInterval(id)
         }

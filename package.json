@@ -19,5 +19,9 @@
     "url": "https://github.com/abUwUser/BDPlugins/issues"
   },
   "homepage": "https://github.com/abUwUser/BDPlugins#readme",
-  "description": ""
+  "description": "",
+  "dependencies": {
+    "@types/lodash": "^4.14.177",
+    "@types/react": "^17.0.37"
+  }
 }

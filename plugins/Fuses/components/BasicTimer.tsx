@@ -1,14 +1,16 @@
+/// <reference path="../../../types/main.d.ts" />
 import React, { useState, useEffect } from 'react';
 
 import { TooltipContainer } from "@discord/components";
 
 import settings from "../settingsManager";
 import { getTimeFromTimezone, formatDate, getOffset } from '../utils/timezones';
+import { BasicTimerProps } from '../../../types/plugins/Fuses';
 
-export default React.memo(({ timezone = getOffset(new Date()), tooltip = true, showSeconds = false, staticTime, className }) => {
+export default React.memo(({ timezone = getOffset(new Date()), tooltip = true, showSeconds = false, staticTime, className }: BasicTimerProps) => {
     const [dateHook, setDateHook] = useState(getTimeFromTimezone(timezone))
     useEffect(() => {
-        const id = setInterval(() => setDateHook(getTimeFromTimezone(timezone), 1000))
+        const id = setInterval(() => setDateHook(getTimeFromTimezone(timezone)), 1000)
         return () => {
             clearInterval(id)
         }
