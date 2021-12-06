@@ -5,7 +5,7 @@ declare module "@discord/components" {
         tooltipClassName?: string;
     }>;
     export function TooltipContainer({ text, position, spacing, children, delay }: TooltipOptions & { className?: string }): ReactElement;
-    export function TextInput(props: { value: string, onChange: (value: string) => void, placeholder: string, error?: string | boolean | ReactElement, className?: string, onClick?: Function, autoFocus?:boolean}): ReactElement;
+    export function TextInput(props: { value?: string, onChange?: (value: string) => void, placeholder?: string, error?: string | boolean | ReactElement, className?: string, onClick?: Function, autoFocus?:boolean}): ReactElement;
     export const SlideIn: React.ComponentClass<{className?: string, children: any}>;
     export const TransitionGroup: React.ComponentClass<{children: any}>;
     export const SettingsNotice: React.FunctionComponent<{ onSave, onReset }>;
@@ -17,7 +17,7 @@ declare module "@discord/components" {
 
     export const DropdownSizes: { LARGE: "LARGE", MEDIUM: "MEDIUM", SMALL: "SMALL" };
 
-    export const ButtonColors: { BLACK: string; BRAND: string; GREEN: string; GREY: string; LINK: string; PRIMARY: string; RED: string; TRANSPARENT: string; WHITE: string; YELLOW: string; }
+    export const ButtonColors: { BLACK: string; BRAND: string; BRAND_NEW: string; GREEN: string; GREY: string; LINK: string; PRIMARY: string; RED: string; TRANSPARENT: string; WHITE: string; YELLOW: string; }
 
     export function Button(props: { className?: string; disabled?: boolean; children?: any, look?: string, size?: string, dropdownSize?: string, color?: string, onClick?: (event: React.MouseEvent) => any, [key: string]: any }): ReactElement;
 
@@ -47,6 +47,7 @@ declare module "@discord/components" {
         shrink?: number,
         children: any;
         className?: string;
+        [key: string]: any
     };
     export function Flex(props: FlexProps): ReactElement;
     Flex.Child = Child;

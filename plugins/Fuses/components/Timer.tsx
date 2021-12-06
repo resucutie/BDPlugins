@@ -1,5 +1,4 @@
 /// <reference path="../../../types/main.d.ts" />
-import { TimerProps } from '../../../types/plugins/Fuses';
 
 import React, {useState, useEffect} from 'react';
 
@@ -10,7 +9,7 @@ import styles from "../style.scss"
 import settings from "../settingsManager";
 import { getTimeFromTimezone, formatDate, getOffset } from '../utils/timezones';
 
-export default React.memo(({ timezone = getOffset(), showSeconds = false, className }: TimerProps) => {
+export default React.memo(({ timezone = getOffset(), showSeconds = false, className, ...etc }: TimerProps) => {
     const [dateTime, setDateTime] = useState(getTimeFromTimezone(timezone))
     useEffect(() => {
         const id = setInterval(() => setDateTime(getTimeFromTimezone(timezone)), 1000)
@@ -22,7 +21,7 @@ export default React.memo(({ timezone = getOffset(), showSeconds = false, classN
 
     const formattedText = formatDate(dateTime, timezone)
 
-    return <div className={`${styles["timer-wrapper"]} ${className}`}>
+    return <div className={`${styles["timer-wrapper"]} ${className}`} {...etc}>
         <TooltipContainer text={formattedText.toString()} className={styles["timer-icon"]}>
             <Timer />
         </TooltipContainer>

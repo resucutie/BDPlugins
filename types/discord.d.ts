@@ -277,15 +277,18 @@ declare module "@discord/modal" {
     interface ModalSizeProps { SMALL: "small", MEDIUM: "medium", LARGE: "large", DYNAMIC: "dynamic" }
     export const ModalSize: ModalSizeProps;
 
-    type ModalProps = { transitionState: 2 | 3, onClose: () => void };
+    type TransitionState = 2 | 3
+    type ModalProps = { transitionState: TransitionState, onClose: () => void };
     export function openModal(component: (props: ModalProps) => ReactElement, options?: {modalKey: string}): string;
 
     export function closeModal(modalKey: string): void;
     export function closeAllModals(): void;
 
     interface ModalRootProps {
-        children?: ReactElement
-        [key: string]: any
+        children: ReactElement
+        size: string
+        onClose?: () => void
+        transitionState?: TransitionState
     }
     export function ModalRoot(props: ModalRootProps): ReactElement;
 

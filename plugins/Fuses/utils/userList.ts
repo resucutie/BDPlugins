@@ -1,25 +1,30 @@
 import settings from "../settingsManager";
-
-const addUser = (id, utcOffset) => {
-    let list = settings.get("userList", {})
-
-    list[id] = utcOffset.replace(",", ".")
-    settings.set("userList", list)
-}
-
-const removeUser = (id) => {
-    let list = settings.get("userList", {})
-
-    delete list[id]
-    settings.set("userList", list)
-}
+import { ensureTimezone } from "./timezones";
 
 const getList = () => settings.get("userList", {})
 
-const getTimezone = (id) => {
+const setList = (list: Object) => settings.set("userList", list)
+
+const addUser = (id, timezone) => {
     let list = getList()
 
+    timezone = ensureTimezone(timezone)
+
+    list[id] = timezone
+    setList(list)
+}
+
+const removeUser = (id) => {
+    let list = getList()
+    delete list[id]
+    setList(list)
+}
+
+const getTimezone = (id) => {
+    let list = getList()
     return list?.[id]
 }
 
-export { addUser, removeUser, getList, getTimezone }
+const checkIfUserExists = id => !!getTimezone(id)
+
+export { addUser, removeUser, getTimezone, getList, setList, checkIfUserExists }

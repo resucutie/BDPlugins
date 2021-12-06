@@ -1,19 +1,22 @@
-class TimezoneException extends Error {
-    code: string
-    constructor(message, code) {
-        super(message)
-        this.name = "TimezoneException"
-        this.code = code
+function makeErrorCLass(name: string) {
+    class TemplateException extends Error {
+        code: string
+        constructor(message: string, code: any) {
+            super(message)
+            this.name = name
+            this.code = code
+            this.message = `${message}. Error code: ${code}`
+        }
     }
+    return TemplateException
 }
 
-class DateException extends Error {
-    code: string
-    constructor(message, code) {
-        super(message)
-        this.name = "DateException"
-        this.code = code
-    }
-}
+const TimezoneException = makeErrorCLass("TimezoneException"),
+    DateException = makeErrorCLass("DateException"),
+    ImportFileException = makeErrorCLass("FileException")
 
-export { TimezoneException, DateException }
+export {
+    TimezoneException,
+    DateException,
+    ImportFileException
+}

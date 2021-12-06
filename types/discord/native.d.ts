@@ -1,5 +1,8 @@
 /// <reference path="../common.d.ts" />
 /// <reference path="./globals.d.ts" />
+
+// import { UnknownFunction, ValueOf } from "../common";
+
 // TODO: Finish this
 
 declare namespace DiscordNative {

@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react"
 import BasePlugin from "@zlibrary/plugin";
 import { Patcher, WebpackModules, Utilities } from "@zlibrary";
-import { Text, TooltipContainer } from "@discord/components"
+import { Text, TooltipContainer, Popout } from "@discord/components"
 import { Timer as TimerIcon, ChatBubble } from "@discord/icons"
 import { MenuItem } from "@discord/contextmenu"
 import { ModalRoot, ModalSize, ModalHeader, ModalContent, openModal } from "@discord/modal"
@@ -11,13 +11,14 @@ import { Users } from "@discord/stores";
 import stylesheet from "styles"
 import styles from "./style.scss"
 
-import { getTimezone } from "./utils/userList";
+import settings from "./settingsManager";
+import { checkIfUserExists, getTimezone } from "./utils/userList";
+import { getTimeFromTimezone } from "./utils/timezones";
 import SettingsPanel from "./Settings";
 import Timer from "./components/Timer";
 import BasicTimer from "./components/BasicTimer";
-import settings from "./settingsManager";
 import UserList from "./components/UserAdd";
-import { getTimeFromTimezone } from "./utils/timezones";
+import CheckTimeIn from "./components/CheckTimeIn";
 
 export default class Fuses extends BasePlugin {
 
@@ -31,10 +32,16 @@ export default class Fuses extends BasePlugin {
 
     handleUserBannerPatch(){
         Patcher.after(WebpackModules.find(m => m.default?.displayName === 'UserBanner'), "default", (_this, [props], res) => {
-            let userTimezone = getTimezone(props.user.id)
-            if (!userTimezone) return
+            if (!checkIfUserExists(props.user.id)) return
 
-            res.props.children.push(<Timer timezone={userTimezone} className={styles["timer-positioning"]}/>)
+            let userTimezone = getTimezone(props.user.id)
+
+            res.props.children.push(
+                // <Popout position={Popout.Positions.RIGHT} renderPopout={props => <CheckTimeIn timezone={userTimezone} {...props}/>}>
+                //     {props => <Timer {...props} timezone={userTimezone} className={styles["timer-positioning"]} />}
+                // </Popout>
+                <Timer /*{...props}*/ timezone={userTimezone} className={styles["timer-positioning"]} />
+            )
         })
     }
 
@@ -51,8 +58,9 @@ export default class Fuses extends BasePlugin {
 
             const isBothSettingsApplied = settings.get("timestamps", false) && settings.get("timestampsMessages", false)
 
+            if (!checkIfUserExists(props.message.author.id)) return
+
             let userTimezone = getTimezone(props.message.author.id)
-            if (!userTimezone) return
 
             let timestamp = Utilities.findInReactTree(res, e => e?.type?.displayName === "MessageTimestamp")
             
@@ -78,7 +86,7 @@ export default class Fuses extends BasePlugin {
 
                 if (settings.get("timestamps", false)) children.push(<>
                     <span className={styles["timestamp-dot"]}>•</span>
-                    {isBothSettingsApplied || settings.get("timestampsIcons", false) && <TooltipContainer className={styles["timestamp-tooltip"]} text={`${props.message.author.username}'s current time`}>
+                    {(isBothSettingsApplied || settings.get("timestampsIcons", false)) && <TooltipContainer className={styles["timestamp-tooltip"]} text={`${props.message.author.username}'s current time`}>
                         <TimerIcon width={16} height={16} />
                     </TooltipContainer>}
                     <BasicTimer className={styles["timestamp-timer"]} timezone={userTimezone} />
@@ -111,7 +119,7 @@ export default class Fuses extends BasePlugin {
                 id="fuses-addUser"
                 label="Add timezone"
                 action={() => { this.openSettingsModal(props.user.id)}}
-                disabled={getTimezone(props.user.id)}
+                disabled={checkIfUserExists(props.user.id)}
             />)
         })
 
@@ -122,7 +130,7 @@ export default class Fuses extends BasePlugin {
                 id="fuses-addUser"
                 label="Add timezone"
                 action={() => { this.openSettingsModal(props.user.id) }}
-                disabled={Boolean(getTimezone(props.user.id))}
+                disabled={checkIfUserExists(props.user.id)}
             />)
         })
     }

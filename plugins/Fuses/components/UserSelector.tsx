@@ -4,6 +4,7 @@ import React, { useState } from "react";
 
 import { Users } from "@discord/stores"
 import { ModalRoot, ModalSize, ModalHeader, ModalContent, ModalCloseButton } from "@discord/modal"
+import { Button, Flex } from "@discord/components";
 import { WebpackModules, DiscordModules } from "@zlibrary"
 import styles from "../style.scss"
 
@@ -21,13 +22,9 @@ const { default: SearchBar } = WebpackModules.find(m => m.default?.displayName =
 
 export default function ({ onConfirm, onClose, transitionState }: Props) {
     const [search, setSearch] = useState("")
+    const [selectedUser, setSelectedUser] = useState<any>(false)
 
     const userList: Array<any> = Object.entries(Users.getUsers()).filter(([id]) => id !== Users.getCurrentUser().id)
-
-    const handleSelection = (id: string) => {
-        onConfirm(id)
-        onClose()
-    }
 
     return <div className={styles["user-find"]}>
         <ModalRoot size={ModalSize.MEDIUM} {...{ transitionState }}>
@@ -44,13 +41,25 @@ export default function ({ onConfirm, onClose, transitionState }: Props) {
             </ModalHeader>
             <ModalContent>
                 <div className={styles["list-wrapper"]}>
-                    {userList.filter(([, user]) => user.username.toLowerCase().indexOf(search) > -1).slice(0, 30).map(([id, values]) => {
-                        return <div className={styles["list-user"]} onClick={() => handleSelection(id)}>
+                    {userList.filter(([, user]) => ~user.username.toLowerCase().indexOf(search.toLowerCase())).slice(0, 30).map(([id, values]) => {
+                        return <div className={`${styles["list-user"]} ${selectedUser === values ? styles["list-user-selected"] : ""}`} onClick={() => { setSelectedUser(selectedUser === values ? false : values) }}>
                             <Avatar className={styles["user-pfp"]} src={AvatarDefaults.getUserAvatarURL(values)} size={Avatar.Sizes.SIZE_24} />
                             <span>{values.username}</span>
                         </div>
                     })}
                 </div>
+
+                <Button onClick={() => {
+                            onConfirm(selectedUser.id)
+                            onClose()
+                        }}
+                        style={{marginLeft: "auto", marginBottom:"16px"}}
+                        disabled={!selectedUser}>
+                    <Flex>
+                        {selectedUser && <Avatar className={styles["user-pfp"]} src={AvatarDefaults.getUserAvatarURL(selectedUser)} size={Avatar.Sizes.SIZE_16} />}
+                        Select user
+                    </Flex>
+                </Button>
             </ModalContent>
         </ModalRoot>
     </div>

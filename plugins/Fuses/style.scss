@@ -109,7 +109,7 @@
         border-radius: 10px;
         max-height: 280px;
         overflow: auto;
-        padding: 20px;
+        padding: 20px 10px;
         padding-top: 60px;
         
         &::-webkit-scrollbar {
@@ -119,8 +119,9 @@
         &-item {
             display: flex;
             align-items: center;
-            padding: 8px 0;
+            padding: 8px 10px;
             color: #fff;
+            border-radius: 5px;
 
             .name {
                 font-weight: 600;
@@ -164,8 +165,12 @@
                 }
             }
 
-            &:hover .actions-wrapper {
-                opacity: 1;
+            &:hover {
+                background-color: var(--background-modifier-hover);
+
+                .actions-wrapper {
+                    opacity: 1;
+                }
             }
         }
         .avatar {
@@ -180,15 +185,13 @@
     .timezone-search-textbox, .city-search-textbox {
         flex-grow: 1;
     }
-    .search-city-wrapper {
-        margin-left: 8px;
-        .search-city-btn {
-            width: 40px;
-            height: 40px;
-        }
+
+    .search-city-btn {
+        width: 40px;
+        height: 40px;
     }
 
-    .city-actions-wrapper {
+    .actions-wrapper {
         margin-left: 8px;
         display: flex;
         flex-direction: row;
@@ -197,7 +200,7 @@
             margin-left: 4px;
         }
         
-        .find-city-btn, .return-btn {
+        .find-city-btn, .find-city-btn-anim, .return-btn {
             width: 40px;
             height: 40px;
         }
@@ -215,6 +218,7 @@
         display: grid;
         grid-template-columns: 1fr 1fr;
         margin-bottom: 16px;
+        grid-gap: 0 4px;
 
         .list-user{
             display: flex;
@@ -226,12 +230,16 @@
             color: var(--interactive-hover);
 
             &:hover{
-                background: var(--background-modifier-selected);
+                background: var(--background-modifier-hover);
             }
 
-            .user-pfp{
-                margin-right: 8px;
+            &-selected{
+                background: var(--background-modifier-selected);
             }
         }
+    }
+
+    .user-pfp{
+        margin-right: 8px;
     }
 }

@@ -9,7 +9,7 @@
                 "twitter_username": "auwuser"
             }
         ],
-        "version": "0.3.0",
+        "version": "0.3.1",
         "description": "Shows the time from somebody's timezone",
         "github": "https://github.com/abUwUser/BDPlugins/tree/main/plugins/Fuses",
         "github_raw": "https://raw.githubusercontent.com/abUwUser/BDPlugins/compiled/Fuses/Fuses.plugin.js"
@@ -25,19 +25,34 @@
     },
     "changelog": [
         {
+            "type": "improved",
+            "title": "Announcements",
+            "items": [
+                "I am planning to relase 0.4.0, where it will be a very ambixious update. It isn't done as for now, need some bug fixes, and I wont reveal what I will add, but it will be very poggers.",
+                "The reason as to why I am releasing it is because I've added some quality of life changed, fixed some bugs, improved error handling, and some small new features"
+            ]
+        },
+        {
             "type": "added",
             "title": "New features",
             "items": [
-                "Do you hate the UserID textbox even if you can right click somebody and automatically put the ID? Not anymore with the NEW USER SELECTOR 3000! Now you can simple click \"Select a user\", choose who you wanna add and boom! User selected!",
-                "Have you ever wanted to move your user list across devices? Now you can with the USER TRANSFER 4000!",
-                "Wanna show the timestamps icon even if you enabled only one of the timestamp settings? Now you can force it to show with the new TIMESTAMP ICON FORCER 5000!"
+                "Animations! I've finally added animation in some places like for example the timezone selector"
             ]
         },
         {
             "type": "progress",
-            "title": "Code conversion to Typescript",
+            "title": "Changes",
             "items": [
-                "As for now, I've converted all my code to Typescript, but maybe this will result in some bugs. Please keep an eye at that, and also report them!"
+                "Added a button to select the user instead of just clicking the user in the user selector"
+            ]
+        },
+        {
+            "type": "fixed",
+            "title": "Fixes",
+            "items": [
+                "Better error handling in almost all files",
+                "Fixed a bug where you needed to search in lowercase in the user selector",
+                "Fixed a bug where it wouldn't display the timer icon in the timestamp"
             ]
         }
     ],

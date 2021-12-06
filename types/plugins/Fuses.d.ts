@@ -1,10 +1,8 @@
-export declare type Timezone = string
-
-import { Button } from "@discord/components"
+declare type Timezone = string
 
 //UserAdd
 
-export interface UserAddProps {
+declare interface UserAddProps {
     presets?: {
         userID?: string,
         timezone?: Timezone
@@ -12,20 +10,21 @@ export interface UserAddProps {
     closeOnAdd?: boolean
 }
 
-export type UserAddErrorHandler = string
+declare type UserAddErrorHandler = string
 
-export function UserAdd(props: UserAddProps): ReactComponent
+declare function UserAdd(props: UserAddProps): ReactComponent
 
 
 //Timer
 
-export interface TimerProps {
+declare interface TimerProps {
     timezone?: Timezone,
     showSeconds?: boolean,
-    className?: string
+    className?: string,
+    [key: string]: any
 }
 
-export function Timer(props: TimerProps): ReactComponent
+declare function Timer(props: TimerProps): ReactComponent
 
 
 //BasicTimer
@@ -36,24 +35,24 @@ interface BasicTimerProps extends TimerProps {
     staticTime?: Date
 }
 
-export function BasicTimer(props: BasicTimerProps): ReactComponent
+declare function BasicTimer(props: BasicTimerProps): ReactComponent
 
 
 //TimezoneManager
-export function getOffset(date?: Date | moment.Moment):Timezone
-export function getTimeFromTimezone(utcOffset: Timezone, currentDate?: Date): Date
-export function getDateFromCity(city: string, sendAsMoment?: boolean): Date|moment.Moment
-export function formatDate(date: string, timezone: Timezone): string
+declare function getOffset(date?: Date | moment.Moment):Timezone
+declare function getTimeFromTimezone(utcOffset: Timezone, currentDate?: Date): Date
+declare function getDateFromCity(city: string, sendAsMoment?: boolean): Date|moment.Moment
+declare function formatDate(date: string, timezone: Timezone): string
 
 
 //UserManager
 type UserList = {
     [key: string]: Timezone
 }
-export function addUser(id: string, utcOffset: Timezone)
-export function removeUser(id: string)
-export function getList(): UserList
-export function getTimezone(id: string): Timezone
+declare function addUser(id: string, utcOffset: Timezone)
+declare function removeUser(id: string)
+declare function getList(): UserList
+declare function getTimezone(id: string): Timezone
 
 //Alert
-export function createQuestion(title: string | ReactElement, description: string | ReactElement, buttons: Array<{ text: string | ReactElement, color: string}>): Promise<string>
+declare function createQuestion(title: string | ReactElement, description: string | ReactElement, buttons: Array<{ text: string | ReactElement, color: string}>): Promise<string>

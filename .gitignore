@@ -9,4 +9,5 @@ builds
 # not relased plugins
 plugins/DataViewer
 plugins/EmojisEverywhere
+plugins/Tests
 #plugins/Fuses

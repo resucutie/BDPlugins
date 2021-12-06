@@ -1,10 +1,21 @@
 export default {
     ExceptionCodes: {
         Timezones: {
-            INVALID_CITY: "INVALID_CITY"
+            INVALID_CITY: "INVALID_CITY",
+            INVALID_FORMAT: "INVALID_FORMAT",
+
+            InvalidFormatReasons: {
+                NO_SIGN: "NO_SIGN",
+                NOT_A_NUMBER: "NOT_A_NUMBER",
+                OVERFLOW: "OVERFLOW",
+                UNDEFINED: "UNDEFINED"
+            }
         },
         Date: {
             INVALID_DATE: "INVALID_DATE"
+        },
+        ImportFile: {
+            INVALID_FILE: "INVALID_FILE"
         }
     },
     Settings: {

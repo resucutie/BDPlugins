@@ -1,6 +1,6 @@
 /// <reference path="../../../types/main.d.ts" />
-import React, { useState, useReducer, ReactFragment } from 'react';
-
+import React, { useState, useReducer, ReactFragment, useEffect } from 'react';
+import { useTransition, animated as a } from "react-spring";
 import moment from 'moment-timezone';
 
 import { WebpackModules, DiscordModules } from "@zlibrary"
@@ -15,8 +15,8 @@ import { getDateFromCity, getOffset } from '../utils/timezones';
 import { TimezoneException } from "../utils/exceptions";
 import constants from "../utils/constants";
 import BasicTimer from './BasicTimer';
-import UserSearch from './UserFind';
-import { UserAddProps } from '../../../types/plugins/Fuses';
+import UserSearch from './UserSelector';
+import ErrorText from './ErrorText';
 
 const { AvatarDefaults } = DiscordModules
 const { default: Avatar } = WebpackModules.getByProps("AnimatedAvatar")
@@ -27,6 +27,12 @@ export default function ({ presets = {}, closeOnAdd = false }: UserAddProps){
     const currentOffset = getOffset()
 
     // Hooks
+    const [init, setInit] = useState<any>(false)
+
+    useEffect(() => {
+        setInit(true)
+    })
+
     //pages
     const [timezonePage, setTimezonePage] = useState(constants.Settings.TimezonePages.MANUAL)
 
@@ -41,6 +47,19 @@ export default function ({ presets = {}, closeOnAdd = false }: UserAddProps){
     const [userCityError, setUserCityError] = useState<string | boolean | ReactElement>(false) //UserTimezone Textbox
 
     const [search, setSearch] = useState("") //UserTimezone Textbox
+
+    //animations
+    const addUserButtonAnim = useTransition(timezonePage === constants.Settings.TimezonePages.MANUAL, {
+        from: { marginTop: init ? "-38px" : "0px", opacity: init ? 0 : 1 },
+        enter: { marginTop: "0px", opacity: 1 },
+        leave: { marginTop: "-38px", opacity: 0 }
+    })
+
+    const searchCityButtonAnim = useTransition(timezonePage === constants.Settings.TimezonePages.CITY_SELECTOR, {
+        from: { marginRight: "-40px", opacity: 0 },
+        enter: { marginRight: "0px", opacity: 1 },
+        leave: { marginRight: "-40px", opacity: 0 }
+    })
 
     //etc
     const [focus, setFocus] = useState(constants.Settings.TextFocus.USER_ID) //textbox focus (yes, i need a text focus handler)
@@ -153,7 +172,7 @@ export default function ({ presets = {}, closeOnAdd = false }: UserAddProps){
     }
 
     const TimezonePicker = () => {
-        return <Flex className={styles["user-add-timezone-panel"]}>
+        return <Flex className={styles["user-add-timezone-panel"]} style={{zIndex: 2}}>
             {timezonePage === constants.Settings.TimezonePages.MANUAL && <>
                 <TextInput className={styles["timezone-search-textbox"]}
                     value={timezone}
@@ -164,15 +183,6 @@ export default function ({ presets = {}, closeOnAdd = false }: UserAddProps){
                     key={constants.Settings.TextFocus.TIMEZONE}
                     error={timezoneError}
                 />
-                <TooltipContainer text={`Search by city`} className={styles["search-city-wrapper"]}>
-                    <Button className={styles["search-city-btn"]}
-                        look={Button.Looks.OUTLINED}
-                        color={Button.Colors.WHITE}
-                        size={Button.Sizes.ICON}
-                        onClick={() => setTimezonePage(constants.Settings.TimezonePages.CITY_SELECTOR)}>
-                        <EmojiTravelCategory width={24} height={24} />
-                    </Button>
-                </TooltipContainer>
             </>}
 
             {timezonePage === constants.Settings.TimezonePages.CITY_SELECTOR && <>
@@ -185,27 +195,42 @@ export default function ({ presets = {}, closeOnAdd = false }: UserAddProps){
                     autoFocus={focus === constants.Settings.TextFocus.CITY}
                     key={constants.Settings.TextFocus.CITY}
                 />
-                <div className={styles["city-actions-wrapper"]}>
-                    <Button className={styles["find-city-btn"]}
-                        color={Button.Colors.GREEN}
-                        size={Button.Sizes.ICON}
-                        onClick={() => handleCityChange(userCity)}>
-                        <Search />
-                    </Button>
-                    <Button className={styles["return-btn"]}
+            </>}
+
+            <div className={styles["actions-wrapper"]}>
+                {searchCityButtonAnim((styles, item) => item && <a.div style={styles} className={styles["find-city-btn-anim"]}><Button className={styles["find-city-btn"]}
+                    color={Button.Colors.GREEN}
+                    size={Button.Sizes.ICON}
+                    style={{ width: "40px", height: "40px" }}
+                    onClick={() => handleCityChange(userCity)}>
+                    <Search />
+                </Button></a.div>)}
+                {timezonePage === constants.Settings.TimezonePages.MANUAL ? <TooltipContainer text={`Search by city`} className={styles["search-city-wrapper"]}>
+                    <Button className={styles["search-city-btn"]}
                         look={Button.Looks.OUTLINED}
                         color={Button.Colors.WHITE}
                         size={Button.Sizes.ICON}
-                        onClick={() => setTimezonePage(constants.Settings.TimezonePages.MANUAL)}>
-                        <ArrowLeft />
+                        onClick={() => setTimezonePage(constants.Settings.TimezonePages.CITY_SELECTOR)}>
+                        <EmojiTravelCategory width={24} height={24} />
                     </Button>
-                </div>
-            </>}
+                </TooltipContainer> : <Button className={styles["return-btn"]}
+                    look={Button.Looks.OUTLINED}
+                    color={Button.Colors.WHITE}
+                    size={Button.Sizes.ICON}
+                    onClick={() => setTimezonePage(constants.Settings.TimezonePages.MANUAL)}>
+                    <ArrowLeft />
+                </Button>}
+            </div>
         </Flex>
     }
 
     const UserPicker = ({user}: {user: UserObject}) => {
-        const UserSelector = ({ text }: { text: string }) => <a onClick={() => openModal((h) => <UserSearch onConfirm={setUserId} {...h} />)}>{text}</a>
+        const UserSelector = ({ text }: { text: string }) => {
+            return <a onClick={() => openModal((h) => <UserSearch onConfirm={(id) => {
+                setUserId(id)
+                setEditing(false)
+            }} {...h} />)}>{text}</a>
+        }
 
         return <div className={styles["user-selector"]}>
             {userId ? <div className={styles["user-picker"]}>
@@ -214,7 +239,7 @@ export default function ({ presets = {}, closeOnAdd = false }: UserAddProps){
                 <span>{user.username}.</span>
                 <UserSelector text="Change user" />
             </div> : <UserSelector text={"Select a user"}/>}
-            {userIdError && <div className="colorError-3RX-d6 size12-3cLvbJ">{userIdError}</div>}
+            {userIdError && <ErrorText>{userIdError}</ErrorText>}
         </div>
     }
 
@@ -222,6 +247,13 @@ export default function ({ presets = {}, closeOnAdd = false }: UserAddProps){
         <UserList />
         <UserPicker user={Users.getUser(userId)} />
         <TimezonePicker />
-        {timezonePage === constants.Settings.TimezonePages.MANUAL && <Button onClick={() => handleAdd(userId, timezone)}>{isEditing ? "Edit" : "Add"} user</Button>}
+        {addUserButtonAnim((styles, item) => item && <a.div style={styles}>
+                <Button
+                    onClick={() => handleAdd(userId, timezone)}
+                    disabled={!(userId && !_.isEmpty(timezone))}
+                >
+                    {isEditing ? "Edit" : "Add"} user
+                </Button>
+            </a.div>)}
     </>
 }
