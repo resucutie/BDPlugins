@@ -2,8 +2,16 @@ declare const _: typeof import("lodash");
 
 type ReactElement = any;
 
+type Snowflake = string
+
+declare type UserID = Snowflake
+declare type MemberID = Snowflake
+declare type ChannelID = Snowflake
+declare type GuildID = Snowflake
+declare type MessageID = Snowflake
+
 declare interface UserObject {
-    id: string;
+    id: UserID;
     banner: string | null;
     avatarUrl: string;
     getAvatarURL: (showServerAvatar?: boolean, animate?: boolean) => string;
@@ -19,21 +27,21 @@ declare interface UserObject {
 }
 
 declare interface GuildObject {
-    id: string;
+    id: GuildID;
     icon: string;
     name: string;
     description: string;
-    ownerId: string;
+    ownerId: UserID;
     getIconURL: (type: "gif" | "webp" | "png") => string;
 }
 
 declare interface ChannelObject {
-    id: string;
+    id: ChannelID;
     icon: string;
     name: string;
     description: string;
-    guild_id: string;
-    ownerId: string | null;
+    guild_id: GuildID;
+    ownerId: UserID | null;
 
     type: number;
 }
@@ -101,7 +109,7 @@ declare module "@discord/i18n" {
 
 declare module "@discord/stores" {
     export const Users: {
-        getUser: (id: string) => UserObject;
+        getUser: (id: UserID) => UserObject;
         getUsers: () => UserObject[];
         getCurrentUser: () => UserObject;
     };
@@ -113,36 +121,36 @@ declare module "@discord/stores" {
     }
 
     export const Messages: {
-        getMessage: (channelId: string, messageId: string) => {
+        getMessage: (channelId: ChannelID, messageId: MessageID) => {
             id: string;
             channel_id: string;
             content: string;
             mentions: string[];
             author: UserObject
         } | null;
-        getMessages: (channelId: string) => any;
+        getMessages: (channelId: ChannelID) => any;
     };
     export const Channels: {
-        getChannel: (channelId: string) => ChannelObject;
+        getChannel: (channelId: ChannelID) => ChannelObject;
     };
     export const Guilds: {
-        getGuild: (guildId: string) => GuildObject | null;
+        getGuild: (guildId: GuildID) => GuildObject | null;
         getGuilds: () => GuildObject[];
     };
     export const SelectedGuilds: {
-        getGuildId: () => string;
+        getGuildId: () => GuildID;
     };
     export const SelectedChannels: {
-        getChannelId: () => string;
+        getChannelId: () => ChannelID;
     }
     export const Info: {
         getSessionId: () => string;
         getCurrentUser: () => UserObject;
     };
     export const Status: {
-        getStatus(userId: string): void | "online" | "dnd" | "idle";
+        getStatus(userId: UserID): void | "online" | "dnd" | "idle";
         getState(): { clientStatuses: any };
-        isMobileOnline: (userId: string) => string;
+        isMobileOnline: (userId: UserID) => string;
     };
     export type UserProfileConnection = {
         type: string;
@@ -152,18 +160,18 @@ declare module "@discord/stores" {
 
     };
     export const UserProfile: {
-        getUserProfile(userId: string): undefined | {
+        getUserProfile(userId: UserID): undefined | {
             connectedAccounts: UserProfileConnection[]
         };
-        isFetching: (userId: string) => boolean;
+        isFetching: (userId: UserID) => boolean;
     };
 
     export const Members: {
-        getMember: (guildId: string, userId: string) => any;
+        getMember: (guildId: GuildID, userId: UserID) => any;
     };
 
     export const Activities: {
-        getActivities: (userId: string) => Array<any>;
+        getActivities: (userId: UserID) => Array<any>;
     };
 
     export const Games: {
@@ -182,7 +190,7 @@ declare module "@discord/stores" {
     };
 
     export const TypingUsers: {
-        isTyping: (channelId: string, userId: string) => boolean;
+        isTyping: (channelId: ChannelID, userId: UserID) => boolean;
     };
 }
 
@@ -218,20 +226,39 @@ declare module "@discord/connections" {
 
 declare module "@discord/actions" {
     export const ProfileActions: {
-        fetchProfile: (userId: string) => Promise<any>;
+        fetchProfile: (userId: UserID) => Promise<any>;
     };
     export const GuildActions: {
-        requestMembersById: (guildId: string, memberId: string) => void;
-        transitionToGuildSync: (guildId: string, channelId?: string, messageId?: string) => void;
+        requestMembersById: (guildId: GuildID, memberId: MemberID) => void;
+        transitionToGuildSync: (guildId: GuildID, channelId?: ChannelID, messageId?: MessageID) => void;
     };
 }
 
 declare module "@discord/contextmenu" {
+    interface MenuItemProps {
+        label: string,
+        action?: () => any,
+        id: string,
+        disabled?: boolean,
+        color?: string,
+        isFocused?: boolean,
+        subtext?: string,
+        children?: ReactElement
+    }
+    interface MenuRadioItemProps extends MenuItemProps{
+        group?: string
+        checked?: boolean
+    }
+    interface MenuCheckboxItem extends MenuItemProps {
+        checked?: boolean
+    }
     export function openContextMenu(event: MouseEvent, menu: () => ReactElement, options?: object): void;
     export function closeContextMenu(): void;
-    export function MenuItem({ label, action, id }: { label: string, action: () => any, id: string, disabled:boolean }): ReactElement;
-    export function MenuGroup({ children }: { children: any }): ReactElement;
-    export function Menu({ children, navId, onClose }: { children: any, navId: string, onClose: Function }): ReactElement;
+    export function MenuItem({ label, action, id }: MenuItemProps): ReactElement;
+    export function MenuRadioItem({ label, action, id }: MenuRadioItemProps): ReactElement;
+    export function MenuCheckboxItem({ label, action, id }: MenuCheckboxItem): ReactElement;
+    export function MenuGroup({ children }: { children: any, label?: string }): ReactElement;
+    export function Menu({ children, navId, onClose }: { children: any, navId: string, onClose: () => void }): ReactElement;
 }
 
 declare module "@discord/forms" {
@@ -286,6 +313,7 @@ declare module "@discord/modal" {
 
     interface ModalRootProps {
         children: ReactElement
+        className?: string
         size: string
         onClose?: () => void
         transitionState?: TransitionState

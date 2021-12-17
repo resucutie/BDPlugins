@@ -1,13 +1,21 @@
+/// <reference path="../others/moment.d.ts" />
+
 declare type Timezone = string
 
 //UserAdd
 
 declare interface UserAddProps {
-    presets?: {
-        userID?: string,
-        timezone?: Timezone
-    },
+    defaultVals?: {
+        userID?: UserID,
+        timezone?: Timezone,
+        userPicker?: {
+            existingUsers?: boolean
+            bots?: boolean
+        }
+    }
     closeOnAdd?: boolean
+    isModal?: boolean
+    [key: string]: any
 }
 
 declare type UserAddErrorHandler = string
@@ -47,7 +55,7 @@ declare function formatDate(date: string, timezone: Timezone): string
 
 //UserManager
 type UserList = {
-    [key: string]: Timezone
+    [key: UserID]: Timezone
 }
 declare function addUser(id: string, utcOffset: Timezone)
 declare function removeUser(id: string)

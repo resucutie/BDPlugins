@@ -5,6 +5,8 @@ node_modules
 ./**/node_modules
 builds
 ./*.plugin.js
+desktop.ini
+./**/desktop.ini
 
 # not relased plugins
 plugins/DataViewer

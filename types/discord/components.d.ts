@@ -5,7 +5,7 @@ declare module "@discord/components" {
         tooltipClassName?: string;
     }>;
     export function TooltipContainer({ text, position, spacing, children, delay }: TooltipOptions & { className?: string }): ReactElement;
-    export function TextInput(props: { value?: string, onChange?: (value: string) => void, placeholder?: string, error?: string | boolean | ReactElement, className?: string, onClick?: Function, autoFocus?:boolean}): ReactElement;
+    export function TextInput(props: { value?: string, onChange?: (value: string) => void, placeholder?: string, error?: string | boolean | ReactElement, className?: string, onClick?: Function, autoFocus?: boolean, inputRef?: any}): ReactElement;
     export const SlideIn: React.ComponentClass<{className?: string, children: any}>;
     export const TransitionGroup: React.ComponentClass<{children: any}>;
     export const SettingsNotice: React.FunctionComponent<{ onSave, onReset }>;
@@ -66,6 +66,7 @@ declare module "@discord/components" {
         color?: string;
         children?: any;
         className?: string;
+        [key: string]: any
     };
 
     export function Text(props: TextProps): ReactElement;

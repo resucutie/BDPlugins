@@ -1,13 +1,13 @@
 type FunctionalComponentStatic<props, static> = React.FC<props> & static;
 
-type CommonProperties = {
+type CommonProperties = React.FC<{
     width?: string | number;
     height?: string | number;
     className?: string;
     style?: React.StyleHTMLAttributes<void>;
     "aria-hidden"?: string;
     onClick?(event: React.MouseEvent): void;
-};
+}>
 
 declare module "@discord/icons" {
     export const Caret: FunctionalComponentStatic<CommonProperties & {direction: string;}, {
@@ -15,16 +15,17 @@ declare module "@discord/icons" {
         Directions: {DOWN: string; LEFT: string; RIGHT: string; UP: string;};
     }>;
 
-    export const Gear: React.FC<CommonProperties>;
-    export const Bell: React.FC<CommonProperties>;
-    export const ShieldStar: React.FC<CommonProperties>;
-    export const At: React.FC<CommonProperties>;
-    export const People: React.FC<CommonProperties>;
-    export const Trash: React.FC<CommonProperties>;
-    export const ArrowLeft: React.FC<CommonProperties>;
-    export const EmojiTravelCategory: React.FC<CommonProperties>;
-    export const Search: React.FC<CommonProperties>;
-    export const Pencil: React.FC<CommonProperties>;
-    export const Timer: React.FC<CommonProperties>;
-    export const ChatBubble: React.FC<CommonProperties>;
+    export const Gear: CommonProperties;
+    export const Bell: CommonProperties;
+    export const ShieldStar: CommonProperties;
+    export const At: CommonProperties;
+    export const People: CommonProperties;
+    export const Trash: CommonProperties;
+    export const ArrowLeft: CommonProperties;
+    export const EmojiTravelCategory: CommonProperties;
+    export const Search: CommonProperties;
+    export const Pencil: CommonProperties;
+    export const Timer: CommonProperties;
+    export const ChatBubble: CommonProperties;
+    export const DropdownArrow: CommonProperties;
 }

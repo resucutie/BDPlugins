@@ -29,5 +29,8 @@ export default {
             CITY: "userCity",
             SEARCH_USER_LIST: "searchUserList"
         }
+    },
+    TimePreferrence: {
+        "12HFOMRAT": (location = navigator.language) => Intl.DateTimeFormat(location, { hour: 'numeric' }).resolvedOptions()["hour12"]
     }
 }

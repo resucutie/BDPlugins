@@ -1,8 +1,11 @@
 /// <reference path="../../../types/main.d.ts" />
 
-import moment from "moment-timezone"
+import { WebpackModules } from "@zlibrary";
 import { TimezoneException, DateException } from "./exceptions"
 import constants from "./constants"
+import settings from "../settingsManager";
+
+const moment = WebpackModules.getByProps("utc", "duration")
 
 function getOffset(date = moment()) {
     let timezoneOffset: number;
@@ -27,31 +30,40 @@ function getTimeFromTimezone(utcOffset, currentDate = new Date()) {
     return utc
 }
 
-function getDateFromCity(city, sendAsMoment = false) {
-    if (!moment.tz.zone(city)) throw new TimezoneException("Invalid City", constants.ExceptionCodes.Timezones.INVALID_CITY)
-    let timezone = moment.tz(city)
-    return sendAsMoment ? timezone : timezone.toDate()
-}
-
-function formatDate(date, timezone?) {
+function formatDate(date: Date, timezone?, isAMPMFormat = settings.get("ampm", constants.TimePreferrence["12HFOMRAT"]())) {
     if (!_.isDate(date)) throw new DateException("Invalid date was insert in formatDate(). Please insert a Date", constants.ExceptionCodes.Date.INVALID_DATE)
 
-    let hours = date.getHours().toLocaleString("en-US", { minimumIntegerDigits: 2, useGrouping: false })
-    let minutes = date.getMinutes().toLocaleString("en-US", { minimumIntegerDigits: 2, useGrouping: false })
-    let seconds = date.getSeconds().toLocaleString("en-US", { minimumIntegerDigits: 2, useGrouping: false })
+    const fullHour = date.getHours().toLocaleString(navigator.language, { minimumIntegerDigits: 2, useGrouping: false })
+    const AMPMHour = ((Number(fullHour) + 11) % 12 + 1).toLocaleString(navigator.language, { minimumIntegerDigits: 2, useGrouping: false })
+    const suffix = Number(fullHour) >= 12 ? "PM" : "AM";
+    const minutes = date.getMinutes().toLocaleString(navigator.language, { minimumIntegerDigits: 2, useGrouping: false })
+    const seconds = date.getSeconds().toLocaleString(navigator.language, { minimumIntegerDigits: 2, useGrouping: false })
+
+    type whyTypescript = { includeSecs?: boolean }
+    type whyTypescriptPartTwo = { includeTimezone?: boolean }
+
+    const timeString = ({ includeSecs }: whyTypescript = { includeSecs: true }) => `${isAMPMFormat ? AMPMHour : fullHour}:${minutes}${includeSecs ? ":" + seconds : ""}${isAMPMFormat ? " " + suffix : ""}`
+    const toString = ({ includeTimezone }: whyTypescriptPartTwo = { includeTimezone: Boolean(timezone) }) => `${date.toDateString()} ${timeString()} ${includeTimezone ? `(UTC${timezone})` : ""}`
 
     return {
-        hours,
+        hours: isAMPMFormat ? AMPMHour : fullHour,
+        "12hour": AMPMHour,
+        "24hour": fullHour,
         minutes,
         seconds,
-        toString: () => `${date.toDateString()} ${hours}:${minutes}:${seconds}${timezone ? ` (UTC${timezone})` : ""}`
+        suffix,
+        timeString,
+        dateString: () => date.toDateString(),
+        toString
     }
 }
 
 function ensureTimezone(timezone) {
     timezone = String(timezone)
+    
+    timezone.replace(/[^\d.+-]/g, '')
 
-    if (timezone.charAt(0) !== "+" && timezone.charAt(0) !== "-") timezone = "+" + timezone
+    if (timezone.charAt(0) !== "+" && timezone.charAt(0) !== "-" && timezone !== 0) timezone = "+" + timezone
     timezone = timezone.replace(",", ".")
 
     let checkEnsured = isNotTimezone(timezone, { checkCharacters: false })
@@ -61,7 +73,9 @@ function ensureTimezone(timezone) {
     return timezone
 }
 
-function isNotTimezone(timezone, { filterUndefined, checkNumber, checkCharacters, checkOverflow }: any = {filterUndefined: true, checkNumber: true, checkCharacters: true, checkOverflow: true}) {
+function isNotTimezone(timezone, opts: object = {filterUndefined: true, checkNumber: true, checkCharacters: true, checkOverflow: true}) {
+    const { filterUndefined, checkNumber, checkCharacters, checkOverflow }: any = opts
+    
     // undefined checking
     if (timezone == null && filterUndefined) return constants.ExceptionCodes.Timezones.InvalidFormatReasons.UNDEFINED
 
@@ -77,7 +91,7 @@ function isNotTimezone(timezone, { filterUndefined, checkNumber, checkCharacters
     if (checkCharacters) {
         // character checking
         const firstChar = timezone.charAt(0)
-        const hasSign: boolean = firstChar === "+" || firstChar === "-"
+        const hasSign: boolean = firstChar === "+" || firstChar === "-" || timezone === 0
         if (!hasSign) return constants.ExceptionCodes.Timezones.InvalidFormatReasons.NO_SIGN
     }
 
@@ -87,4 +101,4 @@ function isNotTimezone(timezone, { filterUndefined, checkNumber, checkCharacters
     return false
 }
 
-export { getTimeFromTimezone, getOffset, getDateFromCity, formatDate, isNotTimezone, ensureTimezone }
+export { getTimeFromTimezone, getOffset, formatDate, isNotTimezone, ensureTimezone }

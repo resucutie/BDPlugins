@@ -25,6 +25,6 @@ const getTimezone = (id) => {
     return list?.[id]
 }
 
-const checkIfUserExists = id => !!getTimezone(id)
+const isExistingUser = id => Boolean(getTimezone(id))
 
-export { addUser, removeUser, getTimezone, getList, setList, checkIfUserExists }
+export { addUser, removeUser, getTimezone, getList, setList, isExistingUser }

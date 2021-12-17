@@ -5,6 +5,7 @@ import { TooltipContainer } from "@discord/components";
 
 import settings from "../settingsManager";
 import { getTimeFromTimezone, formatDate, getOffset } from '../utils/timezones';
+import constants from '../utils/constants';
 
 export default React.memo(({ timezone = getOffset(), tooltip = true, showSeconds = false, staticTime, className }: BasicTimerProps) => {
     const [dateHook, setDateHook] = useState(getTimeFromTimezone(timezone))
@@ -19,7 +20,12 @@ export default React.memo(({ timezone = getOffset(), tooltip = true, showSeconds
 
     const formattedText = formatDate(date, timezone)
 
-    const element = <>{formattedText.hours}:{formattedText.minutes}{settings.get("seconds", false) || showSeconds ? `:${formattedText.seconds}` : ""}</>
+    const element = <>
+        {formattedText.hours}:
+        {formattedText.minutes}
+        {settings.get("seconds", false) || showSeconds ? `:${formattedText.seconds}` : ""}
+        {settings.get("ampm", constants.TimePreferrence["12HFOMRAT"]()) ? " " + formattedText.suffix : ""}
+    </>
 
     if (tooltip) return <TooltipContainer text={formattedText.toString()} delay={750} className={className}>{element}</TooltipContainer>
     return element
