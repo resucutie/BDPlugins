@@ -9,7 +9,7 @@
                 "twitter_username": "auwuser"
             }
         ],
-        "version": "0.4.1",
+        "version": "0.4.0",
         "description": "Shows the time from somebody's timezone",
         "github": "https://github.com/abUwUser/BDPlugins/tree/main/plugins/Fuses",
         "github_raw": "https://raw.githubusercontent.com/abUwUser/BDPlugins/compiled/Fuses/Fuses.plugin.js"
@@ -25,39 +25,10 @@
     },
     "changelog": [
         {
-            "type": "added",
-            "title": "Oh god a bunch of new features",
-            "items": [
-                "You can select \"Presets\" from very known abbreviations, such as UTC or CET. No need to google it up!",
-                "Are you american and wanna be different from everyone? Now you can use 12h clocks! (why you guys are so evil)",
-                "Now you can check the time of somebody after a certain time. Click the timer in the user's popout to show the UI",
-                "Wanted some quick actions? Now you can right click the timer or right click a user and select \"Timezone actions\" for doing some quick actions",
-                "Bored of seeing the first on the top of the user list? Sure, now you can sort by A-Z, Z-A, By newest and By Oldest",
-                "Accidentally deleted somebody and dont wanna do that again? Sure, you can lock your action icons now"
-            ]
-        },
-        {
-            "type": "progress",
-            "title": "Very cool changes",
-            "items": [
-                "Fuses is no longer dependant to moment-timezones! I've found a timezone list, and since Discord already has moment built in, I could remove moment-timezone. This makes the plugin WAY smaller than before",
-                "Finally separated the list and the user selector on the UserAdd (now named UserList) in the code"
-            ]
-        },
-        {
             "type": "fixed",
-            "title": "BZZZZZZZZZ",
+            "title": "frick",
             "items": [
-                "I DID IT! I'VE FIXED THE BUG! YES, THE BUG! NOW I DON'T NEED A TEXT FOCUS HANDLER! (i wont explain it, but i gave the tip c;)"
-            ]
-        },
-        {
-            "type": "improved",
-            "title": "Wah! More announcements",
-            "items": [
-                "I am planning to change the name of the plugin to just \"Timezones\", since \"Fuses\" is kinda a weird name to use. DM me if you find that change better! If I eventually change it, I might gonna push a update renaming the name and asking for you to redownload it",
-                "I am also thinking to make a timezone database with AAGaming#9395. So that means you'll be able to automatically get somebody's timezone if they use the same plugin!",
-                "There is a port to Aliucord that ItzOnlyAnimal#0001 made. It is very primitive and it only has the basics. But you can try out right now here: https://github.com/ItzOnlyAnimal/AliuPlugins/blob/builds/Timezones.zip"
+                "I have no idea how but I've sent the wrong version number. Hope that BD prompts the update lmfao"
             ]
         }
     ]
