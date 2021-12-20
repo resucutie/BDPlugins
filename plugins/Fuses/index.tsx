@@ -3,17 +3,16 @@
 import React, { useState, useEffect } from "react"
 import BasePlugin from "@zlibrary/plugin";
 import { Patcher, WebpackModules, Utilities } from "@zlibrary";
-import { Text, TooltipContainer, Popout, Button } from "@discord/components"
-import { Timer as TimerIcon, ChatBubble } from "@discord/icons"
+import { Text, TooltipContainer, Popout, Button, Flex } from "@discord/components"
+import { Timer as TimerIcon, ChatBubble, DropdownArrow } from "@discord/icons"
 import { Menu, MenuItem, openContextMenu, closeContextMenu } from "@discord/contextmenu"
 import { ModalRoot, ModalSize, ModalHeader, ModalContent, openModal } from "@discord/modal"
-import { Users } from "@discord/stores";
 import stylesheet from "styles"
 import styles from "./style.scss"
 
 import settings from "./settingsManager";
-import { getTimezone, isExistingUser, removeUser } from "./utils/userList";
-import { getTimeFromTimezone } from "./utils/timezones";
+import { getList, getTimezone, isExistingUser, removeUser } from "./utils/userList";
+import { convertHMTzToHTz, ensureTimezone, getTimeFromTimezone, isHMtimezone, isNotTimezone } from "./utils/timezones";
 import createQuestion from "./utils/createQuestion";
 import SettingsPanel from "./Settings";
 import Timer from "./components/Timer";
@@ -21,6 +20,22 @@ import BasicTimer from "./components/BasicTimer";
 import UserList from "./components/UserList";
 import TimeCalculator from "./components/TimeCalculator";
 import TimestampActions from "./components/context menus/TimestampActions";
+import RotateClock from "./components/custom icons/RotateClock";
+import constants from "./utils/constants";
+
+const onDeleteTimezone = id => {
+    createQuestion(
+        "Remove timezone",
+        "Are you sure that you want to remove the timezone for this user? Note that this is an IRREVERSIBLE action.",
+        [
+            { text: "Proceed", color: Button.Colors.RED },
+            { text: "Cancel", color: Button.Colors.TRANSPARENT, look: Button.Looks.LINK }
+        ]
+    //@ts-ignore
+    ).then(({ button }) => {
+        if (button === "Proceed") removeUser(id)
+    })
+}
 
 export default class Fuses extends BasePlugin {
     onStart() {
@@ -32,28 +47,30 @@ export default class Fuses extends BasePlugin {
 
     async handleUserBannerPatch(){
         Patcher.after(WebpackModules.find(m => m.default?.displayName === 'UserBanner'), "default", (_this, [props], res) => {
-            if (!isExistingUser(props.user.id)) return
+            if (
+                !isExistingUser(props.user.id) ||
+                settings.get("display", constants.Settings.TimerDisplay.USER_BANNER) !== constants.Settings.TimerDisplay.USER_BANNER
+            ) return
 
-            let userTimezone = getTimezone(props.user.id)
+            const userTimezone = getTimezone(props.user.id)
 
-            res.props.children.push(<Timer 
-                    onClick={() => settings.set("_callTimeCalculator", !settings.get("_callTimeCalculator", false))}
-                    timezone={userTimezone}
-                    className={styles["timer-positioning"]}
-                    onContextMenu={e => openContextMenu(e, () => <Menu navId="fuses-timer-context-menu" onClose={closeContextMenu}>
-                        {TimestampActions({
-                            id: props.user.id,
-                            timezone: userTimezone,
-                            onEditTimezone: this.openSettingsModal,
-                            onDeleteTimezone: id => {
-                                //@ts-ignore
-                                createQuestion("Remove timezone", "Are you sure that you want to remove the timezone for this user? Note that this is an IRREVERSIBLE action.", [{ text: "Proceed", color: Button.Colors.RED}, { text: "Cancel", color: Button.Colors.TRANSPARENT, look: Button.Looks.LINK }]).then(buttonClicked => {
-                                    if (buttonClicked === "Proceed") removeUser(id)
-                                })
-                            }
-                        })}
-                    </Menu>)}
-            />)
+            res.props.children.push(<Timer
+                onClick={() => settings.set("_callTimeCalculator", !settings.get("_callTimeCalculator", false))}
+                timezone={userTimezone}
+                className={styles["timer-positioning"]}
+                onContextMenu={e => openContextMenu(e, () => <Menu navId="fuses-timer-context-menu" onClose={closeContextMenu}>
+                    {TimestampActions({
+                        id: props.user.id,
+                        timezone: userTimezone,
+                        onEditTimezone: this.openSettingsModal,
+                        onDeleteTimezone
+                    })}
+                </Menu>)}
+            >
+                {element => settings.get("_callTimeCalculator", false) ? element : <TooltipContainer text={`Click here to see ${props.user.username}'s time after some hours`} delay={750}>
+                    {element}
+                </TooltipContainer>}
+            </Timer>)
         })
 
         Patcher.after(WebpackModules.getByProps('UserPopoutInfo'), "UserPopoutProfileText", (_this, [props], res) => {
@@ -65,8 +82,39 @@ export default class Fuses extends BasePlugin {
             // fallback
             if (!indexToInsert) indexToInsert = 0
 
+            const headerTimer = <Flex align={Flex.Align.CENTER} 
+                className={`bodyTitle-1ySSKn fontDisplay-1dagSA ${Text.Sizes.SIZE_12} ${Text.Colors.HEADER_SECONDARY} uppercase-3VWUQ9 ${styles["header-prev"]}`}
+                onContextMenu={e => openContextMenu(e, () => <Menu navId="fuses-timer-context-menu" onClose={closeContextMenu}>
+                    {TimestampActions({
+                        id: props.user.id,
+                        timezone: userTimezone,
+                        onEditTimezone: this.openSettingsModal,
+                        onDeleteTimezone
+                    })}
+                </Menu>)}
+            >
+                <BasicTimer timezone={userTimezone} tooltip={false}>
+                    {(element, formattedText, _, shouldShowTimerIcon) => {
+                        const spanElement = <span onClick={() => settings.set("_callTimeCalculator", !settings.get("_callTimeCalculator", false))}>
+                            {element} (UTC{userTimezone})
+                        </span>
+                        return <>
+                            <TooltipContainer text={formattedText.toString()} className={styles["timer-icon"]}>
+                                {!shouldShowTimerIcon ? <RotateClock rotateAngle={Number(formattedText['12hour']) * 30} /> : <DropdownArrow className={styles["close-icon"]} width={18} height={18} />}
+                            </TooltipContainer>
+                            {shouldShowTimerIcon ? spanElement : <TooltipContainer className={styles["header-timer"]} text={`Click here to see ${props.user.username}'s time after some hours`} delay={750}>
+                                {spanElement}
+                            </TooltipContainer>}
+                        </>
+                    }}
+                </BasicTimer>
+            </Flex>
+
             if (settings.get("_callTimeCalculator", false)) settings.set("_callTimeCalculator", false)
-            res.props.children.splice(indexToInsert + 1, 0, <TimeCalculator timezone={userTimezone} />)
+            res.props.children.splice(indexToInsert + 1, 0,
+                settings.get("display", constants.Settings.TimerDisplay.USER_BANNER) === constants.Settings.TimerDisplay.USER_HEADER ? headerTimer : null,
+                <TimeCalculator timezone={userTimezone} />
+            )
         })
     }
 
@@ -161,12 +209,7 @@ export default class Fuses extends BasePlugin {
                     id: user.id,
                     timezone,
                     onEditTimezone: this.openSettingsModal,
-                    onDeleteTimezone: id => {
-                        //@ts-ignore
-                        createQuestion("Remove timezone", "Are you sure that you want to remove the timezone for this user? Note that this is an IRREVERSIBLE action.", [{ text: "Proceed", color: Button.Colors.RED }, { text: "Cancel", color: Button.Colors.TRANSPARENT, look: Button.Looks.LINK }]).then(buttonClicked => {
-                                if (buttonClicked === "Proceed") removeUser(id)
-                            })
-                    }
+                    onDeleteTimezone
                 })}
             </MenuItem>
 
@@ -200,12 +243,7 @@ export default class Fuses extends BasePlugin {
                     id: user.id,
                     timezone,
                     onEditTimezone: this.openSettingsModal,
-                    onDeleteTimezone: id => {
-                        //@ts-ignore
-                        createQuestion("Remove timezone", "Are you sure that you want to remove the timezone for this user? Note that this is an IRREVERSIBLE action.", [{ text: "Proceed", color: Button.Colors.RED }, { text: "Cancel", color: Button.Colors.TRANSPARENT, look: Button.Looks.LINK }]).then(buttonClicked => {
-                                if (buttonClicked === "Proceed") removeUser(id)
-                            })
-                    }
+                    onDeleteTimezone
                 })}
             </MenuItem>
 

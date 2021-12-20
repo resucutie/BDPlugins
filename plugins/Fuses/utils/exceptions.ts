@@ -13,10 +13,12 @@ function makeErrorCLass(name: string) {
 
 const TimezoneException = makeErrorCLass("TimezoneException"),
     DateException = makeErrorCLass("DateException"),
-    ImportFileException = makeErrorCLass("FileException")
+    ImportFileException = makeErrorCLass("FileException"),
+    UserListException = makeErrorCLass("UserListException")
 
 export {
     TimezoneException,
     DateException,
-    ImportFileException
+    ImportFileException,
+    UserListException
 }

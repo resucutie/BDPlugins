@@ -267,7 +267,7 @@ declare module "@discord/forms" {
     export function FormNotice(): any;
     export const FormNoticeTypes: { PRIMARY: string, DANGER: string, WARNING: string, SUCCESS: string, BRAND: string, CUSTOM: string };
     export const FormNoticeImagePositions: { LEFT: string, RIGHT: string };
-    export function FormSection(): any;
+    export function FormSection(props: any): any;
     export function FormText({ type, children }: { type?: "description", children: any }): any;
     export const FormTextTypes: { DEFAULT: string, INPUT_PLACEHOLDER: string, DESCRIPTION: string, LABEL_BOLD: string, LABEL_SELECTED: string, LABEL_DESCRIPTOR: string };
     export function FormTitle(props: any): any;

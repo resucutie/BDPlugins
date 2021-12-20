@@ -9,7 +9,7 @@
                 "twitter_username": "auwuser"
             }
         ],
-        "version": "0.4.0",
+        "version": "0.4.1",
         "description": "Shows the time from somebody's timezone",
         "github": "https://github.com/abUwUser/BDPlugins/tree/main/plugins/Fuses",
         "github_raw": "https://raw.githubusercontent.com/abUwUser/BDPlugins/compiled/Fuses/Fuses.plugin.js"
@@ -26,9 +26,10 @@
     "changelog": [
         {
             "type": "fixed",
-            "title": "frick",
+            "title": "Coccinellidae",
             "items": [
-                "I have no idea how but I've sent the wrong version number. Hope that BD prompts the update lmfao"
+                "Fixes some things that I forgot to style",
+                "Hides the autocomplete when a country was selected"
             ]
         }
     ]

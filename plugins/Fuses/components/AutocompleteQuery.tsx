@@ -8,7 +8,6 @@ interface Props {
 }
 
 export default React.memo(({list, onSelect}: Props) => {
-    console.log("fired", list)
     const downPress = useKeyPress("ArrowDown");
     const upPress = useKeyPress("ArrowUp");
     const enterPress = useKeyPress("Enter");

@@ -38,8 +38,6 @@ export default function ({ onConfirm, include = { existingUsers: true, bots: fal
         return isInSearch && !isBot && doesExist
     }).slice(0, 30)
 
-    console.log(searchedUserList)
-
     return <div className={styles["user-find"]}>
         <ModalRoot size={ModalSize.MEDIUM} {...{ transitionState }}>
             <ModalHeader separator={false} >

@@ -1,8 +1,8 @@
 import timezonesList from "./db/timezoneList.json";
 import { ensureTimezone, getTimeFromTimezone } from "./timezones";
-import moment from "./moment";
 import constants from "./constants";
 import { TimezoneException } from "./exceptions";
+import { Timestamp as moment } from "@discord/classes";
 
 const normalizeCity = (city) => city.replace(" ", "_").normalize("NFD").replace(/\p{Diacritic}/gu, "")
 

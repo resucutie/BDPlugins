@@ -69,14 +69,13 @@ export default function ({ defaultVals, isModal = false, ...etc }: UserAddProps)
 
     useEffect(() => {
         setSearched(searchCityNames(userCity))
-        console.log(userCity, searched)
     }, [userCity])
 
     //etc
     const [isEditing, setEditing] = useState(false)
 
     // Handlers
-    const handleAdd = (id, timezone) => {
+    const handleAdd = (id: UserID, timezone: Timezone) => {
         if (_.isEmpty(id)) {
             setUserIdError("Please put a value here")
             return
@@ -91,7 +90,7 @@ export default function ({ defaultVals, isModal = false, ...etc }: UserAddProps)
         }
 
         //adds the user if everything was sucessful
-        addUser(id, timezone)
+        addUser(id, ensureTimezone(timezone))
 
         if (isModal) {
             Toasts.success("Timezone sucessfully added")
@@ -141,7 +140,7 @@ export default function ({ defaultVals, isModal = false, ...etc }: UserAddProps)
                 <TextInput className={styles["timezone-search-textbox"]}
                     value={timezone}
                     placeholder={`Timezone (in UTC. e.g.: ${currentOffset})`}
-                    onChange={text => setTimezone(text.replace(/[^\d.+-]/g, ''))}
+                    onChange={text => setTimezone(text.replace(/[^\d.+-:]/g, ''))}
                     error={timezoneError}
                 />
             </>}
@@ -206,7 +205,7 @@ export default function ({ defaultVals, isModal = false, ...etc }: UserAddProps)
             setUserId(id)
             setEditing(false)
         }} error={userIdError} filterUsers={defaultVals?.userPicker} bigPreview={isModal} />
-        {(timezonePage === constants.Settings.TimezonePages.CITY_SELECTOR && !_.isEmpty(searched) && !_.isEmpty(userCity)) && <CitySearchQuery list={searched} onSelect={value => setUserCity(value)} />}
+        {(timezonePage === constants.Settings.TimezonePages.CITY_SELECTOR && !_.isEmpty(searched) && !_.isEmpty(userCity) && userCity !== searched?.[0]) && <CitySearchQuery list={searched} onSelect={value => setUserCity(value)} />}
         {TimezonePicker}
         {addUserButtonAnim((style, item) => item && <a.div style={style}>
                 <Button

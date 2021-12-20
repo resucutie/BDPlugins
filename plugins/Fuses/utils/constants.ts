@@ -2,11 +2,14 @@ export default {
     ExceptionCodes: {
         Timezones: {
             INVALID_CITY: "INVALID_CITY",
+            NOT_HMTZ_FORMAT: "NOT_HMTZ_FORMAT",
+            NOT_HTZ_FORMAT: "NOT_HTZ_FORMAT",
             INVALID_FORMAT: "INVALID_FORMAT",
 
             InvalidFormatReasons: {
                 NO_SIGN: "NO_SIGN",
                 NOT_A_NUMBER: "NOT_A_NUMBER",
+                NOT_HTZ_FORMAT: "NOT_HTZ_FORMAT",
                 OVERFLOW: "OVERFLOW",
                 UNDEFINED: "UNDEFINED"
             }
@@ -16,6 +19,10 @@ export default {
         },
         ImportFile: {
             INVALID_FILE: "INVALID_FILE"
+        },
+        UserList: {
+            INVALID_USER: "INVALID_USER",
+            INVALID_LIST_TYPE: "INVALID_LIST_TYPE"
         }
     },
     Settings: {
@@ -23,11 +30,9 @@ export default {
             CITY_SELECTOR: "city",
             MANUAL: "manual"
         },
-        TextFocus: {
-            USER_ID: "userID",
-            TIMEZONE: "userTimezone",
-            CITY: "userCity",
-            SEARCH_USER_LIST: "searchUserList"
+        TimerDisplay:{
+            USER_BANNER: "userBanner",
+            USER_HEADER: "userHeader"
         }
     },
     TimePreferrence: {

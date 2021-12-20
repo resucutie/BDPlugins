@@ -1,11 +1,9 @@
 /// <reference path="../../../types/main.d.ts" />
 
-import { WebpackModules } from "@zlibrary";
 import { TimezoneException, DateException } from "./exceptions"
 import constants from "./constants"
 import settings from "../settingsManager";
-
-const moment = WebpackModules.getByProps("utc", "duration")
+import { Timestamp as moment } from '@discord/classes'
 
 function getOffset(date = moment()) {
     let timezoneOffset: number;
@@ -28,6 +26,19 @@ function getTimeFromTimezone(utcOffset, currentDate = new Date()) {
     utc.setTime(utc.getTime() + (Number(utcOffset) * 60 * 60 * 1000))
 
     return utc
+}
+
+const isHMtimezone = (hmtimezone: HMTimezone) => /(\:)/g.test(hmtimezone)
+
+function convertHMTzToHTz(hmtimezone: HMTimezone) {
+    if (!isHMtimezone(hmtimezone)) throw new TimezoneException("This isn't a HH:MM timezone format", constants.ExceptionCodes.Timezones.NOT_HMTZ_FORMAT)
+
+    const [hours, minutes] = hmtimezone.match(/[^:]*/g).filter(s => Boolean(s))
+
+    const minsConvertedToHours = Number(minutes)/60
+
+    if (Number(hours) < 0) return addIndicatorsToTimezone(Number(hours) - minsConvertedToHours)
+    return addIndicatorsToTimezone(Number(hours) + minsConvertedToHours)
 }
 
 function formatDate(date: Date, timezone?, isAMPMFormat = settings.get("ampm", constants.TimePreferrence["12HFOMRAT"]())) {
@@ -63,8 +74,11 @@ function ensureTimezone(timezone) {
     
     timezone.replace(/[^\d.+-]/g, '')
 
-    if (timezone.charAt(0) !== "+" && timezone.charAt(0) !== "-" && timezone !== 0) timezone = "+" + timezone
     timezone = timezone.replace(",", ".")
+
+    timezone = addIndicatorsToTimezone(timezone)
+
+    if (isHMtimezone(timezone)) timezone = convertHMTzToHTz(timezone)
 
     let checkEnsured = isNotTimezone(timezone, { checkCharacters: false })
 
@@ -73,14 +87,22 @@ function ensureTimezone(timezone) {
     return timezone
 }
 
-function isNotTimezone(timezone, opts: object = {filterUndefined: true, checkNumber: true, checkCharacters: true, checkOverflow: true}) {
-    const { filterUndefined, checkNumber, checkCharacters, checkOverflow }: any = opts
+function addIndicatorsToTimezone(timezone) {
+    timezone = String(timezone)
+
+    if (timezone.charAt(0) !== "+" && timezone.charAt(0) !== "-" && timezone !== 0) timezone = "+" + timezone
+
+    return timezone
+}
+
+function isNotTimezone(timezone: any, opts: object = {filterUndefined: true, checkNumber: true, checkCharacters: true, checkOverflow: true, checkHM: true}) {
+    const { filterUndefined, checkNumber, checkCharacters, checkOverflow, checkHM }: any = opts
     
     // undefined checking
     if (timezone == null && filterUndefined) return constants.ExceptionCodes.Timezones.InvalidFormatReasons.UNDEFINED
 
+    // number checking
     if (checkNumber) {
-        // number checking
         try {
             new Number(timezone)
         } catch (e) {
@@ -88,17 +110,29 @@ function isNotTimezone(timezone, opts: object = {filterUndefined: true, checkNum
         }
     }
 
+    if (isHMtimezone(timezone) && checkHM) return constants.ExceptionCodes.Timezones.InvalidFormatReasons.NOT_HTZ_FORMAT
+
+    // character checking
     if (checkCharacters) {
-        // character checking
         const firstChar = timezone.charAt(0)
         const hasSign: boolean = firstChar === "+" || firstChar === "-" || timezone === 0
         if (!hasSign) return constants.ExceptionCodes.Timezones.InvalidFormatReasons.NO_SIGN
     }
 
+    console.log(Math.abs(Number(69)) > 24)
+
     // overflow checking
-    if (Math.abs(Number(timezone)) < 24 && checkOverflow) return constants.ExceptionCodes.Timezones.InvalidFormatReasons.OVERFLOW
+    if (Math.abs(Number(timezone)) > 24 && checkOverflow) return constants.ExceptionCodes.Timezones.InvalidFormatReasons.OVERFLOW
 
     return false
 }
 
-export { getTimeFromTimezone, getOffset, formatDate, isNotTimezone, ensureTimezone }
+export { 
+    getTimeFromTimezone, 
+    getOffset, 
+    formatDate, 
+    isNotTimezone, 
+    ensureTimezone,
+    isHMtimezone,
+    convertHMTzToHTz
+}

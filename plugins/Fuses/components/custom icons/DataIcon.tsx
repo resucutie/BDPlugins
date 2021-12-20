@@ -35,7 +35,6 @@ function setRandomInterval(min, max) {
         do {
             random = Math.floor(Math.random() * (max - min)) + min;
         } while (random === last || random === last2 || random === last3);
-        console.log({ last, last2, last3, random })
         last3 = last2;
         last2 = last;
         last = random;

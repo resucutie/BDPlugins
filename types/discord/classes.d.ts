@@ -31,13 +31,6 @@ declare class Channel {
     getRecipientId(): void | string
 }
 
-declare class Timestamp {
-    constructor(timestamp: any)
-
-    toDate(): Date;
-    month: number;
-}
-
 declare const GuildRole: {
     color: number;
     colorString: string;
@@ -103,7 +96,7 @@ declare module "@discord/classes" {
     export const Message: Message;
     export const User: User;
     export const Channel: Channel;
-    export const Timestamp: Timestamp;
+    export const Timestamp: typeof moment
 
 
     const Classes: { Message, User, Channel, Timestamp };

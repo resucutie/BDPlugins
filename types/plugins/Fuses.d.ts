@@ -1,6 +1,7 @@
 /// <reference path="../others/moment.d.ts" />
 
 declare type Timezone = string
+declare type HMTimezone = string
 
 //UserAdd
 

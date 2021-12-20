@@ -34,29 +34,36 @@
         }
 
         .rotate-wrapper {
-            height: 18px;
             margin: 1px 1px;
-            width: auto;
 
-            .rotate-clock{
-                width: 18px;
-                height: 18px;
-
-                path {
-                    fill: #fff;
-                }
-            }
-
-            .rotate-pointer{
-                position: absolute;
-                left: 8px;
-                top: 6px;
-                width: 2px;
-                height: 4px;
-                background: #fff;
-                transform-origin: bottom center;
+            path {
+                fill: #fff;
             }
         }
+    }
+}
+
+.rotate-wrapper {
+    height: 18px;
+    width: auto;
+
+    .rotate-clock{
+        width: 18px;
+        height: 18px;
+
+        path {
+            fill: currentColor;
+        }
+    }
+
+    .rotate-pointer{
+        position: absolute;
+        left: 8px;
+        top: 6px;
+        width: 2px;
+        height: 4px;
+        background: #fff;
+        transform-origin: bottom center;
     }
 }
 
@@ -81,6 +88,22 @@
     margin: 0 4px;
 }
 
+// Header timer
+.header-prev{
+    margin-bottom: 12px;
+
+    .header-timer{
+        margin-left: 4px;
+    }
+
+    .timer-icon{
+        height: 18px;
+
+        .close-icon{
+            margin: 0 2px;
+        }
+    }
+}
 
 // Calc time
 
@@ -148,6 +171,7 @@
         position: absolute;
         bottom: 10px;
         background: var(--background-secondary);
+        border-radius: 5px;
         overflow: auto;
         max-height: 200px;
         width: 100%;
@@ -160,6 +184,7 @@
                 border-radius: 5px;
                 color: var(--interactive-normal);
                 padding: 10px;
+                cursor: pointer;
 
                 &.selected{
                     background: var(--background-primary);
@@ -207,13 +232,13 @@
 
         &-search {
             margin: 16px;
-            margin-right: 0;
             background: transparent;
             flex-grow: 1;
         }
 
         .settings{
             margin: 12px;
+            margin-left: -4px;
             width: 32px;
             color: var(--interactive-normal);
 

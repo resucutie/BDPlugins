@@ -57,6 +57,26 @@ declare module "@discord/components" {
     Flex.Justify = FlexJustify;
     Flex.Wrap = FlexWrap;
 
+    /* Radio */
+
+    type RadioOptions = {
+        color?: string
+        desc?: string
+        name: string
+        value: any
+    }
+
+    type RadioProps = {
+        onChange?: (value) => void
+        options: RadioOptions[]
+        value?: any
+    }
+
+    // its exported as a type due to bdbuilder not exporting it, so we have to manually get it from Webpack
+    type RadioGroupType = (props: RadioProps) => ReactElement
+
+    /* Text */
+
     const TextSizes: { SIZE_10: string; SIZE_12: string; SIZE_14: string; SIZE_16: string; SIZE_20: string; SIZE_24: string; SIZE_32: string; }
 
     const TextColors: { BRAND: string; CUSTOM: string; ERROR: string; HEADER_PRIMARY: string; HEADER_SECONDARY: string; INTERACTIVE_ACTIVE: string; INTERACTIVE_NORMAL: string; LINK: string; MUTED: string; STANDARD: string; STATUS_GREEN: string; STATUS_RED: string; STATUS_YELLOW: string; }
