@@ -9,7 +9,7 @@
                 "twitter_username": "auwuser"
             }
         ],
-        "version": "0.4.1.1",
+        "version": "0.4.1",
         "description": "Shows the time from somebody's timezone",
         "github": "https://github.com/abUwUser/BDPlugins/tree/main/plugins/Fuses",
         "github_raw": "https://raw.githubusercontent.com/abUwUser/BDPlugins/compiled/Fuses/Fuses.plugin.js"
@@ -25,22 +25,11 @@
     },
     "changelog": [
         {
-            "type": "added",
-            "title": "Why i've added new stuff",
-            "items": [
-                "Added an option to display the timer in the user popout's body instead of the banner",
-                "Now you can also add timezones in the HH:MM format instead of just the hours",
-                "Added a preview of what you're importing in the Importing modal"
-            ]
-        },
-        {
             "type": "fixed",
             "title": "Coccinellidae",
             "items": [
                 "Fixes some things that I forgot to style",
-                "Hides the autocomplete when a country was selected",
-                "Removed some debugging stuff",
-                "Added a check to see if it is a valid user list file when it is imported"
+                "Hides the autocomplete when a country was selected"
             ]
         }
     ]

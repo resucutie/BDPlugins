@@ -1,0 +1,1 @@
+# This plugin was renamed and so it wont get any new updates. Please download Timezones instead.
