@@ -1,7 +1,7 @@
 /**
  * @name Fuses
  * @author A user
- * @version 0.4.0
+ * @version 0.4.1
  * @description Shows the time from somebody's timezone
  * @source https://github.com/abUwUser/BDPlugins/tree/main/plugins/Fuses
  * @updateUrl https://raw.githubusercontent.com/abUwUser/BDPlugins/compiled/Fuses/Fuses.plugin.js
@@ -38,7 +38,7 @@ const config = {
 			"github_username": "abUwUser",
 			"twitter_username": "auwuser"
 		}],
-		"version": "0.4.0",
+		"version": "0.4.1",
 		"description": "Shows the time from somebody's timezone",
 		"github": "https://github.com/abUwUser/BDPlugins/tree/main/plugins/Fuses",
 		"github_raw": "https://raw.githubusercontent.com/abUwUser/BDPlugins/compiled/Fuses/Fuses.plugin.js"
@@ -54,9 +54,10 @@ const config = {
 	},
 	"changelog": [{
 		"type": "fixed",
-		"title": "frick",
+		"title": "Coccinellidae",
 		"items": [
-			"I have no idea how but I've sent the wrong version number. Hope that BD prompts the update lmfao"
+			"Fixes some things that I forgot to style",
+			"Hides the autocomplete when a country was selected"
 		]
 	}]
 };
@@ -306,7 +307,7 @@ function buildPlugin([BasePlugin, PluginApi]) {
 				var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()((function(i) {
 					return i[1];
 				}));
-				___CSS_LOADER_EXPORT___.push([module.id, ".Fuses-style-section-look{font-weight:600;text-transform:uppercase}.Fuses-style-timer-positioning{position:absolute;bottom:5px;right:5px}.Fuses-style-timer-wrapper{display:flex;flex-direction:row;align-items:center;justify-content:center;background:rgba(32,34,37,.7);color:var(--interactive-active);padding:2px 4px;border-radius:20px}.Fuses-style-timer-wrapper .Fuses-style-timer{margin:0 4px;font-size:14px}.Fuses-style-timer-wrapper .Fuses-style-img-wrapper{height:20px}.Fuses-style-timer-wrapper .Fuses-style-img-wrapper>svg{transform:rotate(180deg)}.Fuses-style-timer-wrapper .Fuses-style-img-wrapper .Fuses-style-rotate-wrapper{height:18px;margin:1px 1px;width:auto}.Fuses-style-timer-wrapper .Fuses-style-img-wrapper .Fuses-style-rotate-wrapper .Fuses-style-rotate-clock{width:18px;height:18px}.Fuses-style-timer-wrapper .Fuses-style-img-wrapper .Fuses-style-rotate-wrapper .Fuses-style-rotate-clock path{fill:#fff}.Fuses-style-timer-wrapper .Fuses-style-img-wrapper .Fuses-style-rotate-wrapper .Fuses-style-rotate-pointer{position:absolute;left:8px;top:6px;width:2px;height:4px;background:#fff;transform-origin:bottom center}.Fuses-style-timestamp-timer-wrapper{display:inline-flex;flex-direction:row;align-items:center}.Fuses-style-timestamp-timer-wrapper .Fuses-style-timestamp-tooltip{height:16px;margin-right:2px}.Fuses-style-timestamp-timer-wrapper .Fuses-style-timestamp-timer{display:inline-block}.Fuses-style-dot{margin:0 4px}.Fuses-style-calc-time-wrapper{position:relative;margin-bottom:16px;color:var(--header-secondary)}.Fuses-style-calc-time-wrapper .Fuses-style-input-wrapper{margin-bottom:8px}.Fuses-style-calc-time-wrapper .Fuses-style-input-wrapper .Fuses-style-input{max-width:50px}.Fuses-style-calc-time-wrapper span{margin:0 4px}.Fuses-style-user-selector{margin-bottom:24px;width:100%}.Fuses-style-user-selector .Fuses-style-user-picker{display:flex;flex-direction:row;align-items:center;color:var(--interactive-normal)}.Fuses-style-user-selector .Fuses-style-user-picker .Fuses-style-avatar{margin:0 4px}.Fuses-style-user-selector .Fuses-style-user-picker .Fuses-style-opts{display:flex;flex-direction:row;margin-left:4px}.Fuses-style-user-selector .Fuses-style-user-picker-big-preview{display:flex;width:100%;flex-direction:column;align-items:center;color:var(--interactive-active)}.Fuses-style-user-selector .Fuses-style-user-picker-big-preview>span{margin-top:10px;font-size:20px;font-weight:600}.Fuses-style-autocomplete{position:relative}.Fuses-style-autocomplete .Fuses-style-autocomplete-popout{position:absolute;bottom:10px;background:var(--background-secondary);overflow:auto;max-height:200px;width:100%;box-shadow:var(--elevation-stroke),var(--elevation-high);padding:10px;z-index:10}.Fuses-style-autocomplete .Fuses-style-autocomplete-popout .Fuses-style-row .Fuses-style-item{border-radius:5px;color:var(--interactive-normal);padding:10px}.Fuses-style-autocomplete .Fuses-style-autocomplete-popout .Fuses-style-row .Fuses-style-item.Fuses-style-selected{background:var(--background-primary)}.Fuses-style-autocomplete .Fuses-style-autocomplete-popout::-webkit-scrollbar{width:0}:root .Fuses-style-add-user-modal{min-height:unset}.Fuses-style-user-add-wrapper{padding:20px;padding-top:0}.Fuses-style-preview-wrapper{display:flex;justify-content:center;margin-bottom:10px}.Fuses-style-user-list-wrapper{position:relative;margin-bottom:30px}.Fuses-style-user-list-wrapper .Fuses-style-header{position:absolute;width:100%;background:linear-gradient(180deg, var(--background-secondary-alt), var(--background-secondary-alt), transparent);z-index:1;margin-right:20px;border-radius:10px 10px 0 0;display:flex;flex-direction:row}.Fuses-style-user-list-wrapper .Fuses-style-header-search{margin:16px;margin-right:0;background:transparent;flex-grow:1}.Fuses-style-user-list-wrapper .Fuses-style-header .Fuses-style-settings{margin:12px;width:32px;color:var(--interactive-normal)}.Fuses-style-user-list-wrapper .Fuses-style-header .Fuses-style-settings:hover,.Fuses-style-user-list-wrapper .Fuses-style-header .Fuses-style-settings.Fuses-style-active{background-color:var(--background-modifier-selected);color:var(--interactive-hover)}.Fuses-style-user-list-wrapper .Fuses-style-user-list{position:relative;background:var(--background-secondary-alt);border-radius:10px;max-height:280px;overflow:auto;padding:20px 10px;padding-top:60px}.Fuses-style-user-list-wrapper .Fuses-style-user-list::-webkit-scrollbar{width:0}.Fuses-style-user-list-wrapper .Fuses-style-user-list-item{display:flex;align-items:center;padding:8px 10px;color:#fff;border-radius:5px}.Fuses-style-user-list-wrapper .Fuses-style-user-list-item .Fuses-style-name{font-weight:600;margin-right:4px;font-size:16px}.Fuses-style-user-list-wrapper .Fuses-style-user-list-item .Fuses-style-timezone{color:#bfbfbf;font-size:12px;display:flex;flex-direction:row}.Fuses-style-user-list-wrapper .Fuses-style-user-list-item .Fuses-style-actions-wrapper{margin-left:auto;opacity:0;display:flex}.Fuses-style-user-list-wrapper .Fuses-style-user-list-item .Fuses-style-actions-wrapper .Fuses-style-delete-icon{color:#ccc;cursor:pointer;height:24px;width:24px;margin-left:4px}.Fuses-style-user-list-wrapper .Fuses-style-user-list-item .Fuses-style-actions-wrapper .Fuses-style-delete-icon:hover{color:hsl(359, calc(var(--saturation-factor, 1) * 82.6%), 59.4%)}.Fuses-style-user-list-wrapper .Fuses-style-user-list-item .Fuses-style-actions-wrapper .Fuses-style-edit-icon{color:#ccc;cursor:pointer;height:24px;width:24px}.Fuses-style-user-list-wrapper .Fuses-style-user-list-item .Fuses-style-actions-wrapper .Fuses-style-edit-icon:hover{color:#fff}.Fuses-style-user-list-wrapper .Fuses-style-user-list-item:hover{background-color:var(--background-modifier-hover)}.Fuses-style-user-list-wrapper .Fuses-style-user-list-item:hover .Fuses-style-actions-wrapper{opacity:1}.Fuses-style-user-list-wrapper .Fuses-style-user-list .Fuses-style-avatar{margin-right:8px}.Fuses-style-user-add-timezone-panel{margin:8px 0}.Fuses-style-user-add-timezone-panel .Fuses-style-timezone-search-textbox,.Fuses-style-user-add-timezone-panel .Fuses-style-city-search-textbox{flex-grow:1}.Fuses-style-user-add-timezone-panel .Fuses-style-search-city-btn{width:40px;height:40px}.Fuses-style-user-add-timezone-panel .Fuses-style-actions-wrapper{margin-left:8px;display:flex;flex-direction:row}.Fuses-style-user-add-timezone-panel .Fuses-style-actions-wrapper .Fuses-style-return-btn{margin-left:4px}.Fuses-style-user-add-timezone-panel .Fuses-style-actions-wrapper .Fuses-style-find-city-btn,.Fuses-style-user-add-timezone-panel .Fuses-style-actions-wrapper .Fuses-style-find-city-btn-anim,.Fuses-style-user-add-timezone-panel .Fuses-style-actions-wrapper .Fuses-style-return-btn{width:40px;height:40px}.Fuses-style-user-add-timezone-panel .Fuses-style-preset-selector{height:40px}.Fuses-style-user-find .Fuses-style-search{width:calc(100% - 50px);margin:0 8px}.Fuses-style-user-find .Fuses-style-list-wrapper{display:grid;grid-template-columns:1fr 1fr;margin-bottom:16px;grid-gap:0 4px}.Fuses-style-user-find .Fuses-style-list-wrapper .Fuses-style-list-user{display:flex;flex-direction:row;align-items:center;padding:8px;cursor:pointer;border-radius:4px;color:var(--interactive-hover)}.Fuses-style-user-find .Fuses-style-list-wrapper .Fuses-style-list-user:hover{background:var(--background-modifier-hover)}.Fuses-style-user-find .Fuses-style-list-wrapper .Fuses-style-list-user-selected{background:var(--background-modifier-selected)}.Fuses-style-user-find .Fuses-style-user-pfp{margin-right:8px}.Fuses-style-import-flex .Fuses-style-import-wrapper{margin:auto 0}.Fuses-style-import-flex .Fuses-style-file-info-icon{margin:20px 0;margin-left:auto;margin-right:16px}", ""]);
+				___CSS_LOADER_EXPORT___.push([module.id, ".Fuses-style-section-look{font-weight:600;text-transform:uppercase}.Fuses-style-timer-positioning{position:absolute;bottom:5px;right:5px}.Fuses-style-timer-wrapper{display:flex;flex-direction:row;align-items:center;justify-content:center;background:rgba(32,34,37,.7);color:var(--interactive-active);padding:2px 4px;border-radius:20px}.Fuses-style-timer-wrapper .Fuses-style-timer{margin:0 4px;font-size:14px}.Fuses-style-timer-wrapper .Fuses-style-img-wrapper{height:20px}.Fuses-style-timer-wrapper .Fuses-style-img-wrapper>svg{transform:rotate(180deg)}.Fuses-style-timer-wrapper .Fuses-style-img-wrapper .Fuses-style-rotate-wrapper{margin:1px 1px}.Fuses-style-timer-wrapper .Fuses-style-img-wrapper .Fuses-style-rotate-wrapper path{fill:#fff}.Fuses-style-rotate-wrapper{height:18px;width:auto}.Fuses-style-rotate-wrapper .Fuses-style-rotate-clock{width:18px;height:18px}.Fuses-style-rotate-wrapper .Fuses-style-rotate-clock path{fill:currentColor}.Fuses-style-rotate-wrapper .Fuses-style-rotate-pointer{position:absolute;left:8px;top:6px;width:2px;height:4px;background:#fff;transform-origin:bottom center}.Fuses-style-timestamp-timer-wrapper{display:inline-flex;flex-direction:row;align-items:center}.Fuses-style-timestamp-timer-wrapper .Fuses-style-timestamp-tooltip{height:16px;margin-right:2px}.Fuses-style-timestamp-timer-wrapper .Fuses-style-timestamp-timer{display:inline-block}.Fuses-style-dot{margin:0 4px}.Fuses-style-header-prev{margin-bottom:12px}.Fuses-style-header-prev .Fuses-style-header-timer{margin-left:4px}.Fuses-style-header-prev .Fuses-style-timer-icon{height:18px}.Fuses-style-header-prev .Fuses-style-timer-icon .Fuses-style-close-icon{margin:0 2px}.Fuses-style-calc-time-wrapper{position:relative;margin-bottom:16px;color:var(--header-secondary)}.Fuses-style-calc-time-wrapper .Fuses-style-input-wrapper{margin-bottom:8px}.Fuses-style-calc-time-wrapper .Fuses-style-input-wrapper .Fuses-style-input{max-width:50px}.Fuses-style-calc-time-wrapper span{margin:0 4px}.Fuses-style-user-selector{margin-bottom:24px;width:100%}.Fuses-style-user-selector .Fuses-style-user-picker{display:flex;flex-direction:row;align-items:center;color:var(--interactive-normal)}.Fuses-style-user-selector .Fuses-style-user-picker .Fuses-style-avatar{margin:0 4px}.Fuses-style-user-selector .Fuses-style-user-picker .Fuses-style-opts{display:flex;flex-direction:row;margin-left:4px}.Fuses-style-user-selector .Fuses-style-user-picker-big-preview{display:flex;width:100%;flex-direction:column;align-items:center;color:var(--interactive-active)}.Fuses-style-user-selector .Fuses-style-user-picker-big-preview>span{margin-top:10px;font-size:20px;font-weight:600}.Fuses-style-autocomplete{position:relative}.Fuses-style-autocomplete .Fuses-style-autocomplete-popout{position:absolute;bottom:10px;background:var(--background-secondary);border-radius:5px;overflow:auto;max-height:200px;width:100%;box-shadow:var(--elevation-stroke),var(--elevation-high);padding:10px;z-index:10}.Fuses-style-autocomplete .Fuses-style-autocomplete-popout .Fuses-style-row .Fuses-style-item{border-radius:5px;color:var(--interactive-normal);padding:10px;cursor:pointer}.Fuses-style-autocomplete .Fuses-style-autocomplete-popout .Fuses-style-row .Fuses-style-item.Fuses-style-selected{background:var(--background-primary)}.Fuses-style-autocomplete .Fuses-style-autocomplete-popout::-webkit-scrollbar{width:0}:root .Fuses-style-add-user-modal{min-height:unset}.Fuses-style-user-add-wrapper{padding:20px;padding-top:0}.Fuses-style-preview-wrapper{display:flex;justify-content:center;margin-bottom:10px}.Fuses-style-user-list-wrapper{position:relative;margin-bottom:30px}.Fuses-style-user-list-wrapper .Fuses-style-header{position:absolute;width:100%;background:linear-gradient(180deg, var(--background-secondary-alt), var(--background-secondary-alt), transparent);z-index:1;margin-right:20px;border-radius:10px 10px 0 0;display:flex;flex-direction:row}.Fuses-style-user-list-wrapper .Fuses-style-header-search{margin:16px;background:transparent;flex-grow:1}.Fuses-style-user-list-wrapper .Fuses-style-header .Fuses-style-settings{margin:12px;margin-left:-4px;width:32px;color:var(--interactive-normal)}.Fuses-style-user-list-wrapper .Fuses-style-header .Fuses-style-settings:hover,.Fuses-style-user-list-wrapper .Fuses-style-header .Fuses-style-settings.Fuses-style-active{background-color:var(--background-modifier-selected);color:var(--interactive-hover)}.Fuses-style-user-list-wrapper .Fuses-style-user-list{position:relative;background:var(--background-secondary-alt);border-radius:10px;max-height:280px;overflow:auto;padding:20px 10px;padding-top:60px}.Fuses-style-user-list-wrapper .Fuses-style-user-list::-webkit-scrollbar{width:0}.Fuses-style-user-list-wrapper .Fuses-style-user-list-item{display:flex;align-items:center;padding:8px 10px;color:#fff;border-radius:5px}.Fuses-style-user-list-wrapper .Fuses-style-user-list-item .Fuses-style-name{font-weight:600;margin-right:4px;font-size:16px}.Fuses-style-user-list-wrapper .Fuses-style-user-list-item .Fuses-style-timezone{color:#bfbfbf;font-size:12px;display:flex;flex-direction:row}.Fuses-style-user-list-wrapper .Fuses-style-user-list-item .Fuses-style-actions-wrapper{margin-left:auto;opacity:0;display:flex}.Fuses-style-user-list-wrapper .Fuses-style-user-list-item .Fuses-style-actions-wrapper .Fuses-style-delete-icon{color:#ccc;cursor:pointer;height:24px;width:24px;margin-left:4px}.Fuses-style-user-list-wrapper .Fuses-style-user-list-item .Fuses-style-actions-wrapper .Fuses-style-delete-icon:hover{color:hsl(359, calc(var(--saturation-factor, 1) * 82.6%), 59.4%)}.Fuses-style-user-list-wrapper .Fuses-style-user-list-item .Fuses-style-actions-wrapper .Fuses-style-edit-icon{color:#ccc;cursor:pointer;height:24px;width:24px}.Fuses-style-user-list-wrapper .Fuses-style-user-list-item .Fuses-style-actions-wrapper .Fuses-style-edit-icon:hover{color:#fff}.Fuses-style-user-list-wrapper .Fuses-style-user-list-item:hover{background-color:var(--background-modifier-hover)}.Fuses-style-user-list-wrapper .Fuses-style-user-list-item:hover .Fuses-style-actions-wrapper{opacity:1}.Fuses-style-user-list-wrapper .Fuses-style-user-list .Fuses-style-avatar{margin-right:8px}.Fuses-style-user-add-timezone-panel{margin:8px 0}.Fuses-style-user-add-timezone-panel .Fuses-style-timezone-search-textbox,.Fuses-style-user-add-timezone-panel .Fuses-style-city-search-textbox{flex-grow:1}.Fuses-style-user-add-timezone-panel .Fuses-style-search-city-btn{width:40px;height:40px}.Fuses-style-user-add-timezone-panel .Fuses-style-actions-wrapper{margin-left:8px;display:flex;flex-direction:row}.Fuses-style-user-add-timezone-panel .Fuses-style-actions-wrapper .Fuses-style-return-btn{margin-left:4px}.Fuses-style-user-add-timezone-panel .Fuses-style-actions-wrapper .Fuses-style-find-city-btn,.Fuses-style-user-add-timezone-panel .Fuses-style-actions-wrapper .Fuses-style-find-city-btn-anim,.Fuses-style-user-add-timezone-panel .Fuses-style-actions-wrapper .Fuses-style-return-btn{width:40px;height:40px}.Fuses-style-user-add-timezone-panel .Fuses-style-preset-selector{height:40px}.Fuses-style-user-find .Fuses-style-search{width:calc(100% - 50px);margin:0 8px}.Fuses-style-user-find .Fuses-style-list-wrapper{display:grid;grid-template-columns:1fr 1fr;margin-bottom:16px;grid-gap:0 4px}.Fuses-style-user-find .Fuses-style-list-wrapper .Fuses-style-list-user{display:flex;flex-direction:row;align-items:center;padding:8px;cursor:pointer;border-radius:4px;color:var(--interactive-hover)}.Fuses-style-user-find .Fuses-style-list-wrapper .Fuses-style-list-user:hover{background:var(--background-modifier-hover)}.Fuses-style-user-find .Fuses-style-list-wrapper .Fuses-style-list-user-selected{background:var(--background-modifier-selected)}.Fuses-style-user-find .Fuses-style-user-pfp{margin-right:8px}.Fuses-style-import-flex .Fuses-style-import-wrapper{margin:auto 0}.Fuses-style-import-flex .Fuses-style-file-info-icon{margin:20px 0;margin-left:auto;margin-right:16px}", ""]);
 				___CSS_LOADER_EXPORT___.locals = {
 					"section-look": "Fuses-style-section-look",
 					"timer-positioning": "Fuses-style-timer-positioning",
@@ -320,6 +321,10 @@ function buildPlugin([BasePlugin, PluginApi]) {
 					"timestamp-tooltip": "Fuses-style-timestamp-tooltip",
 					"timestamp-timer": "Fuses-style-timestamp-timer",
 					dot: "Fuses-style-dot",
+					"header-prev": "Fuses-style-header-prev",
+					"header-timer": "Fuses-style-header-timer",
+					"timer-icon": "Fuses-style-timer-icon",
+					"close-icon": "Fuses-style-close-icon",
 					"calc-time-wrapper": "Fuses-style-calc-time-wrapper",
 					"input-wrapper": "Fuses-style-input-wrapper",
 					input: "Fuses-style-input",
@@ -369,7 +374,7 @@ function buildPlugin([BasePlugin, PluginApi]) {
 				StyleLoader.append(module.id, ___CSS_LOADER_EXPORT___.toString());
 				const __WEBPACK_DEFAULT_EXPORT__ = Object.assign(___CSS_LOADER_EXPORT___, ___CSS_LOADER_EXPORT___.locals);
 			},
-			584: (__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+			642: (__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 				__webpack_require__.r(__webpack_exports__);
 				__webpack_require__.d(__webpack_exports__, {
 					default: () => Fuses
@@ -417,6 +422,49 @@ function buildPlugin([BasePlugin, PluginApi]) {
 				const package_namespaceObject = JSON.parse('{"um":{"u2":"Fuses"}}');
 				const settings = new SettingsManager(package_namespaceObject.um.u2);
 				const settingsManager = settings;
+				const stores_namespaceObject = Modules["@discord/stores"];
+				const constants = {
+					ExceptionCodes: {
+						Timezones: {
+							INVALID_CITY: "INVALID_CITY",
+							NOT_HMTZ_FORMAT: "NOT_HMTZ_FORMAT",
+							NOT_HTZ_FORMAT: "NOT_HTZ_FORMAT",
+							INVALID_FORMAT: "INVALID_FORMAT",
+							InvalidFormatReasons: {
+								NO_SIGN: "NO_SIGN",
+								NOT_A_NUMBER: "NOT_A_NUMBER",
+								NOT_HTZ_FORMAT: "NOT_HTZ_FORMAT",
+								OVERFLOW: "OVERFLOW",
+								UNDEFINED: "UNDEFINED"
+							}
+						},
+						Date: {
+							INVALID_DATE: "INVALID_DATE"
+						},
+						ImportFile: {
+							INVALID_FILE: "INVALID_FILE"
+						},
+						UserList: {
+							INVALID_USER: "INVALID_USER",
+							INVALID_LIST_TYPE: "INVALID_LIST_TYPE"
+						}
+					},
+					Settings: {
+						TimezonePages: {
+							CITY_SELECTOR: "city",
+							MANUAL: "manual"
+						},
+						TimerDisplay: {
+							USER_BANNER: "userBanner",
+							USER_HEADER: "userHeader"
+						}
+					},
+					TimePreferrence: {
+						"12HFOMRAT": (location = navigator.language) => Intl.DateTimeFormat(location, {
+							hour: "numeric"
+						}).resolvedOptions()["hour12"]
+					}
+				};
 				function exceptions_defineProperty(obj, key, value) {
 					if (key in obj) Object.defineProperty(obj, key, {
 						value,
@@ -441,49 +489,14 @@ function buildPlugin([BasePlugin, PluginApi]) {
 				}
 				const TimezoneException = makeErrorCLass("TimezoneException"),
 					DateException = makeErrorCLass("DateException"),
-					ImportFileException = makeErrorCLass("FileException");
-				const constants = {
-					ExceptionCodes: {
-						Timezones: {
-							INVALID_CITY: "INVALID_CITY",
-							INVALID_FORMAT: "INVALID_FORMAT",
-							InvalidFormatReasons: {
-								NO_SIGN: "NO_SIGN",
-								NOT_A_NUMBER: "NOT_A_NUMBER",
-								OVERFLOW: "OVERFLOW",
-								UNDEFINED: "UNDEFINED"
-							}
-						},
-						Date: {
-							INVALID_DATE: "INVALID_DATE"
-						},
-						ImportFile: {
-							INVALID_FILE: "INVALID_FILE"
-						}
-					},
-					Settings: {
-						TimezonePages: {
-							CITY_SELECTOR: "city",
-							MANUAL: "manual"
-						},
-						TextFocus: {
-							USER_ID: "userID",
-							TIMEZONE: "userTimezone",
-							CITY: "userCity",
-							SEARCH_USER_LIST: "searchUserList"
-						}
-					},
-					TimePreferrence: {
-						"12HFOMRAT": (location = navigator.language) => Intl.DateTimeFormat(location, {
-							hour: "numeric"
-						}).resolvedOptions()["hour12"]
-					}
-				};
-				const moment = external_PluginApi_namespaceObject.WebpackModules.getByProps("utc", "duration");
-				function getOffset(date = moment()) {
+					ImportFileException = makeErrorCLass("FileException"),
+					UserListException = makeErrorCLass("UserListException");
+				const classes_namespaceObject = Modules["@discord/classes"];
+				function getOffset(date = (0, classes_namespaceObject.Timestamp)()) {
 					let timezoneOffset;
-					if (moment.isMoment(date)) timezoneOffset = date.utcOffset();
-					else if (_.isDate(date)) timezoneOffset = moment(date).utcOffset();
+					if (classes_namespaceObject.Timestamp.isMoment(date)) timezoneOffset = date.utcOffset();
+					else if (_.isDate(date)) timezoneOffset = (0,
+						classes_namespaceObject.Timestamp)(date).utcOffset();
 					else throw new DateException("Invalid date was insert in getOffset(). Please insert a Moment or a Date", constants.ExceptionCodes.Date.INVALID_DATE);
 					return (timezoneOffset <= 0 ? "" : "+") + timezoneOffset / 60;
 				}
@@ -494,6 +507,14 @@ function buildPlugin([BasePlugin, PluginApi]) {
 					let utc = new Date(localTime + localOffset);
 					utc.setTime(utc.getTime() + 60 * Number(utcOffset) * 60 * 1e3);
 					return utc;
+				}
+				const isHMtimezone = hmtimezone => /(\:)/g.test(hmtimezone);
+				function convertHMTzToHTz(hmtimezone) {
+					if (!isHMtimezone(hmtimezone)) throw new TimezoneException("This isn't a HH:MM timezone format", constants.ExceptionCodes.Timezones.NOT_HMTZ_FORMAT);
+					const [hours, minutes] = hmtimezone.match(/[^:]*/g).filter((s => Boolean(s)));
+					const minsConvertedToHours = Number(minutes) / 60;
+					if (Number(hours) < 0) return addIndicatorsToTimezone(Number(hours) - minsConvertedToHours);
+					return addIndicatorsToTimezone(Number(hours) + minsConvertedToHours);
 				}
 				function formatDate(date, timezone, isAMPMFormat = settingsManager.get("ampm", constants.TimePreferrence["12HFOMRAT"]())) {
 					if (!_.isDate(date)) throw new DateException("Invalid date was insert in formatDate(). Please insert a Date", constants.ExceptionCodes.Date.INVALID_DATE);
@@ -538,25 +559,33 @@ function buildPlugin([BasePlugin, PluginApi]) {
 				function ensureTimezone(timezone) {
 					timezone = String(timezone);
 					timezone.replace(/[^\d.+-]/g, "");
-					if ("+" !== timezone.charAt(0) && "-" !== timezone.charAt(0) && 0 !== timezone) timezone = "+" + timezone;
 					timezone = timezone.replace(",", ".");
+					timezone = addIndicatorsToTimezone(timezone);
+					if (isHMtimezone(timezone)) timezone = convertHMTzToHTz(timezone);
 					let checkEnsured = isNotTimezone(timezone, {
 						checkCharacters: false
 					});
 					if (checkEnsured) throw new TimezoneException("Unable to ensure", checkEnsured);
 					return timezone;
 				}
+				function addIndicatorsToTimezone(timezone) {
+					timezone = String(timezone);
+					if ("+" !== timezone.charAt(0) && "-" !== timezone.charAt(0) && 0 !== timezone) timezone = "+" + timezone;
+					return timezone;
+				}
 				function isNotTimezone(timezone, opts = {
 					filterUndefined: true,
 					checkNumber: true,
 					checkCharacters: true,
-					checkOverflow: true
+					checkOverflow: true,
+					checkHM: true
 				}) {
 					const {
 						filterUndefined,
 						checkNumber,
 						checkCharacters,
-						checkOverflow
+						checkOverflow,
+						checkHM
 					} = opts;
 					if (null == timezone && filterUndefined) return constants.ExceptionCodes.Timezones.InvalidFormatReasons.UNDEFINED;
 					if (checkNumber) try {
@@ -564,20 +593,24 @@ function buildPlugin([BasePlugin, PluginApi]) {
 					} catch (e) {
 						return constants.ExceptionCodes.Timezones.InvalidFormatReasons.NOT_A_NUMBER;
 					}
+					if (isHMtimezone(timezone) && checkHM) return constants.ExceptionCodes.Timezones.InvalidFormatReasons.NOT_HTZ_FORMAT;
 					if (checkCharacters) {
 						const firstChar = timezone.charAt(0);
 						if (!("+" === firstChar || "-" === firstChar || 0 === timezone)) return constants.ExceptionCodes.Timezones.InvalidFormatReasons.NO_SIGN;
 					}
-					if (Math.abs(Number(timezone)) < 24 && checkOverflow) return constants.ExceptionCodes.Timezones.InvalidFormatReasons.OVERFLOW;
+					console.log(Math.abs(Number(69)) > 24);
+					if (Math.abs(Number(timezone)) > 24 && checkOverflow) return constants.ExceptionCodes.Timezones.InvalidFormatReasons.OVERFLOW;
 					return false;
 				}
 				const getList = () => settingsManager.get("userList", {});
 				const setList = list => settingsManager.set("userList", list);
-				const addUser = (id, timezone) => {
+				const addUser = (id, timezone, shouldCleanList = false) => {
 					let list = getList();
 					timezone = ensureTimezone(timezone);
+					if (!stores_namespaceObject.Users.getUser(id)) throw new UserListException("Invalid User", constants.ExceptionCodes.UserList.INVALID_USER);
 					list[id] = timezone;
 					setList(list);
+					if (shouldCleanList) cleanList();
 				};
 				const removeUser = id => {
 					let list = getList();
@@ -587,6 +620,24 @@ function buildPlugin([BasePlugin, PluginApi]) {
 				const getTimezone = id => {
 					let list = getList();
 					return list?.[id];
+				};
+				const cleanList = (list = getList()) => {
+					let finishedList = {};
+					const filteredArray = Object.entries(list).filter((([userId]) => "string" === typeof userId && Boolean(userId) && Boolean(stores_namespaceObject.Users.getUser(userId))));
+					filteredArray.map((([key, val]) => {
+						finishedList[key] = val;
+					}));
+					return finishedList;
+				};
+				const isListNotValid = list => {
+					if (!(_.isObject(list) && !_.isArray(list))) return [constants.ExceptionCodes.UserList.INVALID_LIST_TYPE];
+					for (const id in list) {
+						if (!stores_namespaceObject.Users.getUser(id)) return [constants.ExceptionCodes.UserList.INVALID_USER, id];
+						const timezone = list[id];
+						const checkIfNotTimezone = isNotTimezone(timezone);
+						if (checkIfNotTimezone) return [checkIfNotTimezone, id];
+					}
+					return false;
 				};
 				const isExistingUser = id => Boolean(getTimezone(id));
 				var React = __webpack_require__(113);
@@ -605,9 +656,12 @@ function buildPlugin([BasePlugin, PluginApi]) {
 					text: "Okay",
 					color: components_namespaceObject.Button.Colors.BRAND,
 					look: components_namespaceObject.Button.Looks.FILLED
-				}]) => new Promise((result => {
+				}], options = {
+					size: modal_namespaceObject.ModalSize.SMALL,
+					autoClose: true
+				}) => new Promise((result => {
 					(0, modal_namespaceObject.openModal)((h => React.createElement(modal_namespaceObject.ModalRoot, _extends({}, h, {
-						size: modal_namespaceObject.ModalSize.SMALL
+						size: options.size
 					}), React.createElement(modal_namespaceObject.ModalHeader, {
 						separator: false
 					}, React.createElement(components_namespaceObject.Text, {
@@ -619,8 +673,11 @@ function buildPlugin([BasePlugin, PluginApi]) {
 						color: params.color,
 						look: params.look,
 						onClick: () => {
-							result(params.text);
-							h.onClose();
+							result({
+								button: params.text,
+								close: h.onClose
+							});
+							if (options.autoClose) h.onClose();
 						}
 					}, params.text)))))));
 				}));
@@ -682,6 +739,7 @@ function buildPlugin([BasePlugin, PluginApi]) {
 					COMPACT: category.Z.compact,
 					DEFAULT: category.Z["default"]
 				};
+				const forms_namespaceObject = Modules["@discord/forms"];
 				const RotateClock = external_BdApi_React_default().memo((({
 					rotateAngle
 				}) => external_BdApi_React_default().createElement("div", {
@@ -705,6 +763,32 @@ function buildPlugin([BasePlugin, PluginApi]) {
 						transform: `rotate(${rotateAngle}deg)`
 					}
 				}))));
+				const BasicTimer = external_BdApi_React_default().memo((({
+					timezone = getOffset(),
+					tooltip = true,
+					showSeconds = false,
+					staticTime,
+					className,
+					children = props => props
+				}) => {
+					const [dateHook, setDateHook] = (0, external_BdApi_React_.useState)(getTimeFromTimezone(timezone));
+					(0, external_BdApi_React_.useEffect)((() => {
+						const id = setInterval((() => setDateHook(getTimeFromTimezone(timezone))), 1e3);
+						return () => {
+							clearInterval(id);
+						};
+					}), []);
+					const shouldShowTimerIcon = (0, flux_namespaceObject.useStateFromStores)([settingsManager], (() => settingsManager.get("_callTimeCalculator")));
+					const date = staticTime ? staticTime : dateHook;
+					const formattedText = formatDate(date, timezone);
+					const element = external_BdApi_React_default().createElement(external_BdApi_React_default().Fragment, null, formattedText.hours, ":", formattedText.minutes, settingsManager.get("seconds", false) || showSeconds ? `:${formattedText.seconds}` : "", settingsManager.get("ampm", constants.TimePreferrence["12HFOMRAT"]()) ? " " + formattedText.suffix : "");
+					if (tooltip) return external_BdApi_React_default().createElement(components_namespaceObject.TooltipContainer, {
+						text: formattedText.toString(),
+						delay: 750,
+						className
+					}, children(element, formattedText, date));
+					return children(element, formattedText, date, shouldShowTimerIcon);
+				}));
 				function Timer_extends() {
 					Timer_extends = Object.assign || function(target) {
 						for (var i = 1; i < arguments.length; i++) {
@@ -720,37 +804,28 @@ function buildPlugin([BasePlugin, PluginApi]) {
 					timezone = getOffset(),
 					showSeconds = false,
 					className,
+					children = props => props,
 					...etc
-				}) => {
-					let shouldShow = (0, flux_namespaceObject.useStateFromStores)([settingsManager], (() => settingsManager.get("_callTimeCalculator")));
-					const [dateTime, setDateTime] = (0, external_BdApi_React_.useState)(getTimeFromTimezone(timezone));
-					(0, external_BdApi_React_.useEffect)((() => {
-						const id = setInterval((() => setDateTime(getTimeFromTimezone(timezone))), 1e3);
-						return () => {
-							clearInterval(id);
-						};
-					}), []);
-					const formattedText = formatDate(dateTime, timezone);
-					return external_BdApi_React_default().createElement("div", Timer_extends({
-						className: `${Fuses_style.Z["timer-wrapper"]} ${className}`
-					}, etc), external_BdApi_React_default().createElement("div", {
-						className: Fuses_style.Z["img-wrapper"]
-					}, !shouldShow ? external_BdApi_React_default().createElement(components_namespaceObject.TooltipContainer, {
-						text: formattedText.toString(),
-						className: Fuses_style.Z["timer-icon"]
-					}, external_BdApi_React_default().createElement(RotateClock, {
-						rotateAngle: 30 * Number(formattedText["12hour"])
-					})) : external_BdApi_React_default().createElement(icons_namespaceObject.DropdownArrow, {
-						width: 20,
-						height: 20
-					})), external_BdApi_React_default().createElement("div", {
-						className: Fuses_style.Z.timer
-					}, formattedText.hours, ":", formattedText.minutes, settingsManager.get("seconds", false) || showSeconds ? `:${formattedText.seconds}` : "", settingsManager.get("ampm", constants.TimePreferrence["12HFOMRAT"]()) ? " " + formattedText.suffix : ""));
-				}));
+				}) => external_BdApi_React_default().createElement("div", Timer_extends({
+					className: `${Fuses_style.Z["timer-wrapper"]} ${className}`
+				}, etc), external_BdApi_React_default().createElement(BasicTimer, {
+					timezone,
+					showSeconds,
+					tooltip: false
+				}, ((element, formattedText, date, shouldShowTimerIcon) => external_BdApi_React_default().createElement(external_BdApi_React_default().Fragment, null, external_BdApi_React_default().createElement("div", {
+					className: Fuses_style.Z["img-wrapper"]
+				}, !shouldShowTimerIcon ? external_BdApi_React_default().createElement(components_namespaceObject.TooltipContainer, {
+					text: formattedText.toString()
+				}, external_BdApi_React_default().createElement(RotateClock, {
+					rotateAngle: 30 * Number(formattedText["12hour"])
+				})) : external_BdApi_React_default().createElement(icons_namespaceObject.DropdownArrow, {
+					width: 20,
+					height: 20
+				})), external_BdApi_React_default().createElement("div", {
+					className: Fuses_style.Z.timer
+				}, children(element, formattedText, date, shouldShowTimerIcon))))))));
 				const external_Modules_react_spring_namespaceObject = Modules["react-spring"];
-				const stores_namespaceObject = Modules["@discord/stores"];
 				const timezoneList_namespaceObject = JSON.parse('[{"value":"Dateline Standard Time","abbr":"DST","offset":-12,"isdst":false,"text":"(UTC-12:00) International Date Line West","cities":["Etc/GMT+12"]},{"value":"UTC-11","abbr":"U","offset":-11,"isdst":false,"text":"(UTC-11:00) Coordinated Universal Time-11","cities":["Etc/GMT+11","Pacific/Midway","Pacific/Niue","Pacific/Pago_Pago"]},{"value":"Hawaiian Standard Time","abbr":"HST","offset":-10,"isdst":false,"text":"(UTC-10:00) Hawaii","cities":["Etc/GMT+10","Pacific/Honolulu","Pacific/Johnston","Pacific/Rarotonga","Pacific/Tahiti"]},{"value":"Alaskan Standard Time","abbr":"AKDT","offset":-8,"isdst":true,"text":"(UTC-09:00) Alaska","cities":["America/Anchorage","America/Juneau","America/Nome","America/Sitka","America/Yakutat"]},{"value":"Pacific Standard Time (Mexico)","abbr":"PDT","offset":-7,"isdst":true,"text":"(UTC-08:00) Baja California","cities":["America/Santa_Isabel"]},{"value":"Pacific Daylight Time","abbr":"PDT","offset":-7,"isdst":true,"text":"(UTC-07:00) Pacific Time (US & Canada)","cities":["America/Los_Angeles","America/Tijuana","America/Vancouver"]},{"value":"Pacific Standard Time","abbr":"PST","offset":-8,"isdst":false,"text":"(UTC-08:00) Pacific Time (US & Canada)","cities":["America/Los_Angeles","America/Tijuana","America/Vancouver","PST8PDT"]},{"value":"US Mountain Standard Time","abbr":"UMST","offset":-7,"isdst":false,"text":"(UTC-07:00) Arizona","cities":["America/Creston","America/Dawson","America/Dawson_Creek","America/Hermosillo","America/Phoenix","America/Whitehorse","Etc/GMT+7"]},{"value":"Mountain Standard Time (Mexico)","abbr":"MDT","offset":-6,"isdst":true,"text":"(UTC-07:00) Chihuahua, La Paz, Mazatlan","cities":["America/Chihuahua","America/Mazatlan"]},{"value":"Mountain Standard Time","abbr":"MDT","offset":-6,"isdst":true,"text":"(UTC-07:00) Mountain Time (US & Canada)","cities":["America/Boise","America/Cambridge_Bay","America/Denver","America/Edmonton","America/Inuvik","America/Ojinaga","America/Yellowknife","MST7MDT"]},{"value":"Central America Standard Time","abbr":"CAST","offset":-6,"isdst":false,"text":"(UTC-06:00) Central America","cities":["America/Belize","America/Costa_Rica","America/El_Salvador","America/Guatemala","America/Managua","America/Tegucigalpa","Etc/GMT+6","Pacific/Galapagos"]},{"value":"Central Standard Time","abbr":"CDT","offset":-5,"isdst":true,"text":"(UTC-06:00) Central Time (US & Canada)","cities":["America/Chicago","America/Indiana/Knox","America/Indiana/Tell_City","America/Matamoros","America/Menominee","America/North_Dakota/Beulah","America/North_Dakota/Center","America/North_Dakota/New_Salem","America/Rainy_River","America/Rankin_Inlet","America/Resolute","America/Winnipeg","CST6CDT"]},{"value":"Central Standard Time (Mexico)","abbr":"CDT","offset":-5,"isdst":true,"text":"(UTC-06:00) Guadalajara, Mexico City, Monterrey","cities":["America/Bahia_Banderas","America/Cancun","America/Merida","America/Mexico_City","America/Monterrey"]},{"value":"Canada Central Standard Time","abbr":"CCST","offset":-6,"isdst":false,"text":"(UTC-06:00) Saskatchewan","cities":["America/Regina","America/Swift_Current"]},{"value":"SA Pacific Standard Time","abbr":"SPST","offset":-5,"isdst":false,"text":"(UTC-05:00) Bogota, Lima, Quito","cities":["America/Bogota","America/Cayman","America/Coral_Harbour","America/Eirunepe","America/Guayaquil","America/Jamaica","America/Lima","America/Panama","America/Rio_Branco","Etc/GMT+5"]},{"value":"Eastern Standard Time","abbr":"EDT","offset":-4,"isdst":true,"text":"(UTC-05:00) Eastern Time (US & Canada)","cities":["America/Detroit","America/Havana","America/Indiana/Petersburg","America/Indiana/Vincennes","America/Indiana/Winamac","America/Iqaluit","America/Kentucky/Monticello","America/Louisville","America/Montreal","America/Nassau","America/New_York","America/Nipigon","America/Pangnirtung","America/Port-au-Prince","America/Thunder_Bay","America/Toronto","EST5EDT"]},{"value":"US Eastern Standard Time","abbr":"UEDT","offset":-4,"isdst":true,"text":"(UTC-05:00) Indiana (East)","cities":["America/Indiana/Marengo","America/Indiana/Vevay","America/Indianapolis"]},{"value":"Venezuela Standard Time","abbr":"VST","offset":-4.5,"isdst":false,"text":"(UTC-04:30) Caracas","cities":["America/Caracas"]},{"value":"Paraguay Standard Time","abbr":"PYT","offset":-4,"isdst":false,"text":"(UTC-04:00) Asuncion","cities":["America/Asuncion"]},{"value":"Atlantic Standard Time","abbr":"ADT","offset":-3,"isdst":true,"text":"(UTC-04:00) Atlantic Time (Canada)","cities":["America/Glace_Bay","America/Goose_Bay","America/Halifax","America/Moncton","America/Thule","Atlantic/Bermuda"]},{"value":"Central Brazilian Standard Time","abbr":"CBST","offset":-4,"isdst":false,"text":"(UTC-04:00) Cuiaba","cities":["America/Campo_Grande","America/Cuiaba"]},{"value":"SA Western Standard Time","abbr":"SWST","offset":-4,"isdst":false,"text":"(UTC-04:00) Georgetown, La Paz, Manaus, San Juan","cities":["America/Anguilla","America/Antigua","America/Aruba","America/Barbados","America/Blanc-Sablon","America/Boa_Vista","America/Curacao","America/Dominica","America/Grand_Turk","America/Grenada","America/Guadeloupe","America/Guyana","America/Kralendijk","America/La_Paz","America/Lower_Princes","America/Manaus","America/Marigot","America/Martinique","America/Montserrat","America/Port_of_Spain","America/Porto_Velho","America/Puerto_Rico","America/Santo_Domingo","America/St_Barthelemy","America/St_Kitts","America/St_Lucia","America/St_Thomas","America/St_Vincent","America/Tortola","Etc/GMT+4"]},{"value":"Pacific SA Standard Time","abbr":"PSST","offset":-4,"isdst":false,"text":"(UTC-04:00) Santiago","cities":["America/Santiago","Antarctica/Palmer"]},{"value":"Newfoundland Standard Time","abbr":"NDT","offset":-2.5,"isdst":true,"text":"(UTC-03:30) Newfoundland","cities":["America/St_Johns"]},{"value":"E. South America Standard Time","abbr":"ESAST","offset":-3,"isdst":false,"text":"(UTC-03:00) Brasilia","cities":["America/Sao_Paulo"]},{"value":"Argentina Standard Time","abbr":"AST","offset":-3,"isdst":false,"text":"(UTC-03:00) Buenos Aires","cities":["America/Argentina/La_Rioja","America/Argentina/Rio_Gallegos","America/Argentina/Salta","America/Argentina/San_Juan","America/Argentina/San_Luis","America/Argentina/Tucuman","America/Argentina/Ushuaia","America/Buenos_Aires","America/Catamarca","America/Cordoba","America/Jujuy","America/Mendoza"]},{"value":"SA Eastern Standard Time","abbr":"SEST","offset":-3,"isdst":false,"text":"(UTC-03:00) Cayenne, Fortaleza","cities":["America/Araguaina","America/Belem","America/Cayenne","America/Fortaleza","America/Maceio","America/Paramaribo","America/Recife","America/Santarem","Antarctica/Rothera","Atlantic/Stanley","Etc/GMT+3"]},{"value":"Greenland Standard Time","abbr":"GDT","offset":-3,"isdst":true,"text":"(UTC-03:00) Greenland","cities":["America/Godthab"]},{"value":"Montevideo Standard Time","abbr":"MST","offset":-3,"isdst":false,"text":"(UTC-03:00) Montevideo","cities":["America/Montevideo"]},{"value":"Bahia Standard Time","abbr":"BST","offset":-3,"isdst":false,"text":"(UTC-03:00) Salvador","cities":["America/Bahia"]},{"value":"UTC-02","abbr":"U","offset":-2,"isdst":false,"text":"(UTC-02:00) Coordinated Universal Time-02","cities":["America/Noronha","Atlantic/South_Georgia","Etc/GMT+2"]},{"value":"Mid-Atlantic Standard Time","abbr":"MDT","offset":-1,"isdst":true,"text":"(UTC-02:00) Mid-Atlantic - Old","cities":[]},{"value":"Azores Standard Time","abbr":"ADT","offset":0,"isdst":true,"text":"(UTC-01:00) Azores","cities":["America/Scoresbysund","Atlantic/Azores"]},{"value":"Cape Verde Standard Time","abbr":"CVST","offset":-1,"isdst":false,"text":"(UTC-01:00) Cape Verde Is.","cities":["Atlantic/Cape_Verde","Etc/GMT+1"]},{"value":"Morocco Standard Time","abbr":"MDT","offset":1,"isdst":true,"text":"(UTC) Casablanca","cities":["Africa/Casablanca","Africa/El_Aaiun"]},{"value":"UTC","abbr":"UTC","offset":0,"isdst":false,"text":"(UTC) Coordinated Universal Time","cities":["America/Danmarkshavn","Etc/GMT"]},{"value":"GMT Standard Time","abbr":"GMT","offset":0,"isdst":false,"text":"(UTC) Edinburgh, London","cities":["Europe/Isle_of_Man","Europe/Guernsey","Europe/Jersey","Europe/London"]},{"value":"British Summer Time","abbr":"BST","offset":1,"isdst":true,"text":"(UTC+01:00) Edinburgh, London","cities":["Europe/Isle_of_Man","Europe/Guernsey","Europe/Jersey","Europe/London"]},{"value":"GMT Standard Time","abbr":"GDT","offset":1,"isdst":true,"text":"(UTC) Dublin, Lisbon","cities":["Atlantic/Canary","Atlantic/Faeroe","Atlantic/Madeira","Europe/Dublin","Europe/Lisbon"]},{"value":"Greenwich Standard Time","abbr":"GST","offset":0,"isdst":false,"text":"(UTC) Monrovia, Reykjavik","cities":["Africa/Abidjan","Africa/Accra","Africa/Bamako","Africa/Banjul","Africa/Bissau","Africa/Conakry","Africa/Dakar","Africa/Freetown","Africa/Lome","Africa/Monrovia","Africa/Nouakchott","Africa/Ouagadougou","Africa/Sao_Tome","Atlantic/Reykjavik","Atlantic/St_Helena"]},{"value":"W. Europe Standard Time","abbr":"WEDT","offset":2,"isdst":true,"text":"(UTC+01:00) Amsterdam, Berlin, Bern, Rome, Stockholm, Vienna","cities":["Arctic/Longyearbyen","Europe/Amsterdam","Europe/Andorra","Europe/Berlin","Europe/Busingen","Europe/Gibraltar","Europe/Luxembourg","Europe/Malta","Europe/Monaco","Europe/Oslo","Europe/Rome","Europe/San_Marino","Europe/Stockholm","Europe/Vaduz","Europe/Vatican","Europe/Vienna","Europe/Zurich"]},{"value":"Central Europe Standard Time","abbr":"CEDT","offset":2,"isdst":true,"text":"(UTC+01:00) Belgrade, Bratislava, Budapest, Ljubljana, Prague","cities":["Europe/Belgrade","Europe/Bratislava","Europe/Budapest","Europe/Ljubljana","Europe/Podgorica","Europe/Prague","Europe/Tirane"]},{"value":"Romance Standard Time","abbr":"RDT","offset":2,"isdst":true,"text":"(UTC+01:00) Brussels, Copenhagen, Madrid, Paris","cities":["Africa/Ceuta","Europe/Brussels","Europe/Copenhagen","Europe/Madrid","Europe/Paris"]},{"value":"Central European Standard Time","abbr":"CEDT","offset":2,"isdst":true,"text":"(UTC+01:00) Sarajevo, Skopje, Warsaw, Zagreb","cities":["Europe/Sarajevo","Europe/Skopje","Europe/Warsaw","Europe/Zagreb"]},{"value":"W. Central Africa Standard Time","abbr":"WCAST","offset":1,"isdst":false,"text":"(UTC+01:00) West Central Africa","cities":["Africa/Algiers","Africa/Bangui","Africa/Brazzaville","Africa/Douala","Africa/Kinshasa","Africa/Lagos","Africa/Libreville","Africa/Luanda","Africa/Malabo","Africa/Ndjamena","Africa/Niamey","Africa/Porto-Novo","Africa/Tunis","Etc/GMT-1"]},{"value":"Namibia Standard Time","abbr":"NST","offset":1,"isdst":false,"text":"(UTC+01:00) Windhoek","cities":["Africa/Windhoek"]},{"value":"GTB Standard Time","abbr":"GDT","offset":3,"isdst":true,"text":"(UTC+02:00) Athens, Bucharest","cities":["Asia/Nicosia","Europe/Athens","Europe/Bucharest","Europe/Chisinau"]},{"value":"Middle East Standard Time","abbr":"MEDT","offset":3,"isdst":true,"text":"(UTC+02:00) Beirut","cities":["Asia/Beirut"]},{"value":"Egypt Standard Time","abbr":"EST","offset":2,"isdst":false,"text":"(UTC+02:00) Cairo","cities":["Africa/Cairo"]},{"value":"Syria Standard Time","abbr":"SDT","offset":3,"isdst":true,"text":"(UTC+02:00) Damascus","cities":["Asia/Damascus"]},{"value":"E. Europe Standard Time","abbr":"EEDT","offset":3,"isdst":true,"text":"(UTC+02:00) E. Europe","cities":["Asia/Nicosia","Europe/Athens","Europe/Bucharest","Europe/Chisinau","Europe/Helsinki","Europe/Kiev","Europe/Mariehamn","Europe/Nicosia","Europe/Riga","Europe/Sofia","Europe/Tallinn","Europe/Uzhgorod","Europe/Vilnius","Europe/Zaporozhye"]},{"value":"South Africa Standard Time","abbr":"SAST","offset":2,"isdst":false,"text":"(UTC+02:00) Harare, Pretoria","cities":["Africa/Blantyre","Africa/Bujumbura","Africa/Gaborone","Africa/Harare","Africa/Johannesburg","Africa/Kigali","Africa/Lubumbashi","Africa/Lusaka","Africa/Maputo","Africa/Maseru","Africa/Mbabane","Etc/GMT-2"]},{"value":"FLE Standard Time","abbr":"FDT","offset":3,"isdst":true,"text":"(UTC+02:00) Helsinki, Kyiv, Riga, Sofia, Tallinn, Vilnius","cities":["Europe/Helsinki","Europe/Kiev","Europe/Mariehamn","Europe/Riga","Europe/Sofia","Europe/Tallinn","Europe/Uzhgorod","Europe/Vilnius","Europe/Zaporozhye"]},{"value":"Turkey Standard Time","abbr":"TDT","offset":3,"isdst":false,"text":"(UTC+03:00) Istanbul","cities":["Europe/Istanbul"]},{"value":"Israel Standard Time","abbr":"JDT","offset":3,"isdst":true,"text":"(UTC+02:00) Jerusalem","cities":["Asia/Jerusalem"]},{"value":"Libya Standard Time","abbr":"LST","offset":2,"isdst":false,"text":"(UTC+02:00) Tripoli","cities":["Africa/Tripoli"]},{"value":"Jordan Standard Time","abbr":"JST","offset":3,"isdst":false,"text":"(UTC+03:00) Amman","cities":["Asia/Amman"]},{"value":"Arabic Standard Time","abbr":"AST","offset":3,"isdst":false,"text":"(UTC+03:00) Baghdad","cities":["Asia/Baghdad"]},{"value":"Kaliningrad Standard Time","abbr":"KST","offset":3,"isdst":false,"text":"(UTC+02:00) Kaliningrad","cities":["Europe/Kaliningrad"]},{"value":"Arab Standard Time","abbr":"AST","offset":3,"isdst":false,"text":"(UTC+03:00) Kuwait, Riyadh","cities":["Asia/Aden","Asia/Bahrain","Asia/Kuwait","Asia/Qatar","Asia/Riyadh"]},{"value":"E. Africa Standard Time","abbr":"EAST","offset":3,"isdst":false,"text":"(UTC+03:00) Nairobi","cities":["Africa/Addis_Ababa","Africa/Asmera","Africa/Dar_es_Salaam","Africa/Djibouti","Africa/Juba","Africa/Kampala","Africa/Khartoum","Africa/Mogadishu","Africa/Nairobi","Antarctica/Syowa","Etc/GMT-3","Indian/Antananarivo","Indian/Comoro","Indian/Mayotte"]},{"value":"Moscow Standard Time","abbr":"MSK","offset":3,"isdst":false,"text":"(UTC+03:00) Moscow, St. Petersburg, Volgograd, Minsk","cities":["Europe/Kirov","Europe/Moscow","Europe/Simferopol","Europe/Volgograd","Europe/Minsk"]},{"value":"Samara Time","abbr":"SAMT","offset":4,"isdst":false,"text":"(UTC+04:00) Samara, Ulyanovsk, Saratov","cities":["Europe/Astrakhan","Europe/Samara","Europe/Ulyanovsk"]},{"value":"Iran Standard Time","abbr":"IDT","offset":4.5,"isdst":true,"text":"(UTC+03:30) Tehran","cities":["Asia/Tehran"]},{"value":"Arabian Standard Time","abbr":"AST","offset":4,"isdst":false,"text":"(UTC+04:00) Abu Dhabi, Muscat","cities":["Asia/Dubai","Asia/Muscat","Etc/GMT-4"]},{"value":"Azerbaijan Standard Time","abbr":"ADT","offset":5,"isdst":true,"text":"(UTC+04:00) Baku","cities":["Asia/Baku"]},{"value":"Mauritius Standard Time","abbr":"MST","offset":4,"isdst":false,"text":"(UTC+04:00) Port Louis","cities":["Indian/Mahe","Indian/Mauritius","Indian/Reunion"]},{"value":"Georgian Standard Time","abbr":"GET","offset":4,"isdst":false,"text":"(UTC+04:00) Tbilisi","cities":["Asia/Tbilisi"]},{"value":"Caucasus Standard Time","abbr":"CST","offset":4,"isdst":false,"text":"(UTC+04:00) Yerevan","cities":["Asia/Yerevan"]},{"value":"Afghanistan Standard Time","abbr":"AST","offset":4.5,"isdst":false,"text":"(UTC+04:30) Kabul","cities":["Asia/Kabul"]},{"value":"West Asia Standard Time","abbr":"WAST","offset":5,"isdst":false,"text":"(UTC+05:00) Ashgabat, Tashkent","cities":["Antarctica/Mawson","Asia/Aqtau","Asia/Aqtobe","Asia/Ashgabat","Asia/Dushanbe","Asia/Oral","Asia/Samarkand","Asia/Tashkent","Etc/GMT-5","Indian/Kerguelen","Indian/Maldives"]},{"value":"Yekaterinburg Time","abbr":"YEKT","offset":5,"isdst":false,"text":"(UTC+05:00) Yekaterinburg","cities":["Asia/Yekaterinburg"]},{"value":"Pakistan Standard Time","abbr":"PKT","offset":5,"isdst":false,"text":"(UTC+05:00) Islamabad, Karachi","cities":["Asia/Karachi"]},{"value":"India Standard Time","abbr":"IST","offset":5.5,"isdst":false,"text":"(UTC+05:30) Chennai, Kolkata, Mumbai, New Delhi","cities":["Asia/Kolkata","Asia/Calcutta"]},{"value":"Sri Lanka Standard Time","abbr":"SLST","offset":5.5,"isdst":false,"text":"(UTC+05:30) Sri Jayawardenepura","cities":["Asia/Colombo"]},{"value":"Nepal Standard Time","abbr":"NST","offset":5.75,"isdst":false,"text":"(UTC+05:45) Kathmandu","cities":["Asia/Kathmandu"]},{"value":"Central Asia Standard Time","abbr":"CAST","offset":6,"isdst":false,"text":"(UTC+06:00) Nur-Sultan (Astana)","cities":["Antarctica/Vostok","Asia/Almaty","Asia/Bishkek","Asia/Qyzylorda","Asia/Urumqi","Etc/GMT-6","Indian/Chagos"]},{"value":"Bangladesh Standard Time","abbr":"BST","offset":6,"isdst":false,"text":"(UTC+06:00) Dhaka","cities":["Asia/Dhaka","Asia/Thimphu"]},{"value":"Myanmar Standard Time","abbr":"MST","offset":6.5,"isdst":false,"text":"(UTC+06:30) Yangon (Rangoon)","cities":["Asia/Rangoon","Indian/Cocos"]},{"value":"SE Asia Standard Time","abbr":"SAST","offset":7,"isdst":false,"text":"(UTC+07:00) Bangkok, Hanoi, Jakarta","cities":["Antarctica/Davis","Asia/Bangkok","Asia/Hovd","Asia/Jakarta","Asia/Phnom_Penh","Asia/Pontianak","Asia/Saigon","Asia/Vientiane","Etc/GMT-7","Indian/Christmas"]},{"value":"N. Central Asia Standard Time","abbr":"NCAST","offset":7,"isdst":false,"text":"(UTC+07:00) Novosibirsk","cities":["Asia/Novokuznetsk","Asia/Novosibirsk","Asia/Omsk"]},{"value":"China Standard Time","abbr":"CST","offset":8,"isdst":false,"text":"(UTC+08:00) Beijing, Chongqing, Hong Kong, Urumqi","cities":["Asia/Hong_Kong","Asia/Macau","Asia/Shanghai"]},{"value":"North Asia Standard Time","abbr":"NAST","offset":8,"isdst":false,"text":"(UTC+08:00) Krasnoyarsk","cities":["Asia/Krasnoyarsk"]},{"value":"Singapore Standard Time","abbr":"MPST","offset":8,"isdst":false,"text":"(UTC+08:00) Kuala Lumpur, Singapore","cities":["Asia/Brunei","Asia/Kuala_Lumpur","Asia/Kuching","Asia/Makassar","Asia/Manila","Asia/Singapore","Etc/GMT-8"]},{"value":"W. Australia Standard Time","abbr":"WAST","offset":8,"isdst":false,"text":"(UTC+08:00) Perth","cities":["Antarctica/Casey","Australia/Perth"]},{"value":"Taipei Standard Time","abbr":"TST","offset":8,"isdst":false,"text":"(UTC+08:00) Taipei","cities":["Asia/Taipei"]},{"value":"Ulaanbaatar Standard Time","abbr":"UST","offset":8,"isdst":false,"text":"(UTC+08:00) Ulaanbaatar","cities":["Asia/Choibalsan","Asia/Ulaanbaatar"]},{"value":"North Asia East Standard Time","abbr":"NAEST","offset":8,"isdst":false,"text":"(UTC+08:00) Irkutsk","cities":["Asia/Irkutsk"]},{"value":"Japan Standard Time","abbr":"JST","offset":9,"isdst":false,"text":"(UTC+09:00) Osaka, Sapporo, Tokyo","cities":["Asia/Dili","Asia/Jayapura","Asia/Tokyo","Etc/GMT-9","Pacific/Palau"]},{"value":"Korea Standard Time","abbr":"KST","offset":9,"isdst":false,"text":"(UTC+09:00) Seoul","cities":["Asia/Pyongyang","Asia/Seoul"]},{"value":"Cen. Australia Standard Time","abbr":"CAST","offset":9.5,"isdst":false,"text":"(UTC+09:30) Adelaide","cities":["Australia/Adelaide","Australia/Broken_Hill"]},{"value":"AUS Central Standard Time","abbr":"ACST","offset":9.5,"isdst":false,"text":"(UTC+09:30) Darwin","cities":["Australia/Darwin"]},{"value":"E. Australia Standard Time","abbr":"EAST","offset":10,"isdst":false,"text":"(UTC+10:00) Brisbane","cities":["Australia/Brisbane","Australia/Lindeman"]},{"value":"AUS Eastern Standard Time","abbr":"AEST","offset":10,"isdst":false,"text":"(UTC+10:00) Canberra, Melbourne, Sydney","cities":["Australia/Melbourne","Australia/Sydney"]},{"value":"West Pacific Standard Time","abbr":"WPST","offset":10,"isdst":false,"text":"(UTC+10:00) Guam, Port Moresby","cities":["Antarctica/DumontDUrville","Etc/GMT-10","Pacific/Guam","Pacific/Port_Moresby","Pacific/Saipan","Pacific/Truk"]},{"value":"Tasmania Standard Time","abbr":"TST","offset":10,"isdst":false,"text":"(UTC+10:00) Hobart","cities":["Australia/Currie","Australia/Hobart"]},{"value":"Yakutsk Standard Time","abbr":"YST","offset":9,"isdst":false,"text":"(UTC+09:00) Yakutsk","cities":["Asia/Chita","Asia/Khandyga","Asia/Yakutsk"]},{"value":"Central Pacific Standard Time","abbr":"CPST","offset":11,"isdst":false,"text":"(UTC+11:00) Solomon Is., New Caledonia","cities":["Antarctica/Macquarie","Etc/GMT-11","Pacific/Efate","Pacific/Guadalcanal","Pacific/Kosrae","Pacific/Noumea","Pacific/Ponape"]},{"value":"Vladivostok Standard Time","abbr":"VST","offset":11,"isdst":false,"text":"(UTC+11:00) Vladivostok","cities":["Asia/Sakhalin","Asia/Ust-Nera","Asia/Vladivostok"]},{"value":"New Zealand Standard Time","abbr":"NZST","offset":12,"isdst":false,"text":"(UTC+12:00) Auckland, Wellington","cities":["Antarctica/McMurdo","Pacific/Auckland"]},{"value":"UTC+12","abbr":"U","offset":12,"isdst":false,"text":"(UTC+12:00) Coordinated Universal Time+12","cities":["Etc/GMT-12","Pacific/Funafuti","Pacific/Kwajalein","Pacific/Majuro","Pacific/Nauru","Pacific/Tarawa","Pacific/Wake","Pacific/Wallis"]},{"value":"Fiji Standard Time","abbr":"FST","offset":12,"isdst":false,"text":"(UTC+12:00) Fiji","cities":["Pacific/Fiji"]},{"value":"Magadan Standard Time","abbr":"MST","offset":12,"isdst":false,"text":"(UTC+12:00) Magadan","cities":["Asia/Anadyr","Asia/Kamchatka","Asia/Magadan","Asia/Srednekolymsk"]},{"value":"Kamchatka Standard Time","abbr":"KDT","offset":13,"isdst":true,"text":"(UTC+12:00) Petropavlovsk-Kamchatsky - Old","cities":["Asia/Kamchatka"]},{"value":"Tonga Standard Time","abbr":"TST","offset":13,"isdst":false,"text":"(UTC+13:00) Nuku\'alofa","cities":["Etc/GMT-13","Pacific/Enderbury","Pacific/Fakaofo","Pacific/Tongatapu"]},{"value":"Samoa Standard Time","abbr":"SST","offset":13,"isdst":false,"text":"(UTC+13:00) Samoa","cities":["Pacific/Apia"]}]');
-				const utils_moment = external_PluginApi_namespaceObject.WebpackModules.getByProps("utc", "duration");
 				const normalizeCity = city => city.replace(" ", "_").normalize("NFD").replace(/\p{Diacritic}/gu, "");
 				function searchForInfoFromCity(city, exact = false, onlyFirstResult = false) {
 					const normalizedCity = normalizeCity(city);
@@ -776,7 +851,7 @@ function buildPlugin([BasePlugin, PluginApi]) {
 					const timezone = getTimezoneFromCity(city);
 					if (!timezone) return;
 					const date = getTimeFromTimezone(ensureTimezone(timezone));
-					return sendAsMoment ? utils_moment(date) : date;
+					return sendAsMoment ? (0, classes_namespaceObject.Timestamp)(date) : date;
 				}
 				const doesCityExist = city => Boolean(searchForInfoFromCity(city, true));
 				const {
@@ -806,7 +881,6 @@ function buildPlugin([BasePlugin, PluginApi]) {
 						const doesExist = include.existingUsers ? true : !isExistingUser(user.id);
 						return isInSearch && !isBot && doesExist;
 					})).slice(0, 30);
-					console.log(searchedUserList);
 					return external_BdApi_React_default().createElement("div", {
 						className: Fuses_style.Z["user-find"]
 					}, external_BdApi_React_default().createElement(modal_namespaceObject.ModalRoot, {
@@ -851,8 +925,20 @@ function buildPlugin([BasePlugin, PluginApi]) {
 						size: Avatar.Sizes.SIZE_16
 					}), "Select")))));
 				}
+				function ErrorText_extends() {
+					ErrorText_extends = Object.assign || function(target) {
+						for (var i = 1; i < arguments.length; i++) {
+							var source = arguments[i];
+							for (var key in source)
+								if (Object.prototype.hasOwnProperty.call(source, key)) target[key] = source[key];
+						}
+						return target;
+					};
+					return ErrorText_extends.apply(this, arguments);
+				}
 				const ErrorText = external_BdApi_React_default().memo((({
-					children
+					children,
+					...etc
 				}) => {
 					const anim = (0, external_Modules_react_spring_namespaceObject.useSpring)({
 						from: {
@@ -862,10 +948,11 @@ function buildPlugin([BasePlugin, PluginApi]) {
 							marginTop: "0"
 						}
 					});
-					return external_BdApi_React_default().createElement(external_Modules_react_spring_namespaceObject.animated.div, {
-						style: anim,
+					return external_BdApi_React_default().createElement(external_Modules_react_spring_namespaceObject.animated.div, ErrorText_extends({
+						style: anim
+					}, etc, {
 						className: "colorError-3RX-d6 size12-3cLvbJ"
-					}, children);
+					}), children);
 				}));
 				function UserPicker_extends() {
 					UserPicker_extends = Object.assign || function(target) {
@@ -932,30 +1019,6 @@ function buildPlugin([BasePlugin, PluginApi]) {
 						}), external_BdApi_React_default().createElement(Controls, null));
 						else return external_BdApi_React_default().createElement(ErrorText, null, "User ID not set. Please contact the dev of this plugin");
 					}), null), error && external_BdApi_React_default().createElement(ErrorText, null, error));
-				}));
-				const BasicTimer = external_BdApi_React_default().memo((({
-					timezone = getOffset(),
-					tooltip = true,
-					showSeconds = false,
-					staticTime,
-					className
-				}) => {
-					const [dateHook, setDateHook] = (0, external_BdApi_React_.useState)(getTimeFromTimezone(timezone));
-					(0, external_BdApi_React_.useEffect)((() => {
-						const id = setInterval((() => setDateHook(getTimeFromTimezone(timezone))), 1e3);
-						return () => {
-							clearInterval(id);
-						};
-					}), []);
-					const date = staticTime ? staticTime : dateHook;
-					const formattedText = formatDate(date, timezone);
-					const element = external_BdApi_React_default().createElement(external_BdApi_React_default().Fragment, null, formattedText.hours, ":", formattedText.minutes, settingsManager.get("seconds", false) || showSeconds ? `:${formattedText.seconds}` : "", settingsManager.get("ampm", constants.TimePreferrence["12HFOMRAT"]()) ? " " + formattedText.suffix : "");
-					if (tooltip) return external_BdApi_React_default().createElement(components_namespaceObject.TooltipContainer, {
-						text: formattedText.toString(),
-						delay: 750,
-						className
-					}, element);
-					return element;
 				}));
 				function ListSettings_extends() {
 					ListSettings_extends = Object.assign || function(target) {
@@ -1027,27 +1090,28 @@ function buildPlugin([BasePlugin, PluginApi]) {
 				} = external_PluginApi_namespaceObject.DiscordModules;
 				const List = external_BdApi_React_default().memo((({
 					onEdit,
-					onDelete
+					onDelete,
+					enableSettings = true,
+					disableControls = settingsManager.get("lockControls", false),
+					list = cleanList(getList()),
+					...etc
 				}) => {
 					const sortSettings = (0, flux_namespaceObject.useStateFromStores)([settingsManager], (() => settingsManager.get("listSorting", "a-z")));
-					const lockControls = (0, flux_namespaceObject.useStateFromStores)([settingsManager], (() => !settingsManager.get("lockControls", false)));
+					const lockControls = (0, flux_namespaceObject.useStateFromStores)([settingsManager], (() => disableControls));
 					const [search, setSearch] = (0, external_BdApi_React_.useState)("");
-					const filteredList = Object.entries(getList()).filter((([userid]) => ~stores_namespaceObject.Users.getUser(userid)?.username?.toLowerCase?.().indexOf?.(search)));
+					const formattedList = Object.entries(list).map((([userid]) => stores_namespaceObject.Users.getUser(userid)));
+					const filteredList = formattedList.filter((user => ~user?.username?.toLowerCase?.().indexOf?.(search)));
 					let sortedList = filteredList;
 					switch (sortSettings) {
 						case "a-z":
-							sortedList = filteredList.sort((([aId], [bId]) => {
-								const a = stores_namespaceObject.Users.getUser(aId);
-								const b = stores_namespaceObject.Users.getUser(bId);
+							sortedList = filteredList.sort(((a, b) => {
 								if (!a || !b) return 0;
 								if (a.username > b.username) return 1;
 								if (a.username < b.username) return -1;
 							}));
 							break;
 						case "z-a":
-							sortedList = filteredList.sort((([aId], [bId]) => {
-								const a = stores_namespaceObject.Users.getUser(aId);
-								const b = stores_namespaceObject.Users.getUser(bId);
+							sortedList = filteredList.sort(((a, b) => {
 								if (!a || !b) return 0;
 								if (a.username > b.username) return -1;
 								if (a.username < b.username) return 1;
@@ -1061,9 +1125,9 @@ function buildPlugin([BasePlugin, PluginApi]) {
 						default:
 							break;
 					}
-					return external_BdApi_React_default().createElement("div", {
+					return external_BdApi_React_default().createElement("div", List_extends({
 						className: Fuses_style.Z["user-list-wrapper"]
-					}, external_BdApi_React_default().createElement("div", {
+					}, etc), external_BdApi_React_default().createElement("div", {
 						className: Fuses_style.Z.header
 					}, external_BdApi_React_default().createElement(List_SearchBar, {
 						className: Fuses_style.Z["header-search"],
@@ -1073,7 +1137,7 @@ function buildPlugin([BasePlugin, PluginApi]) {
 							setSearch(val);
 						},
 						onClear: () => setSearch("")
-					}), external_BdApi_React_default().createElement(components_namespaceObject.Popout, {
+					}), enableSettings && external_BdApi_React_default().createElement(components_namespaceObject.Popout, {
 						renderPopout: props => external_BdApi_React_default().createElement(ListSettings, List_extends({}, props, {
 							onClose: props.closePopout
 						})),
@@ -1087,9 +1151,10 @@ function buildPlugin([BasePlugin, PluginApi]) {
 						height: 20
 					}))))), external_BdApi_React_default().createElement("div", {
 						className: Fuses_style.Z["user-list"]
-					}, sortedList.map((([id, timezone]) => {
-						const user = stores_namespaceObject.Users.getUser(id);
-						if (!user) return;
+					}, sortedList.map((user => {
+						if (!user) return external_BdApi_React_default().createElement(external_BdApi_React_default().Fragment, null);
+						const timezone = getTimezone(user.id);
+						if (!timezone) return external_BdApi_React_default().createElement(external_BdApi_React_default().Fragment, null);
 						return external_BdApi_React_default().createElement("div", {
 							className: Fuses_style.Z["user-list-item"]
 						}, external_BdApi_React_default().createElement(List_Avatar, {
@@ -1104,18 +1169,18 @@ function buildPlugin([BasePlugin, PluginApi]) {
 							className: Fuses_style.Z["timestamp-dot"]
 						}, "•"), " ", external_BdApi_React_default().createElement(BasicTimer, {
 							timezone
-						}))), lockControls && external_BdApi_React_default().createElement("div", {
+						}))), !lockControls && external_BdApi_React_default().createElement("div", {
 							className: Fuses_style.Z["actions-wrapper"]
 						}, external_BdApi_React_default().createElement(components_namespaceObject.TooltipContainer, {
 							text: `Edit ${user.username}`
 						}, external_BdApi_React_default().createElement(icons_namespaceObject.Pencil, {
 							className: Fuses_style.Z["edit-icon"],
-							onClick: () => onEdit(id)
+							onClick: () => onEdit(user.id)
 						})), external_BdApi_React_default().createElement(components_namespaceObject.TooltipContainer, {
 							text: `Remove ${user.username}`
 						}, external_BdApi_React_default().createElement(icons_namespaceObject.Trash, {
 							className: Fuses_style.Z["delete-icon"],
-							onClick: () => onDelete(id)
+							onClick: () => onDelete(user.id)
 						}))));
 					}))));
 				}));
@@ -1146,7 +1211,6 @@ function buildPlugin([BasePlugin, PluginApi]) {
 					list,
 					onSelect
 				}) => {
-					console.log("fired", list);
 					const downPress = useKeyPress("ArrowDown");
 					const upPress = useKeyPress("ArrowUp");
 					const enterPress = useKeyPress("Enter");
@@ -1261,7 +1325,6 @@ function buildPlugin([BasePlugin, PluginApi]) {
 					const [searched, setSearched] = (0, external_BdApi_React_.useState)();
 					(0, external_BdApi_React_.useEffect)((() => {
 						setSearched(searchCityNames(userCity));
-						console.log(userCity, searched);
 					}), [userCity]);
 					const [isEditing, setEditing] = (0, external_BdApi_React_.useState)(false);
 					const handleAdd = (id, timezone) => {
@@ -1277,7 +1340,7 @@ function buildPlugin([BasePlugin, PluginApi]) {
 							setTimezoneError("Please put a value here");
 							return;
 						}
-						addUser(id, timezone);
+						addUser(id, ensureTimezone(timezone));
 						if (isModal) {
 							external_PluginApi_namespaceObject.Toasts.success("Timezone sucessfully added");
 							etc.onClose();
@@ -1316,7 +1379,7 @@ function buildPlugin([BasePlugin, PluginApi]) {
 						className: Fuses_style.Z["timezone-search-textbox"],
 						value: timezone,
 						placeholder: `Timezone (in UTC. e.g.: ${currentOffset})`,
-						onChange: text => setTimezone(text.replace(/[^\d.+-]/g, "")),
+						onChange: text => setTimezone(text.replace(/[^\d.+-:]/g, "")),
 						error: timezoneError
 					})), timezonePage === constants.Settings.TimezonePages.CITY_SELECTOR && external_BdApi_React_default().createElement(external_BdApi_React_default().Fragment, null, external_BdApi_React_default().createElement(components_namespaceObject.TextInput, {
 						className: Fuses_style.Z["city-search-textbox"],
@@ -1385,7 +1448,7 @@ function buildPlugin([BasePlugin, PluginApi]) {
 						error: userIdError,
 						filterUsers: defaultVals?.userPicker,
 						bigPreview: isModal
-					}), timezonePage === constants.Settings.TimezonePages.CITY_SELECTOR && !_.isEmpty(searched) && !_.isEmpty(userCity) && external_BdApi_React_default().createElement(AutocompleteQuery, {
+					}), timezonePage === constants.Settings.TimezonePages.CITY_SELECTOR && !_.isEmpty(searched) && !_.isEmpty(userCity) && userCity !== searched?.[0] && external_BdApi_React_default().createElement(AutocompleteQuery, {
 						list: searched,
 						onSelect: value => setUserCity(value)
 					}), TimezonePicker, addUserButtonAnim(((style, item) => item && external_BdApi_React_default().createElement(external_Modules_react_spring_namespaceObject.animated.div, {
@@ -1541,12 +1604,6 @@ function buildPlugin([BasePlugin, PluginApi]) {
 						do {
 							random = Math.floor(Math.random() * (max - min)) + min;
 						} while (random === last || random === last2 || random === last3);
-						console.log({
-							last,
-							last2,
-							last3,
-							random
-						});
 						last3 = last2;
 						last2 = last;
 						last = random;
@@ -1554,12 +1611,14 @@ function buildPlugin([BasePlugin, PluginApi]) {
 					};
 				}
 				const SwitchItem = hooks_createUpdateWrapper(external_PluginApi_namespaceObject.WebpackModules.getByDisplayName("SwitchItem"));
+				const RadioGroup = external_PluginApi_namespaceObject.WebpackModules.getByDisplayName("RadioGroup");
 				const Settings = external_BdApi_React_default().memo((() => {
 					const shouldEnableIconsOption = (0, flux_namespaceObject.useStateFromStores)([settingsManager], (() => {
 						const timestamp = settingsManager.get("timestamps", false);
 						const timestampsMessages = settingsManager.get("timestampsMessages", false);
 						return !(timestamp && !timestampsMessages || !timestamp && timestampsMessages);
 					}));
+					const timerDisplay = (0, flux_namespaceObject.useStateFromStores)([settingsManager], (() => settingsManager.get("display", constants.Settings.TimerDisplay.USER_BANNER)));
 					const [, forceUpdate] = (0, external_BdApi_React_.useReducer)((n => n + 1), 0);
 					const [fileError, setFileError] = (0, external_BdApi_React_.useState)();
 					settingsManager.set("_callTimeCalculator", false);
@@ -1571,7 +1630,21 @@ function buildPlugin([BasePlugin, PluginApi]) {
 					}, external_BdApi_React_default().createElement(UserList, null)), external_BdApi_React_default().createElement(Category, {
 						look: Category.Looks.COMPACT,
 						label: "General Settings"
-					}, external_BdApi_React_default().createElement(SwitchItem, {
+					}, external_BdApi_React_default().createElement(forms_namespaceObject.FormSection, {
+						title: "Display timer on..."
+					}, external_BdApi_React_default().createElement(RadioGroup, {
+						options: [{
+							name: "Banner",
+							value: constants.Settings.TimerDisplay.USER_BANNER
+						}, {
+							name: "Header",
+							value: constants.Settings.TimerDisplay.USER_HEADER
+						}],
+						value: timerDisplay,
+						onChange: ({
+							value
+						}) => settingsManager.set("display", value)
+					})), external_BdApi_React_default().createElement(SwitchItem, {
 						value: settingsManager.get("seconds", false),
 						onChange: value => settingsManager.set("seconds", value)
 					}, "Show seconds on the timer"), external_BdApi_React_default().createElement(SwitchItem, {
@@ -1614,22 +1687,44 @@ function buildPlugin([BasePlugin, PluginApi]) {
 									} catch (err) {
 										throw new ImportFileException("Tried to read a non-JSON file", constants.ExceptionCodes.ImportFile.INVALID_FILE);
 									}
-									createQuestion("Override current list", "Are you sure that you wanna do that? This will override the current user list.", [{
-										text: "Ok",
-										color: components_namespaceObject.Button.Colors.RED
+									const checkIfNotValid = isListNotValid(json);
+									console.log(checkIfNotValid);
+									if (checkIfNotValid) throw new ImportFileException("You imported an invalid User List format. Are you sure that this is the correct .JSON file?", checkIfNotValid[0]);
+									createQuestion("Override current list", external_BdApi_React_default().createElement(external_BdApi_React_default().Fragment, null, external_BdApi_React_default().createElement(components_namespaceObject.Text, null, "Are you sure that you wanna do that? This will override the current user list. But you can backup it. Here it is a look at what you're trying to import:"), external_BdApi_React_default().createElement(List, {
+										list: json,
+										enableSettings: false,
+										disableControls: true,
+										style: {
+											marginTop: "16px"
+										}
+									})), [{
+										text: "Save and Override",
+										color: components_namespaceObject.Button.Colors.BRAND
+									}, {
+										text: "Ignore and Override",
+										color: components_namespaceObject.Button.Colors.RED,
+										look: components_namespaceObject.Button.Looks.LINK
 									}, {
 										text: "Cancel",
 										color: components_namespaceObject.Button.Colors.TRANSPARENT,
 										look: components_namespaceObject.Button.Looks.LINK
-									}]).then((buttonClicked => {
-										if ("Ok" === buttonClicked) setList(json);
+									}], {
+										size: modal_namespaceObject.ModalSize.MEDIUM,
+										autoClose: false
+									}).then((({
+										button,
+										close
+									}) => {
+										if ("Save and Override" === button) DiscordNative.fileManager.saveWithDialog(JSON.stringify(getList()), "users.json").then((() => setList(json)));
+										if ("Just Override" === button) setList(json);
+										close();
 										setFileError(false);
 										forceUpdate();
 									}));
 								} catch (err) {
-									if (err.code === constants.ExceptionCodes.ImportFile.INVALID_FILE) setFileError("This isn't a valid user file. Please insert a valid one");
+									if (err.code === constants.ExceptionCodes.ImportFile.INVALID_FILE) setFileError(["This isn't a valid user list file. It should be a file that ends with .JSON", err.code]);
 									else {
-										setFileError("Unkown error. Please open the Devtools");
+										setFileError(["Unkown error. Click here to open DevTools", err.code]);
 										console.error(err);
 									}
 								}
@@ -1643,7 +1738,9 @@ function buildPlugin([BasePlugin, PluginApi]) {
 							DiscordNative.fileManager.saveWithDialog(JSON.stringify(getList()), "users.json");
 							setFileError(false);
 						}
-					}, "Save user list"), fileError && external_BdApi_React_default().createElement(ErrorText, null, fileError)), external_BdApi_React_default().createElement(DataIcon, {
+					}, "Save user list"), fileError && external_BdApi_React_default().createElement(ErrorText, {
+						onClick: () => window.require("electron").ipcRenderer.send("bd-open-devtools")
+					}, fileError[0], ". Code error: ", fileError[1])), external_BdApi_React_default().createElement(DataIcon, {
 						height: 138,
 						className: Fuses_style.Z["file-info-icon"]
 					}))));
@@ -1863,6 +1960,20 @@ function buildPlugin([BasePlugin, PluginApi]) {
 					};
 					return Fuses_extends.apply(this, arguments);
 				}
+				const onDeleteTimezone = id => {
+					createQuestion("Remove timezone", "Are you sure that you want to remove the timezone for this user? Note that this is an IRREVERSIBLE action.", [{
+						text: "Proceed",
+						color: components_namespaceObject.Button.Colors.RED
+					}, {
+						text: "Cancel",
+						color: components_namespaceObject.Button.Colors.TRANSPARENT,
+						look: components_namespaceObject.Button.Looks.LINK
+					}]).then((({
+						button
+					}) => {
+						if ("Proceed" === button) removeUser(id);
+					}));
+				};
 				class Fuses extends(external_BasePlugin_default()) {
 					onStart() {
 						external_StyleLoader_default().inject();
@@ -1872,8 +1983,8 @@ function buildPlugin([BasePlugin, PluginApi]) {
 					}
 					async handleUserBannerPatch() {
 						external_PluginApi_namespaceObject.Patcher.after(external_PluginApi_namespaceObject.WebpackModules.find((m => "UserBanner" === m.default?.displayName)), "default", ((_this, [props], res) => {
-							if (!isExistingUser(props.user.id)) return;
-							let userTimezone = getTimezone(props.user.id);
+							if (!isExistingUser(props.user.id) || settingsManager.get("display", constants.Settings.TimerDisplay.USER_BANNER) !== constants.Settings.TimerDisplay.USER_BANNER) return;
+							const userTimezone = getTimezone(props.user.id);
 							res.props.children.push(external_BdApi_React_default().createElement(Timer, {
 								onClick: () => settingsManager.set("_callTimeCalculator", !settingsManager.get("_callTimeCalculator", false)),
 								timezone: userTimezone,
@@ -1885,28 +1996,54 @@ function buildPlugin([BasePlugin, PluginApi]) {
 									id: props.user.id,
 									timezone: userTimezone,
 									onEditTimezone: this.openSettingsModal,
-									onDeleteTimezone: id => {
-										createQuestion("Remove timezone", "Are you sure that you want to remove the timezone for this user? Note that this is an IRREVERSIBLE action.", [{
-											text: "Proceed",
-											color: components_namespaceObject.Button.Colors.RED
-										}, {
-											text: "Cancel",
-											color: components_namespaceObject.Button.Colors.TRANSPARENT,
-											look: components_namespaceObject.Button.Looks.LINK
-										}]).then((buttonClicked => {
-											if ("Proceed" === buttonClicked) removeUser(id);
-										}));
-									}
+									onDeleteTimezone
 								}))))
-							}));
+							}, (element => settingsManager.get("_callTimeCalculator", false) ? element : external_BdApi_React_default().createElement(components_namespaceObject.TooltipContainer, {
+								text: `Click here to see ${props.user.username}'s time after some hours`,
+								delay: 750
+							}, element))));
 						}));
 						external_PluginApi_namespaceObject.Patcher.after(external_PluginApi_namespaceObject.WebpackModules.getByProps("UserPopoutInfo"), "UserPopoutProfileText", ((_this, [props], res) => {
 							if (!isExistingUser(props.user.id)) return;
 							const userTimezone = getTimezone(props.user.id);
 							let indexToInsert = res.props.children.findIndex((e => "UserPopoutCustomStatus" === e?.type?.displayName));
 							if (!indexToInsert) indexToInsert = 0;
+							const headerTimer = external_BdApi_React_default().createElement(components_namespaceObject.Flex, {
+								align: components_namespaceObject.Flex.Align.CENTER,
+								className: `bodyTitle-1ySSKn fontDisplay-1dagSA ${components_namespaceObject.Text.Sizes.SIZE_12} ${components_namespaceObject.Text.Colors.HEADER_SECONDARY} uppercase-3VWUQ9 ${Fuses_style.Z["header-prev"]}`,
+								onContextMenu: e => (0, contextmenu_namespaceObject.openContextMenu)(e, (() => external_BdApi_React_default().createElement(contextmenu_namespaceObject.Menu, {
+									navId: "fuses-timer-context-menu",
+									onClose: contextmenu_namespaceObject.closeContextMenu
+								}, TimestampActions({
+									id: props.user.id,
+									timezone: userTimezone,
+									onEditTimezone: this.openSettingsModal,
+									onDeleteTimezone
+								}))))
+							}, external_BdApi_React_default().createElement(BasicTimer, {
+								timezone: userTimezone,
+								tooltip: false
+							}, ((element, formattedText, _, shouldShowTimerIcon) => {
+								const spanElement = external_BdApi_React_default().createElement("span", {
+									onClick: () => settingsManager.set("_callTimeCalculator", !settingsManager.get("_callTimeCalculator", false))
+								}, element, " (UTC", userTimezone, ")");
+								return external_BdApi_React_default().createElement(external_BdApi_React_default().Fragment, null, external_BdApi_React_default().createElement(components_namespaceObject.TooltipContainer, {
+									text: formattedText.toString(),
+									className: Fuses_style.Z["timer-icon"]
+								}, !shouldShowTimerIcon ? external_BdApi_React_default().createElement(RotateClock, {
+									rotateAngle: 30 * Number(formattedText["12hour"])
+								}) : external_BdApi_React_default().createElement(icons_namespaceObject.DropdownArrow, {
+									className: Fuses_style.Z["close-icon"],
+									width: 18,
+									height: 18
+								})), shouldShowTimerIcon ? spanElement : external_BdApi_React_default().createElement(components_namespaceObject.TooltipContainer, {
+									className: Fuses_style.Z["header-timer"],
+									text: `Click here to see ${props.user.username}'s time after some hours`,
+									delay: 750
+								}, spanElement));
+							})));
 							if (settingsManager.get("_callTimeCalculator", false)) settingsManager.set("_callTimeCalculator", false);
-							res.props.children.splice(indexToInsert + 1, 0, external_BdApi_React_default().createElement(TimeCalculator, {
+							res.props.children.splice(indexToInsert + 1, 0, settingsManager.get("display", constants.Settings.TimerDisplay.USER_BANNER) === constants.Settings.TimerDisplay.USER_HEADER ? headerTimer : null, external_BdApi_React_default().createElement(TimeCalculator, {
 								timezone: userTimezone
 							}));
 						}));
@@ -1983,18 +2120,7 @@ function buildPlugin([BasePlugin, PluginApi]) {
 								id: user.id,
 								timezone,
 								onEditTimezone: this.openSettingsModal,
-								onDeleteTimezone: id => {
-									createQuestion("Remove timezone", "Are you sure that you want to remove the timezone for this user? Note that this is an IRREVERSIBLE action.", [{
-										text: "Proceed",
-										color: components_namespaceObject.Button.Colors.RED
-									}, {
-										text: "Cancel",
-										color: components_namespaceObject.Button.Colors.TRANSPARENT,
-										look: components_namespaceObject.Button.Looks.LINK
-									}]).then((buttonClicked => {
-										if ("Proceed" === buttonClicked) removeUser(id);
-									}));
-								}
+								onDeleteTimezone
 							}));
 							const isUserAdded = isExistingUser(user.id);
 							menugroup.props.children.unshift(!isUserAdded ? addTimezoneMenuItem : timezoneActionsMenuItem);
@@ -2019,18 +2145,7 @@ function buildPlugin([BasePlugin, PluginApi]) {
 								id: user.id,
 								timezone,
 								onEditTimezone: this.openSettingsModal,
-								onDeleteTimezone: id => {
-									createQuestion("Remove timezone", "Are you sure that you want to remove the timezone for this user? Note that this is an IRREVERSIBLE action.", [{
-										text: "Proceed",
-										color: components_namespaceObject.Button.Colors.RED
-									}, {
-										text: "Cancel",
-										color: components_namespaceObject.Button.Colors.TRANSPARENT,
-										look: components_namespaceObject.Button.Looks.LINK
-									}]).then((buttonClicked => {
-										if ("Proceed" === buttonClicked) removeUser(id);
-									}));
-								}
+								onDeleteTimezone
 							}));
 							const isUserAdded = isExistingUser(user.id);
 							userActions.props.children.unshift(!isUserAdded ? addTimezoneMenuItem : timezoneActionsMenuItem);
@@ -2147,7 +2262,7 @@ function buildPlugin([BasePlugin, PluginApi]) {
 				});
 			};
 		})();
-		var __webpack_exports__ = __webpack_require__(584);
+		var __webpack_exports__ = __webpack_require__(642);
 		module.exports.LibraryPluginHack = __webpack_exports__;
 	})();
 	const PluginExports = module.exports.LibraryPluginHack;
