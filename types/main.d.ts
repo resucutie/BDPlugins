@@ -11,7 +11,8 @@
 /// <reference path="./discord/components.d.ts" />
 /// <reference path="./discord/icons.d.ts" />
 
-/// <reference path="./plugins/Fuses.d.ts" />
+// /// <reference path="./plugins/Fuses.d.ts" />
+/// <reference path="./plugins/Timezones.d.ts" />
 
 /// <reference path="./common.d.ts" />
 

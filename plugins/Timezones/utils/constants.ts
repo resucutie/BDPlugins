@@ -1,3 +1,5 @@
+const is12h = (location = navigator.language) => Intl.DateTimeFormat(location, { hour: 'numeric' }).resolvedOptions()["hour12"]
+
 export default {
     ExceptionCodes: {
         Timezones: {
@@ -26,6 +28,11 @@ export default {
         }
     },
     Settings: {
+        General: {
+            Format: {
+                CURRENT_FORMAT: is12h() ? "{12hours}:{minutes} {suffix}" : "{24hours}:{minutes}"
+            }
+        },
         TimezonePages: {
             CITY_SELECTOR: "city",
             MANUAL: "manual"
@@ -33,9 +40,16 @@ export default {
         TimerDisplay:{
             USER_BANNER: "userBanner",
             USER_HEADER: "userHeader"
+        },
+        TimerAlign: {
+            LEFT: "left",
+            RIGHT: "right"
         }
     },
+    TimeTogether: {
+        DEFAULT_URL: "https://timezonedb.bigdumb.gq/"
+    },
     TimePreferrence: {
-        "12HFOMRAT": (location = navigator.language) => Intl.DateTimeFormat(location, { hour: 'numeric' }).resolvedOptions()["hour12"]
+        "12HFOMRAT": is12h
     }
 }

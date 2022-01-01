@@ -42,6 +42,7 @@ declare module "common/components/category" {
         children?: ReactElement,
         look?: CategoryLooks,
         label: string | ReactElement
+        className?: string
     }): ReactElement;
     
     //@ts-ignore

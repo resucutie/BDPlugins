@@ -11,7 +11,7 @@ function getOffset(date = moment()) {
     else if (_.isDate(date)) timezoneOffset = moment(date).utcOffset()
     else throw new DateException("Invalid date was insert in getOffset(). Please insert a Moment or a Date", constants.ExceptionCodes.Date.INVALID_DATE)
     
-    return (timezoneOffset <= 0 ? "" : "+") + timezoneOffset / 60
+    return ensureTimezone(timezoneOffset / 60)
 }
 
 function getTimeFromTimezone(utcOffset, currentDate = new Date()) {
@@ -118,8 +118,6 @@ function isNotTimezone(timezone: any, opts: object = {filterUndefined: true, che
         const hasSign: boolean = firstChar === "+" || firstChar === "-" || timezone === 0
         if (!hasSign) return constants.ExceptionCodes.Timezones.InvalidFormatReasons.NO_SIGN
     }
-
-    console.log(Math.abs(Number(69)) > 24)
 
     // overflow checking
     if (Math.abs(Number(timezone)) > 24 && checkOverflow) return constants.ExceptionCodes.Timezones.InvalidFormatReasons.OVERFLOW

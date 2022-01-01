@@ -9,47 +9,56 @@ interface Props {
     timezone?: Timezone
     onEditTimezone?: (id) => void
     onDeleteTimezone?: (id) => void
+    isOnline?: boolean
+    isExclusivelyOnline?: boolean
 }
 
-export default ({ id, timezone, onEditTimezone, onDeleteTimezone}: Props) => {
+export default ({ id, timezone, onEditTimezone, onDeleteTimezone, isOnline = false}: Props) => {
     let date = getTimeFromTimezone(timezone)
 
     const timeFormatted = formatDate(date)
 
-    return [
-        <MenuGroup>
-            <MenuItem id="fuses-edit-timestamp"
+    return <>
+        {!isOnline ? <MenuGroup label="Offline actions">
+            <MenuItem id="timezones-edit-timestamp"
                 label="Edit timezone"
                 action={() => onEditTimezone(id)}
             />
-            <MenuItem id="fuses-remove-timestamp"
+            <MenuItem id="timezones-remove-timestamp"
                 label="Remove timezone"
                 color="colorDanger"
                 action={() => onDeleteTimezone(id)}
+            />    
+        </MenuGroup>
+        : <MenuGroup label="Online actions">
+            <MenuItem id="timezones-add-timezone-from-db"
+                label="Add timezone from TimeTogether"
+                color="colorBrand"
+                action={() => onEditTimezone(id)}
             />
-        </MenuGroup>,
+        </MenuGroup>}
         <MenuGroup>
-            <MenuItem id="fuses-copy-timezone"
+            <MenuItem id="timezones-copy-timezone"
                 label="Copy timezone"
                 action={() => copy(timezone)}
             />
-            <MenuItem id="fuses-copy-time"
+            <MenuItem id="timezones-copy-time"
                 label="Copy time information"
                 action={() => copy(formatDate(date).toString())}
             >
-                <MenuItem id="fuses-copy-time-full"
+                <MenuItem id="timezones-copy-time-full"
                     label="Full date"
                     action={() => copy(timeFormatted.toString())}
                 />
-                <MenuItem id="fuses-copy-time-hms"
+                <MenuItem id="timezones-copy-time-hms"
                     label="Time"
                     action={() => copy(timeFormatted.timeString({ includeSecs: false }))}
                 />
-                <MenuItem id="fuses-copy-time-date"
+                <MenuItem id="timezones-copy-time-date"
                     label="Date"
                     action={() => copy(timeFormatted.dateString())}
                 />
             </MenuItem>
         </MenuGroup>
-    ]
+    </>
 }

@@ -47,21 +47,28 @@ interface BasicTimerProps extends TimerProps {
 declare function BasicTimer(props: BasicTimerProps): ReactComponent
 
 
-//TimezoneManager
-declare function getOffset(date?: Date | moment.Moment):Timezone
-declare function getTimeFromTimezone(utcOffset: Timezone, currentDate?: Date): Date
-declare function getDateFromCity(city: string, sendAsMoment?: boolean): Date|moment.Moment
-declare function formatDate(date: string, timezone: Timezone): string
+// //TimezoneManager
+// declare function getOffset(date?: Date | moment.Moment): Timezone
+// declare function getTimeFromTimezone(utcOffset: Timezone, currentDate?: Date): Date
+// declare function getDateFromCity(city: string, sendAsMoment?: boolean): Date | moment.Moment
+// declare function formatDate(date: string, timezone: Timezone): string
 
 
 //UserManager
 type UserList = {
     [key: UserID]: Timezone
 }
-declare function addUser(id: string, utcOffset: Timezone)
-declare function removeUser(id: string)
-declare function getList(): UserList
-declare function getTimezone(id: string): Timezone
+// declare function addUser(id: string, utcOffset: Timezone)
+// declare function removeUser(id: string)
+// declare function getList(): UserList
+// declare function getTimezone(id: string): Timezone
 
 //Alert
-declare function createQuestion(title: string | ReactElement, description: string | ReactElement, buttons: Array<{ text: string | ReactElement, color: string}>): Promise<string>
+// declare function createQuestion(title: string | ReactElement, description: string | ReactElement, buttons: Array<{ text: string | ReactElement, color: string }>): Promise<string>
+
+//TimeTogether
+
+declare interface TTUser {
+    userId: string
+    timezone: Timezone
+}

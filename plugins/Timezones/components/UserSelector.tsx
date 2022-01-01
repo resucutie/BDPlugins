@@ -31,10 +31,10 @@ export default function ({ onConfirm, include = { existingUsers: true, bots: fal
 
     const userList: Array<[string, UserObject]> = Object.entries(Users.getUsers()).filter(([id]) => id !== Users.getCurrentUser().id)
 
-    const searchedUserList = userList.filter(([, user]) => {
+    const searchedUserList = userList.filter(async ([, user]) => {
         const isInSearch = Boolean(~user.username.toLowerCase().indexOf(search.toLowerCase()))
         const isBot = include.bots ? false : user.bot
-        const doesExist = include.existingUsers ? true : !isExistingUser(user.id)
+        const doesExist = include.existingUsers ? true : !(await isExistingUser(user.id))
         return isInSearch && !isBot && doesExist
     }).slice(0, 30)
 

@@ -3,11 +3,12 @@
   "version": "0.6.9",
   "main": "index.js",
   "devDependencies": {
-    "@betterdiscordbuilder/bdbuilder": "^1.2.20"
+    "@betterdiscordbuilder/bdbuilder": "^1.2.20",
+    "nodemon": "^2.0.15"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "node ./compile.js"
+    "build": "node ./compile.js",
+    "watch": "nodemon ./compile.js"
   },
   "repository": {
     "type": "git",

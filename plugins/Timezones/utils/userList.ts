@@ -3,6 +3,8 @@ import settings from "../settingsManager";
 import constants from "./constants";
 import { UserListException } from "./exceptions";
 import { ensureTimezone, isNotTimezone } from "./timezones";
+import { getUser as ttGetUser } from "./tt";
+import { TTCache } from "./cache";
 
 export type UserListType = {
     [key: UserID]: Timezone
@@ -31,9 +33,29 @@ const removeUser = (id) => {
     setList(list)
 }
 
-const getTimezone = (id) => {
-    let list = getList()
-    return list?.[id]
+const getTimezone = async (id, opts: { includeTT?: boolean } = { includeTT: false }) => {
+    if (!id) return
+    
+    const list = getList()
+    const tz = list?.[id]
+    if (!tz && opts.includeTT) {
+        if (TTCache.has(id)) {
+            return TTCache.get(id)
+        }
+
+        try {
+            const user: TTUser = await ttGetUser(id)
+            
+            if (user?.timezone) TTCache.set(id, user.timezone)
+
+            return user?.timezone
+        } catch (err) {
+            console.error(err)
+            TTCache.set(id, undefined)
+            return undefined
+        }
+    }
+    return tz
 }
 
 const cleanList = (list: UserListType = getList()) => {
@@ -63,6 +85,6 @@ const isListNotValid = (list: UserListType) => {
     return false
 }
 
-const isExistingUser = id => Boolean(getTimezone(id))
+const isExistingUser = async (id, includeTT = false) => Boolean(await getTimezone(id, { includeTT }))
 
 export { addUser, removeUser, getTimezone, getList, setList, isExistingUser, cleanList, isListNotValid }

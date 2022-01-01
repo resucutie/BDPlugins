@@ -4,9 +4,9 @@ type CommonProperties = React.FC<{
     width?: string | number;
     height?: string | number;
     className?: string;
-    style?: React.StyleHTMLAttributes<void>;
     "aria-hidden"?: string;
     onClick?(event: React.MouseEvent): void;
+    [key: string]: any
 }>
 
 declare module "@discord/icons" {
@@ -28,4 +28,9 @@ declare module "@discord/icons" {
     export const Timer: CommonProperties;
     export const ChatBubble: CommonProperties;
     export const DropdownArrow: CommonProperties;
+    export const OpenExternal: CommonProperties;
+    export const Launch: CommonProperties;
+    export const Replay: CommonProperties;
+    export const Help: CommonProperties;
+    export const HelpOutline: CommonProperties;
 }

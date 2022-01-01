@@ -1,11 +1,19 @@
 declare module "@discord/components" {
-    export type TooltipOptions = { tooltipClassName?: string; text?: string, position?: "top" | "bottom" | "left" | "right", spacing?: "8", children?: any, delay?: number };
+    export type TooltipOptions = {
+        tooltipClassName?: string;
+        text: string,
+        position?: "top" | "bottom" | "left" | "right",
+        spacing?: "8",
+        children?: ReactElement,
+        delay?: number,
+        style?: any
+    };
     export function Tooltip({ text, position, spacing, children }: TooltipOptions): ReactElement;
     export type Tooltip = React.FunctionComponent<{
         tooltipClassName?: string;
     }>;
     export function TooltipContainer({ text, position, spacing, children, delay }: TooltipOptions & { className?: string }): ReactElement;
-    export function TextInput(props: { value?: string, onChange?: (value: string) => void, placeholder?: string, error?: string | boolean | ReactElement, className?: string, onClick?: Function, autoFocus?: boolean, inputRef?: any}): ReactElement;
+    export function TextInput(props: { value?: string, onChange?: (value: string) => void, placeholder?: string, error?: string | boolean | ReactElement, className?: string, onClick?: () => void, disabled?: boolean, autoFocus?: boolean, inputRef?: any, style?: any}): ReactElement;
     export const SlideIn: React.ComponentClass<{className?: string, children: any}>;
     export const TransitionGroup: React.ComponentClass<{children: any}>;
     export const SettingsNotice: React.FunctionComponent<{ onSave, onReset }>;
@@ -70,6 +78,7 @@ declare module "@discord/components" {
         onChange?: (value) => void
         options: RadioOptions[]
         value?: any
+        disabled?: boolean
     }
 
     // its exported as a type due to bdbuilder not exporting it, so we have to manually get it from Webpack

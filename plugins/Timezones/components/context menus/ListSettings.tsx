@@ -14,7 +14,7 @@ export default React.memo(({ onClose, ...etc }: Props) => {
     const listSorting = useStateFromStores([settings], () => settings.get("listSorting", "a-z"))
     const lockControls = useStateFromStores([settings], () => settings.get("lockControls", false))
 
-    return <Menu {...etc} navId="fuses-list-settings" onClose={onClose}>
+    return <Menu {...etc} navId="timezones-list-settings" onClose={onClose}>
         <MenuGroup label="Sorting">
             <MenuRadioItem label="A-Z" id="a-z" checked={listSorting === "a-z"} action={() => settings.set("listSorting", "a-z")} />
             <MenuRadioItem label="Z-A" id="z-a" checked={listSorting === "z-a"} action={() => settings.set("listSorting", "z-a")} />

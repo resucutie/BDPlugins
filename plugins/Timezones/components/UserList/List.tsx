@@ -10,6 +10,7 @@ import BasicTimer from "../BasicTimer";
 import ListSettings from "../context menus/ListSettings";
 import { useStateFromStores } from "@discord/flux";
 import settings from "../../settingsManager";
+import TimezoneValueGetter from "../TimezoneValueGetter";
 
 const SearchBar = WebpackModules.getByDisplayName('SearchBar')
 const { default: Avatar } = WebpackModules.getByProps("AnimatedAvatar")
@@ -34,8 +35,6 @@ export default React.memo(({ onEdit, onDelete, enableSettings = true, disableCon
 
     const filteredList: any[] = formattedList.filter(user => ~user?.username?.toLowerCase?.().indexOf?.(search))
     let sortedList: any[] = filteredList
-
-    // console.log(sortedList)
 
     // if func is -1 so a is first
     // if func is 1 so b is first
@@ -87,14 +86,15 @@ export default React.memo(({ onEdit, onDelete, enableSettings = true, disableCon
             {sortedList.map(user => {
                 if (!user) return <></>
 
-                const timezone = getTimezone(user.id)
-                if (!timezone) return <></>
-
                 return <div className={styles["user-list-item"]}>
                     <Avatar src={AvatarDefaults.getUserAvatarURL(user)} size={Avatar.Sizes.SIZE_32} className={styles["avatar"]} />
                     <div>
                         <div className={styles["name"]}>{user.username}</div>
-                        <div className={styles["timezone"]}>UTC{timezone} <span className={styles["timestamp-dot"]}>•</span> <BasicTimer timezone={timezone} /></div>
+                        <TimezoneValueGetter userID={user.id} includeTT={false}>{state => !state.loading && <>
+                            <div className={styles["timezone"]}>UTC{state.value.timezone} <span className={styles["timestamp-dot"]}>•</span> 
+                                <BasicTimer timezone={state.value.timezone} />
+                            </div>
+                        </>}</TimezoneValueGetter>
                     </div>
                     {!lockControls && <div className={styles["actions-wrapper"]}>
                         <TooltipContainer text={`Edit ${user.username}`}>

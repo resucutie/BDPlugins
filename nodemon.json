@@ -1,0 +1,10 @@
+{
+    "ignore": [
+        ".git",
+        "node_modules",
+        "builds",
+        "types",
+        "*.d.ts"
+    ],
+    "ext": "js,jsx,json,ts,tsx,css,scss"
+}

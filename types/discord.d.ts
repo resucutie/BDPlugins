@@ -42,6 +42,8 @@ declare interface ChannelObject {
     description: string;
     guild_id: GuildID;
     ownerId: UserID | null;
+    recipients: string[]
+    rawRecipients: UserObject[]
 
     type: number;
 }
@@ -236,7 +238,7 @@ declare module "@discord/actions" {
 
 declare module "@discord/contextmenu" {
     interface MenuItemProps {
-        label: string,
+        label: string | ReactElement,
         action?: () => any,
         id: string,
         disabled?: boolean,
@@ -257,7 +259,8 @@ declare module "@discord/contextmenu" {
     export function MenuItem({ label, action, id }: MenuItemProps): ReactElement;
     export function MenuRadioItem({ label, action, id }: MenuRadioItemProps): ReactElement;
     export function MenuCheckboxItem({ label, action, id }: MenuCheckboxItem): ReactElement;
-    export function MenuGroup({ children }: { children: any, label?: string }): ReactElement;
+    export function MenuGroup({ children }: { children: any, label?: string | ReactElement }): ReactElement;
+    export function MenuSeparator(): ReactElement;
     export function Menu({ children, navId, onClose }: { children: any, navId: string, onClose: () => void }): ReactElement;
 }
 
@@ -268,7 +271,7 @@ declare module "@discord/forms" {
     export const FormNoticeTypes: { PRIMARY: string, DANGER: string, WARNING: string, SUCCESS: string, BRAND: string, CUSTOM: string };
     export const FormNoticeImagePositions: { LEFT: string, RIGHT: string };
     export function FormSection(props: any): any;
-    export function FormText({ type, children }: { type?: "description", children: any }): any;
+    export function FormText({ type, className, children }: { type?: "description", className?, children: any }): any;
     export const FormTextTypes: { DEFAULT: string, INPUT_PLACEHOLDER: string, DESCRIPTION: string, LABEL_BOLD: string, LABEL_SELECTED: string, LABEL_DESCRIPTOR: string };
     export function FormTitle(props: any): any;
     export const FormTitleTags: { H1: string, H2: string, H3: string, H4: string, H5: string, LABEL: string }
