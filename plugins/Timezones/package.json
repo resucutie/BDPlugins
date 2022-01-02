@@ -9,7 +9,7 @@
                 "twitter_username": "auwuser"
             }
         ],
-        "version": "1.0.0 pre-release 1",
+        "version": "1.0.0",
         "description": "Simple and powerful timezone manager",
         "github": "https://github.com/abUwUser/BDPlugins/tree/main/plugins/Timezones",
         "github_raw": "https://raw.githubusercontent.com/abUwUser/BDPlugins/compiled/Timezones/Timezones.plugin.js"
@@ -56,7 +56,7 @@
             "title": "I forgor ☠️",
             "items": [
                 "I don't remember all the changed, I guess I should start with the habit of writing the changes after I finish coding a feature :p",
-                "Also one thing, this will be the release version of Timezones, but to make sure that no bugs appear I will be releasing it as a pre release. To be honest your mission is to find bugs and report to me! su eerf esaelP"
+                "~~Also one thing, this will be the release version of Timezones, but to make sure that no bugs appear I will be releasing it as a pre release. To be honest your mission is to find bugs and report to me!~~ Nevermind. If I have to guess BD's submission hates customized versions"
             ]
         }
     ]
