@@ -9,7 +9,7 @@
                 "twitter_username": "auwuser"
             }
         ],
-        "version": "1.0.0",
+        "version": "1.0.1",
         "description": "Simple and powerful timezone manager",
         "github": "https://github.com/abUwUser/BDPlugins/tree/main/plugins/Timezones",
         "github_raw": "https://raw.githubusercontent.com/abUwUser/BDPlugins/compiled/Timezones/Timezones.plugin.js"
@@ -25,38 +25,10 @@
     },
     "changelog": [
         {
-            "type": "improved",
-            "title": "TimeTogether",
-            "items": [
-                "**TimeTogether** is a brand new online database for storing timezones of multiple users. What that means? Means that users logged in the service can store their own timezones and then other users can get them without having to get yours.",
-                "**This service took many hours to design and make**. From making the API, the login service, the UI, and even the integration with this plugin took a lot of time. And i am very proud of the result, specifically considering that it is my first project with Express.js. I hope that you guys enjoy the service!",
-                "If you didn't liked it at all, you can disable it by going in `Settings > TimeTogether` and disabling it"
-            ]
-        },
-        {
-            "type": "added",
-            "title": "H",
-            "items": [
-                "Added a new item to the context menu to get the timezone from the TimeTogether and add in the local user list",
-                "**Customizable timer display format**. Now you can display the timer as how you always want. (BTW I guess I gave too much power to you)",
-                "You can see a user's timezone in the member and DM user lists and header"
-            ]
-        },
-        {
             "type": "progress",
-            "title": "Wax changes",
+            "title": "#faa81a",
             "items": [
-                "**Renamed the plugin's name**. Seriously, I had no idea what I was thinking when i named this plugin as \"Fuses\"",
-                "Removing the timer on the user header and banner is now possible! (to be honest why you would do that)",
-                "Made some changes on the popouts to adapt for TimeTogether. This is kinda obvious to be honest"
-            ]
-        },
-        {
-            "type": "fixed",
-            "title": "I forgor ☠️",
-            "items": [
-                "I don't remember all the changed, I guess I should start with the habit of writing the changes after I finish coding a feature :p",
-                "~~Also one thing, this will be the release version of Timezones, but to make sure that no bugs appear I will be releasing it as a pre release. To be honest your mission is to find bugs and report to me!~~ Nevermind. If I have to guess BD's submission hates customized versions"
+                "**Fixed a typo in the user's list's timer align settings.** Just that"
             ]
         }
     ]

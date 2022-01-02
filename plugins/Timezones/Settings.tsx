@@ -324,7 +324,7 @@ export default React.memo(() => {
                                 value: constants.Settings.TimerAlign.LEFT
                             },
                             {
-                                name: "Header",
+                                name: "Right",
                                 value: constants.Settings.TimerAlign.RIGHT
                             }
                         ]}
