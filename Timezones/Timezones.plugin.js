@@ -1,7 +1,7 @@
 /**
  * @name Timezones
  * @author A user
- * @version 1.0.1
+ * @version 1.1.0
  * @description Simple and powerful timezone manager
  * @source https://github.com/abUwUser/BDPlugins/tree/main/plugins/Timezones
  * @updateUrl https://raw.githubusercontent.com/abUwUser/BDPlugins/compiled/Timezones/Timezones.plugin.js
@@ -38,7 +38,7 @@ const config = {
 			"github_username": "abUwUser",
 			"twitter_username": "auwuser"
 		}],
-		"version": "1.0.1",
+		"version": "1.1.0",
 		"description": "Simple and powerful timezone manager",
 		"github": "https://github.com/abUwUser/BDPlugins/tree/main/plugins/Timezones",
 		"github_raw": "https://raw.githubusercontent.com/abUwUser/BDPlugins/compiled/Timezones/Timezones.plugin.js"
@@ -53,12 +53,20 @@ const config = {
 		}
 	},
 	"changelog": [{
-		"type": "progress",
-		"title": "#faa81a",
-		"items": [
-			"**Fixed a typo in the user's list's timer align settings.** Just that"
-		]
-	}]
+			"type": "added",
+			"title": "OwO new features",
+			"items": [
+				"**Commands!** Now there is commands. You can type \"/timezone\" on the chatting textbox to display the avaiable commands"
+			]
+		},
+		{
+			"type": "fixed",
+			"title": "Bruh",
+			"items": [
+				"Fixed a bug where you couldn't delete the user's timezone from the context menu"
+			]
+		}
+	]
 };
 function buildPlugin([BasePlugin, PluginApi]) {
 	const module = {
@@ -384,7 +392,7 @@ function buildPlugin([BasePlugin, PluginApi]) {
 				StyleLoader.append(module.id, ___CSS_LOADER_EXPORT___.toString());
 				const __WEBPACK_DEFAULT_EXPORT__ = Object.assign(___CSS_LOADER_EXPORT___, ___CSS_LOADER_EXPORT___.locals);
 			},
-			485: (__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+			295: (__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 				__webpack_require__.r(__webpack_exports__);
 				__webpack_require__.d(__webpack_exports__, {
 					default: () => Timezones
@@ -396,45 +404,72 @@ function buildPlugin([BasePlugin, PluginApi]) {
 				const external_PluginApi_namespaceObject = PluginApi;
 				const components_namespaceObject = Modules["@discord/components"];
 				const modal_namespaceObject = Modules["@discord/modal"];
+				const stores_namespaceObject = Modules["@discord/stores"];
+				const modules_namespaceObject = Modules["@discord/modules"];
 				const external_StyleLoader_namespaceObject = StyleLoader;
 				var external_StyleLoader_default = __webpack_require__.n(external_StyleLoader_namespaceObject);
 				var Timezones_style = __webpack_require__(942);
-				const contextmenu_namespaceObject = Modules["@discord/contextmenu"];
-				const stores_namespaceObject = Modules["@discord/stores"];
-				const icons_namespaceObject = Modules["@discord/icons"];
-				const flux_namespaceObject = Modules["@discord/flux"];
-				const modules_namespaceObject = Modules["@discord/modules"];
-				function _defineProperty(obj, key, value) {
-					if (key in obj) Object.defineProperty(obj, key, {
-						value,
-						enumerable: true,
-						configurable: true,
-						writable: true
+				const DiscordCommands = BdApi.findModuleByProps("BUILT_IN_COMMANDS");
+				const DiscordCommandTypes = BdApi.findModuleByProps("ApplicationCommandType");
+				const Types = DiscordCommandTypes.ApplicationCommandType;
+				const OptionTypes = DiscordCommandTypes.ApplicationCommandOptionType;
+				const PermissionTypes = DiscordCommandTypes.ApplicationCommandPermissionType;
+				if (!DiscordCommands.BUILT_IN_SECTIONS["betterdiscord"]) DiscordCommands.BUILT_IN_SECTIONS["betterdiscord"] = {
+					icon: "https://github.com/BetterDiscord.png",
+					id: "betterdiscord",
+					name: "BetterDiscord",
+					type: 0
+				};
+				function registerCommand(caller, options) {
+					const cmd = Object.assign({}, options, {
+						__registerId: caller,
+						applicationId: "betterdiscord",
+						type: Types.BOT,
+						target: 1
 					});
-					else obj[key] = value;
-					return obj;
+					DiscordCommands.BUILT_IN_COMMANDS.push(cmd);
+					return () => {
+						const index = DiscordCommands.BUILT_IN_COMMANDS.indexOf(cmd);
+						if (index < 0) return false;
+						DiscordCommands.BUILT_IN_COMMANDS.splice(index, 1);
+					};
 				}
-				class SettingsManager extends flux_namespaceObject.Store {
-					constructor(pluginName, defaultSettings = {}) {
-						super(modules_namespaceObject.Dispatcher, {});
-						_defineProperty(this, "settings", void 0);
-						_defineProperty(this, "pluginName", void 0);
-						_defineProperty(this, "get", ((key, defaultValue) => this.settings[key] ?? defaultValue));
-						_defineProperty(this, "set", ((key, value) => {
-							this.settings[key] = value;
-							external_PluginApi_namespaceObject.PluginUtilities.saveSettings(this.pluginName, this.settings);
-							this.emitChange();
-							return value;
-						}));
-						this.pluginName = pluginName;
-						this.settings = external_PluginApi_namespaceObject.PluginUtilities.loadSettings(pluginName, defaultSettings);
+				function unregisterAllCommands(caller) {
+					let index = DiscordCommands.BUILT_IN_COMMANDS.findIndex((cmd => cmd.__registerId === caller));
+					while (index > -1) {
+						DiscordCommands.BUILT_IN_COMMANDS.splice(index, 1);
+						index = DiscordCommands.BUILT_IN_COMMANDS.findIndex((cmd => cmd.__registerId === caller));
 					}
 				}
-				const package_namespaceObject = JSON.parse('{"um":{"u2":"Timezones"}}');
-				const settingsManager_settings = new SettingsManager(package_namespaceObject.um.u2);
-				const settingsManager = settingsManager_settings;
-				const native_namespaceObject = Modules["@discord/native"];
-				function exceptions_defineProperty(obj, key, value) {
+				const Commands = {
+					registerCommand,
+					unregisterAllCommands
+				};
+				const commands = Commands;
+				const DefaultMessage = {
+					state: "SENT",
+					author: {
+						avatar: "betterdiscord",
+						id: "81388395867156480",
+						bot: true,
+						discriminator: "5000",
+						username: "BetterDiscord"
+					},
+					content: "Hello <:zere_zoom:477825238172958730>"
+				};
+				const MessageCreators = BdApi.findModuleByProps("createBotMessage");
+				const MessageActions = BdApi.findModuleByProps("receiveMessage");
+				const AvatarDefaults = BdApi.findModuleByProps("BOT_AVATARS");
+				if (AvatarDefaults?.BOT_AVATARS && !AvatarDefaults.BOT_AVATARS.betterdiscord) AvatarDefaults.BOT_AVATARS.betterdiscord = "https://github.com/BetterDiscord.png";
+				function sendMessage(channelId, message) {
+					MessageActions.receiveMessage(channelId, Object.assign({}, MessageCreators.createBotMessage(channelId, message?.content), DefaultMessage, message));
+				}
+				const Clyde = {
+					sendMessage,
+					DefaultMessage
+				};
+				const clyde = Clyde;
+				function _defineProperty(obj, key, value) {
 					if (key in obj) Object.defineProperty(obj, key, {
 						value,
 						enumerable: true,
@@ -448,7 +483,7 @@ function buildPlugin([BasePlugin, PluginApi]) {
 					class TemplateException extends Error {
 						constructor(message, code) {
 							super(message);
-							exceptions_defineProperty(this, "code", void 0);
+							_defineProperty(this, "code", void 0);
 							this.name = name;
 							this.code = code;
 							this.message = `${message}. Error code: ${code}`;
@@ -515,6 +550,36 @@ function buildPlugin([BasePlugin, PluginApi]) {
 						"12HFOMRAT": is12h
 					}
 				};
+				const flux_namespaceObject = Modules["@discord/flux"];
+				function settings_defineProperty(obj, key, value) {
+					if (key in obj) Object.defineProperty(obj, key, {
+						value,
+						enumerable: true,
+						configurable: true,
+						writable: true
+					});
+					else obj[key] = value;
+					return obj;
+				}
+				class SettingsManager extends flux_namespaceObject.Store {
+					constructor(pluginName, defaultSettings = {}) {
+						super(modules_namespaceObject.Dispatcher, {});
+						settings_defineProperty(this, "settings", void 0);
+						settings_defineProperty(this, "pluginName", void 0);
+						settings_defineProperty(this, "get", ((key, defaultValue) => this.settings[key] ?? defaultValue));
+						settings_defineProperty(this, "set", ((key, value) => {
+							this.settings[key] = value;
+							external_PluginApi_namespaceObject.PluginUtilities.saveSettings(this.pluginName, this.settings);
+							this.emitChange();
+							return value;
+						}));
+						this.pluginName = pluginName;
+						this.settings = external_PluginApi_namespaceObject.PluginUtilities.loadSettings(pluginName, defaultSettings);
+					}
+				}
+				const package_namespaceObject = JSON.parse('{"um":{"u2":"Timezones"}}');
+				const settingsManager_settings = new SettingsManager(package_namespaceObject.um.u2);
+				const settingsManager = settingsManager_settings;
 				const classes_namespaceObject = Modules["@discord/classes"];
 				function getOffset(date = (0, classes_namespaceObject.Timestamp)()) {
 					let timezoneOffset;
@@ -625,6 +690,254 @@ function buildPlugin([BasePlugin, PluginApi]) {
 					if (Math.abs(Number(timezone)) > 24 && checkOverflow) return utils_constants.ExceptionCodes.Timezones.InvalidFormatReasons.OVERFLOW;
 					return false;
 				}
+				async function getUser(id) {
+					const response = await fetch(settingsManager.get("tt-url", utils_constants.TimeTogether.DEFAULT_URL) + `api/user/${id}`, {
+						method: "GET"
+					});
+					if (404 === response.status) return;
+					if (200 === response.status) return await response.json();
+				}
+				async function doesUserExists(id) {
+					const response = await fetch(settings.get("tt-url", constants.TimeTogether.DEFAULT_URL) + `api/user/${id}`, {
+						method: "GET"
+					});
+					if (404 === response.status) return false;
+					if (200 === response.status) return true;
+				}
+				const TTCache = new Map;
+				const getList = () => settingsManager.get("userList", {});
+				const setList = list => settingsManager.set("userList", list);
+				const addUser = (id, timezone, shouldCleanList = false) => {
+					let list = getList();
+					timezone = ensureTimezone(timezone);
+					if (!stores_namespaceObject.Users.getUser(id)) throw new UserListException("Invalid User", utils_constants.ExceptionCodes.UserList.INVALID_USER);
+					list[id] = timezone;
+					setList(list);
+					if (shouldCleanList) cleanList();
+				};
+				const editUser = addUser;
+				const removeUser = id => {
+					let list = getList();
+					delete list[id];
+					setList(list);
+				};
+				const getTimezone = async (id, opts = {
+					includeTT: false
+				}) => {
+					if (!id) return;
+					const list = getList();
+					const tz = list?.[id];
+					if (!tz && opts.includeTT) {
+						if (TTCache.has(id)) return TTCache.get(id);
+						try {
+							const user = await getUser(id);
+							if (user?.timezone) TTCache.set(id, user.timezone);
+							return user?.timezone;
+						} catch (err) {
+							console.error(err);
+							TTCache.set(id, void 0);
+							return;
+						}
+					}
+					return tz;
+				};
+				const cleanList = (list = getList()) => {
+					let finishedList = {};
+					const filteredArray = Object.entries(list).filter((([userId]) => "string" === typeof userId && Boolean(userId) && Boolean(stores_namespaceObject.Users.getUser(userId))));
+					filteredArray.map((([key, val]) => {
+						finishedList[key] = val;
+					}));
+					return finishedList;
+				};
+				const isListNotValid = list => {
+					if (!(_.isObject(list) && !_.isArray(list))) return [utils_constants.ExceptionCodes.UserList.INVALID_LIST_TYPE];
+					for (const id in list) {
+						if (!stores_namespaceObject.Users.getUser(id)) return [utils_constants.ExceptionCodes.UserList.INVALID_USER, id];
+						const timezone = list[id];
+						const checkIfNotTimezone = isNotTimezone(timezone);
+						if (checkIfNotTimezone) return [checkIfNotTimezone, id];
+					}
+					return false;
+				};
+				const isExistingUser = async (id, includeTT = false) => Boolean(await getTimezone(id, {
+					includeTT
+				}));
+				const add = caller => {
+					commands.registerCommand(caller, {
+						name: "timezone add",
+						description: "Adds a timezone to a user locally",
+						id: "timezones-add-user",
+						options: [{
+							name: "user",
+							description: "The user that you wanna add the timezone",
+							required: true,
+							type: ApplicationCommandOptionType.USER
+						}, {
+							name: "timezone",
+							description: "The timezone of the user",
+							required: true,
+							type: ApplicationCommandOptionType.INTEGER
+						}],
+						execute: async function(options, props) {
+							try {
+								const userId = options.user[0].userId;
+								const timezone = ensureTimezone(options.timezone[0].text);
+								if (stores_namespaceObject.Users.getCurrentUser().id === userId) {
+									clyde.sendMessage(props.channel.id, {
+										author: DefaultAvatarSettings,
+										content: ":face_with_monocle: Isn't that you?"
+									});
+									return;
+								}
+								if (stores_namespaceObject.Users.getUser(userId).bot) {
+									clyde.sendMessage(props.channel.id, {
+										author: DefaultAvatarSettings,
+										content: ":robot: 01000010 01100101 01100101 01110000 00100000 01000010 01101111 01101111 01110000 00100001 00100000 01011001 01101111 01110101 00100111 01110110 01100101 00100000 01110011 01100101 01101100 01100101 01100011 01110100 00100000 01100001 00100000 01100010 01101111 01110100 00100001"
+									});
+									return;
+								}
+								if (await isExistingUser(userId)) {
+									clyde.sendMessage(props.channel.id, {
+										author: DefaultAvatarSettings,
+										content: ":rage: Hey! This user already exists!"
+									});
+									return;
+								}
+								addUser(userId, timezone);
+								Timezones.prototype.forceUpdateMessages();
+								clyde.sendMessage(props.channel.id, {
+									author: DefaultAvatarSettings,
+									content: `:tada: Timezone UTC ${timezone} was assigned sucessfully to ${stores_namespaceObject.Users.getUser(userId).username}!`
+								});
+							} catch (err) {
+								clyde.sendMessage(props.channel.id, {
+									author: DefaultAvatarSettings,
+									content: `:fire: An error happened!\n${err.toString()}\n\nPlease contact A user#8169 and send the error!`
+								});
+							}
+						},
+						predicate: () => true
+					});
+				};
+				const edit = caller => {
+					commands.registerCommand(caller, {
+						name: "timezone edit",
+						description: "Edits a timezone from a user locally",
+						id: "timezones-edit-user",
+						options: [{
+							name: "user",
+							description: "The user that you wanna edit the timezone",
+							required: true,
+							type: ApplicationCommandOptionType.USER
+						}, {
+							name: "timezone",
+							description: "The timezone of the user",
+							required: true,
+							type: ApplicationCommandOptionType.INTEGER
+						}],
+						execute: async function(options, props) {
+							try {
+								const userId = options.user[0].userId;
+								const timezone = ensureTimezone(options.timezone[0].text);
+								const prevTimezone = await getTimezone(userId);
+								if (stores_namespaceObject.Users.getCurrentUser().id === userId) {
+									clyde.sendMessage(props.channel.id, {
+										author: DefaultAvatarSettings,
+										content: ":face_with_monocle: Isn't that you?"
+									});
+									return;
+								}
+								if (!await isExistingUser(userId)) {
+									clyde.sendMessage(props.channel.id, {
+										author: DefaultAvatarSettings,
+										content: ":face_with_raised_eyebrow: I couldn't find this user in the local user list"
+									});
+									return;
+								}
+								editUser(userId, timezone);
+								Timezones.prototype.forceUpdateMessages();
+								clyde.sendMessage(props.channel.id, {
+									author: DefaultAvatarSettings,
+									content: `:tada: ${stores_namespaceObject.Users.getUser(userId).username}'s Timezone was changed sucessfully from UTC ${prevTimezone} to UTC ${timezone}!`
+								});
+							} catch (err) {
+								clyde.sendMessage(props.channel.id, {
+									author: DefaultAvatarSettings,
+									content: `:fire: An error happened!\n${err.toString()}\n\nPlease contact A user#8169 and send the error!`
+								});
+							}
+						},
+						predicate: () => true
+					});
+				};
+				const commands_delete = caller => {
+					commands.registerCommand(caller, {
+						name: "timezone delete",
+						description: "Deletes a user from the local database",
+						id: "timezones-edit-user",
+						options: [{
+							name: "user",
+							description: "The user that you want to delete",
+							required: true,
+							type: ApplicationCommandOptionType.USER
+						}],
+						execute: async function(options, props) {
+							try {
+								const userId = options.user[0].userId;
+								const oldTimezone = await getTimezone(userId);
+								if (stores_namespaceObject.Users.getCurrentUser().id === userId) {
+									clyde.sendMessage(props.channel.id, {
+										author: DefaultAvatarSettings,
+										content: ":face_with_monocle: Isn't that you?"
+									});
+									return;
+								}
+								if (!await isExistingUser(userId)) {
+									clyde.sendMessage(props.channel.id, {
+										author: DefaultAvatarSettings,
+										content: ":face_with_raised_eyebrow: I couldn't find this user in the local user list"
+									});
+									return;
+								}
+								removeUser(userId);
+								Timezones.prototype.forceUpdateMessages();
+								clyde.sendMessage(props.channel.id, {
+									author: DefaultAvatarSettings,
+									content: `:tada: ${stores_namespaceObject.Users.getUser(userId).username} was removed sucessfully! If you wanna know, UTC ${oldTimezone} was their old timezone`
+								});
+							} catch (err) {
+								clyde.sendMessage(props.channel.id, {
+									author: DefaultAvatarSettings,
+									content: `:fire: An error happened!\n${err.toString()}\n\nPlease contact A user#8169 and send the error!`
+								});
+							}
+						},
+						predicate: () => true
+					});
+				};
+				const {
+					ApplicationCommandOptionType
+				} = external_PluginApi_namespaceObject.WebpackModules.getByProps("ApplicationCommandType");
+				const DefaultAvatarSettings = {
+					avatar: "betterdiscord",
+					id: "81388395867156480",
+					bot: true,
+					discriminator: "5000",
+					username: "Timezones"
+				};
+				const Timezones_commands = {
+					apply: caller => {
+						add(caller);
+						edit(caller);
+						commands_delete(caller);
+					},
+					remove: caller => {
+						commands.unregisterAllCommands(caller);
+					}
+				};
+				const contextmenu_namespaceObject = Modules["@discord/contextmenu"];
+				const icons_namespaceObject = Modules["@discord/icons"];
+				const native_namespaceObject = Modules["@discord/native"];
 				const TimestampActions = ({
 					id,
 					timezone,
@@ -724,77 +1037,6 @@ function buildPlugin([BasePlugin, PluginApi]) {
 					}), []);
 					return get;
 				}
-				async function getUser(id) {
-					const response = await fetch(settingsManager.get("tt-url", utils_constants.TimeTogether.DEFAULT_URL) + `api/user/${id}`, {
-						method: "GET"
-					});
-					if (404 === response.status) return;
-					if (200 === response.status) return await response.json();
-				}
-				async function doesUserExists(id) {
-					const response = await fetch(settings.get("tt-url", constants.TimeTogether.DEFAULT_URL) + `api/user/${id}`, {
-						method: "GET"
-					});
-					if (404 === response.status) return false;
-					if (200 === response.status) return true;
-				}
-				const TTCache = new Map;
-				const getList = () => settingsManager.get("userList", {});
-				const setList = list => settingsManager.set("userList", list);
-				const addUser = (id, timezone, shouldCleanList = false) => {
-					let list = getList();
-					timezone = ensureTimezone(timezone);
-					if (!stores_namespaceObject.Users.getUser(id)) throw new UserListException("Invalid User", utils_constants.ExceptionCodes.UserList.INVALID_USER);
-					list[id] = timezone;
-					setList(list);
-					if (shouldCleanList) cleanList();
-				};
-				const removeUser = id => {
-					let list = getList();
-					delete list[id];
-					setList(list);
-				};
-				const getTimezone = async (id, opts = {
-					includeTT: false
-				}) => {
-					if (!id) return;
-					const list = getList();
-					const tz = list?.[id];
-					if (!tz && opts.includeTT) {
-						if (TTCache.has(id)) return TTCache.get(id);
-						try {
-							const user = await getUser(id);
-							if (user?.timezone) TTCache.set(id, user.timezone);
-							return user?.timezone;
-						} catch (err) {
-							console.error(err);
-							TTCache.set(id, void 0);
-							return;
-						}
-					}
-					return tz;
-				};
-				const cleanList = (list = getList()) => {
-					let finishedList = {};
-					const filteredArray = Object.entries(list).filter((([userId]) => "string" === typeof userId && Boolean(userId) && Boolean(stores_namespaceObject.Users.getUser(userId))));
-					filteredArray.map((([key, val]) => {
-						finishedList[key] = val;
-					}));
-					return finishedList;
-				};
-				const isListNotValid = list => {
-					if (!(_.isObject(list) && !_.isArray(list))) return [utils_constants.ExceptionCodes.UserList.INVALID_LIST_TYPE];
-					for (const id in list) {
-						if (!stores_namespaceObject.Users.getUser(id)) return [utils_constants.ExceptionCodes.UserList.INVALID_USER, id];
-						const timezone = list[id];
-						const checkIfNotTimezone = isNotTimezone(timezone);
-						if (checkIfNotTimezone) return [checkIfNotTimezone, id];
-					}
-					return false;
-				};
-				const isExistingUser = async (id, includeTT = false) => Boolean(await getTimezone(id, {
-					includeTT
-				}));
 				function TimezoneValueGetter({
 					userID,
 					includeTT = settingsManager.get("tt", true),
@@ -1279,7 +1521,7 @@ function buildPlugin([BasePlugin, PluginApi]) {
 							id: "timezones-add-user",
 							label: "Add timezone locally",
 							action: async () => {
-								await this.openSettingsModal(user.id);
+								await Timezones.prototype.openSettingsModal(user.id);
 							}
 						}) : external_BdApi_React_default().createElement(contextmenu_namespaceObject.MenuItem, {
 							id: "timezones-actions",
@@ -1288,7 +1530,9 @@ function buildPlugin([BasePlugin, PluginApi]) {
 							id: user.id,
 							timezone: state.value?.timezone,
 							onEditTimezone: async id => await Timezones.prototype.openSettingsModal(id, Boolean(!state.value?.offlineTz && state.value?.timezone)),
-							onDeleteTimezone: Timezones.prototype.onDeleteTimezone,
+							onDeleteTimezone: async id => {
+								Timezones.prototype.onDeleteTimezone(id);
+							},
 							isOnline: !state.value?.offlineTz
 						}))) : external_BdApi_React_default().createElement(external_BdApi_React_default().Fragment, null, external_BdApi_React_default().createElement(contextmenu_namespaceObject.MenuItem, {
 							id: "timezones-loading-add",
@@ -1332,7 +1576,9 @@ function buildPlugin([BasePlugin, PluginApi]) {
 							id: user.id,
 							timezone: state.value?.timezone,
 							onEditTimezone: async id => await Timezones.prototype.openSettingsModal(id, Boolean(!state.value?.offlineTz && state.value?.timezone)),
-							onDeleteTimezone: Timezones.prototype.onDeleteTimezone,
+							onDeleteTimezone: async id => {
+								Timezones.prototype.onDeleteTimezone(id);
+							},
 							isOnline: !state.value?.offlineTz
 						}))) : external_BdApi_React_default().createElement(external_BdApi_React_default().Fragment, null, external_BdApi_React_default().createElement(contextmenu_namespaceObject.MenuItem, {
 							id: "timezones-loading-add",
@@ -1609,7 +1855,7 @@ function buildPlugin([BasePlugin, PluginApi]) {
 				}
 				const doesCityExist = city => Boolean(searchForInfoFromCity(city, true));
 				const {
-					AvatarDefaults
+					AvatarDefaults: UserSelector_AvatarDefaults
 				} = external_PluginApi_namespaceObject.DiscordModules;
 				const {
 					default: Avatar
@@ -1661,7 +1907,7 @@ function buildPlugin([BasePlugin, PluginApi]) {
 						}
 					}, external_BdApi_React_default().createElement(Avatar, {
 						className: Timezones_style.Z["user-pfp"],
-						src: AvatarDefaults.getUserAvatarURL(values),
+						src: UserSelector_AvatarDefaults.getUserAvatarURL(values),
 						size: Avatar.Sizes.SIZE_24
 					}), external_BdApi_React_default().createElement("span", null, values.username))))), external_BdApi_React_default().createElement(components_namespaceObject.Button, {
 						onClick: () => {
@@ -1675,7 +1921,7 @@ function buildPlugin([BasePlugin, PluginApi]) {
 						disabled: !selectedUser
 					}, external_BdApi_React_default().createElement(components_namespaceObject.Flex, null, selectedUser && external_BdApi_React_default().createElement(Avatar, {
 						className: Timezones_style.Z["user-pfp"],
-						src: AvatarDefaults.getUserAvatarURL(selectedUser),
+						src: UserSelector_AvatarDefaults.getUserAvatarURL(selectedUser),
 						size: Avatar.Sizes.SIZE_16
 					}), "Select")))));
 				}
@@ -2410,16 +2656,6 @@ function buildPlugin([BasePlugin, PluginApi]) {
 					const [fileError, setFileError] = (0, external_BdApi_React_.useState)();
 					const [TTUrlError, setTTUrlError] = (0, external_BdApi_React_.useState)();
 					const TTUrlSignal = useAbortOnRestart()();
-					const forceUpdateMessages = () => {
-						let channelId = stores_namespaceObject.SelectedChannels.getChannelId();
-						if (!channelId) return;
-						const messages = stores_namespaceObject.Messages.getMessages(channelId);
-						if (!messages._array?.length) return;
-						for (const message of messages._array) modules_namespaceObject.Dispatcher.dispatch({
-							type: "MESSAGE_UPDATE",
-							message
-						});
-					};
 					return external_BdApi_React_default().createElement(external_BdApi_React_default().Fragment, null, external_BdApi_React_default().createElement("div", {
 						className: Timezones_style.Z["preview-wrapper"]
 					}, external_BdApi_React_default().createElement(Timer, null)), external_BdApi_React_default().createElement(CategorySpace, {
@@ -2552,19 +2788,19 @@ function buildPlugin([BasePlugin, PluginApi]) {
 						value: settingsManager.get("timestamps", false),
 						onChange: value => {
 							settingsManager.set("timestamps", value);
-							forceUpdateMessages();
+							Timezones.prototype.forceUpdateMessages();
 						}
 					}, "Display the user's current time in messages"), external_BdApi_React_default().createElement(SwitchItem, {
 						value: settingsManager.get("timestampsMessages", true),
 						onChange: value => {
 							settingsManager.set("timestampsMessages", value);
-							forceUpdateMessages();
+							Timezones.prototype.forceUpdateMessages();
 						}
 					}, "Display the message's time according to the user's time"), external_BdApi_React_default().createElement(SwitchItem, {
 						value: settingsManager.get("timestampsIcons", false),
 						onChange: value => {
 							settingsManager.set("timestampsIcons", value);
-							forceUpdateMessages();
+							Timezones.prototype.forceUpdateMessages();
 						},
 						disabled: shouldEnableIconsOption,
 						note: "This will be enabled by default if both settings above are enabled and disabled if both of them are as well"
@@ -2916,40 +3152,40 @@ function buildPlugin([BasePlugin, PluginApi]) {
 					};
 					return Timezones_extends.apply(this, arguments);
 				}
-				function Timezones_defineProperty(obj, key, value) {
-					if (key in obj) Object.defineProperty(obj, key, {
-						value,
-						enumerable: true,
-						configurable: true,
-						writable: true
-					});
-					else obj[key] = value;
-					return obj;
-				}
 				class Timezones extends(external_BasePlugin_default()) {
-					constructor(...args) {
-						super(...args);
-						Timezones_defineProperty(this, "onDeleteTimezone", (id => {
-							createQuestion("Remove timezone", "Are you sure that you want to remove the timezone for this user? Note that this is an IRREVERSIBLE action.", [{
-								text: "Proceed",
-								color: components_namespaceObject.Button.Colors.RED
-							}, {
-								text: "Cancel",
-								color: components_namespaceObject.Button.Colors.TRANSPARENT,
-								look: components_namespaceObject.Button.Looks.LINK
-							}]).then((({
-								button
-							}) => {
-								if ("Proceed" === button) removeUser(id);
-							}));
-						}));
-					}
 					async onStart() {
 						external_StyleLoader_default().inject();
 						this.supressErrors(userProfile, "User Profile", "176cd0");
 						this.supressErrors(messages, "Messages", "36cd30");
 						this.supressErrors(contextMenu, "Context Menu", "ff5177");
 						this.supressErrors(dm, "Direct Messages", "6262da");
+						Timezones_commands.apply(this.getName());
+					}
+					forceUpdateMessages(channelId = stores_namespaceObject.SelectedChannels.getChannelId()) {
+						if (!channelId) return;
+						const messages = stores_namespaceObject.Messages.getMessages(channelId);
+						if (!messages._array?.length) return;
+						for (const message of messages._array) modules_namespaceObject.Dispatcher.dispatch({
+							type: "MESSAGE_UPDATE",
+							message
+						});
+					}
+					onDeleteTimezone(id) {
+						createQuestion("Remove timezone", "Are you sure that you want to remove the timezone for this user? Note that this is an IRREVERSIBLE action.", [{
+							text: "Proceed",
+							color: components_namespaceObject.Button.Colors.RED
+						}, {
+							text: "Cancel",
+							color: components_namespaceObject.Button.Colors.TRANSPARENT,
+							look: components_namespaceObject.Button.Looks.LINK
+						}]).then((({
+							button
+						}) => {
+							if ("Proceed" === button) {
+								removeUser(id);
+								this.forceUpdateMessages();
+							}
+						}));
 					}
 					async openSettingsModal(userID, includeTT) {
 						const timezone = await getTimezone(userID, {
@@ -2996,6 +3232,7 @@ function buildPlugin([BasePlugin, PluginApi]) {
 					onStop() {
 						external_PluginApi_namespaceObject.Patcher.unpatchAll();
 						external_StyleLoader_default().remove();
+						Timezones_commands.remove(this.getName());
 					}
 				}
 			},
@@ -3077,7 +3314,7 @@ function buildPlugin([BasePlugin, PluginApi]) {
 				});
 			};
 		})();
-		var __webpack_exports__ = __webpack_require__(485);
+		var __webpack_exports__ = __webpack_require__(295);
 		module.exports.LibraryPluginHack = __webpack_exports__;
 	})();
 	const PluginExports = module.exports.LibraryPluginHack;
