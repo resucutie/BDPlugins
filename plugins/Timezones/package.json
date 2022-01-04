@@ -9,7 +9,7 @@
                 "twitter_username": "auwuser"
             }
         ],
-        "version": "1.0.1",
+        "version": "1.1.0",
         "description": "Simple and powerful timezone manager",
         "github": "https://github.com/abUwUser/BDPlugins/tree/main/plugins/Timezones",
         "github_raw": "https://raw.githubusercontent.com/abUwUser/BDPlugins/compiled/Timezones/Timezones.plugin.js"
@@ -25,10 +25,17 @@
     },
     "changelog": [
         {
-            "type": "progress",
-            "title": "#faa81a",
+            "type": "added",
+            "title": "OwO new features",
             "items": [
-                "**Fixed a typo in the user's list's timer align settings.** Just that"
+                "**Commands!** Now there is commands. You can type \"/timezone\" on the chatting textbox to display the avaiable commands"
+            ]
+        },
+        {
+            "type": "fixed",
+            "title": "Bruh",
+            "items": [
+                "Fixed a bug where you couldn't delete the user's timezone from the context menu"
             ]
         }
     ]

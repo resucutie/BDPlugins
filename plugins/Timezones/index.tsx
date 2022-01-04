@@ -2,11 +2,14 @@
 
 import React from "react"
 import BasePlugin from "@zlibrary/plugin";
-import { Patcher, Utilities } from "@zlibrary";
+import { Patcher } from "@zlibrary";
 import { Text, Button } from "@discord/components"
 import { ModalRoot, ModalSize, ModalHeader, ModalContent, openModal } from "@discord/modal"
+import { Messages, SelectedChannels } from "@discord/stores";
+import { Dispatcher } from "@discord/modules";
 import stylesheet from "styles"
 import styles from "./style.scss"
+import commands from "./commands";
 
 import userProfilePatch from "./patches/userProfile";
 import messagePatch from "./patches/messages";
@@ -39,9 +42,25 @@ export default class Timezones extends BasePlugin {
         this.supressErrors(messagePatch, "Messages", "36cd30")
         this.supressErrors(contextMenuPatch, "Context Menu", "ff5177")
         this.supressErrors(dmPatch, "Direct Messages", "6262da")
+        commands.apply(this.getName())
     }
 
-    onDeleteTimezone = id => {
+    /**
+     * @see {@link https://github.com/Puv1s/ColorTooltips/blob/d3386bff75ec03e13067cc819bac639c31e4bc35/ColorTooltips.plugin.js#L443}
+     */
+    forceUpdateMessages(channelId: ChannelID = SelectedChannels.getChannelId()){
+        if (!channelId) return;
+        const messages = Messages.getMessages(channelId);
+        if (!messages._array?.length) return;
+        for (const message of messages._array) {
+            Dispatcher.dispatch({
+                type: "MESSAGE_UPDATE",
+                message: message
+            });
+        }
+    }
+
+    onDeleteTimezone(id) {
         createQuestion(
             "Remove timezone",
             "Are you sure that you want to remove the timezone for this user? Note that this is an IRREVERSIBLE action.",
@@ -51,7 +70,10 @@ export default class Timezones extends BasePlugin {
             ]
             //@ts-ignore
         ).then(({ button }) => {
-            if (button === "Proceed") removeUser(id)
+            if (button === "Proceed") {
+                removeUser(id)
+                this.forceUpdateMessages()
+            }
         })
     }
 
@@ -130,5 +152,6 @@ export default class Timezones extends BasePlugin {
     onStop() {
         Patcher.unpatchAll()
         stylesheet.remove()
+        commands.remove(this.getName())
     }
 }

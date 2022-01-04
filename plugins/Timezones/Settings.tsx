@@ -11,11 +11,10 @@ import createUpdateWrapper from "common/hooks/createUpdateWrapper";
 import Category from "common/components/category";
 import { FormItem, FormSection, FormText, FormTitle } from '@discord/forms';
 import { joinClassNames } from '@discord/utils';
-import { Messages, SelectedChannels } from '@discord/stores';
 import { ModalSize } from '@discord/modal';
-import { Dispatcher } from '@discord/modules';
 import { Users } from '@discord/stores';
 
+import ThisPlugin from "./index"
 import styles from "./style.scss"
 import settings from './settingsManager';
 import Timer from './components/Timer';
@@ -31,7 +30,6 @@ import { TTCache } from './utils/cache';
 import useAbortOnRestart from './hooks/useAbortOnRestart';
 import { getOffset } from './utils/timezones';
 import BasicTimer from './components/BasicTimer';
-import TimezoneValueGetter from './components/TimezoneValueGetter';
 
 
 const SwitchItem = createUpdateWrapper(WebpackModules.getByDisplayName("SwitchItem"))
@@ -132,18 +130,6 @@ export default React.memo(() => {
     /**
      * @see {@link https://github.com/Puv1s/ColorTooltips/blob/d3386bff75ec03e13067cc819bac639c31e4bc35/ColorTooltips.plugin.js#L443}
      */
-    const forceUpdateMessages = () => {
-        let channelId = SelectedChannels.getChannelId();
-        if (!channelId) return;
-        const messages = Messages.getMessages(channelId);
-        if (!messages._array?.length) return;
-        for (const message of messages._array) {
-            Dispatcher.dispatch({
-                type: "MESSAGE_UPDATE",
-                message: message
-            });
-        }
-    }
 
     return <>
         <div className={styles["preview-wrapper"]}>
@@ -279,21 +265,21 @@ export default React.memo(() => {
                     value={settings.get("timestamps", false)}
                     onChange={value => {
                         settings.set("timestamps", value)
-                        forceUpdateMessages()
+                        ThisPlugin.prototype.forceUpdateMessages()
                     }}
                 >Display the user's current time in messages</SwitchItem>
                 <SwitchItem
                     value={settings.get("timestampsMessages", true)}
                     onChange={value => {
                         settings.set("timestampsMessages", value)
-                        forceUpdateMessages()
+                        ThisPlugin.prototype.forceUpdateMessages()
                     }}
                 >Display the message's time according to the user's time</SwitchItem>
                 <SwitchItem
                     value={settings.get("timestampsIcons", false)}
                     onChange={value => {
                         settings.set("timestampsIcons", value)
-                        forceUpdateMessages()
+                        ThisPlugin.prototype.forceUpdateMessages()
                     }}
                     disabled={shouldEnableIconsOption}
                     note="This will be enabled by default if both settings above are enabled and disabled if both of them are as well"

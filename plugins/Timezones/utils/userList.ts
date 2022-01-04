@@ -27,6 +27,8 @@ const addUser = (id, timezone, shouldCleanList = false) => {
     if (shouldCleanList) cleanList()
 }
 
+const editUser = addUser
+
 const removeUser = (id) => {
     let list = getList()
     delete list[id]
@@ -87,4 +89,4 @@ const isListNotValid = (list: UserListType) => {
 
 const isExistingUser = async (id, includeTT = false) => Boolean(await getTimezone(id, { includeTT }))
 
-export { addUser, removeUser, getTimezone, getList, setList, isExistingUser, cleanList, isListNotValid }
+export { addUser, editUser, removeUser, getTimezone, getList, setList, isExistingUser, cleanList, isListNotValid }

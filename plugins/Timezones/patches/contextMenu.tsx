@@ -29,7 +29,7 @@ export default function(){
                 {!state.value?.timezone ? <MenuItem
                     id="timezones-add-user"
                     label="Add timezone locally"
-                    action={async () => { await this.openSettingsModal(user.id) }}
+                    action={async () => { await ThisPlugin.prototype.openSettingsModal(user.id) }}
                 /> : <MenuItem
                     id="timezones-actions"
                     label="Timezone actions"
@@ -38,7 +38,9 @@ export default function(){
                         id: user.id,
                         timezone: state.value?.timezone,
                         onEditTimezone: async id => await ThisPlugin.prototype.openSettingsModal(id, Boolean(!state.value?.offlineTz && state.value?.timezone)),
-                        onDeleteTimezone: ThisPlugin.prototype.onDeleteTimezone,
+                        onDeleteTimezone: async id => {
+                            ThisPlugin.prototype.onDeleteTimezone(id)
+                        },
                         isOnline: !state.value?.offlineTz
                     })}
                 </MenuItem>}
@@ -84,7 +86,9 @@ export default function(){
                         id: user.id,
                         timezone: state.value?.timezone,
                         onEditTimezone: async id => await ThisPlugin.prototype.openSettingsModal(id, Boolean(!state.value?.offlineTz && state.value?.timezone)),
-                        onDeleteTimezone: ThisPlugin.prototype.onDeleteTimezone,
+                        onDeleteTimezone: async id => {
+                            ThisPlugin.prototype.onDeleteTimezone(id)
+                        },
                         isOnline: !state.value?.offlineTz
                     })}
                 </MenuItem>}
