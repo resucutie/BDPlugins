@@ -235,6 +235,12 @@ export default React.memo(() => {
                 </FormText>
             </FormSection>
             <Divider />
+
+            <SwitchItem
+                value={settings.get("emoji-icons", false)}
+                onChange={value => settings.set("emoji-icons", value)}
+                note="Why not? It looks cute *smiles and bleps*"
+            >Display icons as emojis</SwitchItem>
             
             <CategorySpace look={Category.Looks.COMPACT} label="User Popout">
                 <SwitchItem
@@ -261,33 +267,37 @@ export default React.memo(() => {
             </CategorySpace>
             
             <CategorySpace look={Category.Looks.COMPACT} label="Messages">
-                <SwitchItem
-                    value={settings.get("timestamps", false)}
-                    onChange={value => {
-                        settings.set("timestamps", value)
-                        ThisPlugin.prototype.forceUpdateMessages()
-                    }}
-                >Display the user's current time in messages</SwitchItem>
-                <SwitchItem
-                    value={settings.get("timestampsMessages", true)}
-                    onChange={value => {
-                        settings.set("timestampsMessages", value)
-                        ThisPlugin.prototype.forceUpdateMessages()
-                    }}
-                >Display the message's time according to the user's time</SwitchItem>
-                <SwitchItem
-                    value={settings.get("timestampsIcons", false)}
-                    onChange={value => {
-                        settings.set("timestampsIcons", value)
-                        ThisPlugin.prototype.forceUpdateMessages()
-                    }}
-                    disabled={shouldEnableIconsOption}
-                    note="This will be enabled by default if both settings above are enabled and disabled if both of them are as well"
-                >Show icons in timestamps</SwitchItem>
-                <SwitchItem
-                    value={settings.get("header", true)}
-                    onChange={value => settings.set("header", value)}
-                >Display the user's current time in the header while in DMs</SwitchItem>
+                <FormSection title="Timestamps">
+                    <SwitchItem
+                        value={settings.get("timestamps", false)}
+                        onChange={value => {
+                            settings.set("timestamps", value)
+                            ThisPlugin.prototype.forceUpdateMessages()
+                        }}
+                    >Display the user's current time in messages</SwitchItem>
+                    <SwitchItem
+                        value={settings.get("timestampsMessages", true)}
+                        onChange={value => {
+                            settings.set("timestampsMessages", value)
+                            ThisPlugin.prototype.forceUpdateMessages()
+                        }}
+                    >Display the message's time according to the user's time</SwitchItem>
+                    <SwitchItem
+                        value={settings.get("timestampsIcons", false)}
+                        onChange={value => {
+                            settings.set("timestampsIcons", value)
+                            ThisPlugin.prototype.forceUpdateMessages()
+                        }}
+                        disabled={shouldEnableIconsOption}
+                        note="This will be enabled by default if both settings above are enabled and disabled if both of them are as well"
+                    >Show icons in timestamps</SwitchItem>
+                </FormSection>
+                <FormSection title="Other">
+                    <SwitchItem
+                        value={settings.get("header", true)}
+                        onChange={value => settings.set("header", value)}
+                    >Display the user's current time in the header while in DMs</SwitchItem>
+                </FormSection>
             </CategorySpace>
             
             <CategorySpace look={Category.Looks.COMPACT} label="User Lists">

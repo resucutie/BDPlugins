@@ -84,6 +84,39 @@ declare module "@discord/components" {
     // its exported as a type due to bdbuilder not exporting it, so we have to manually get it from Webpack
     type RadioGroupType = (props: RadioProps) => ReactElement
 
+    /* Radio */
+
+    type HeaderSizes = {
+        SIZE_10: "size10-2BeLhd"
+        SIZE_12: "size12-oc4dx4"
+        SIZE_14: "size14-3fJ-ot"
+        SIZE_16: "size16-rrJ6ag"
+        SIZE_20: "size20-9iTTnl"
+        SIZE_24: "size24-17l95E"
+        SIZE_32: "size32-5yOQel"
+    }
+
+    type HeaderTags = {
+        H1: "h1"
+        H2: "h2"
+        H3: "h3"
+        H4: "h4"
+        H5: "h5"
+        H6: "h6"
+    }
+
+    type HeaderProps = {
+        children: ReactElement
+        className?: string
+        size: string
+        tag?: string
+        uppercase?: boolean
+        muted?: boolean
+    }
+
+    // its exported as a type due to bdbuilder not exporting it, so we have to manually get it from Webpack
+    export type HeaderType = (props: HeaderProps) => ReactElement
+
     /* Text */
 
     const TextSizes: { SIZE_10: string; SIZE_12: string; SIZE_14: string; SIZE_16: string; SIZE_20: string; SIZE_24: string; SIZE_32: string; }

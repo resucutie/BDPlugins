@@ -7,8 +7,12 @@ import { Timestamp as moment } from '@discord/classes';
 import settings from "../settingsManager";
 import { getTimeFromTimezone, formatDate, getOffset } from '../utils/timezones';
 import constants from '../utils/constants';
+import { DiscordModules } from '@zlibrary';
 
-export default React.memo(({ timezone = getOffset(), tooltip = true, showSeconds = false, staticTime, className, children = (props) => props }: BasicTimerProps) => {
+const sunny = DiscordModules.EmojiStore.getByName("sunny")
+const moon = DiscordModules.EmojiStore.getByName("crescent_moon")
+
+export default React.memo(({ timezone = getOffset(), tooltip = true, showSeconds = false, staticTime, className, children = (props) => props}: BasicTimerProps) => {
     const [dateHook, setDateHook] = useState(getTimeFromTimezone(timezone))
     useEffect(() => {
         const id = setInterval(() => setDateHook(getTimeFromTimezone(timezone)), 1000)
@@ -17,20 +21,21 @@ export default React.memo(({ timezone = getOffset(), tooltip = true, showSeconds
         }
     }, [])
 
-    const shouldShowTimerIcon = useStateFromStores([settings], () => settings.get("_callTimeCalculator"))
+    const isTimerCalculatorOpen: boolean = useStateFromStores([settings], () => settings.get("_callTimeCalculator"))
 
-    const date = staticTime ? staticTime : dateHook
+    const date: Date = staticTime ? staticTime : dateHook
 
     const formattedText = formatDate(date, timezone)
+    
+    const emojiIcon: string = settings.get("emoji-icons", false)
+        ? (
+            Number(formattedText["24hour"]) >= 18 || Number(formattedText["24hour"]) < 6
+                ? moon.url
+                : sunny.url
+        )
+        : null
 
-    // const element = <>
-    //     {formattedText.hours}:
-    //     {formattedText.minutes}
-    //     {settings.get("seconds", false) || showSeconds ? `:${formattedText.seconds}` : ""}
-    //     {settings.get("ampm", constants.TimePreferrence["12HFOMRAT"]()) ? " " + formattedText.suffix : ""}
-    // </>
-
-    const element = settings.get("format", constants.Settings.General.Format.CURRENT_FORMAT)
+    const timeText = settings.get("format", constants.Settings.General.Format.CURRENT_FORMAT)
         //time
         .replace("{24hours}", formattedText["24hour"])
         .replace("{12hours}", formattedText["12hour"])
@@ -52,8 +57,8 @@ export default React.memo(({ timezone = getOffset(), tooltip = true, showSeconds
         .replace("{timezone}", timezone)
         .replace("{418}", "I'm a Teapot")
 
-    if (tooltip) return <TooltipContainer text={formattedText.toString()} delay={750} className={className}>{children(element, formattedText, date)}</TooltipContainer>
-    return children(element, formattedText, date, shouldShowTimerIcon)
+    if (tooltip) return <TooltipContainer text={formattedText.toString()} delay={750} className={className}>{children(timeText, { formattedText, date, isTimerCalculatorOpen, emojiIcon})}</TooltipContainer>
+    return children(timeText, { formattedText, date, isTimerCalculatorOpen, emojiIcon})
 })
 
 /**

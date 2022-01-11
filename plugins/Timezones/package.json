@@ -9,7 +9,7 @@
                 "twitter_username": "auwuser"
             }
         ],
-        "version": "1.1.0",
+        "version": "1.2.0",
         "description": "Simple and powerful timezone manager",
         "github": "https://github.com/abUwUser/BDPlugins/tree/main/plugins/Timezones",
         "github_raw": "https://raw.githubusercontent.com/abUwUser/BDPlugins/compiled/Timezones/Timezones.plugin.js"
@@ -26,16 +26,19 @@
     "changelog": [
         {
             "type": "added",
-            "title": "OwO new features",
+            "title": "Ç",
             "items": [
-                "**Commands!** Now there is commands. You can type \"/timezone\" on the chatting textbox to display the avaiable commands"
+                "**Now you can replace the boring clock to emojis indicating your current time**. Why? Because its cute \\*wags tail\\*",
+                "Clicking in the timer at the header will now open a popout with the timer calculater",
+                "**You can put negative hours into the timer calculator**. Very cool, huh?"
             ]
         },
         {
             "type": "fixed",
-            "title": "Bruh",
+            "title": "oh no",
             "items": [
-                "Fixed a bug where you couldn't delete the user's timezone from the context menu"
+                "Now the list is properly updated as when you enable the lock settings",
+                "Discord broke themes and plugins \\*yay*. Thank god this plugin wasn't affected mostly, just some visual bugs *and a error spamming on the console*, but it was all fixed!"
             ]
         }
     ]

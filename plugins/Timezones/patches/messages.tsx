@@ -74,10 +74,15 @@ export default function(){
         });
     }
 
+    // Patcher.after(WebpackModules.find(m => m.default?.displayName === "MessageTimestamp"), "default", (_this, [props], res) => {
+    //     console.log(_this, props, res)
+    // })
+
     Patcher.after(WebpackModules.find(m => m.default?.displayName === "MemberListItem").default.prototype, "render", ({props}, _, topRes) => {
         if (!settings.get("userlist-server", true)) return
-        
         const user: UserObject = props.user
+
+        if (!user || Users.getCurrentUser().id === user.id) return
 
         const activityStatus = topRes.props?.subText
         const secondOgMonkeyPatch: Function = activityStatus?.type
@@ -85,15 +90,23 @@ export default function(){
         activityStatus.type = function () {
             const res = secondOgMonkeyPatch.apply(this, arguments)
 
+            const iconStyles = (emojiIcon) => ({
+                marginRight: emojiIcon ? "4px" : "2px",
+                height: "12px",
+                opacity: ".8"
+            })
+
             if (!res) {
                 return <div className={arguments[0].className}>
                     <TimezoneValueGetter userID={user.id}>
-                        {state => <>
-                            <span style={{ marginRight: "2px", height: "12px" }}>
-                                <Timer width={12} height={12} />
-                            </span>
-                            <BasicTimer timezone={state.value?.timezone} tooltip={false} />
-                        </>}
+                        {state => <BasicTimer timezone={state.value?.timezone} tooltip={false}>
+                            {(element, { emojiIcon }) => <>
+                                <span style={iconStyles(emojiIcon)}>
+                                    {emojiIcon ? <img src={emojiIcon} width={12} height={12} /> : <Timer width={12} height={12} style={{ minWidth: "12px" }} />}
+                                </span>
+                                {element}
+                            </>}
+                        </BasicTimer>}
                     </TimezoneValueGetter>
                 </div>
             } else {
@@ -101,10 +114,14 @@ export default function(){
                 const view = <TimezoneValueGetter userID={user.id}>
                     {state => <>
                         {align === constants.Settings.TimerAlign.RIGHT && <span className={styles["dot"]}>•</span>}
-                        <span style={{marginRight: "2px", height: "12px" }}>
-                            <Timer width={12} height={12} style={{ minWidth: "12px" }} />
-                        </span>
-                        <BasicTimer timezone={state.value?.timezone} tooltip={false} />
+                        <BasicTimer timezone={state.value?.timezone} tooltip={false}>
+                            {(element, { emojiIcon }) => <>
+                                <span style={iconStyles(emojiIcon)}>
+                                    {emojiIcon ? <img src={emojiIcon} width={12} height={12} /> : <Timer width={12} height={12} style={{ minWidth: "12px" }} />}
+                                </span>
+                                {element}
+                            </>}
+                        </BasicTimer>
                         {align === constants.Settings.TimerAlign.LEFT && <span className={styles["dot"]}>•</span>}
                     </>}
                 </TimezoneValueGetter>

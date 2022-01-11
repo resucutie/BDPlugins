@@ -3,7 +3,7 @@ import { useSpring, useTransition, animated as a } from "react-spring"
 
 import { WebpackModules } from "@zlibrary";
 import { useStateFromStores } from "@discord/flux";
-import { Button, Flex, TextInput } from "@discord/components";
+import { Button, Flex, HeaderType, TextInput } from "@discord/components";
 
 import useResizeObserver from '../hooks/useResizeObserver';
 import { getTimeFromTimezone, formatDate } from "../utils/timezones";
@@ -11,9 +11,16 @@ import settings from "../settingsManager";
 import styles from "../style.scss"
 import { Text } from "@discord/components";
 
-const Header = WebpackModules.getByDisplayName("Header")
+const Header: HeaderType = WebpackModules.find(m => m.Tags && m.displayName === "Header")
 
-export default React.memo(({ timezone, attachPropsToAnim, ...etc}: {timezone: string; [key: string]: any}) => {
+interface Props {
+    timezone: string
+    attachPropsToAnim?: Object
+    shouldAnimate?: boolean
+    [key: string]: any
+}
+
+export default React.memo(({ timezone, attachPropsToAnim, shouldAnimate = true, ...etc }: Props) => {
     const {ref, height} = useResizeObserver();
 
     let shouldShow = useStateFromStores([settings], () => settings.get("_callTimeCalculator"))
@@ -39,28 +46,32 @@ export default React.memo(({ timezone, attachPropsToAnim, ...etc}: {timezone: st
         opacity: calculated ? 1 : 0
     });
 
-    return <a.div style={openAnim} {...attachPropsToAnim}>
-        <div ref={ref} className={styles["calc-time-wrapper"]} {...etc}>
+    let render = <div className={styles["calc-time-wrapper"]} {...etc}>
+        <Flex align={Flex.Align.CENTER} className={styles["input-wrapper"]}>
+            <TextInput className={styles["input"]} value={hours} onChange={(value) => {
+                setHours(value.replace(/[^\d.+-:]/g, ''))
+            }} /> <span>hour{hours === 1 ? "" : "s"} and</span>
+            <TextInput className={styles["input"]} value={minutes} onChange={(value) => setMinutes(Number(value))} /> <span>minute{minutes === 1 ? "" : "s"}</span>
+        </Flex>
+        {calculated && <a.div style={calculateTextAnim}><b>Result:</b> {formatDate(calculated).toString()}</a.div>}
+    </div>
+
+    return shouldAnimate ? <a.div style={openAnim} {...attachPropsToAnim}>
+        <div ref={ref}>
             <div className="divider-ewBQKj" />
-            <div className="bodyTitle-1ySSKn fontDisplay-1dagSA base-1x0h_U size12-3cLvbJ muted-3-7c5L uppercase-3VWUQ9">Check time after</div>
-            <Flex align={Flex.Align.CENTER} className={styles["input-wrapper"]}>
-                <TextInput className={styles["input"]} value={hours} onChange={(value) => {
-                    setHours(Number(value))
-                }} /> <span>hour{hours === 1 ? "" : "s"} and</span>
-                <TextInput className={styles["input"]} value={minutes} onChange={(value) => setMinutes(Number(value))} /> <span>minute{minutes === 1 ? "" : "s"}</span>
-            </Flex>
-            {calculated && <a.div style={calculateTextAnim}><b>Result:</b> {formatDate(calculated).toString()}</a.div>}
+            {/*@ts-ignore */}
+            <Header size={Header.Sizes.SIZE_12} muted={true} uppercase={true} className="bodyTitle-2Az3VQ">Calculate time</Header>
+            {render}
         </div>
-    </a.div>
+    </a.div> : render
 })
 
 function getCurrentTime(timezone: Timezone, hrs: number, mins: number){
-    if (hrs === 0) return
+    if (hrs === 0 || Number.isNaN(hrs) || Number.isNaN(mins)) return
     
     const correctedHours = hrs + (mins / 60)
     let date = getTimeFromTimezone(timezone, new Date())
     date.setTime(date.getTime() + (Number(correctedHours) * 60 * 60 * 1000))
-
 
     return date
 }

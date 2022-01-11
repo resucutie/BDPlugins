@@ -25,9 +25,9 @@ interface Props {
     [key: string]: any
 }
 
-export default React.memo(({ onEdit, onDelete, enableSettings = true, disableControls = settings.get("lockControls", false), list = cleanList(getList()), ...etc }: Props) => {
+export default React.memo(({ onEdit, onDelete, enableSettings = true, disableControls = false, list = cleanList(getList()), ...etc }: Props) => {
     const sortSettings = useStateFromStores([settings], () => settings.get("listSorting", "a-z"))
-    const lockControls = useStateFromStores([settings], () => disableControls)
+    const lockControls = useStateFromStores([settings], () => disableControls ? true : settings.get("lockControls", false))
 
     const [search, setSearch] = useState("") //UserTimezone Textbox
 
