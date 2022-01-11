@@ -40,6 +40,13 @@
                 "Now the list is properly updated as when you enable the lock settings",
                 "Discord broke themes and plugins \\*yay*. Thank god this plugin wasn't affected mostly, just some visual bugs *and a error spamming on the console*, but it was all fixed!"
             ]
+        },
+        {
+            "type": "improved",
+            "title": "News",
+            "items": [
+                "I will go on a vacation and I wont be able to do any changes to this plugin. If you find any issue, please, but **please**, make a pull request fixing it, or just report in the issue page on Github, that works as well."
+            ]
         }
     ]
 }
