@@ -9,7 +9,7 @@
                 "twitter_username": "auwuser"
             }
         ],
-        "version": "1.2.0",
+        "version": "1.2.1",
         "description": "Simple and powerful timezone manager",
         "github": "https://github.com/abUwUser/BDPlugins/tree/main/plugins/Timezones",
         "github_raw": "https://raw.githubusercontent.com/abUwUser/BDPlugins/compiled/Timezones/Timezones.plugin.js"

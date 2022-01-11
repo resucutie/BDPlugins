@@ -58,7 +58,7 @@ export default React.memo(({ timezone, attachPropsToAnim, shouldAnimate = true, 
 
     return shouldAnimate ? <a.div style={openAnim} {...attachPropsToAnim}>
         <div ref={ref}>
-            <div className="divider-ewBQKj" />
+            <div className="divider-1wtgZ3" />
             {/*@ts-ignore */}
             <Header size={Header.Sizes.SIZE_12} muted={true} uppercase={true} className="bodyTitle-2Az3VQ">Calculate time</Header>
             {render}
