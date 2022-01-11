@@ -1,7 +1,7 @@
 /**
  * @name Timezones
  * @author A user
- * @version 1.2.0
+ * @version 1.2.1
  * @description Simple and powerful timezone manager
  * @source https://github.com/abUwUser/BDPlugins/tree/main/plugins/Timezones
  * @updateUrl https://raw.githubusercontent.com/abUwUser/BDPlugins/compiled/Timezones/Timezones.plugin.js
@@ -38,7 +38,7 @@ const config = {
 			"github_username": "abUwUser",
 			"twitter_username": "auwuser"
 		}],
-		"version": "1.2.0",
+		"version": "1.2.1",
 		"description": "Simple and powerful timezone manager",
 		"github": "https://github.com/abUwUser/BDPlugins/tree/main/plugins/Timezones",
 		"github_raw": "https://raw.githubusercontent.com/abUwUser/BDPlugins/compiled/Timezones/Timezones.plugin.js"
@@ -1241,7 +1241,7 @@ function buildPlugin([BasePlugin, PluginApi]) {
 					}, attachPropsToAnim), external_BdApi_React_default().createElement("div", {
 						ref
 					}, external_BdApi_React_default().createElement("div", {
-						className: "divider-ewBQKj"
+						className: "divider-1wtgZ3"
 					}), external_BdApi_React_default().createElement(Header, {
 						size: Header.Sizes.SIZE_12,
 						muted: true,
