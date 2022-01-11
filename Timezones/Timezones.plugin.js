@@ -1,7 +1,7 @@
 /**
  * @name Timezones
  * @author A user
- * @version 1.1.0
+ * @version 1.2.0
  * @description Simple and powerful timezone manager
  * @source https://github.com/abUwUser/BDPlugins/tree/main/plugins/Timezones
  * @updateUrl https://raw.githubusercontent.com/abUwUser/BDPlugins/compiled/Timezones/Timezones.plugin.js
@@ -38,7 +38,7 @@ const config = {
 			"github_username": "abUwUser",
 			"twitter_username": "auwuser"
 		}],
-		"version": "1.1.0",
+		"version": "1.2.0",
 		"description": "Simple and powerful timezone manager",
 		"github": "https://github.com/abUwUser/BDPlugins/tree/main/plugins/Timezones",
 		"github_raw": "https://raw.githubusercontent.com/abUwUser/BDPlugins/compiled/Timezones/Timezones.plugin.js"
@@ -54,16 +54,26 @@ const config = {
 	},
 	"changelog": [{
 			"type": "added",
-			"title": "OwO new features",
+			"title": "Ç",
 			"items": [
-				"**Commands!** Now there is commands. You can type \"/timezone\" on the chatting textbox to display the avaiable commands"
+				"**Now you can replace the boring clock to emojis indicating your current time**. Why? Because its cute \\*wags tail\\*",
+				"Clicking in the timer at the header will now open a popout with the timer calculater",
+				"**You can put negative hours into the timer calculator**. Very cool, huh?"
 			]
 		},
 		{
 			"type": "fixed",
-			"title": "Bruh",
+			"title": "oh no",
 			"items": [
-				"Fixed a bug where you couldn't delete the user's timezone from the context menu"
+				"Now the list is properly updated as when you enable the lock settings",
+				"Discord broke themes and plugins \\*yay*. Thank god this plugin wasn't affected mostly, just some visual bugs *and a error spamming on the console*, but it was all fixed!"
+			]
+		},
+		{
+			"type": "improved",
+			"title": "News",
+			"items": [
+				"I will go on a vacation and I wont be able to do any changes to this plugin. If you find any issue, please, but **please**, make a pull request fixing it, or just report in the issue page on Github, that works as well."
 			]
 		}
 	]
@@ -1179,10 +1189,11 @@ function buildPlugin([BasePlugin, PluginApi]) {
 					};
 					return _extends.apply(this, arguments);
 				}
-				const Header = external_PluginApi_namespaceObject.WebpackModules.getByDisplayName("Header");
+				const Header = external_PluginApi_namespaceObject.WebpackModules.find((m => m.Tags && "Header" === m.displayName));
 				const TimeCalculator = external_BdApi_React_default().memo((({
 					timezone,
 					attachPropsToAnim,
+					shouldAnimate = true,
 					...etc
 				}) => {
 					const {
@@ -1207,23 +1218,16 @@ function buildPlugin([BasePlugin, PluginApi]) {
 					const calculateTextAnim = (0, external_Modules_react_spring_namespaceObject.useSpring)({
 						opacity: calculated ? 1 : 0
 					});
-					return external_BdApi_React_default().createElement(external_Modules_react_spring_namespaceObject.animated.div, _extends({
-						style: openAnim
-					}, attachPropsToAnim), external_BdApi_React_default().createElement("div", _extends({
-						ref,
+					let render = external_BdApi_React_default().createElement("div", _extends({
 						className: Timezones_style.Z["calc-time-wrapper"]
-					}, etc), external_BdApi_React_default().createElement("div", {
-						className: "divider-ewBQKj"
-					}), external_BdApi_React_default().createElement("div", {
-						className: "bodyTitle-1ySSKn fontDisplay-1dagSA base-1x0h_U size12-3cLvbJ muted-3-7c5L uppercase-3VWUQ9"
-					}, "Check time after"), external_BdApi_React_default().createElement(components_namespaceObject.Flex, {
+					}, etc), external_BdApi_React_default().createElement(components_namespaceObject.Flex, {
 						align: components_namespaceObject.Flex.Align.CENTER,
 						className: Timezones_style.Z["input-wrapper"]
 					}, external_BdApi_React_default().createElement(components_namespaceObject.TextInput, {
 						className: Timezones_style.Z.input,
 						value: hours,
 						onChange: value => {
-							setHours(Number(value));
+							setHours(value.replace(/[^\d.+-:]/g, ""));
 						}
 					}), " ", external_BdApi_React_default().createElement("span", null, "hour", 1 === hours ? "" : "s", " and"), external_BdApi_React_default().createElement(components_namespaceObject.TextInput, {
 						className: Timezones_style.Z.input,
@@ -1231,14 +1235,28 @@ function buildPlugin([BasePlugin, PluginApi]) {
 						onChange: value => setMinutes(Number(value))
 					}), " ", external_BdApi_React_default().createElement("span", null, "minute", 1 === minutes ? "" : "s")), calculated && external_BdApi_React_default().createElement(external_Modules_react_spring_namespaceObject.animated.div, {
 						style: calculateTextAnim
-					}, external_BdApi_React_default().createElement("b", null, "Result:"), " ", formatDate(calculated).toString())));
+					}, external_BdApi_React_default().createElement("b", null, "Result:"), " ", formatDate(calculated).toString()));
+					return shouldAnimate ? external_BdApi_React_default().createElement(external_Modules_react_spring_namespaceObject.animated.div, _extends({
+						style: openAnim
+					}, attachPropsToAnim), external_BdApi_React_default().createElement("div", {
+						ref
+					}, external_BdApi_React_default().createElement("div", {
+						className: "divider-ewBQKj"
+					}), external_BdApi_React_default().createElement(Header, {
+						size: Header.Sizes.SIZE_12,
+						muted: true,
+						uppercase: true,
+						className: "bodyTitle-2Az3VQ"
+					}, "Calculate time"), render)) : render;
 				}));
 				function getCurrentTime(timezone, hrs, mins) {
-					if (0 === hrs) return;
+					if (0 === hrs || Number.isNaN(hrs) || Number.isNaN(mins)) return;
 					let date = getTimeFromTimezone(timezone, new Date);
 					date.setTime(date.getTime() + 60 * Number(hrs + mins / 60) * 60 * 1e3);
 					return date;
 				}
+				const sunny = external_PluginApi_namespaceObject.DiscordModules.EmojiStore.getByName("sunny");
+				const moon = external_PluginApi_namespaceObject.DiscordModules.EmojiStore.getByName("crescent_moon");
 				const BasicTimer = external_BdApi_React_default().memo((({
 					timezone = getOffset(),
 					tooltip = true,
@@ -1254,10 +1272,11 @@ function buildPlugin([BasePlugin, PluginApi]) {
 							clearInterval(id);
 						};
 					}), []);
-					const shouldShowTimerIcon = (0, flux_namespaceObject.useStateFromStores)([settingsManager], (() => settingsManager.get("_callTimeCalculator")));
+					const isTimerCalculatorOpen = (0, flux_namespaceObject.useStateFromStores)([settingsManager], (() => settingsManager.get("_callTimeCalculator")));
 					const date = staticTime ? staticTime : dateHook;
 					const formattedText = formatDate(date, timezone);
-					const element = settingsManager.get("format", utils_constants.Settings.General.Format.CURRENT_FORMAT).replace("{24hours}", formattedText["24hour"]).replace("{12hours}", formattedText["12hour"]).replace("{minutes}", formattedText.minutes).replace("{seconds}", formattedText.seconds).replace("{date}", String(date.getDate())).replace("{weekday}", String(date.getDay() + 1)).replace("{weekdayName}", date.toLocaleDateString(navigator.language, {
+					const emojiIcon = settingsManager.get("emoji-icons", false) ? Number(formattedText["24hour"]) >= 18 || Number(formattedText["24hour"]) < 6 ? moon.url : sunny.url : null;
+					const timeText = settingsManager.get("format", utils_constants.Settings.General.Format.CURRENT_FORMAT).replace("{24hours}", formattedText["24hour"]).replace("{12hours}", formattedText["12hour"]).replace("{minutes}", formattedText.minutes).replace("{seconds}", formattedText.seconds).replace("{date}", String(date.getDate())).replace("{weekday}", String(date.getDay() + 1)).replace("{weekdayName}", date.toLocaleDateString(navigator.language, {
 						weekday: "short"
 					})).replace("{weekdayFullName}", date.toLocaleDateString(navigator.language, {
 						weekday: "long"
@@ -1271,8 +1290,18 @@ function buildPlugin([BasePlugin, PluginApi]) {
 						text: formattedText.toString(),
 						delay: 750,
 						className
-					}, children(element, formattedText, date));
-					return children(element, formattedText, date, shouldShowTimerIcon);
+					}, children(timeText, {
+						formattedText,
+						date,
+						isTimerCalculatorOpen,
+						emojiIcon
+					}));
+					return children(timeText, {
+						formattedText,
+						date,
+						isTimerCalculatorOpen,
+						emojiIcon
+					});
 				}));
 				const getWeekOfMonth = (date = new Date) => {
 					var firstWeekday = new Date(date.getFullYear(), date.getMonth(), 1).getDay() - 1;
@@ -1303,18 +1332,35 @@ function buildPlugin([BasePlugin, PluginApi]) {
 					timezone,
 					showSeconds,
 					tooltip: false
-				}, ((element, formattedText, date, shouldShowTimerIcon) => external_BdApi_React_default().createElement(external_BdApi_React_default().Fragment, null, external_BdApi_React_default().createElement("div", {
+				}, ((element, {
+					formattedText,
+					date,
+					isTimerCalculatorOpen,
+					emojiIcon
+				}) => external_BdApi_React_default().createElement(external_BdApi_React_default().Fragment, null, external_BdApi_React_default().createElement("div", {
 					className: Timezones_style.Z["img-wrapper"]
-				}, !shouldShowTimerIcon ? external_BdApi_React_default().createElement(components_namespaceObject.TooltipContainer, {
+				}, !isTimerCalculatorOpen ? external_BdApi_React_default().createElement(components_namespaceObject.TooltipContainer, {
 					text: formattedText.toString()
-				}, external_BdApi_React_default().createElement(RotateClock, {
+				}, emojiIcon ? external_BdApi_React_default().createElement("img", {
+					src: emojiIcon,
+					width: 14,
+					height: 14,
+					style: {
+						margin: "3px"
+					}
+				}) : external_BdApi_React_default().createElement(RotateClock, {
 					rotateAngle: 30 * Number(formattedText["12hour"])
 				})) : external_BdApi_React_default().createElement(icons_namespaceObject.DropdownArrow, {
 					width: 20,
 					height: 20
 				})), external_BdApi_React_default().createElement("div", {
 					className: Timezones_style.Z.timer
-				}, children(element, formattedText, date, shouldShowTimerIcon))))))));
+				}, children(element, {
+					formattedText,
+					date,
+					isTimerCalculatorOpen
+				}))))))));
+				const userProfile_Header = external_PluginApi_namespaceObject.WebpackModules.find((m => m.Tags && "Header" === m.displayName));
 				function userProfile() {
 					external_PluginApi_namespaceObject.Patcher.after(external_PluginApi_namespaceObject.WebpackModules.find((m => "UserBanner" === m.default?.displayName)), "default", ((_this, [props], res) => {
 						if (!settingsManager.get("userpopout", true) || settingsManager.get("userpopout-display", utils_constants.Settings.TimerDisplay.USER_BANNER) !== utils_constants.Settings.TimerDisplay.USER_BANNER) return;
@@ -1347,9 +1393,14 @@ function buildPlugin([BasePlugin, PluginApi]) {
 						if (settingsManager.get("_callTimeCalculator", false)) settingsManager.set("_callTimeCalculator", false);
 						res.props.children.splice(indexToInsert + 1, 0, settingsManager.get("userpopout", true) && settingsManager.get("userpopout-display", utils_constants.Settings.TimerDisplay.USER_BANNER) === utils_constants.Settings.TimerDisplay.USER_HEADER && external_BdApi_React_default().createElement(TimezoneValueGetter, {
 							userID: props.user.id
-						}, (state => external_BdApi_React_default().createElement(components_namespaceObject.Flex, {
+						}, (state => external_BdApi_React_default().createElement(userProfile_Header, {
+							size: userProfile_Header.Sizes.SIZE_12,
+							muted: true,
+							uppercase: true,
+							className: "bodyTitle-2Az3VQ"
+						}, external_BdApi_React_default().createElement(components_namespaceObject.Flex, {
 							align: components_namespaceObject.Flex.Align.CENTER,
-							className: `bodyTitle-1ySSKn fontDisplay-1dagSA ${components_namespaceObject.Text.Sizes.SIZE_12} ${components_namespaceObject.Text.Colors.HEADER_SECONDARY} uppercase-3VWUQ9 ${Timezones_style.Z["header-prev"]}`,
+							className: Timezones_style.Z["header-prev"],
 							onContextMenu: e => (0, contextmenu_namespaceObject.openContextMenu)(e, (() => external_BdApi_React_default().createElement(contextmenu_namespaceObject.Menu, {
 								navId: "timezones-timer-context-menu",
 								onClose: contextmenu_namespaceObject.closeContextMenu
@@ -1363,29 +1414,40 @@ function buildPlugin([BasePlugin, PluginApi]) {
 						}, external_BdApi_React_default().createElement(BasicTimer, {
 							timezone: state.value?.timezone,
 							tooltip: false
-						}, ((element, formattedText, _, shouldShowTimerIcon) => {
+						}, ((element, {
+							formattedText,
+							isTimerCalculatorOpen,
+							emojiIcon
+						}) => {
 							const spanElement = external_BdApi_React_default().createElement("span", {
 								onClick: () => settingsManager.set("_callTimeCalculator", !settingsManager.get("_callTimeCalculator", false))
 							}, element, " (UTC", state.value?.timezone, ")");
-							return external_BdApi_React_default().createElement(external_BdApi_React_default().Fragment, null, external_BdApi_React_default().createElement(components_namespaceObject.TooltipContainer, {
+							return external_BdApi_React_default().createElement(external_BdApi_React_default().Fragment, null, !isTimerCalculatorOpen ? external_BdApi_React_default().createElement(components_namespaceObject.TooltipContainer, {
 								text: formattedText.toString(),
 								className: Timezones_style.Z["timer-icon"]
-							}, !shouldShowTimerIcon ? external_BdApi_React_default().createElement(RotateClock, {
+							}, emojiIcon ? external_BdApi_React_default().createElement("img", {
+								src: emojiIcon,
+								width: 12,
+								height: 12,
+								style: {
+									margin: "3px 1px"
+								}
+							}) : external_BdApi_React_default().createElement(RotateClock, {
 								rotateAngle: 30 * Number(formattedText["12hour"])
-							}) : external_BdApi_React_default().createElement(icons_namespaceObject.DropdownArrow, {
+							})) : external_BdApi_React_default().createElement(icons_namespaceObject.DropdownArrow, {
 								className: Timezones_style.Z["close-icon"],
 								width: 18,
 								height: 18
-							})), shouldShowTimerIcon ? spanElement : external_BdApi_React_default().createElement(components_namespaceObject.TooltipContainer, {
+							}), isTimerCalculatorOpen ? spanElement : external_BdApi_React_default().createElement(components_namespaceObject.TooltipContainer, {
 								className: Timezones_style.Z["header-timer"],
 								text: `Click here to see ${props.user.username}'s time after some hours`,
 								delay: 750
 							}, spanElement));
-						}))))), external_BdApi_React_default().createElement(TimezoneValueGetter, {
+						})))))), external_BdApi_React_default().createElement(TimezoneValueGetter, {
 							userID: props.user.id
-						}, (state => external_BdApi_React_default().createElement(external_BdApi_React_default().Fragment, null, !state.loading && Boolean(state.value?.timezone) && external_BdApi_React_default().createElement(TimeCalculator, {
+						}, (state => !state.loading && Boolean(state.value?.timezone) && external_BdApi_React_default().createElement(TimeCalculator, {
 							timezone: state.value?.timezone
-						})))));
+						}))));
 					}));
 				}
 				function messages() {
@@ -1446,48 +1508,63 @@ function buildPlugin([BasePlugin, PluginApi]) {
 					}, _, topRes) => {
 						if (!settingsManager.get("userlist-server", true)) return;
 						const user = props.user;
+						if (!user || stores_namespaceObject.Users.getCurrentUser().id === user.id) return;
 						const activityStatus = topRes.props?.subText;
 						const secondOgMonkeyPatch = activityStatus?.type;
 						if (!secondOgMonkeyPatch || "div" === secondOgMonkeyPatch) return;
 						activityStatus.type = function() {
 							const res = secondOgMonkeyPatch.apply(this, arguments);
+							const iconStyles = emojiIcon => ({
+								marginRight: emojiIcon ? "4px" : "2px",
+								height: "12px",
+								opacity: ".8"
+							});
 							if (!res) return external_BdApi_React_default().createElement("div", {
 								className: arguments[0].className
 							}, external_BdApi_React_default().createElement(TimezoneValueGetter, {
 								userID: user.id
-							}, (state => external_BdApi_React_default().createElement(external_BdApi_React_default().Fragment, null, external_BdApi_React_default().createElement("span", {
-								style: {
-									marginRight: "2px",
-									height: "12px"
-								}
-							}, external_BdApi_React_default().createElement(icons_namespaceObject.Timer, {
-								width: 12,
-								height: 12
-							})), external_BdApi_React_default().createElement(BasicTimer, {
+							}, (state => external_BdApi_React_default().createElement(BasicTimer, {
 								timezone: state.value?.timezone,
 								tooltip: false
-							})))));
+							}, ((element, {
+								emojiIcon
+							}) => external_BdApi_React_default().createElement(external_BdApi_React_default().Fragment, null, external_BdApi_React_default().createElement("span", {
+								style: iconStyles(emojiIcon)
+							}, emojiIcon ? external_BdApi_React_default().createElement("img", {
+								src: emojiIcon,
+								width: 12,
+								height: 12
+							}) : external_BdApi_React_default().createElement(icons_namespaceObject.Timer, {
+								width: 12,
+								height: 12,
+								style: {
+									minWidth: "12px"
+								}
+							})), element))))));
 							else {
 								const align = settingsManager.get("userlist-align", utils_constants.Settings.TimerAlign.RIGHT);
 								const view = external_BdApi_React_default().createElement(TimezoneValueGetter, {
 									userID: user.id
 								}, (state => external_BdApi_React_default().createElement(external_BdApi_React_default().Fragment, null, align === utils_constants.Settings.TimerAlign.RIGHT && external_BdApi_React_default().createElement("span", {
 									className: Timezones_style.Z.dot
-								}, "•"), external_BdApi_React_default().createElement("span", {
-									style: {
-										marginRight: "2px",
-										height: "12px"
-									}
-								}, external_BdApi_React_default().createElement(icons_namespaceObject.Timer, {
+								}, "•"), external_BdApi_React_default().createElement(BasicTimer, {
+									timezone: state.value?.timezone,
+									tooltip: false
+								}, ((element, {
+									emojiIcon
+								}) => external_BdApi_React_default().createElement(external_BdApi_React_default().Fragment, null, external_BdApi_React_default().createElement("span", {
+									style: iconStyles(emojiIcon)
+								}, emojiIcon ? external_BdApi_React_default().createElement("img", {
+									src: emojiIcon,
+									width: 12,
+									height: 12
+								}) : external_BdApi_React_default().createElement(icons_namespaceObject.Timer, {
 									width: 12,
 									height: 12,
 									style: {
 										minWidth: "12px"
 									}
-								})), external_BdApi_React_default().createElement(BasicTimer, {
-									timezone: state.value?.timezone,
-									tooltip: false
-								}), align === utils_constants.Settings.TimerAlign.LEFT && external_BdApi_React_default().createElement("span", {
+								})), element))), align === utils_constants.Settings.TimerAlign.LEFT && external_BdApi_React_default().createElement("span", {
 									className: Timezones_style.Z.dot
 								}, "•"))));
 								if (align === utils_constants.Settings.TimerAlign.RIGHT) res.props.children.push(view);
@@ -1591,6 +1668,18 @@ function buildPlugin([BasePlugin, PluginApi]) {
 						}))), external_BdApi_React_default().createElement(contextmenu_namespaceObject.MenuSeparator, null));
 					}));
 				}
+				function dm_extends() {
+					dm_extends = Object.assign || function(target) {
+						for (var i = 1; i < arguments.length; i++) {
+							var source = arguments[i];
+							for (var key in source)
+								if (Object.prototype.hasOwnProperty.call(source, key)) target[key] = source[key];
+						}
+						return target;
+					};
+					return dm_extends.apply(this, arguments);
+				}
+				const dm_Header = external_PluginApi_namespaceObject.WebpackModules.find((m => m.Tags && "Header" === m.displayName));
 				function dm() {
 					const HeaderBarContainer = external_PluginApi_namespaceObject.WebpackModules.find((m => "HeaderBarContainer" === m.default?.displayName));
 					const {
@@ -1611,43 +1700,57 @@ function buildPlugin([BasePlugin, PluginApi]) {
 							if (!secondOgMonkeyPatch || "div" === secondOgMonkeyPatch) return firstRes;
 							activityStatus.type = function() {
 								const res = secondOgMonkeyPatch.apply(this, arguments);
+								const iconStyles = emojiIcon => ({
+									marginRight: emojiIcon ? "4px" : "2px",
+									height: "12px",
+									opacity: emojiIcon && !firstRes.props.selected ? ".6" : "1"
+								});
 								if (!res) return external_BdApi_React_default().createElement("div", {
 									className: arguments[0].className
 								}, external_BdApi_React_default().createElement(TimezoneValueGetter, {
 									userID: user.id
-								}, (state => external_BdApi_React_default().createElement(external_BdApi_React_default().Fragment, null, external_BdApi_React_default().createElement("span", {
-									style: {
-										marginRight: "2px",
-										height: "12px"
-									}
-								}, external_BdApi_React_default().createElement(icons_namespaceObject.Timer, {
-									width: 12,
-									height: 12
-								})), external_BdApi_React_default().createElement(BasicTimer, {
+								}, (state => external_BdApi_React_default().createElement(BasicTimer, {
 									timezone: state.value?.timezone,
 									tooltip: false
-								})))));
+								}, ((element, {
+									emojiIcon
+								}) => external_BdApi_React_default().createElement(external_BdApi_React_default().Fragment, null, external_BdApi_React_default().createElement("span", {
+									style: iconStyles(emojiIcon)
+								}, emojiIcon ? external_BdApi_React_default().createElement("img", {
+									src: emojiIcon,
+									width: 12,
+									height: 12
+								}) : external_BdApi_React_default().createElement(icons_namespaceObject.Timer, {
+									width: 12,
+									height: 12,
+									style: {
+										minWidth: "12px"
+									}
+								})), element))))));
 								else {
 									const align = settingsManager.get("userlist-align", utils_constants.Settings.TimerAlign.RIGHT);
 									const view = external_BdApi_React_default().createElement(TimezoneValueGetter, {
 										userID: user.id
 									}, (state => external_BdApi_React_default().createElement(external_BdApi_React_default().Fragment, null, align === utils_constants.Settings.TimerAlign.RIGHT && external_BdApi_React_default().createElement("span", {
 										className: Timezones_style.Z.dot
-									}, "•"), external_BdApi_React_default().createElement("span", {
-										style: {
-											marginRight: "2px",
-											height: "12px"
-										}
-									}, external_BdApi_React_default().createElement(icons_namespaceObject.Timer, {
+									}, "•"), external_BdApi_React_default().createElement(BasicTimer, {
+										timezone: state.value?.timezone,
+										tooltip: false
+									}, ((element, {
+										emojiIcon
+									}) => external_BdApi_React_default().createElement(external_BdApi_React_default().Fragment, null, external_BdApi_React_default().createElement("span", {
+										style: iconStyles(emojiIcon)
+									}, emojiIcon ? external_BdApi_React_default().createElement("img", {
+										src: emojiIcon,
+										width: 12,
+										height: 12
+									}) : external_BdApi_React_default().createElement(icons_namespaceObject.Timer, {
 										width: 12,
 										height: 12,
 										style: {
 											minWidth: "12px"
 										}
-									})), external_BdApi_React_default().createElement(BasicTimer, {
-										timezone: state.value?.timezone,
-										tooltip: false
-									}), align === utils_constants.Settings.TimerAlign.LEFT && external_BdApi_React_default().createElement("span", {
+									})), element))), align === utils_constants.Settings.TimerAlign.LEFT && external_BdApi_React_default().createElement("span", {
 										className: Timezones_style.Z.dot
 									}, "•"))));
 									if (align === utils_constants.Settings.TimerAlign.RIGHT) res.props.children.push(view);
@@ -1662,17 +1765,41 @@ function buildPlugin([BasePlugin, PluginApi]) {
 						props
 					}, _, res) => {
 						if (!settingsManager.get("header", true)) return;
-						const users = stores_namespaceObject.Channels.getChannel(props.channelId).recipients;
-						if (1 !== users.length) return;
+						const users = stores_namespaceObject.Channels.getChannel(props.channelId)?.recipients;
+						if (1 !== users?.length) return;
 						const [userId] = users;
 						res.props.children.splice(1, 0, external_BdApi_React_default().createElement(TimezoneValueGetter, {
 							userID: userId
 						}, (state => external_BdApi_React_default().createElement(external_BdApi_React_default().Fragment, null, external_BdApi_React_default().createElement(Divider, null), external_BdApi_React_default().createElement(BasicTimer, {
 							timezone: state.value?.timezone,
-							className: Timezones_style.Z["dm-header-timer"]
-						}, (element => external_BdApi_React_default().createElement(components_namespaceObject.Flex, {
+							className: Timezones_style.Z["dm-header-timer"],
+							tooltip: false
+						}, ((element, {
+							emojiIcon
+						}) => external_BdApi_React_default().createElement(components_namespaceObject.Popout, {
+							position: components_namespaceObject.Popout.Positions.BOTTOM,
+							renderPopout: props => external_BdApi_React_default().createElement("div", props, external_BdApi_React_default().createElement(modal_namespaceObject.ModalRoot, {
+								size: modal_namespaceObject.ModalSize.SMALL,
+								transitionState: 1
+							}, external_BdApi_React_default().createElement(modal_namespaceObject.ModalHeader, {
+								separator: false
+							}, external_BdApi_React_default().createElement(dm_Header, {
+								size: dm_Header.Sizes.SIZE_20,
+								tag: "h2"
+							}, "Calculate time")), external_BdApi_React_default().createElement(modal_namespaceObject.ModalContent, null, external_BdApi_React_default().createElement(TimeCalculator, {
+								shouldAnimate: false,
+								timezone: state.value?.timezone
+							}))))
+						}, (props => external_BdApi_React_default().createElement(components_namespaceObject.Flex, dm_extends({
 							align: components_namespaceObject.Flex.Align.CENTER
-						}, external_BdApi_React_default().createElement(icons_namespaceObject.Timer, null), external_BdApi_React_default().createElement("span", {
+						}, props), emojiIcon ? external_BdApi_React_default().createElement("img", {
+							src: emojiIcon,
+							width: 16,
+							height: 16,
+							style: {
+								marginRight: "2px"
+							}
+						}) : external_BdApi_React_default().createElement(icons_namespaceObject.Timer, null), external_BdApi_React_default().createElement("span", {
 							style: {
 								marginLeft: "4px"
 							}
@@ -1681,7 +1808,7 @@ function buildPlugin([BasePlugin, PluginApi]) {
 								textOverflow: "ellipsis",
 								whiteSpace: "nowrap"
 							}
-						}, element))))))));
+						}, element))))))))));
 					}));
 				}
 				var React = __webpack_require__(113);
@@ -2092,12 +2219,12 @@ function buildPlugin([BasePlugin, PluginApi]) {
 					onEdit,
 					onDelete,
 					enableSettings = true,
-					disableControls = settingsManager.get("lockControls", false),
+					disableControls = false,
 					list = cleanList(getList()),
 					...etc
 				}) => {
 					const sortSettings = (0, flux_namespaceObject.useStateFromStores)([settingsManager], (() => settingsManager.get("listSorting", "a-z")));
-					const lockControls = (0, flux_namespaceObject.useStateFromStores)([settingsManager], (() => disableControls));
+					const lockControls = (0, flux_namespaceObject.useStateFromStores)([settingsManager], (() => disableControls ? true : settingsManager.get("lockControls", false)));
 					const [search, setSearch] = (0, external_BdApi_React_.useState)("");
 					const formattedList = Object.entries(list).map((([userid]) => stores_namespaceObject.Users.getUser(userid)));
 					const filteredList = formattedList.filter((user => ~user?.username?.toLowerCase?.().indexOf?.(search)));
@@ -2760,7 +2887,11 @@ function buildPlugin([BasePlugin, PluginApi]) {
 						}
 					}, items.map((item => external_BdApi_React_default().createElement(external_BdApi_React_default().Fragment, null, external_BdApi_React_default().createElement("span", {
 						className: Timezones_style.Z.dot
-					}, "•"), item, external_BdApi_React_default().createElement("br", null))))))))))), external_BdApi_React_default().createElement(Divider, null), external_BdApi_React_default().createElement(CategorySpace, {
+					}, "•"), item, external_BdApi_React_default().createElement("br", null))))))))))), external_BdApi_React_default().createElement(Divider, null), external_BdApi_React_default().createElement(SwitchItem, {
+						value: settingsManager.get("emoji-icons", false),
+						onChange: value => settingsManager.set("emoji-icons", value),
+						note: "Why not? It looks cute *smiles and bleps*"
+					}, "Display icons as emojis"), external_BdApi_React_default().createElement(CategorySpace, {
 						look: Category.Looks.COMPACT,
 						label: "User Popout"
 					}, external_BdApi_React_default().createElement(SwitchItem, {
@@ -2784,6 +2915,8 @@ function buildPlugin([BasePlugin, PluginApi]) {
 					}))), external_BdApi_React_default().createElement(CategorySpace, {
 						look: Category.Looks.COMPACT,
 						label: "Messages"
+					}, external_BdApi_React_default().createElement(forms_namespaceObject.FormSection, {
+						title: "Timestamps"
 					}, external_BdApi_React_default().createElement(SwitchItem, {
 						value: settingsManager.get("timestamps", false),
 						onChange: value => {
@@ -2804,10 +2937,12 @@ function buildPlugin([BasePlugin, PluginApi]) {
 						},
 						disabled: shouldEnableIconsOption,
 						note: "This will be enabled by default if both settings above are enabled and disabled if both of them are as well"
-					}, "Show icons in timestamps"), external_BdApi_React_default().createElement(SwitchItem, {
+					}, "Show icons in timestamps")), external_BdApi_React_default().createElement(forms_namespaceObject.FormSection, {
+						title: "Other"
+					}, external_BdApi_React_default().createElement(SwitchItem, {
 						value: settingsManager.get("header", true),
 						onChange: value => settingsManager.set("header", value)
-					}, "Display the user's current time in the header while in DMs")), external_BdApi_React_default().createElement(CategorySpace, {
+					}, "Display the user's current time in the header while in DMs"))), external_BdApi_React_default().createElement(CategorySpace, {
 						look: Category.Looks.COMPACT,
 						label: "User Lists"
 					}, external_BdApi_React_default().createElement(SwitchItem, {
