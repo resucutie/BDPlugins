@@ -1,7 +1,7 @@
 /**
  * @name Timezones
  * @author A user
- * @version 1.2.1
+ * @version 1.2.2
  * @description Simple and powerful timezone manager
  * @source https://github.com/abUwUser/BDPlugins/tree/main/plugins/Timezones
  * @updateUrl https://raw.githubusercontent.com/abUwUser/BDPlugins/compiled/Timezones/Timezones.plugin.js
@@ -38,7 +38,7 @@ const config = {
 			"github_username": "abUwUser",
 			"twitter_username": "auwuser"
 		}],
-		"version": "1.2.1",
+		"version": "1.2.2",
 		"description": "Simple and powerful timezone manager",
 		"github": "https://github.com/abUwUser/BDPlugins/tree/main/plugins/Timezones",
 		"github_raw": "https://raw.githubusercontent.com/abUwUser/BDPlugins/compiled/Timezones/Timezones.plugin.js"
@@ -66,7 +66,8 @@ const config = {
 			"title": "oh no",
 			"items": [
 				"Now the list is properly updated as when you enable the lock settings",
-				"Discord broke themes and plugins \\*yay*. Thank god this plugin wasn't affected mostly, just some visual bugs *and a error spamming on the console*, but it was all fixed!"
+				"Discord broke themes and plugins \\*yay*. Thank god this plugin wasn't affected mostly, just some visual bugs *and a error spamming on the console*, but it was all fixed!",
+				"Nevermind. The context menu was broen because discord lazy loaded all of them. Basically discord made our lives more painful in name of perfomance. Tbh, when discord cared about that?"
 			]
 		},
 		{
@@ -1575,97 +1576,135 @@ function buildPlugin([BasePlugin, PluginApi]) {
 					}));
 				}
 				function contextMenu() {
-					external_PluginApi_namespaceObject.Patcher.after(external_PluginApi_namespaceObject.WebpackModules.find((m => "GuildChannelUserContextMenu" === m.default?.displayName)), "default", ((_this, [props], res) => {
-						const user = props.user;
-						if (user.bot || stores_namespaceObject.Users.getCurrentUser().id === user.id) return;
-						let menuGroup = res.props?.children?.props?.children?.[4];
-						if (!menuGroup) return;
-						const state = useAsync((async () => ({
-							offlineTz: await getTimezone(user.id, {
-								includeTT: false
-							}),
-							timezone: await getTimezone(user.id, {
-								includeTT: settingsManager.get("tt", true)
-							})
-						})));
-						menuGroup.props.children.unshift(external_BdApi_React_default().createElement(contextmenu_namespaceObject.MenuGroup, {
-							label: state.loading ? external_BdApi_React_default().createElement("div", {
-								style: {
-									opacity: .3
-								}
-							}, "Loading...") : null
-						}, !state.loading ? external_BdApi_React_default().createElement(external_BdApi_React_default().Fragment, null, !state.value?.timezone ? external_BdApi_React_default().createElement(contextmenu_namespaceObject.MenuItem, {
-							id: "timezones-add-user",
-							label: "Add timezone locally",
-							action: async () => {
-								await Timezones.prototype.openSettingsModal(user.id);
+					external_PluginApi_namespaceObject.Patcher.before(external_PluginApi_namespaceObject.WebpackModules.getByProps("openContextMenuLazy"), "openContextMenuLazy", ((_this, args) => {
+						args[1] = (ogFunc => args => ogFunc(args).then((render => props => {
+							const firstRes = render(props);
+							try {
+								const ogFunc = firstRes?.type;
+								if (!ogFunc) return firstRes;
+								firstRes.type = props => {
+									useForceUpdate();
+									const res = ogFunc.call(this, props);
+									switch (ogFunc?.displayName) {
+										case "GuildChannelUserContextMenu":
+											patchGuildChannelUserContextMenu(this, props, res);
+											break;
+										case "DMUserContextMenu":
+											patchDMUserContextMenu(this, props, res);
+											break;
+										default:
+											console.error("ummm this context menu doesn't exist?...");
+									}
+									return res;
+								};
+								firstRes.key = "TimezonesPatchedContextMenu";
+								firstRes.type.displayName = ogFunc.displayName;
+							} catch (err) {
+								console.error("Could not patch the context menu", err);
 							}
-						}) : external_BdApi_React_default().createElement(contextmenu_namespaceObject.MenuItem, {
-							id: "timezones-actions",
-							label: "Timezone actions"
-						}, TimestampActions({
-							id: user.id,
-							timezone: state.value?.timezone,
-							onEditTimezone: async id => await Timezones.prototype.openSettingsModal(id, Boolean(!state.value?.offlineTz && state.value?.timezone)),
-							onDeleteTimezone: async id => {
-								Timezones.prototype.onDeleteTimezone(id);
-							},
-							isOnline: !state.value?.offlineTz
-						}))) : external_BdApi_React_default().createElement(external_BdApi_React_default().Fragment, null, external_BdApi_React_default().createElement(contextmenu_namespaceObject.MenuItem, {
-							id: "timezones-loading-add",
-							label: "Add timezone locally",
-							disabled: true
-						}), external_BdApi_React_default().createElement(contextmenu_namespaceObject.MenuItem, {
-							id: "timezones-loading-actions",
-							label: "Timezone actions",
-							disabled: true
-						}))), external_BdApi_React_default().createElement(contextmenu_namespaceObject.MenuSeparator, null));
+							return firstRes;
+						})))(args[1]);
 					}));
-					external_PluginApi_namespaceObject.Patcher.after(external_PluginApi_namespaceObject.WebpackModules.find((m => "DMUserContextMenu" === m.default?.displayName)), "default", ((_this, [props], res) => {
-						const user = props.user;
-						if (user.bot || stores_namespaceObject.Users.getCurrentUser().id === user.id) return;
-						let userActions = res.props?.children?.props?.children?.[5];
-						if (!userActions) return;
-						const state = useAsync((async () => ({
-							offlineTz: await getTimezone(user.id, {
-								includeTT: false
-							}),
-							timezone: await getTimezone(user.id, {
-								includeTT: settingsManager.get("tt", true)
-							})
-						})));
-						userActions.props.children.unshift(external_BdApi_React_default().createElement(contextmenu_namespaceObject.MenuGroup, {
-							label: state.loading ? external_BdApi_React_default().createElement("div", {
-								style: {
-									opacity: .3
-								}
-							}, "Loading...") : null
-						}, !state.loading ? external_BdApi_React_default().createElement(external_BdApi_React_default().Fragment, null, !state.value?.timezone ? external_BdApi_React_default().createElement(contextmenu_namespaceObject.MenuItem, {
-							id: "timezones-add-user",
-							label: "Add timezone locally",
-							action: async () => {
-								await Timezones.prototype.openSettingsModal(user.id);
+				}
+				function patchDMUserContextMenu(_this, props, res) {
+					const user = props.user;
+					if (user.bot || stores_namespaceObject.Users.getCurrentUser().id === user.id) return;
+					let menuGroup = res.props?.children?.props?.children?.[4];
+					if (!menuGroup) return;
+					const state = useAsync((async () => ({
+						offlineTz: await getTimezone(user.id, {
+							includeTT: false
+						}),
+						timezone: await getTimezone(user.id, {
+							includeTT: settingsManager.get("tt", true)
+						})
+					})));
+					menuGroup.props.children.unshift(external_BdApi_React_default().createElement(contextmenu_namespaceObject.MenuGroup, {
+						label: state.loading ? external_BdApi_React_default().createElement("div", {
+							style: {
+								opacity: .3
 							}
-						}) : external_BdApi_React_default().createElement(contextmenu_namespaceObject.MenuItem, {
-							id: "timezones-actions",
-							label: "Timezone actions"
-						}, TimestampActions({
-							id: user.id,
-							timezone: state.value?.timezone,
-							onEditTimezone: async id => await Timezones.prototype.openSettingsModal(id, Boolean(!state.value?.offlineTz && state.value?.timezone)),
-							onDeleteTimezone: async id => {
-								Timezones.prototype.onDeleteTimezone(id);
-							},
-							isOnline: !state.value?.offlineTz
-						}))) : external_BdApi_React_default().createElement(external_BdApi_React_default().Fragment, null, external_BdApi_React_default().createElement(contextmenu_namespaceObject.MenuItem, {
-							id: "timezones-loading-add",
-							label: "Add timezone locally",
-							disabled: true
-						}), external_BdApi_React_default().createElement(contextmenu_namespaceObject.MenuItem, {
-							id: "timezones-loading-actions",
-							label: "Timezone actions",
-							disabled: true
-						}))), external_BdApi_React_default().createElement(contextmenu_namespaceObject.MenuSeparator, null));
+						}, "Loading...") : null
+					}, !state.loading ? external_BdApi_React_default().createElement(external_BdApi_React_default().Fragment, null, !state.value?.timezone ? external_BdApi_React_default().createElement(contextmenu_namespaceObject.MenuItem, {
+						id: "timezones-add-user",
+						label: "Add timezone locally",
+						action: async () => {
+							await Timezones.prototype.openSettingsModal(user.id);
+						}
+					}) : external_BdApi_React_default().createElement(contextmenu_namespaceObject.MenuItem, {
+						id: "timezones-actions",
+						label: "Timezone actions"
+					}, TimestampActions({
+						id: user.id,
+						timezone: state.value?.timezone,
+						onEditTimezone: async id => await Timezones.prototype.openSettingsModal(id, Boolean(!state.value?.offlineTz && state.value?.timezone)),
+						onDeleteTimezone: async id => {
+							Timezones.prototype.onDeleteTimezone(id);
+						},
+						isOnline: !state.value?.offlineTz
+					}))) : external_BdApi_React_default().createElement(external_BdApi_React_default().Fragment, null, external_BdApi_React_default().createElement(contextmenu_namespaceObject.MenuItem, {
+						id: "timezones-loading-add",
+						label: "Add timezone locally",
+						disabled: true
+					}), external_BdApi_React_default().createElement(contextmenu_namespaceObject.MenuItem, {
+						id: "timezones-loading-actions",
+						label: "Timezone actions",
+						disabled: true
+					}))), external_BdApi_React_default().createElement(contextmenu_namespaceObject.MenuSeparator, null));
+				}
+				function patchGuildChannelUserContextMenu(_this, props, res) {
+					const user = props.user;
+					if (user.bot || stores_namespaceObject.Users.getCurrentUser().id === user.id) return;
+					let userActions = res.props?.children?.props?.children?.[5];
+					if (!userActions) return;
+					const state = useAsync((async () => ({
+						offlineTz: await getTimezone(user.id, {
+							includeTT: false
+						}),
+						timezone: await getTimezone(user.id, {
+							includeTT: settingsManager.get("tt", true)
+						})
+					})));
+					userActions.props.children.unshift(external_BdApi_React_default().createElement(contextmenu_namespaceObject.MenuGroup, {
+						label: state.loading ? external_BdApi_React_default().createElement("div", {
+							style: {
+								opacity: .3
+							}
+						}, "Loading...") : null
+					}, !state.loading ? external_BdApi_React_default().createElement(external_BdApi_React_default().Fragment, null, !state.value?.timezone ? external_BdApi_React_default().createElement(contextmenu_namespaceObject.MenuItem, {
+						id: "timezones-add-user",
+						label: "Add timezone locally",
+						action: async () => {
+							await Timezones.prototype.openSettingsModal(user.id);
+						}
+					}) : external_BdApi_React_default().createElement(contextmenu_namespaceObject.MenuItem, {
+						id: "timezones-actions",
+						label: "Timezone actions"
+					}, TimestampActions({
+						id: user.id,
+						timezone: state.value?.timezone,
+						onEditTimezone: async id => await Timezones.prototype.openSettingsModal(id, Boolean(!state.value?.offlineTz && state.value?.timezone)),
+						onDeleteTimezone: async id => {
+							Timezones.prototype.onDeleteTimezone(id);
+						},
+						isOnline: !state.value?.offlineTz
+					}))) : external_BdApi_React_default().createElement(external_BdApi_React_default().Fragment, null, external_BdApi_React_default().createElement(contextmenu_namespaceObject.MenuItem, {
+						id: "timezones-loading-add",
+						label: "Add timezone locally",
+						disabled: true
+					}), external_BdApi_React_default().createElement(contextmenu_namespaceObject.MenuItem, {
+						id: "timezones-loading-actions",
+						label: "Timezone actions",
+						disabled: true
+					}))), external_BdApi_React_default().createElement(contextmenu_namespaceObject.MenuSeparator, null));
+				}
+				const updateRefs = new Set;
+				function useForceUpdate() {
+					const [, forceUpdate] = external_BdApi_React_default().useReducer((e => !e), true);
+					external_BdApi_React_default().useEffect((() => {
+						const listener = () => forceUpdate();
+						updateRefs.add(listener);
+						return () => void updateRefs.delete(listener);
 					}));
 				}
 				function dm_extends() {
