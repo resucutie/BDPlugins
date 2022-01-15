@@ -23,30 +23,10 @@ export default function(){
             try {
                 const ogFunc = firstRes?.type
 
+                Object.assign(firstRes.props, { _timezonesParsedOgFunc: firstRes.type })
+
                 if (!ogFunc) return firstRes
-                firstRes.type = (props) => {
-                    //here would be the equivalent of the callback in a normal patch
-                    useForceUpdate(); // Allow force re-rendering the entire context menu.
-                    const res = ogFunc.call(this, props)
-
-                    switch (ogFunc?.displayName) {
-                        case "GuildChannelUserContextMenu": {
-                            patchGuildChannelUserContextMenu(this, props, res)
-                            break;
-                        }
-
-                        case "DMUserContextMenu": {
-                            patchDMUserContextMenu(this, props, res)
-                            break;
-                        }
-
-                        default: {
-                            console.error("ummm this context menu doesn't exist?...")
-                        }
-                    }
-
-                    return res;
-                }
+                firstRes.type = ContextMenuPatcher
                 firstRes.key = "TimezonesPatchedContextMenu"
                 firstRes.type.displayName = ogFunc.displayName
             } catch (err) {
@@ -56,6 +36,26 @@ export default function(){
             return firstRes
         }))(args[1]);
     })
+}
+
+function ContextMenuPatcher({_timezonesParsedOgFunc, ...props}){
+    //here would be the equivalent of the callback in a normal patch
+    useForceUpdate(); // Allow force re-rendering the entire context menu.
+    const res = _timezonesParsedOgFunc.call(this, props)
+
+    switch (_timezonesParsedOgFunc?.displayName) {
+        case "GuildChannelUserContextMenu": {
+            patchGuildChannelUserContextMenu(this, props, res)
+            break;
+        }
+
+        case "DMUserContextMenu": {
+            patchDMUserContextMenu(this, props, res)
+            break;
+        }
+    }
+
+    return res;
 }
 
 function patchDMUserContextMenu(_this, props, res) {
@@ -153,44 +153,6 @@ function patchGuildChannelUserContextMenu(_this, props, res) {
         </>}
     </MenuGroup>, <MenuSeparator />)
 }
-
-// function contextMenuPatch(){
-//     Patcher.before(WebpackModules.getByProps("openContextMenuLazy"), "openContextMenuLazy", (_this, args, topRes) => {
-//         console.log({_this, args, topRes})
-//         args[1] = (ogFunc => args => ogFunc(args).then(render => props => {
-//             const firstRes = render(props)
-
-//             try {
-//                 console.log({ props, res: firstRes })
-//                 const ogFunc = firstRes?.type
-
-//                 if (!ogFunc) return firstRes
-
-//                 switch (ogFunc?.displayName) {
-//                     case "GuildChannelUserContextMenu": {
-//                         firstRes.type = (props) => {
-//                             useForceUpdate(); // Allow force re-rendering the entire context menu.
-//                             const res = ogFunc.call(this, props)
-
-//                             console.log(this, props, res)
-
-//                             return res;
-//                         }
-//                         break;
-//                     }
-
-//                     default : {
-//                         console.log("bruh")
-//                     }
-//                 }
-//             } catch (err) {
-//                 console.error("Could not patch the context menu", err)
-//             }
-
-//             return firstRes
-//         }))(args[1]);
-//     })
-// }
 
 const updateRefs = new Set();
 function useForceUpdate() {
