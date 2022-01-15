@@ -1,7 +1,7 @@
 /**
  * @name Timezones
  * @author A user
- * @version 1.2.3
+ * @version 1.2.4
  * @description Simple and powerful timezone manager
  * @source https://github.com/abUwUser/BDPlugins/tree/main/plugins/Timezones
  * @updateUrl https://raw.githubusercontent.com/abUwUser/BDPlugins/compiled/Timezones/Timezones.plugin.js
@@ -38,7 +38,7 @@ const config = {
 			"github_username": "abUwUser",
 			"twitter_username": "auwuser"
 		}],
-		"version": "1.2.3",
+		"version": "1.2.4",
 		"description": "Simple and powerful timezone manager",
 		"github": "https://github.com/abUwUser/BDPlugins/tree/main/plugins/Timezones",
 		"github_raw": "https://raw.githubusercontent.com/abUwUser/BDPlugins/compiled/Timezones/Timezones.plugin.js"
@@ -66,6 +66,7 @@ const config = {
 			"title": "oh no",
 			"items": [
 				"Now the list is properly updated as when you enable the lock settings",
+				"Changed the TT cache system so it doesn't make so many requests O_o",
 				"Discord broke themes and plugins \\*yay*. Thank god this plugin wasn't affected mostly, just some visual bugs *and a error spamming on the console*, ~~but it was all fixed!~~ Nevermind. The context menu was broen because discord lazy loaded all of them. Basically discord made our lives more painful in name of perfomance. Tbh, when discord cared about that?"
 			]
 		},
@@ -700,18 +701,26 @@ function buildPlugin([BasePlugin, PluginApi]) {
 					if (Math.abs(Number(timezone)) > 24 && checkOverflow) return constants.ExceptionCodes.Timezones.InvalidFormatReasons.OVERFLOW;
 					return false;
 				}
+				const TTCache = new Map;
 				async function getUser(id) {
+					if (TTCache.has(id)) return TTCache.get(id);
 					const response = await fetch(settingsManager.get("tt-url", constants.TimeTogether.DEFAULT_URL) + `api/user/${id}`, {
 						method: "GET"
 					}).catch((error => {
 						console.error("things went bad", error);
 						throw error;
 					}));
-					if (404 === response.status) return;
-					if (200 === response.status) return await response.json();
+					if (404 === response.status) {
+						TTCache.set(id, void 0);
+						return;
+					}
+					if (200 === response.status) {
+						const json = await response.json();
+						TTCache.set(id, json);
+						return json;
+					}
 				}
 				const doesUserExists = async id => Boolean(await getUser(id));
-				const TTCache = new Map;
 				const getList = () => settingsManager.get("userList", {});
 				const setList = list => settingsManager.set("userList", list);
 				const addUser = (id, timezone, shouldCleanList = false) => {
@@ -734,17 +743,12 @@ function buildPlugin([BasePlugin, PluginApi]) {
 					if (!id) return;
 					const list = getList();
 					const tz = list?.[id];
-					if (!tz && opts.includeTT) {
-						if (TTCache.has(id)) return TTCache.get(id);
-						try {
-							const user = await getUser(id);
-							if (user?.timezone) TTCache.set(id, user.timezone);
-							return user?.timezone;
-						} catch (err) {
-							console.error(err);
-							TTCache.set(id, void 0);
-							return;
-						}
+					if (!tz && opts.includeTT) try {
+						const user = await getUser(id);
+						return user?.timezone;
+					} catch (err) {
+						console.error(err);
+						return;
 					}
 					return tz;
 				};
