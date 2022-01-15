@@ -1,7 +1,7 @@
 /**
  * @name Timezones
  * @author A user
- * @version 1.2.2
+ * @version 1.2.3
  * @description Simple and powerful timezone manager
  * @source https://github.com/abUwUser/BDPlugins/tree/main/plugins/Timezones
  * @updateUrl https://raw.githubusercontent.com/abUwUser/BDPlugins/compiled/Timezones/Timezones.plugin.js
@@ -38,7 +38,7 @@ const config = {
 			"github_username": "abUwUser",
 			"twitter_username": "auwuser"
 		}],
-		"version": "1.2.2",
+		"version": "1.2.3",
 		"description": "Simple and powerful timezone manager",
 		"github": "https://github.com/abUwUser/BDPlugins/tree/main/plugins/Timezones",
 		"github_raw": "https://raw.githubusercontent.com/abUwUser/BDPlugins/compiled/Timezones/Timezones.plugin.js"
@@ -66,8 +66,7 @@ const config = {
 			"title": "oh no",
 			"items": [
 				"Now the list is properly updated as when you enable the lock settings",
-				"Discord broke themes and plugins \\*yay*. Thank god this plugin wasn't affected mostly, just some visual bugs *and a error spamming on the console*, but it was all fixed!",
-				"Nevermind. The context menu was broen because discord lazy loaded all of them. Basically discord made our lives more painful in name of perfomance. Tbh, when discord cared about that?"
+				"Discord broke themes and plugins \\*yay*. Thank god this plugin wasn't affected mostly, just some visual bugs *and a error spamming on the console*, ~~but it was all fixed!~~ Nevermind. The context menu was broen because discord lazy loaded all of them. Basically discord made our lives more painful in name of perfomance. Tbh, when discord cared about that?"
 			]
 		},
 		{
@@ -509,7 +508,7 @@ function buildPlugin([BasePlugin, PluginApi]) {
 				const is12h = (location = navigator.language) => Intl.DateTimeFormat(location, {
 					hour: "numeric"
 				}).resolvedOptions()["hour12"];
-				const utils_constants = {
+				const constants = {
 					ExceptionCodes: {
 						Timezones: {
 							INVALID_CITY: "INVALID_CITY",
@@ -589,19 +588,19 @@ function buildPlugin([BasePlugin, PluginApi]) {
 					}
 				}
 				const package_namespaceObject = JSON.parse('{"um":{"u2":"Timezones"}}');
-				const settingsManager_settings = new SettingsManager(package_namespaceObject.um.u2);
-				const settingsManager = settingsManager_settings;
+				const settings = new SettingsManager(package_namespaceObject.um.u2);
+				const settingsManager = settings;
 				const classes_namespaceObject = Modules["@discord/classes"];
 				function getOffset(date = (0, classes_namespaceObject.Timestamp)()) {
 					let timezoneOffset;
 					if (classes_namespaceObject.Timestamp.isMoment(date)) timezoneOffset = date.utcOffset();
 					else if (_.isDate(date)) timezoneOffset = (0,
 						classes_namespaceObject.Timestamp)(date).utcOffset();
-					else throw new DateException("Invalid date was insert in getOffset(). Please insert a Moment or a Date", utils_constants.ExceptionCodes.Date.INVALID_DATE);
+					else throw new DateException("Invalid date was insert in getOffset(). Please insert a Moment or a Date", constants.ExceptionCodes.Date.INVALID_DATE);
 					return ensureTimezone(timezoneOffset / 60);
 				}
 				function getTimeFromTimezone(utcOffset, currentDate = new Date) {
-					if (!_.isDate(currentDate)) throw new DateException("Invalid date was insert in getTimeFromTimezone(). Please insert a Date", utils_constants.ExceptionCodes.Date.INVALID_DATE);
+					if (!_.isDate(currentDate)) throw new DateException("Invalid date was insert in getTimeFromTimezone(). Please insert a Date", constants.ExceptionCodes.Date.INVALID_DATE);
 					let localTime = currentDate.getTime();
 					let localOffset = 6e4 * currentDate.getTimezoneOffset();
 					let utc = new Date(localTime + localOffset);
@@ -610,14 +609,14 @@ function buildPlugin([BasePlugin, PluginApi]) {
 				}
 				const isHMtimezone = hmtimezone => /(\:)/g.test(hmtimezone);
 				function convertHMTzToHTz(hmtimezone) {
-					if (!isHMtimezone(hmtimezone)) throw new TimezoneException("This isn't a HH:MM timezone format", utils_constants.ExceptionCodes.Timezones.NOT_HMTZ_FORMAT);
+					if (!isHMtimezone(hmtimezone)) throw new TimezoneException("This isn't a HH:MM timezone format", constants.ExceptionCodes.Timezones.NOT_HMTZ_FORMAT);
 					const [hours, minutes] = hmtimezone.match(/[^:]*/g).filter((s => Boolean(s)));
 					const minsConvertedToHours = Number(minutes) / 60;
 					if (Number(hours) < 0) return addIndicatorsToTimezone(Number(hours) - minsConvertedToHours);
 					return addIndicatorsToTimezone(Number(hours) + minsConvertedToHours);
 				}
-				function formatDate(date, timezone, isAMPMFormat = settingsManager.get("ampm", utils_constants.TimePreferrence["12HFOMRAT"]())) {
-					if (!_.isDate(date)) throw new DateException("Invalid date was insert in formatDate(). Please insert a Date", utils_constants.ExceptionCodes.Date.INVALID_DATE);
+				function formatDate(date, timezone, isAMPMFormat = settingsManager.get("ampm", constants.TimePreferrence["12HFOMRAT"]())) {
+					if (!_.isDate(date)) throw new DateException("Invalid date was insert in formatDate(). Please insert a Date", constants.ExceptionCodes.Date.INVALID_DATE);
 					const fullHour = date.getHours().toLocaleString(navigator.language, {
 						minimumIntegerDigits: 2,
 						useGrouping: false
@@ -687,41 +686,38 @@ function buildPlugin([BasePlugin, PluginApi]) {
 						checkOverflow,
 						checkHM
 					} = opts;
-					if (null == timezone && filterUndefined) return utils_constants.ExceptionCodes.Timezones.InvalidFormatReasons.UNDEFINED;
+					if (null == timezone && filterUndefined) return constants.ExceptionCodes.Timezones.InvalidFormatReasons.UNDEFINED;
 					if (checkNumber) try {
 						new Number(timezone);
 					} catch (e) {
-						return utils_constants.ExceptionCodes.Timezones.InvalidFormatReasons.NOT_A_NUMBER;
+						return constants.ExceptionCodes.Timezones.InvalidFormatReasons.NOT_A_NUMBER;
 					}
-					if (isHMtimezone(timezone) && checkHM) return utils_constants.ExceptionCodes.Timezones.InvalidFormatReasons.NOT_HTZ_FORMAT;
+					if (isHMtimezone(timezone) && checkHM) return constants.ExceptionCodes.Timezones.InvalidFormatReasons.NOT_HTZ_FORMAT;
 					if (checkCharacters) {
 						const firstChar = timezone.charAt(0);
-						if (!("+" === firstChar || "-" === firstChar || 0 === timezone)) return utils_constants.ExceptionCodes.Timezones.InvalidFormatReasons.NO_SIGN;
+						if (!("+" === firstChar || "-" === firstChar || 0 === timezone)) return constants.ExceptionCodes.Timezones.InvalidFormatReasons.NO_SIGN;
 					}
-					if (Math.abs(Number(timezone)) > 24 && checkOverflow) return utils_constants.ExceptionCodes.Timezones.InvalidFormatReasons.OVERFLOW;
+					if (Math.abs(Number(timezone)) > 24 && checkOverflow) return constants.ExceptionCodes.Timezones.InvalidFormatReasons.OVERFLOW;
 					return false;
 				}
 				async function getUser(id) {
-					const response = await fetch(settingsManager.get("tt-url", utils_constants.TimeTogether.DEFAULT_URL) + `api/user/${id}`, {
+					const response = await fetch(settingsManager.get("tt-url", constants.TimeTogether.DEFAULT_URL) + `api/user/${id}`, {
 						method: "GET"
-					});
+					}).catch((error => {
+						console.error("things went bad", error);
+						throw error;
+					}));
 					if (404 === response.status) return;
 					if (200 === response.status) return await response.json();
 				}
-				async function doesUserExists(id) {
-					const response = await fetch(settings.get("tt-url", constants.TimeTogether.DEFAULT_URL) + `api/user/${id}`, {
-						method: "GET"
-					});
-					if (404 === response.status) return false;
-					if (200 === response.status) return true;
-				}
+				const doesUserExists = async id => Boolean(await getUser(id));
 				const TTCache = new Map;
 				const getList = () => settingsManager.get("userList", {});
 				const setList = list => settingsManager.set("userList", list);
 				const addUser = (id, timezone, shouldCleanList = false) => {
 					let list = getList();
 					timezone = ensureTimezone(timezone);
-					if (!stores_namespaceObject.Users.getUser(id)) throw new UserListException("Invalid User", utils_constants.ExceptionCodes.UserList.INVALID_USER);
+					if (!stores_namespaceObject.Users.getUser(id)) throw new UserListException("Invalid User", constants.ExceptionCodes.UserList.INVALID_USER);
 					list[id] = timezone;
 					setList(list);
 					if (shouldCleanList) cleanList();
@@ -761,9 +757,9 @@ function buildPlugin([BasePlugin, PluginApi]) {
 					return finishedList;
 				};
 				const isListNotValid = list => {
-					if (!(_.isObject(list) && !_.isArray(list))) return [utils_constants.ExceptionCodes.UserList.INVALID_LIST_TYPE];
+					if (!(_.isObject(list) && !_.isArray(list))) return [constants.ExceptionCodes.UserList.INVALID_LIST_TYPE];
 					for (const id in list) {
-						if (!stores_namespaceObject.Users.getUser(id)) return [utils_constants.ExceptionCodes.UserList.INVALID_USER, id];
+						if (!stores_namespaceObject.Users.getUser(id)) return [constants.ExceptionCodes.UserList.INVALID_USER, id];
 						const timezone = list[id];
 						const checkIfNotTimezone = isNotTimezone(timezone);
 						if (checkIfNotTimezone) return [checkIfNotTimezone, id];
@@ -1277,7 +1273,7 @@ function buildPlugin([BasePlugin, PluginApi]) {
 					const date = staticTime ? staticTime : dateHook;
 					const formattedText = formatDate(date, timezone);
 					const emojiIcon = settingsManager.get("emoji-icons", false) ? Number(formattedText["24hour"]) >= 18 || Number(formattedText["24hour"]) < 6 ? moon.url : sunny.url : null;
-					const timeText = settingsManager.get("format", utils_constants.Settings.General.Format.CURRENT_FORMAT).replace("{24hours}", formattedText["24hour"]).replace("{12hours}", formattedText["12hour"]).replace("{minutes}", formattedText.minutes).replace("{seconds}", formattedText.seconds).replace("{date}", String(date.getDate())).replace("{weekday}", String(date.getDay() + 1)).replace("{weekdayName}", date.toLocaleDateString(navigator.language, {
+					const timeText = settingsManager.get("format", constants.Settings.General.Format.CURRENT_FORMAT).replace("{24hours}", formattedText["24hour"]).replace("{12hours}", formattedText["12hour"]).replace("{minutes}", formattedText.minutes).replace("{seconds}", formattedText.seconds).replace("{date}", String(date.getDate())).replace("{weekday}", String(date.getDay() + 1)).replace("{weekdayName}", date.toLocaleDateString(navigator.language, {
 						weekday: "short"
 					})).replace("{weekdayFullName}", date.toLocaleDateString(navigator.language, {
 						weekday: "long"
@@ -1364,7 +1360,7 @@ function buildPlugin([BasePlugin, PluginApi]) {
 				const userProfile_Header = external_PluginApi_namespaceObject.WebpackModules.find((m => m.Tags && "Header" === m.displayName));
 				function userProfile() {
 					external_PluginApi_namespaceObject.Patcher.after(external_PluginApi_namespaceObject.WebpackModules.find((m => "UserBanner" === m.default?.displayName)), "default", ((_this, [props], res) => {
-						if (!settingsManager.get("userpopout", true) || settingsManager.get("userpopout-display", utils_constants.Settings.TimerDisplay.USER_BANNER) !== utils_constants.Settings.TimerDisplay.USER_BANNER) return;
+						if (!settingsManager.get("userpopout", true) || settingsManager.get("userpopout-display", constants.Settings.TimerDisplay.USER_BANNER) !== constants.Settings.TimerDisplay.USER_BANNER) return;
 						if (stores_namespaceObject.Users.getCurrentUser().id === props.user.id) return;
 						res.props.children.push(external_BdApi_React_default().createElement(TimezoneValueGetter, {
 							userID: props.user.id
@@ -1392,7 +1388,7 @@ function buildPlugin([BasePlugin, PluginApi]) {
 						let indexToInsert = res.props.children.findIndex((e => "UserPopoutCustomStatus" === e?.type?.displayName));
 						if (!indexToInsert) indexToInsert = 0;
 						if (settingsManager.get("_callTimeCalculator", false)) settingsManager.set("_callTimeCalculator", false);
-						res.props.children.splice(indexToInsert + 1, 0, settingsManager.get("userpopout", true) && settingsManager.get("userpopout-display", utils_constants.Settings.TimerDisplay.USER_BANNER) === utils_constants.Settings.TimerDisplay.USER_HEADER && external_BdApi_React_default().createElement(TimezoneValueGetter, {
+						res.props.children.splice(indexToInsert + 1, 0, settingsManager.get("userpopout", true) && settingsManager.get("userpopout-display", constants.Settings.TimerDisplay.USER_BANNER) === constants.Settings.TimerDisplay.USER_HEADER && external_BdApi_React_default().createElement(TimezoneValueGetter, {
 							userID: props.user.id
 						}, (state => external_BdApi_React_default().createElement(userProfile_Header, {
 							size: userProfile_Header.Sizes.SIZE_12,
@@ -1543,10 +1539,10 @@ function buildPlugin([BasePlugin, PluginApi]) {
 								}
 							})), element))))));
 							else {
-								const align = settingsManager.get("userlist-align", utils_constants.Settings.TimerAlign.RIGHT);
+								const align = settingsManager.get("userlist-align", constants.Settings.TimerAlign.RIGHT);
 								const view = external_BdApi_React_default().createElement(TimezoneValueGetter, {
 									userID: user.id
-								}, (state => external_BdApi_React_default().createElement(external_BdApi_React_default().Fragment, null, align === utils_constants.Settings.TimerAlign.RIGHT && external_BdApi_React_default().createElement("span", {
+								}, (state => external_BdApi_React_default().createElement(external_BdApi_React_default().Fragment, null, align === constants.Settings.TimerAlign.RIGHT && external_BdApi_React_default().createElement("span", {
 									className: Timezones_style.Z.dot
 								}, "•"), external_BdApi_React_default().createElement(BasicTimer, {
 									timezone: state.value?.timezone,
@@ -1565,11 +1561,11 @@ function buildPlugin([BasePlugin, PluginApi]) {
 									style: {
 										minWidth: "12px"
 									}
-								})), element))), align === utils_constants.Settings.TimerAlign.LEFT && external_BdApi_React_default().createElement("span", {
+								})), element))), align === constants.Settings.TimerAlign.LEFT && external_BdApi_React_default().createElement("span", {
 									className: Timezones_style.Z.dot
 								}, "•"))));
-								if (align === utils_constants.Settings.TimerAlign.RIGHT) res.props.children.push(view);
-								else if (align === utils_constants.Settings.TimerAlign.LEFT) res.props.children.unshift(view);
+								if (align === constants.Settings.TimerAlign.RIGHT) res.props.children.push(view);
+								else if (align === constants.Settings.TimerAlign.LEFT) res.props.children.unshift(view);
 							}
 							return res;
 						};
@@ -1581,22 +1577,11 @@ function buildPlugin([BasePlugin, PluginApi]) {
 							const firstRes = render(props);
 							try {
 								const ogFunc = firstRes?.type;
+								Object.assign(firstRes.props, {
+									_timezonesParsedOgFunc: firstRes.type
+								});
 								if (!ogFunc) return firstRes;
-								firstRes.type = props => {
-									useForceUpdate();
-									const res = ogFunc.call(this, props);
-									switch (ogFunc?.displayName) {
-										case "GuildChannelUserContextMenu":
-											patchGuildChannelUserContextMenu(this, props, res);
-											break;
-										case "DMUserContextMenu":
-											patchDMUserContextMenu(this, props, res);
-											break;
-										default:
-											console.error("ummm this context menu doesn't exist?...");
-									}
-									return res;
-								};
+								firstRes.type = ContextMenuPatcher;
 								firstRes.key = "TimezonesPatchedContextMenu";
 								firstRes.type.displayName = ogFunc.displayName;
 							} catch (err) {
@@ -1605,6 +1590,22 @@ function buildPlugin([BasePlugin, PluginApi]) {
 							return firstRes;
 						})))(args[1]);
 					}));
+				}
+				function ContextMenuPatcher({
+					_timezonesParsedOgFunc,
+					...props
+				}) {
+					useForceUpdate();
+					const res = _timezonesParsedOgFunc.call(this, props);
+					switch (_timezonesParsedOgFunc?.displayName) {
+						case "GuildChannelUserContextMenu":
+							patchGuildChannelUserContextMenu(this, props, res);
+							break;
+						case "DMUserContextMenu":
+							patchDMUserContextMenu(this, props, res);
+							break;
+					}
+					return res;
 				}
 				function patchDMUserContextMenu(_this, props, res) {
 					const user = props.user;
@@ -1767,10 +1768,10 @@ function buildPlugin([BasePlugin, PluginApi]) {
 									}
 								})), element))))));
 								else {
-									const align = settingsManager.get("userlist-align", utils_constants.Settings.TimerAlign.RIGHT);
+									const align = settingsManager.get("userlist-align", constants.Settings.TimerAlign.RIGHT);
 									const view = external_BdApi_React_default().createElement(TimezoneValueGetter, {
 										userID: user.id
-									}, (state => external_BdApi_React_default().createElement(external_BdApi_React_default().Fragment, null, align === utils_constants.Settings.TimerAlign.RIGHT && external_BdApi_React_default().createElement("span", {
+									}, (state => external_BdApi_React_default().createElement(external_BdApi_React_default().Fragment, null, align === constants.Settings.TimerAlign.RIGHT && external_BdApi_React_default().createElement("span", {
 										className: Timezones_style.Z.dot
 									}, "•"), external_BdApi_React_default().createElement(BasicTimer, {
 										timezone: state.value?.timezone,
@@ -1789,11 +1790,11 @@ function buildPlugin([BasePlugin, PluginApi]) {
 										style: {
 											minWidth: "12px"
 										}
-									})), element))), align === utils_constants.Settings.TimerAlign.LEFT && external_BdApi_React_default().createElement("span", {
+									})), element))), align === constants.Settings.TimerAlign.LEFT && external_BdApi_React_default().createElement("span", {
 										className: Timezones_style.Z.dot
 									}, "•"))));
-									if (align === utils_constants.Settings.TimerAlign.RIGHT) res.props.children.push(view);
-									else if (align === utils_constants.Settings.TimerAlign.LEFT) res.props.children.unshift(view);
+									if (align === constants.Settings.TimerAlign.RIGHT) res.props.children.push(view);
+									else if (align === constants.Settings.TimerAlign.LEFT) res.props.children.unshift(view);
 								}
 								return res;
 							};
@@ -2010,7 +2011,7 @@ function buildPlugin([BasePlugin, PluginApi]) {
 				}
 				function getTimezoneFromCity(city) {
 					const foundCity = searchForInfoFromCity(city);
-					if (!foundCity || foundCity?.length <= 0 || foundCity?.length >= 2) throw new TimezoneException("Invalid City", utils_constants.ExceptionCodes.Timezones.INVALID_CITY);
+					if (!foundCity || foundCity?.length <= 0 || foundCity?.length >= 2) throw new TimezoneException("Invalid City", constants.ExceptionCodes.Timezones.INVALID_CITY);
 					return foundCity?.[0]?.offset;
 				}
 				function getDateFromCity(city, sendAsMoment = false) {
@@ -2433,7 +2434,7 @@ function buildPlugin([BasePlugin, PluginApi]) {
 				}) {
 					const [, forceUpdate] = (0, external_BdApi_React_.useReducer)((n => n + 1), 0);
 					const currentOffset = getOffset();
-					const [timezonePage, setTimezonePage] = (0, external_BdApi_React_.useState)(utils_constants.Settings.TimezonePages.MANUAL);
+					const [timezonePage, setTimezonePage] = (0, external_BdApi_React_.useState)(constants.Settings.TimezonePages.MANUAL);
 					const [userId, setUserId] = (0, external_BdApi_React_.useState)(defaultVals?.userID);
 					const [userIdError, setUserIdError] = (0, external_BdApi_React_.useState)(false);
 					const [timezone, setTimezone] = (0, external_BdApi_React_.useState)(defaultVals?.timezone);
@@ -2444,7 +2445,7 @@ function buildPlugin([BasePlugin, PluginApi]) {
 					(0, external_BdApi_React_.useEffect)((() => {
 						setInit(true);
 					}));
-					const addUserButtonAnim = (0, external_Modules_react_spring_namespaceObject.useTransition)(timezonePage === utils_constants.Settings.TimezonePages.MANUAL, {
+					const addUserButtonAnim = (0, external_Modules_react_spring_namespaceObject.useTransition)(timezonePage === constants.Settings.TimezonePages.MANUAL, {
 						from: {
 							marginTop: init ? "-38px" : "0px",
 							opacity: init ? 0 : 1
@@ -2458,7 +2459,7 @@ function buildPlugin([BasePlugin, PluginApi]) {
 							opacity: 0
 						}
 					});
-					const selectPresetAnim = (0, external_Modules_react_spring_namespaceObject.useTransition)(timezonePage === utils_constants.Settings.TimezonePages.MANUAL, {
+					const selectPresetAnim = (0, external_Modules_react_spring_namespaceObject.useTransition)(timezonePage === constants.Settings.TimezonePages.MANUAL, {
 						from: {
 							width: init ? "0px" : "150px",
 							opacity: init ? 0 : 1,
@@ -2475,7 +2476,7 @@ function buildPlugin([BasePlugin, PluginApi]) {
 							marginLeft: "0px"
 						}
 					});
-					const searchCityButtonAnim = (0, external_Modules_react_spring_namespaceObject.useTransition)(timezonePage === utils_constants.Settings.TimezonePages.CITY_SELECTOR, {
+					const searchCityButtonAnim = (0, external_Modules_react_spring_namespaceObject.useTransition)(timezonePage === constants.Settings.TimezonePages.CITY_SELECTOR, {
 						from: {
 							marginRight: "-40px",
 							opacity: 0
@@ -2525,9 +2526,9 @@ function buildPlugin([BasePlugin, PluginApi]) {
 							const cityDate = getDateFromCity(city, true);
 							setTimezone(getOffset(cityDate));
 							setUserCityError(false);
-							setTimezonePage(utils_constants.Settings.TimezonePages.MANUAL);
+							setTimezonePage(constants.Settings.TimezonePages.MANUAL);
 						} catch (err) {
-							if (err instanceof TimezoneException && err.code === utils_constants.ExceptionCodes.Timezones.INVALID_CITY) setUserCityError(external_BdApi_React_default().createElement(external_BdApi_React_default().Fragment, null, "Invalid City! Please check ", external_BdApi_React_default().createElement("a", {
+							if (err instanceof TimezoneException && err.code === constants.ExceptionCodes.Timezones.INVALID_CITY) setUserCityError(external_BdApi_React_default().createElement(external_BdApi_React_default().Fragment, null, "Invalid City! Please check ", external_BdApi_React_default().createElement("a", {
 								href: "https://gist.github.com/diogocapela/12c6617fc87607d11fd62d2a4f42b02a",
 								target: "_blank"
 							}, "this list"), " to see all valid places!"));
@@ -2542,13 +2543,13 @@ function buildPlugin([BasePlugin, PluginApi]) {
 						style: {
 							zIndex: 2
 						}
-					}, timezonePage === utils_constants.Settings.TimezonePages.MANUAL && external_BdApi_React_default().createElement(external_BdApi_React_default().Fragment, null, external_BdApi_React_default().createElement(components_namespaceObject.TextInput, {
+					}, timezonePage === constants.Settings.TimezonePages.MANUAL && external_BdApi_React_default().createElement(external_BdApi_React_default().Fragment, null, external_BdApi_React_default().createElement(components_namespaceObject.TextInput, {
 						className: Timezones_style.Z["timezone-search-textbox"],
 						value: timezone,
 						placeholder: `Timezone (in UTC. e.g.: ${currentOffset})`,
 						onChange: text => setTimezone(text.replace(/[^\d.+-:]/g, "")),
 						error: timezoneError
-					})), timezonePage === utils_constants.Settings.TimezonePages.CITY_SELECTOR && external_BdApi_React_default().createElement(external_BdApi_React_default().Fragment, null, external_BdApi_React_default().createElement(components_namespaceObject.TextInput, {
+					})), timezonePage === constants.Settings.TimezonePages.CITY_SELECTOR && external_BdApi_React_default().createElement(external_BdApi_React_default().Fragment, null, external_BdApi_React_default().createElement(components_namespaceObject.TextInput, {
 						className: Timezones_style.Z["city-search-textbox"],
 						value: userCity,
 						placeholder: `City that user lives (Inserting country names will not work)`,
@@ -2576,7 +2577,7 @@ function buildPlugin([BasePlugin, PluginApi]) {
 							height: "40px"
 						},
 						onClick: () => handleCityChange(userCity)
-					}, external_BdApi_React_default().createElement(icons_namespaceObject.Search, null))))), timezonePage === utils_constants.Settings.TimezonePages.MANUAL ? external_BdApi_React_default().createElement(components_namespaceObject.TooltipContainer, {
+					}, external_BdApi_React_default().createElement(icons_namespaceObject.Search, null))))), timezonePage === constants.Settings.TimezonePages.MANUAL ? external_BdApi_React_default().createElement(components_namespaceObject.TooltipContainer, {
 						text: `Search a timezone by a city`,
 						className: Timezones_style.Z["search-city-wrapper"]
 					}, external_BdApi_React_default().createElement(components_namespaceObject.Button, {
@@ -2584,7 +2585,7 @@ function buildPlugin([BasePlugin, PluginApi]) {
 						look: components_namespaceObject.Button.Looks.OUTLINED,
 						color: components_namespaceObject.Button.Colors.WHITE,
 						size: components_namespaceObject.Button.Sizes.ICON,
-						onClick: () => setTimezonePage(utils_constants.Settings.TimezonePages.CITY_SELECTOR)
+						onClick: () => setTimezonePage(constants.Settings.TimezonePages.CITY_SELECTOR)
 					}, external_BdApi_React_default().createElement(icons_namespaceObject.EmojiTravelCategory, {
 						width: 24,
 						height: 24
@@ -2593,14 +2594,14 @@ function buildPlugin([BasePlugin, PluginApi]) {
 						look: components_namespaceObject.Button.Looks.OUTLINED,
 						color: components_namespaceObject.Button.Colors.WHITE,
 						size: components_namespaceObject.Button.Sizes.ICON,
-						onClick: () => setTimezonePage(utils_constants.Settings.TimezonePages.MANUAL)
+						onClick: () => setTimezonePage(constants.Settings.TimezonePages.MANUAL)
 					}, external_BdApi_React_default().createElement(icons_namespaceObject.ArrowLeft, null)))));
 					return external_BdApi_React_default().createElement(external_BdApi_React_default().Fragment, null, !isModal && external_BdApi_React_default().createElement(List, {
 						onEdit: id => {
 							setUserId(id);
 							setTimezone(timezone);
 							setEditing(true);
-							setTimezonePage(utils_constants.Settings.TimezonePages.MANUAL);
+							setTimezonePage(constants.Settings.TimezonePages.MANUAL);
 						},
 						onDelete: id => {
 							removeUser(id);
@@ -2615,7 +2616,7 @@ function buildPlugin([BasePlugin, PluginApi]) {
 						error: userIdError,
 						filterUsers: defaultVals?.userPicker,
 						bigPreview: isModal
-					}), timezonePage === utils_constants.Settings.TimezonePages.CITY_SELECTOR && !_.isEmpty(searched) && !_.isEmpty(userCity) && userCity !== searched?.[0] && external_BdApi_React_default().createElement(AutocompleteQuery, {
+					}), timezonePage === constants.Settings.TimezonePages.CITY_SELECTOR && !_.isEmpty(searched) && !_.isEmpty(userCity) && userCity !== searched?.[0] && external_BdApi_React_default().createElement(AutocompleteQuery, {
 						list: searched,
 						onSelect: value => setUserCity(value)
 					}), TimezonePicker, addUserButtonAnim(((style, item) => item && external_BdApi_React_default().createElement(external_Modules_react_spring_namespaceObject.animated.div, {
@@ -2808,17 +2809,17 @@ function buildPlugin([BasePlugin, PluginApi]) {
 				const Settings = external_BdApi_React_default().memo((() => {
 					settingsManager.set("_callTimeCalculator", false);
 					const [, forceUpdate] = (0, external_BdApi_React_.useReducer)((n => n + 1), 0);
-					const textFormat = (0, flux_namespaceObject.useStateFromStores)([settingsManager], (() => settingsManager.get("format", utils_constants.Settings.General.Format.CURRENT_FORMAT)));
+					const textFormat = (0, flux_namespaceObject.useStateFromStores)([settingsManager], (() => settingsManager.get("format", constants.Settings.General.Format.CURRENT_FORMAT)));
 					const userpopout = (0, flux_namespaceObject.useStateFromStores)([settingsManager], (() => settingsManager.get("userpopout", true)));
-					const userpopoutDisplay = (0, flux_namespaceObject.useStateFromStores)([settingsManager], (() => settingsManager.get("userpopout-display", utils_constants.Settings.TimerDisplay.USER_BANNER)));
+					const userpopoutDisplay = (0, flux_namespaceObject.useStateFromStores)([settingsManager], (() => settingsManager.get("userpopout-display", constants.Settings.TimerDisplay.USER_BANNER)));
 					const shouldEnableIconsOption = (0, flux_namespaceObject.useStateFromStores)([settingsManager], (() => {
 						const timestamp = settingsManager.get("timestamps", false);
 						const timestampsMessages = settingsManager.get("timestampsMessages", true);
 						return !(timestamp && !timestampsMessages || !timestamp && timestampsMessages);
 					}));
-					const userlistAlign = (0, flux_namespaceObject.useStateFromStores)([settingsManager], (() => settingsManager.get("userlist-align", utils_constants.Settings.TimerAlign.RIGHT)));
+					const userlistAlign = (0, flux_namespaceObject.useStateFromStores)([settingsManager], (() => settingsManager.get("userlist-align", constants.Settings.TimerAlign.RIGHT)));
 					const isTTEnabled = (0, flux_namespaceObject.useStateFromStores)([settingsManager], (() => settingsManager.get("tt", true)));
-					const [TTUrl, setTTUrl] = (0, external_BdApi_React_.useState)(settingsManager.get("tt-url", utils_constants.TimeTogether.DEFAULT_URL));
+					const [TTUrl, setTTUrl] = (0, external_BdApi_React_.useState)(settingsManager.get("tt-url", constants.TimeTogether.DEFAULT_URL));
 					const [fileError, setFileError] = (0, external_BdApi_React_.useState)();
 					const [TTUrlError, setTTUrlError] = (0, external_BdApi_React_.useState)();
 					const TTUrlSignal = useAbortOnRestart()();
@@ -2855,19 +2856,19 @@ function buildPlugin([BasePlugin, PluginApi]) {
 					}))), external_BdApi_React_default().createElement(components_namespaceObject.TextInput, {
 						value: textFormat,
 						onChange: value => settingsManager.set("format", value),
-						placeholder: utils_constants.Settings.General.Format.CURRENT_FORMAT,
+						placeholder: constants.Settings.General.Format.CURRENT_FORMAT,
 						className: textFormat.length <= 59 ? Timezones_style.Z["highlight-textinput"] : ""
 					})), external_BdApi_React_default().createElement(components_namespaceObject.TooltipContainer, {
 						text: "Reset to the default value",
 						className: Timezones_style.Z["stupid-tooltip"],
 						delay: 700
 					}, external_BdApi_React_default().createElement(components_namespaceObject.Button, {
-						disabled: TTUrl === utils_constants.TimeTogether.DEFAULT_URL || !isTTEnabled,
+						disabled: TTUrl === constants.TimeTogether.DEFAULT_URL || !isTTEnabled,
 						size: components_namespaceObject.Button.Sizes.ICON,
 						color: components_namespaceObject.Button.Colors.GREEN,
 						onClick: () => {
-							settingsManager.set("tt-url", utils_constants.TimeTogether.DEFAULT_URL);
-							setTTUrl(utils_constants.TimeTogether.DEFAULT_URL);
+							settingsManager.set("tt-url", constants.TimeTogether.DEFAULT_URL);
+							setTTUrl(constants.TimeTogether.DEFAULT_URL);
 						},
 						style: {
 							marginLeft: "4px",
@@ -2941,10 +2942,10 @@ function buildPlugin([BasePlugin, PluginApi]) {
 					}, external_BdApi_React_default().createElement(RadioGroup, {
 						options: [{
 							name: "Banner",
-							value: utils_constants.Settings.TimerDisplay.USER_BANNER
+							value: constants.Settings.TimerDisplay.USER_BANNER
 						}, {
 							name: "Header",
-							value: utils_constants.Settings.TimerDisplay.USER_HEADER
+							value: constants.Settings.TimerDisplay.USER_HEADER
 						}],
 						disabled: !textFormat,
 						value: userpopoutDisplay,
@@ -3004,10 +3005,10 @@ function buildPlugin([BasePlugin, PluginApi]) {
 					})), external_BdApi_React_default().createElement(RadioGroup, {
 						options: [{
 							name: "Left",
-							value: utils_constants.Settings.TimerAlign.LEFT
+							value: constants.Settings.TimerAlign.LEFT
 						}, {
 							name: "Right",
-							value: utils_constants.Settings.TimerAlign.RIGHT
+							value: constants.Settings.TimerAlign.RIGHT
 						}],
 						value: userlistAlign,
 						onChange: ({
@@ -3041,7 +3042,7 @@ function buildPlugin([BasePlugin, PluginApi]) {
 								marginRight: "4px"
 							}
 						}),
-						onClick: () => window.open(settingsManager.get("tt-url", utils_constants.TimeTogether.DEFAULT_URL)),
+						onClick: () => window.open(settingsManager.get("tt-url", constants.TimeTogether.DEFAULT_URL)),
 						disabled: !isTTEnabled
 					}), external_BdApi_React_default().createElement("div", {
 						style: {
@@ -3085,12 +3086,12 @@ function buildPlugin([BasePlugin, PluginApi]) {
 						className: Timezones_style.Z["stupid-tooltip"],
 						delay: 700
 					}, external_BdApi_React_default().createElement(components_namespaceObject.Button, {
-						disabled: TTUrl === utils_constants.TimeTogether.DEFAULT_URL || !isTTEnabled,
+						disabled: TTUrl === constants.TimeTogether.DEFAULT_URL || !isTTEnabled,
 						size: components_namespaceObject.Button.Sizes.ICON,
 						color: components_namespaceObject.Button.Colors.GREEN,
 						onClick: () => {
-							settingsManager.set("tt-url", utils_constants.TimeTogether.DEFAULT_URL);
-							setTTUrl(utils_constants.TimeTogether.DEFAULT_URL);
+							settingsManager.set("tt-url", constants.TimeTogether.DEFAULT_URL);
+							setTTUrl(constants.TimeTogether.DEFAULT_URL);
 						},
 						style: {
 							marginLeft: "4px",
@@ -3126,7 +3127,7 @@ function buildPlugin([BasePlugin, PluginApi]) {
 									try {
 										json = JSON.parse(str);
 									} catch (err) {
-										throw new ImportFileException("Tried to read a non-JSON file", utils_constants.ExceptionCodes.ImportFile.INVALID_FILE);
+										throw new ImportFileException("Tried to read a non-JSON file", constants.ExceptionCodes.ImportFile.INVALID_FILE);
 									}
 									const checkIfNotValid = isListNotValid(json);
 									if (checkIfNotValid) throw new ImportFileException("You imported an invalid User List format. Are you sure that this is the correct .JSON file?", checkIfNotValid[0]);
@@ -3162,7 +3163,7 @@ function buildPlugin([BasePlugin, PluginApi]) {
 										forceUpdate();
 									}));
 								} catch (err) {
-									if (err.code === utils_constants.ExceptionCodes.ImportFile.INVALID_FILE) setFileError(["This isn't a valid user list file. It should be a file that ends with .JSON", err.code]);
+									if (err.code === constants.ExceptionCodes.ImportFile.INVALID_FILE) setFileError(["This isn't a valid user list file. It should be a file that ends with .JSON", err.code]);
 									else {
 										setFileError(["Unkown error. Click here to open DevTools", err.code]);
 										console.error(err);
@@ -3208,7 +3209,7 @@ function buildPlugin([BasePlugin, PluginApi]) {
 					className: "subText-1KtqkB"
 				}, external_BdApi_React_default().createElement("div", {
 					className: "activity-525YDR subtext-1RtU34"
-				}, direction === utils_constants.Settings.TimerAlign.LEFT && external_BdApi_React_default().createElement(external_BdApi_React_default().Fragment, null, external_BdApi_React_default().createElement(icons_namespaceObject.Timer, {
+				}, direction === constants.Settings.TimerAlign.LEFT && external_BdApi_React_default().createElement(external_BdApi_React_default().Fragment, null, external_BdApi_React_default().createElement(icons_namespaceObject.Timer, {
 					width: 12,
 					height: 12
 				}), external_BdApi_React_default().createElement("span", {
@@ -3227,7 +3228,7 @@ function buildPlugin([BasePlugin, PluginApi]) {
 					className: "emoji emoji-2cWBLE activityEmoji-1AR8K6"
 				}), external_BdApi_React_default().createElement("div", {
 					className: "activityText-OW8WYb"
-				}, "Hello!"), direction === utils_constants.Settings.TimerAlign.RIGHT && external_BdApi_React_default().createElement(external_BdApi_React_default().Fragment, null, external_BdApi_React_default().createElement("span", {
+				}, "Hello!"), direction === constants.Settings.TimerAlign.RIGHT && external_BdApi_React_default().createElement(external_BdApi_React_default().Fragment, null, external_BdApi_React_default().createElement("span", {
 					className: Timezones_style.Z.dot
 				}, "•"), external_BdApi_React_default().createElement(icons_namespaceObject.Timer, {
 					width: 12,
