@@ -41,19 +41,13 @@ const getTimezone = async (id, opts: { includeTT?: boolean } = { includeTT: fals
     const list = getList()
     const tz = list?.[id]
     if (!tz && opts.includeTT) {
-        if (TTCache.has(id)) {
-            return TTCache.get(id)
-        }
 
         try {
             const user: TTUser = await ttGetUser(id)
-            
-            if (user?.timezone) TTCache.set(id, user.timezone)
 
             return user?.timezone
         } catch (err) {
             console.error(err)
-            TTCache.set(id, undefined)
             return undefined
         }
     }
