@@ -9,4 +9,4 @@ You need to go to the `comiled` repo (you can do this by clicking on the button 
 1- Change your BetterDiscord folder in `bdbuilder.config.json` (note: it is the BetterDiscord folder, not BetterDiscord's plugins folder)
 2- [Follow BDBuilder's installation process](https://github.com/BetterDiscordBuilder/bdbuilder#installation)
 3- Run `npm run build PluginName`
-    - You can include the parameter `--watch` to watch the changes.
+    - For watching changes, run `npm run watch PluginName`
