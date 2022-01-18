@@ -1,7 +1,7 @@
 /**
  * @name Timezones
  * @author A user
- * @version 1.2.4
+ * @version 1.2.5
  * @description Simple and powerful timezone manager
  * @source https://github.com/abUwUser/BDPlugins/tree/main/plugins/Timezones
  * @updateUrl https://raw.githubusercontent.com/abUwUser/BDPlugins/compiled/Timezones/Timezones.plugin.js
@@ -38,7 +38,7 @@ const config = {
 			"github_username": "abUwUser",
 			"twitter_username": "auwuser"
 		}],
-		"version": "1.2.4",
+		"version": "1.2.5",
 		"description": "Simple and powerful timezone manager",
 		"github": "https://github.com/abUwUser/BDPlugins/tree/main/plugins/Timezones",
 		"github_raw": "https://raw.githubusercontent.com/abUwUser/BDPlugins/compiled/Timezones/Timezones.plugin.js"
@@ -67,7 +67,8 @@ const config = {
 			"items": [
 				"Now the list is properly updated as when you enable the lock settings",
 				"Changed the TT cache system so it doesn't make so many requests O_o",
-				"Discord broke themes and plugins \\*yay*. Thank god this plugin wasn't affected mostly, just some visual bugs *and a error spamming on the console*, ~~but it was all fixed!~~ Nevermind. The context menu was broen because discord lazy loaded all of them. Basically discord made our lives more painful in name of perfomance. Tbh, when discord cared about that?"
+				"Discord broke themes and plugins \\*yay*. Thank god this plugin wasn't affected mostly, just some visual bugs *and a error spamming on the console*, ~~but it was all fixed!~~ Nevermind. The context menu was broen because discord lazy loaded all of them. Basically discord made our lives more painful in name of perfomance. Tbh, when discord cared about that?",
+				"Fix crash when some context menus were opened. (Thanks @jaimeadf on GitHub)"
 			]
 		},
 		{
@@ -1581,10 +1582,10 @@ function buildPlugin([BasePlugin, PluginApi]) {
 							const firstRes = render(props);
 							try {
 								const ogFunc = firstRes?.type;
+								if ("function" !== typeof ogFunc) return firstRes;
 								Object.assign(firstRes.props, {
-									_timezonesParsedOgFunc: firstRes.type
+									_timezonesParsedOgFunc: ogFunc
 								});
-								if (!ogFunc) return firstRes;
 								firstRes.type = ContextMenuPatcher;
 								firstRes.key = "TimezonesPatchedContextMenu";
 								firstRes.type.displayName = ogFunc.displayName;
