@@ -23,9 +23,10 @@ export default function(){
             try {
                 const ogFunc = firstRes?.type
 
-                Object.assign(firstRes.props, { _timezonesParsedOgFunc: firstRes.type })
+                if (typeof ogFunc !== 'function') return firstRes
+                
+                Object.assign(firstRes.props, { _timezonesParsedOgFunc: ogFunc })
 
-                if (!ogFunc) return firstRes
                 firstRes.type = ContextMenuPatcher
                 firstRes.key = "TimezonesPatchedContextMenu"
                 firstRes.type.displayName = ogFunc.displayName
